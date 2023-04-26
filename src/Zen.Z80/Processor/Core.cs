@@ -32,10 +32,30 @@ public class Core
     {
         _interface.Address = _state.ProgramCounter;
 
-        var instruction = _instructions[_interface.Data];
+        var opcode = _state.InstructionPrefix << 8 | _interface.Data;
+
+        var instruction = _instructions[opcode];
+
+        _state.InstructionPrefix = 0;
 
         _state.ProgramCounter++;
 
-        instruction.Execute(new byte[] { 0x34, 0x12 });
+        var parameters = Array.Empty<byte>();
+
+        if (instruction.ParameterLength > 0)
+        {
+            parameters = new byte[instruction.ParameterLength];
+
+            for (var p = 0; p < instruction.ParameterLength; p++)
+            {
+                _interface.Address = _state.ProgramCounter;
+
+                _state.ProgramCounter++;
+
+                parameters[p] = _interface.Data;
+            }
+        }
+
+        instruction.Execute(parameters);
     }
 }

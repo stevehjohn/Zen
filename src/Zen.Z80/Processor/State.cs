@@ -12,6 +12,8 @@ public class State
 
     public ushort StackPointer { get; set; }
 
+    public byte InstructionPrefix { get; set; }
+
     public bool this[Flag flag] 
     {
         get => (this[Register.F] & (byte) flag) > 0;
