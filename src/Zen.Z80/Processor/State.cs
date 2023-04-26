@@ -12,9 +12,23 @@ public class State
 
     public ushort StackPointer { get; set; }
 
-    public bool this[Flag flag] => (this[Register.F] & (byte) flag) > 0;
+    public bool this[Flag flag] 
+    {
+        get => (this[Register.F] & (byte) flag) > 0;
+        set 
+        {
+            if (value)
+            {
+                this[Register.F] |= (byte) flag;
+            }
+            else
+            {
+                this[Register.F] &= (byte) ~(byte) flag;
+            }
+        }
+    }
 
-    public byte this[Register register]
+public byte this[Register register]
     {
         get => _registers[(byte) register];
         set => _registers[(byte) register] = value;
@@ -34,18 +48,6 @@ public class State
 
             _registers[(positions & 0xFF00) >> 8] = (byte) ((value & 0xFF00) >> 8);
             _registers[positions & 0x00FF] = (byte) (value & 0x00FF);
-        }
-    }
-
-    public void SetFlag(Flag flag, bool value)
-    {
-        if (value)
-        {
-            this[Register.F] |= (byte) flag;
-        }
-        else
-        {
-            this[Register.F] &= (byte) ~(byte) flag;
         }
     }
 

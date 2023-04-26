@@ -70,7 +70,7 @@ public class StateTests
     {
         _state[Register.F] = 0;
 
-        _state.SetFlag(flag, true);
+        _state[flag] = true;
 
         Assert.Equal(expected, _state[Register.F]);
     }
@@ -88,7 +88,7 @@ public class StateTests
     {
         _state[Register.F] = 0xFF;
 
-        _state.SetFlag(flag, false);
+        _state[flag] = false;
 
         Assert.Equal(expected, _state[Register.F]);
     }
