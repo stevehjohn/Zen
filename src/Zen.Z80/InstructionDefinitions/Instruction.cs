@@ -1,10 +1,8 @@
-﻿using Zen.Z80.Processor;
-
-namespace Zen.Z80.InstructionDefinitions;
+﻿namespace Zen.Z80.InstructionDefinitions;
 
 public class Instruction
 {
-    public Func<Interface, State, int> Execute { get; private set; }
+    public Func<byte[], int> Execute { get; private set; }
 
     public string Mnemonic { get; private set; }
 
@@ -12,9 +10,9 @@ public class Instruction
 
     public int ParameterLength { get; private set; }
 
-    public string TraceTemplate { get; private set; }
+    public string? TraceTemplate { get; private set; }
 
-    public Instruction(Func<Interface, State, int> execute, string mnemonic, uint opCode, int parameterLength, string traceTemplate)
+    public Instruction(Func<byte[], int> execute, string mnemonic, uint opCode, int parameterLength, string? traceTemplate = null)
     {
         Execute = execute;
 
