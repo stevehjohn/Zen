@@ -45,6 +45,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ZX Spectrum +3", "ZX Spectr
 		..\Rom Images\ZX Spectrum +3\image-3.rom = ..\Rom Images\ZX Spectrum +3\image-3.rom
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zen.Z80.Tests", "Zen.Z80.Tests\Zen.Z80.Tests.csproj", "{7F667252-5C9D-4A9A-8D76-F4FCDF00E3FE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +61,10 @@ Global
 		{237C82AF-C844-4134-B945-C0851D1D4B06}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{237C82AF-C844-4134-B945-C0851D1D4B06}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{237C82AF-C844-4134-B945-C0851D1D4B06}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F667252-5C9D-4A9A-8D76-F4FCDF00E3FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F667252-5C9D-4A9A-8D76-F4FCDF00E3FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F667252-5C9D-4A9A-8D76-F4FCDF00E3FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F667252-5C9D-4A9A-8D76-F4FCDF00E3FE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

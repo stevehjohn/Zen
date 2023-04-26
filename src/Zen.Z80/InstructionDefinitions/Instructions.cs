@@ -16,6 +16,8 @@ public partial class Instructions
         _interface = @interface;
 
         _state = state;
+
+        Initialise();
     }
 
     public Instruction this[int opCode]
