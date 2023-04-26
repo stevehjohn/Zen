@@ -33,7 +33,7 @@ public class TestRunner
 
         foreach (var file in files)
         {
-            if (Path.GetFileName(file).CompareTo("dd 01 ") < 0)
+            if (Path.GetFileName(file).CompareTo("dd 100 ") < 0)
             {
                 continue;
             }
@@ -241,7 +241,7 @@ public class TestRunner
 
                 processor.ExecuteCycle();
 
-                if (firstMnemonic == null && ! state.LastInstruction.Mnemonic.StartsWith("SOPSET"))
+                if (firstMnemonic == null && ! state.LastInstruction.Mnemonic.StartsWith("PREFIX"))
                 {
                     firstMnemonic = state.LastInstruction.Mnemonic;
                 }

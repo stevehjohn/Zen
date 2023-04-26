@@ -8,7 +8,7 @@ public partial class Instructions
 {
     private void InitialiseDDInstructions()
     {
-        _instructions.Add(0xDD00, new Instruction(_ => NOP(), "NOP", 0xDD00, 2, null, 4));
+        _instructions.Add(0xDD00, new Instruction(_ => NOP(), "NOP", 0xDD00, 0, null, 4));
 
         _instructions.Add(0xDD01, new Instruction(d => LD_RR_nn(RegisterPair.BC, d), "LD BC, nn", 0xDD01, 2, null, 4));
 
