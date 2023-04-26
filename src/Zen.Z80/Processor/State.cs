@@ -1,4 +1,6 @@
-﻿namespace Zen.Z80.Processor;
+﻿using Zen.Z80.Implementation;
+
+namespace Zen.Z80.Processor;
 
 public class State
 {
@@ -20,10 +22,12 @@ public class State
 
     public ulong ClockCycles { get; set; }
 
-    public bool this[Flag flag] 
+    public Instruction LastInstruction { get; set; }
+
+    public bool this[Flag flag]
     {
         get => (this[Register.F] & (byte) flag) > 0;
-        set 
+        set
         {
             if (value)
             {
@@ -38,7 +42,7 @@ public class State
         }
     }
 
-public byte this[Register register]
+    public byte this[Register register]
     {
         get => _registers[(byte) register];
         set => _registers[(byte) register] = value;
@@ -52,7 +56,7 @@ public byte this[Register register]
 
             return (ushort) ((_registers[(positions & 0xFF00) >> 8] << 8) | _registers[positions & 0x00FF]);
         }
-        set 
+        set
         {
             var positions = (int) registerPair;
 
@@ -89,7 +93,7 @@ public byte this[Register register]
         _lastMCycles[3] = 0;
         _lastMCycles[4] = 0;
         _lastMCycles[5] = 0;
-   
+
         ClockCycles = (ulong) m1 + m2;
     }
 

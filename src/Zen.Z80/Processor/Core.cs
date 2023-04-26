@@ -29,6 +29,8 @@ public class Core
 
         var instruction = _instructions[opcode];
 
+        _state.LastInstruction = instruction;
+
         _state.InstructionPrefix = 0;
 
         _state.ProgramCounter++;
@@ -60,6 +62,8 @@ public class Core
             instruction = _instructions[opcode];
 
             instruction.Execute(parameters[..1]);
+
+            _state.LastInstruction = instruction;
         }
     }
 }
