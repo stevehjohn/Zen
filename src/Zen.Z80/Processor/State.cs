@@ -18,6 +18,8 @@ public class State
 
     public ushort InstructionPrefix { get; set; }
 
+    public ulong ClockCycles { get; set; }
+
     public bool this[Flag flag] 
     {
         get => (this[Register.F] & (byte) flag) > 0;

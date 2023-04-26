@@ -8,7 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Infrastructure\" />
+    <ProjectReference Include="..\Zen.Common\Zen.Common.csproj" />
+    <ProjectReference Include="..\Zen.System\Zen.System.csproj" />
+    <ProjectReference Include="..\Zen.Z80\Zen.Z80.csproj" />
   </ItemGroup>
 
 </Project>
