@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Folder Include="Exceptions\" />
-    <Folder Include="Processor\" />
   </ItemGroup>
 
   <ItemGroup>

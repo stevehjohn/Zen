@@ -56,6 +56,13 @@ public partial class Instructions
 
             var result = (byte) (((data << 1) & 0xFE) | topBit);
 
+            _interface.TransferType = TransferType.Write;
+
+            _interface.Data = result;
+
+            // TODO: Data changed event or something?
+            _interface.Address = address;
+
             if (target != null)
             {
                 _state[(Register) target] = result;

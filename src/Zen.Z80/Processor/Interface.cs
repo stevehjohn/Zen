@@ -20,5 +20,7 @@ public class Interface
 
     public bool Mreq { get; set; }
 
+    public TransferType TransferType { get; set; }
+
     public Action<Interface>? AddressChanged { private get; set; }
 }

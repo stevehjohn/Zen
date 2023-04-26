@@ -188,7 +188,17 @@ public class TestRunner
             ram[pair[0]] = (byte) pair[1];
         }
 
-        @interface.AddressChanged = i => i.Data = ram[i.Address];
+        @interface.AddressChanged = i =>
+        {
+            if (i.TransferType == TransferType.Read)
+            {
+                i.Data = ram[i.Address];
+            }
+            else
+            {
+                ram[i.Address] = i.Data;
+            }
+        };
 
         state.ProgramCounter = (ushort) test.Initial.PC;
         state.StackPointer = (ushort) test.Initial.SP;
