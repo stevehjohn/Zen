@@ -32,6 +32,6 @@ public class Core
     {
         var instruction = _instructions[_interface.Data];
 
-        var states = instruction.Execute(new byte[] { 0x32, 0x12 });
+        var states = instruction.Execute(new byte[] { 0x34, 0x12 });
     }
 }
