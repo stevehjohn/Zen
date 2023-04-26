@@ -30,7 +30,11 @@ public class Core
 
     public void ExecuteCycle()
     {
+        _interface.Address = _state.ProgramCounter;
+
         var instruction = _instructions[_interface.Data];
+
+        _state.ProgramCounter++;
 
         var states = instruction.Execute(new byte[] { 0x34, 0x12 });
     }

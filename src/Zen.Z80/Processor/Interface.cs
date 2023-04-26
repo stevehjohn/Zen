@@ -2,7 +2,7 @@
 
 public class Interface
 {
-    public ushort Address { get; set; }
+    public virtual ushort Address { get; set; }
 
-    public byte Data { get; set; }
+    public virtual byte Data { get; set; }
 }
