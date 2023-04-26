@@ -5,5 +5,9 @@ public partial class Instructions
     private void Initialise()
     {
         InitialiseBaseInstructions();
+
+        InitialiseDDInstructions();
+
+        InitialiseFDInstructions();
     }
 }
