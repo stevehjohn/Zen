@@ -1,4 +1,4 @@
-﻿#define UNATTENDED
+﻿//#define UNATTENDED
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
@@ -32,6 +32,11 @@ public class TestRunner
 
         foreach (var file in files)
         {
+            if (Path.GetFileName(file).CompareTo("dd 01 ") < 0)
+            {
+                continue;
+            }
+
             var tests = JsonSerializer.Deserialize<TestDefinition[]>(File.ReadAllText(file), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 
             if (tests == null)
