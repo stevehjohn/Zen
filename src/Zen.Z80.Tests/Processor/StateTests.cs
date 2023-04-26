@@ -1,4 +1,5 @@
-﻿using Zen.Z80.Processor;
+﻿using System.Security.AccessControl;
+using Zen.Z80.Processor;
 
 namespace Zen.Z80.Tests.Processor;
 
@@ -39,5 +40,21 @@ public class StateTests
         Assert.Equal(0x34, _state[Register.C]);
 
         Assert.Equal(0x1234, _state[RegisterPair.BC]);
+    }
+
+    [Theory]
+    [InlineData(0b0000_0001, Flag.Carry)]
+    [InlineData(0b0000_0010, Flag.AddSubtract)]
+    [InlineData(0b0000_0100, Flag.ParityOverflow)]
+    [InlineData(0b0000_1000, Flag.X1)]
+    [InlineData(0b0001_0000, Flag.HalfCarry)]
+    [InlineData(0b0010_0000, Flag.X2)]
+    [InlineData(0b0100_0000, Flag.Zero)]
+    [InlineData(0b1000_0000, Flag.Sign)]
+    public void Flags_are_mapped_correctly(byte registerF, Flag flag)
+    {
+        _state[Register.F] = registerF;
+
+        Assert.True(_state[flag]);
     }
 }

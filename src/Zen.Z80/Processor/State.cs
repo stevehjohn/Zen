@@ -12,6 +12,8 @@ public class State
 
     public byte Flags => _registers[(byte) Register.F];
 
+    public bool this[Flag flag] => (this[Register.F] & (byte) flag) > 0;
+
     public byte this[Register register]
     {
         get => _registers[(byte) register];
