@@ -73,7 +73,8 @@ public class CoreTests
                 0x0100 => 0xDD,
                 0x0101 => 0xCB,
                 0x0102 => 0x10,
-                0x0103 => 0x40
+                0x0103 => 0x40,
+                0x0210 => 0x01
             };
         };
 
@@ -81,7 +82,7 @@ public class CoreTests
 
         _core.ExecuteCycle();
 
-        Assert.Equal(0x02, _state[Register.B]);
+        Assert.False(_state[Flag.Zero]);
     }
 
     [Fact]

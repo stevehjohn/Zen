@@ -90,4 +90,14 @@ public byte this[Register register]
         _lastMCycles[4] = 0;
         _lastMCycles[5] = 0;
     }
+
+    public void SetMCycles(byte m1, byte m2, byte m3, byte m4, byte m5)
+    {
+        _lastMCycles[0] = m1;
+        _lastMCycles[1] = m2;
+        _lastMCycles[2] = m3;
+        _lastMCycles[3] = m4;
+        _lastMCycles[4] = m5;
+        _lastMCycles[5] = 0;
+    }
 }

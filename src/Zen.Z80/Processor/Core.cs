@@ -10,15 +10,6 @@ public class Core
 
     private readonly Instructions _instructions;
 
-    public Core()
-    {
-        _interface = new Interface();
-
-        _state = new State();
-
-        _instructions = new Instructions(_interface, _state);
-    }
-
     public Core(Interface @interface, State state)
     {
         _interface = @interface;
@@ -30,6 +21,8 @@ public class Core
 
     public void ExecuteCycle()
     {
+        _interface.Mreq = true;
+
         _interface.Address = _state.ProgramCounter;
 
         var opcode = _state.InstructionPrefix << 8 | _interface.Data;
@@ -48,6 +41,8 @@ public class Core
 
             for (var p = 0; p < instruction.ParameterLength; p++)
             {
+                _interface.Mreq = true;
+
                 _interface.Address = _state.ProgramCounter;
 
                 _state.ProgramCounter++;

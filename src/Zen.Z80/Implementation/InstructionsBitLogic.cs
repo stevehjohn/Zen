@@ -13,8 +13,11 @@ public partial class Instructions
 
             address = (ushort) (address + (sbyte) parameters[0]);
 
-            // TODO: Get from RAM somehow...?
-            var data = 0x00;
+            _interface.Mreq = true;
+
+            _interface.Address = address;
+
+            var data = _interface.Data;
 
             var result = (byte) (data & bit);
 
@@ -28,6 +31,6 @@ public partial class Instructions
             _state[Flag.Sign] = (sbyte) result < 0;
         }
 
-        _state.SetMCycles(4, 4);
+        _state.SetMCycles(4, 4, 3, 5, 4);
     }
 }
