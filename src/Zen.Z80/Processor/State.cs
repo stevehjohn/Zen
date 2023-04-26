@@ -12,7 +12,7 @@ public class State
 
     public ushort StackPointer { get; set; }
 
-    public byte InstructionPrefix { get; set; }
+    public ushort InstructionPrefix { get; set; }
 
     public bool this[Flag flag] 
     {

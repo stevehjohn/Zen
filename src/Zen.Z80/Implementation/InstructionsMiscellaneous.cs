@@ -8,7 +8,7 @@ public partial class Instructions
         _state.SetMCycles(4);
     }
 
-    private void PREFIX(byte parameters)
+    private void PREFIX(ushort parameters)
     {
         _state.InstructionPrefix = parameters;
 

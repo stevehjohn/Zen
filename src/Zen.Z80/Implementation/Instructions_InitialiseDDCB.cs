@@ -8,7 +8,6 @@ public partial class Instructions
 {
     private void InitialiseDDCBInstructions()
     {
-        _instructions.Add(0xDD01, new Instruction(d => LD_RR_nn(RegisterPair.BC, d), "LD BC, nn", 0xDD01, 2));
-
+        _instructions.Add(0xDDCB00, new Instruction(d => LD_RR_nn(RegisterPair.BC, d), "RLC (IX + d), B", 0xDDCB00, 1));
     }
 }
