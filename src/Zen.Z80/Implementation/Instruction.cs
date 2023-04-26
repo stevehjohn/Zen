@@ -6,7 +6,7 @@ public class Instruction
 
     public string Mnemonic { get; private set; }
 
-    public uint OpCode { get; private set; }
+    public int OpCode { get; private set; }
 
     public int ParameterLength { get; private set; }
 
@@ -14,7 +14,7 @@ public class Instruction
 
     public byte ExtraCycles { get; private set; }
 
-    public Instruction(Action<byte[]> execute, string mnemonic, uint opCode, int parameterLength, string? traceTemplate = null, byte extraCycles = 0)
+    public Instruction(Action<byte[]> execute, string mnemonic, int opCode, int parameterLength, string? traceTemplate = null, byte extraCycles = 0)
     {
         Execute = execute;
 
