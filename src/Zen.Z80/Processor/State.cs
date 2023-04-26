@@ -34,4 +34,12 @@ public class State
             _registers[positions & 0x00FF] = (byte) (value & 0x00FF);
         }
     }
+
+    public void LoadRegisterPair(RegisterPair registerPair, byte[] data)
+    {
+        var positions = (int) registerPair;
+
+        _registers[(positions & 0xFF00) >> 8] = data[1];
+        _registers[positions & 0x00FF] = data[0];
+    }
 }
