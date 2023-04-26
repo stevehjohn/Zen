@@ -5,6 +5,8 @@ public partial class Instructions
 {
     private void NOP()
     {
+        _state.Q = 0;
+
         _state.SetMCycles(4);
     }
 

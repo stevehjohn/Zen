@@ -12,6 +12,10 @@ public class State
 
     public ushort StackPointer { get; set; }
 
+    public ushort MemPtr { get; set; }
+
+    public byte Q { get; set; }
+
     public ushort InstructionPrefix { get; set; }
 
     public bool this[Flag flag] 
@@ -27,6 +31,8 @@ public class State
             {
                 this[Register.F] &= (byte) ~(byte) flag;
             }
+
+            Q = this[Register.F];
         }
     }
 

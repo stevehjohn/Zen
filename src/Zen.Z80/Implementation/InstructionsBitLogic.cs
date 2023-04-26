@@ -29,6 +29,8 @@ public partial class Instructions
             _state[Flag.X2] = (address & 0x2000) > 0;
             _state[Flag.Zero] = result == 0;
             _state[Flag.Sign] = (sbyte) result < 0;
+
+            _state.MemPtr = address;
         }
 
         _state.SetMCycles(4, 4, 3, 5, 4);

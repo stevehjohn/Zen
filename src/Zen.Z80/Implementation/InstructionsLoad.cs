@@ -9,6 +9,8 @@ public partial class Instructions
     {
         _state.LoadRegisterPair(registerPair, parameters);
 
+        _state.Q = 0;
+
         _state.SetMCycles(4, 3, 3);
     }
 }
