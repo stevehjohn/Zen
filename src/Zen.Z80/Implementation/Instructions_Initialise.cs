@@ -1,6 +1,6 @@
 ﻿using Zen.Z80.Processor;
 
-namespace Zen.Z80.InstructionDefinitions;
+namespace Zen.Z80.Implementation;
 
 public partial class Instructions
 {

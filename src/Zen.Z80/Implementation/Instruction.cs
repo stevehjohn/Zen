@@ -1,4 +1,4 @@
-﻿namespace Zen.Z80.InstructionDefinitions;
+﻿namespace Zen.Z80.Implementation;
 
 public class Instruction
 {

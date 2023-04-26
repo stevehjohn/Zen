@@ -7,3 +7,7 @@ decisions were starting to make it hard to maintain and extend. Also, it didn't 
 for display output.
 
 This project aims to take the lessons learned from ZXE and build upon them.
+
+## Useful References
+
+- https://clrhome.org/table/
