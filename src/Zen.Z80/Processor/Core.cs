@@ -57,5 +57,14 @@ public class Core
         }
 
         instruction.Execute(parameters);
+
+        if (_state.InstructionPrefix > 0xFF)
+        {
+            opcode = _state.InstructionPrefix << 8 | parameters[1];
+
+            instruction = _instructions[opcode];
+
+            instruction.Execute(parameters[..1]);
+        }
     }
 }

@@ -53,6 +53,31 @@ public class CoreTests
         _core.ExecuteCycle();
 
         _interface.Data = 0x00;
+        
+        _core.ExecuteCycle();
+
+        Assert.Equal(0x02, _state[Register.B]);
+    }
+
+    [Fact]
+    public void Core_can_execute_double_extended_instruction()
+    {
+        _state[RegisterPair.IX] = 0x0200;
+
+        _state.ProgramCounter = 0x0100;
+
+        _interface.AddressChanged = i =>
+        {
+            i.Data = i.Address switch
+            {
+                0x0100 => 0xDD,
+                0x0101 => 0xCB,
+                0x0102 => 0x10,
+                0x0103 => 0x40
+            };
+        };
+
+        _core.ExecuteCycle();
 
         _core.ExecuteCycle();
 
