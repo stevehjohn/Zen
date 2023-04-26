@@ -7,6 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zen.Z80", "Zen.Z80\Zen.Z80.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{262096F9-4FC4-4573-98D0-B9A59DDD122C}"
 	ProjectSection(SolutionItems) = preProject
+		..\Documentation\Z80 Microprocessor Family.pdf = ..\Documentation\Z80 Microprocessor Family.pdf
 		..\Documentation\Z80 User Manual.pdf = ..\Documentation\Z80 User Manual.pdf
 	EndProjectSection
 EndProject
