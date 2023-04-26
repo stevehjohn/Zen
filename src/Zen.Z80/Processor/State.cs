@@ -10,8 +10,6 @@ public class State
 
     public ushort StackPointer { get; set; }
 
-    public byte Flags => _registers[(byte) Register.F];
-
     public bool this[Flag flag] => (this[Register.F] & (byte) flag) > 0;
 
     public byte this[Register register]
@@ -35,6 +33,16 @@ public class State
             _registers[(positions & 0xFF00) >> 8] = (byte) ((value & 0xFF00) >> 8);
             _registers[positions & 0x00FF] = (byte) (value & 0x00FF);
         }
+    }
+
+    public void SetFlag(Flag flag)
+    {
+        this[Register.F] |= (byte) flag;
+    }
+
+    public void ResetFlag(Flag flag)
+    {
+        this[Register.F] &= (byte) ~(byte) flag;
     }
 
     public void LoadRegisterPair(RegisterPair registerPair, byte[] data)

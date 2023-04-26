@@ -1,5 +1,4 @@
-﻿using System.Security.AccessControl;
-using Zen.Z80.Processor;
+﻿using Zen.Z80.Processor;
 
 namespace Zen.Z80.Tests.Processor;
 
@@ -56,5 +55,41 @@ public class StateTests
         _state[Register.F] = registerF;
 
         Assert.True(_state[flag]);
+    }
+
+    [Theory]
+    [InlineData(Flag.Carry, 0b0000_0001)]
+    [InlineData(Flag.AddSubtract, 0b0000_0010)]
+    [InlineData(Flag.ParityOverflow, 0b0000_0100)]
+    [InlineData(Flag.X1, 0b0000_1000)]
+    [InlineData(Flag.HalfCarry, 0b0001_0000)]
+    [InlineData(Flag.X2, 0b0010_0000)]
+    [InlineData(Flag.Zero, 0b0100_0000)]
+    [InlineData(Flag.Sign, 0b1000_0000)]
+    public void SetFlag_sets_correct_bit(Flag flag, byte expected)
+    {
+        _state[Register.F] = 0;
+
+        _state.SetFlag(flag);
+
+        Assert.Equal(expected, _state[Register.F]);
+    }
+
+    [Theory]
+    [InlineData(Flag.Carry, 0b1111_1110)]
+    [InlineData(Flag.AddSubtract, 0b1111_1101)]
+    [InlineData(Flag.ParityOverflow, 0b1111_1011)]
+    [InlineData(Flag.X1, 0b1111_0111)]
+    [InlineData(Flag.HalfCarry, 0b1110_1111)]
+    [InlineData(Flag.X2, 0b1101_1111)]
+    [InlineData(Flag.Zero, 0b1011_1111)]
+    [InlineData(Flag.Sign, 0b0111_1111)]
+    public void ResetFlag_resets_correct_bit(Flag flag, byte expected)
+    {
+        _state[Register.F] = 0xFF;
+
+        _state.ResetFlag(flag);
+
+        Assert.Equal(expected, _state[Register.F]);
     }
 }
