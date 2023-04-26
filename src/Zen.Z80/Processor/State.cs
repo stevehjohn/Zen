@@ -10,6 +10,8 @@ public class State
 
     public ushort StackPointer { get; set; }
 
+    public byte Flags => _registers[(byte) Register.F];
+
     public byte this[Register register]
     {
         get => _registers[(byte) register];
