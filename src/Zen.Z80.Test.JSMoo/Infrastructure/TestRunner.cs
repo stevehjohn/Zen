@@ -1,4 +1,5 @@
 ﻿//#define UNATTENDED
+
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
@@ -240,11 +241,10 @@ public class TestRunner
 
                 processor.ExecuteCycle();
 
-                // TODO: Something
-                //if (firstMnemonic == null && ! result.Mnemonic.StartsWith("SOPSET"))
-                //{
-                //    firstMnemonic = result.Mnemonic;
-                //}
+                if (firstMnemonic == null && ! state.LastInstruction.Mnemonic.StartsWith("SOPSET"))
+                {
+                    firstMnemonic = state.LastInstruction.Mnemonic;
+                }
 
                 if (state.ClockCycles >= (ulong) test.Cycles.Length)
                 {
