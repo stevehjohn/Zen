@@ -5,9 +5,9 @@ namespace Zen.Z80.Implementation;
 
 public partial class Instructions
 {
-    private void LD_RR_nn(RegisterPair registerPair, byte[] parameters)
+    private void LD_RR_nn(RegisterPair target, byte[] parameters)
     {
-        _state.LoadRegisterPair(registerPair, parameters);
+        _state.LoadRegisterPair(target, parameters);
 
         _state.Q = 0;
 
