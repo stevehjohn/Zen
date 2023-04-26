@@ -14,6 +14,8 @@ public class Ram
 
     private readonly byte[][] _mappings;
 
+    private readonly byte[] _slots = new byte[BankSlots];
+
     private readonly byte[] _rom = new byte[RomSize];
 
     public bool ProtectRom { get; set; }
@@ -49,8 +51,10 @@ public class Ram
         }
     }
 
-    public void SetBank(int slotNumber, int bankNumber)
+    public void SetBank(byte slotNumber, byte bankNumber)
     {
         _mappings[slotNumber] = _banks[bankNumber];
+
+        _slots[slotNumber] = bankNumber;
     }
 }
