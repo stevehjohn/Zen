@@ -8,21 +8,21 @@ public class State
 
     private readonly byte[] _registers = new byte[RegisterCount];
 
-    private readonly byte[] _lastMCycles = new byte[6];
+    private readonly byte[] _lastMCycles = new byte[7];
 
     public ushort ProgramCounter { get; set; }
 
     public ushort StackPointer { get; set; }
 
     public ushort MemPtr { get; set; }
-
+    
     public byte Q { get; set; }
 
     public ushort InstructionPrefix { get; set; }
 
     public ulong ClockCycles { get; set; }
 
-    public Instruction LastInstruction { get; set; }
+    public Instruction? LastInstruction { get; set; }
 
     public bool this[Flag flag]
     {
@@ -75,49 +75,49 @@ public class State
 
     public void SetMCycles(byte m1)
     {
-        _lastMCycles[0] = m1;
-        _lastMCycles[1] = 0;
+        _lastMCycles[0] = LastInstruction?.ExtraCycles ?? 0;
+        _lastMCycles[1] = m1;
         _lastMCycles[2] = 0;
         _lastMCycles[3] = 0;
         _lastMCycles[4] = 0;
         _lastMCycles[5] = 0;
 
-        ClockCycles = m1;
+        ClockCycles = (ulong) _lastMCycles[0] + m1;
     }
 
     public void SetMCycles(byte m1, byte m2)
     {
-        _lastMCycles[0] = m1;
-        _lastMCycles[1] = m2;
-        _lastMCycles[2] = 0;
+        _lastMCycles[0] = LastInstruction?.ExtraCycles ?? 0;
+        _lastMCycles[1] = m1;
+        _lastMCycles[2] = m2;
         _lastMCycles[3] = 0;
         _lastMCycles[4] = 0;
         _lastMCycles[5] = 0;
 
-        ClockCycles = (ulong) m1 + m2;
+        ClockCycles = (ulong) _lastMCycles[0] +  m1 + m2;
     }
 
     public void SetMCycles(byte m1, byte m2, byte m3)
     {
-        _lastMCycles[0] = m1;
-        _lastMCycles[1] = m2;
-        _lastMCycles[2] = m3;
-        _lastMCycles[3] = 0;
+        _lastMCycles[0] = LastInstruction?.ExtraCycles ?? 0;
+        _lastMCycles[1] = m1;
+        _lastMCycles[2] = m2;
+        _lastMCycles[3] = m3;
         _lastMCycles[4] = 0;
         _lastMCycles[5] = 0;
 
-        ClockCycles = (ulong) m1 + m2 + m3;
+        ClockCycles = (ulong) _lastMCycles[0] +  m1 + m2 + m3;
     }
 
     public void SetMCycles(byte m1, byte m2, byte m3, byte m4, byte m5)
     {
-        _lastMCycles[0] = m1;
-        _lastMCycles[1] = m2;
-        _lastMCycles[2] = m3;
-        _lastMCycles[3] = m4;
-        _lastMCycles[4] = m5;
-        _lastMCycles[5] = 0;
+        _lastMCycles[0] = LastInstruction?.ExtraCycles ?? 0;
+        _lastMCycles[1] = m1;
+        _lastMCycles[2] = m2;
+        _lastMCycles[3] = m3;
+        _lastMCycles[4] = m4;
+        _lastMCycles[5] = m5;
 
-        ClockCycles = (ulong) m1 + m2 + m3 + m4 + m5;
+        ClockCycles = (ulong) _lastMCycles[0] +  m1 + m2 + m3 + m4 + m5;
     }
 }
