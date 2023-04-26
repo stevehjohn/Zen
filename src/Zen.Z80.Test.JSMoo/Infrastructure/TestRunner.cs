@@ -32,10 +32,10 @@ public class TestRunner
 
         foreach (var file in files)
         {
-            //if (Path.GetFileName(file).CompareTo("dd cb __ 40") < 0)
-            //{
-            //    continue;
-            //}
+            if (Path.GetFileName(file).CompareTo("dd cb ") < 0)
+            {
+                continue;
+            }
 
             var tests = JsonSerializer.Deserialize<TestDefinition[]>(File.ReadAllText(file), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 
@@ -240,7 +240,7 @@ public class TestRunner
 
                 processor.ExecuteCycle();
 
-                if (firstMnemonic == null && ! state.LastInstruction.Mnemonic.StartsWith("PREFIX"))
+                if (firstMnemonic == null && ! state.LastInstruction!.Mnemonic.StartsWith("PREFIX"))
                 {
                     firstMnemonic = state.LastInstruction.Mnemonic;
                 }

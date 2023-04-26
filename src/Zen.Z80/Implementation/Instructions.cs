@@ -1,8 +1,10 @@
-﻿using Zen.Z80.Exceptions;
+﻿using System.Diagnostics.CodeAnalysis;
+using Zen.Z80.Exceptions;
 using Zen.Z80.Processor;
 
 namespace Zen.Z80.Implementation;
 
+[ExcludeFromCodeCoverage]
 public partial class Instructions
 {
     private readonly Interface _interface;

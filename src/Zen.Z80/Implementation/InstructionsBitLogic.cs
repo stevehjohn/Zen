@@ -38,7 +38,7 @@ public partial class Instructions
         _state.SetMCycles(4, 4, 3, 5, 4);
     }
 
-    public void RLC_IX_d_R(RegisterPair source, byte[] parameters, Register target)
+    public void RLC_IX_d_R(RegisterPair source, byte[] parameters, Register? target = null)
     {
         unchecked
         {
@@ -56,7 +56,10 @@ public partial class Instructions
 
             var result = (byte) (((data << 1) & 0xFE) | topBit);
 
-            _state[target] = result;
+            if (target != null)
+            {
+                _state[(Register) target] = result;
+            }
 
             _state[Flag.Carry] = topBit == 1;
             _state[Flag.AddSubtract] = false;
@@ -70,6 +73,6 @@ public partial class Instructions
             _state.MemPtr = address;
         }
 
-        _state.SetMCycles(4, 4, 3, 5, 4);
+        _state.SetMCycles(4, 4, 3, 5, 4, 3);
     }
 }

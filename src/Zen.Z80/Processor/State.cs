@@ -81,6 +81,7 @@ public class State
         _lastMCycles[3] = 0;
         _lastMCycles[4] = 0;
         _lastMCycles[5] = 0;
+        _lastMCycles[6] = 0;
 
         ClockCycles = (ulong) _lastMCycles[0] + m1;
     }
@@ -93,6 +94,7 @@ public class State
         _lastMCycles[3] = 0;
         _lastMCycles[4] = 0;
         _lastMCycles[5] = 0;
+        _lastMCycles[6] = 0;
 
         ClockCycles = (ulong) _lastMCycles[0] +  m1 + m2;
     }
@@ -105,6 +107,7 @@ public class State
         _lastMCycles[3] = m3;
         _lastMCycles[4] = 0;
         _lastMCycles[5] = 0;
+        _lastMCycles[6] = 0;
 
         ClockCycles = (ulong) _lastMCycles[0] +  m1 + m2 + m3;
     }
@@ -117,7 +120,21 @@ public class State
         _lastMCycles[3] = m3;
         _lastMCycles[4] = m4;
         _lastMCycles[5] = m5;
+        _lastMCycles[6] = 0;
 
         ClockCycles = (ulong) _lastMCycles[0] +  m1 + m2 + m3 + m4 + m5;
+    }
+
+    public void SetMCycles(byte m1, byte m2, byte m3, byte m4, byte m5, byte m6)
+    {
+        _lastMCycles[0] = LastInstruction?.ExtraCycles ?? 0;
+        _lastMCycles[1] = m1;
+        _lastMCycles[2] = m2;
+        _lastMCycles[3] = m3;
+        _lastMCycles[4] = m4;
+        _lastMCycles[5] = m5;
+        _lastMCycles[6] = m6;
+
+        ClockCycles = (ulong) _lastMCycles[0] +  m1 + m2 + m3 + m4 + m5 + m6;
     }
 }
