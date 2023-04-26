@@ -1,4 +1,6 @@
-﻿namespace Zen.Z80.Processor;
+﻿using Zen.Z80.InstructionDefinitions;
+
+namespace Zen.Z80.Processor;
 
 public class Core
 {
@@ -6,13 +8,15 @@ public class Core
 
     private readonly State _state;
 
-    private readonly Dictionary<int, Instruction> _instructions = new();
+    private readonly Instructions _instructions;
 
     public Core()
     {
         _interface = new Interface();
 
         _state = new State();
+
+        _instructions = new Instructions(_interface, _state);
     }
 
     public Core(Interface @interface, State state)
@@ -20,5 +24,7 @@ public class Core
         _interface = @interface;
 
         _state = state;
+
+        _instructions = new Instructions(_interface, _state);
     }
 }

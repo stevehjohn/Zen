@@ -1,4 +1,6 @@
-﻿namespace Zen.Z80.Processor;
+﻿using Zen.Z80.Processor;
+
+namespace Zen.Z80.InstructionDefinitions;
 
 public class Instruction
 {
