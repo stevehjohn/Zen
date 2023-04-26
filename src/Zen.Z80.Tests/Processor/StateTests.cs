@@ -66,11 +66,11 @@ public class StateTests
     [InlineData(Flag.X2, 0b0010_0000)]
     [InlineData(Flag.Zero, 0b0100_0000)]
     [InlineData(Flag.Sign, 0b1000_0000)]
-    public void SetFlag_sets_correct_bit(Flag flag, byte expected)
+    public void SetFlag_true_sets_correct_bit(Flag flag, byte expected)
     {
         _state[Register.F] = 0;
 
-        _state.SetFlag(flag);
+        _state.SetFlag(flag, true);
 
         Assert.Equal(expected, _state[Register.F]);
     }
@@ -84,11 +84,11 @@ public class StateTests
     [InlineData(Flag.X2, 0b1101_1111)]
     [InlineData(Flag.Zero, 0b1011_1111)]
     [InlineData(Flag.Sign, 0b0111_1111)]
-    public void ResetFlag_resets_correct_bit(Flag flag, byte expected)
+    public void SetFlag_false_resets_correct_bit(Flag flag, byte expected)
     {
         _state[Register.F] = 0xFF;
 
-        _state.ResetFlag(flag);
+        _state.SetFlag(flag, false);
 
         Assert.Equal(expected, _state[Register.F]);
     }

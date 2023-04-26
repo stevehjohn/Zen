@@ -37,14 +37,16 @@ public class State
         }
     }
 
-    public void SetFlag(Flag flag)
+    public void SetFlag(Flag flag, bool value)
     {
-        this[Register.F] |= (byte) flag;
-    }
-
-    public void ResetFlag(Flag flag)
-    {
-        this[Register.F] &= (byte) ~(byte) flag;
+        if (value)
+        {
+            this[Register.F] |= (byte) flag;
+        }
+        else
+        {
+            this[Register.F] &= (byte) ~(byte) flag;
+        }
     }
 
     public void LoadRegisterPair(RegisterPair registerPair, byte[] data)

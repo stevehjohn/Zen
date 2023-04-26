@@ -1,4 +1,6 @@
-﻿using Zen.Z80.Processor;
+﻿// ReSharper disable InconsistentNaming
+
+using Zen.Z80.Processor;
 
 namespace Zen.Z80.Implementation;
 

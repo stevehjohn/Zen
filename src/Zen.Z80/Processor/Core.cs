@@ -36,6 +36,6 @@ public class Core
 
         _state.ProgramCounter++;
 
-        var states = instruction.Execute(new byte[] { 0x34, 0x12 });
+        instruction.Execute(new byte[] { 0x34, 0x12 });
     }
 }
