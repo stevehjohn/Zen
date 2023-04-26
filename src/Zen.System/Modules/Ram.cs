@@ -18,7 +18,11 @@ public class Ram
 
     private readonly byte[] _rom = new byte[RomSize];
 
+    private byte _romNumber;
+
     public bool ProtectRom { get; set; }
+
+    public byte RomNumber => _romNumber;
 
     public Ram()
     {
@@ -56,5 +60,12 @@ public class Ram
         _mappings[slotNumber] = _banks[bankNumber];
 
         _slots[slotNumber] = bankNumber;
+    }
+
+    public void LoadRom(byte[] data, byte romNumber)
+    {
+        _romNumber = romNumber;
+
+        Array.Copy(data, 0, _rom, 0, data.Length);
     }
 }
