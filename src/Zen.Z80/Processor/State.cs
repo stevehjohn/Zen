@@ -6,6 +6,8 @@ public class State
 
     private readonly byte[] _registers = new byte[RegisterCount];
 
+    private readonly byte[] _lastMCycles = new byte[6];
+
     public ushort ProgramCounter { get; set; }
 
     public ushort StackPointer { get; set; }
@@ -51,5 +53,35 @@ public class State
 
         _registers[(positions & 0xFF00) >> 8] = data[1];
         _registers[positions & 0x00FF] = data[0];
+    }
+
+    public void SetMCycles(byte m1)
+    {
+        _lastMCycles[0] = m1;
+        _lastMCycles[1] = 0;
+        _lastMCycles[2] = 0;
+        _lastMCycles[3] = 0;
+        _lastMCycles[4] = 0;
+        _lastMCycles[5] = 0;
+    }
+
+    public void SetMCycles(byte m1, byte m2)
+    {
+        _lastMCycles[0] = m1;
+        _lastMCycles[1] = m2;
+        _lastMCycles[2] = 0;
+        _lastMCycles[3] = 0;
+        _lastMCycles[4] = 0;
+        _lastMCycles[5] = 0;
+    }
+
+    public void SetMCycles(byte m1, byte m2, byte m3)
+    {
+        _lastMCycles[0] = m1;
+        _lastMCycles[1] = m2;
+        _lastMCycles[2] = m3;
+        _lastMCycles[3] = 0;
+        _lastMCycles[4] = 0;
+        _lastMCycles[5] = 0;
     }
 }

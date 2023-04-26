@@ -2,7 +2,7 @@
 
 public class Instruction
 {
-    public Func<byte[], int> Execute { get; private set; }
+    public Action<byte[]> Execute { get; private set; }
 
     public string Mnemonic { get; private set; }
 
@@ -12,7 +12,7 @@ public class Instruction
 
     public string? TraceTemplate { get; private set; }
 
-    public Instruction(Func<byte[], int> execute, string mnemonic, uint opCode, int parameterLength, string? traceTemplate = null)
+    public Instruction(Action<byte[]> execute, string mnemonic, uint opCode, int parameterLength, string? traceTemplate = null)
     {
         Execute = execute;
 

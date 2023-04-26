@@ -4,10 +4,10 @@ namespace Zen.Z80.Implementation;
 
 public partial class Instructions
 {
-    private int LD_RR_nn(RegisterPair registerPair, byte[] parameters)
+    private void LD_RR_nn(RegisterPair registerPair, byte[] parameters)
     {
         _state.LoadRegisterPair(registerPair, parameters);
 
-        return 10;
+        _state.SetMCycles(4, 3, 3);
     }
 }
