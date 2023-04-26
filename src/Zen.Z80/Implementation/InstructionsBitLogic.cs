@@ -5,7 +5,7 @@ namespace Zen.Z80.Implementation;
 
 public partial class Instructions
 {
-    public void BIT_0_IX_d(byte bit, RegisterPair registerPair, byte[] parameters)
+    public void BIT_b_IX_d(byte bit, RegisterPair registerPair, byte[] parameters)
     {
         unchecked
         {
