@@ -65,5 +65,39 @@ public class Core
 
             _state.LastInstruction = instruction;
         }
+
+        UpdateR(instruction);
+    }
+
+    private void UpdateR(Instruction instruction)
+    {
+        if (instruction.Mnemonic.StartsWith("PREFIX"))
+        {
+            return;
+        }
+
+        var increment = 1;
+
+        if (instruction.OpCode > 0xFF)
+        {
+            increment = 2;
+        }
+
+        var value = (byte) (_state[Register.R] & 0x7F);
+
+        var topBit = _state[Register.R] & 0x80;
+
+        value = (byte) (value + increment);
+
+        _state[Register.R] = value;
+
+        if (topBit > 0)
+        {
+            _state[Register.R] |= 0x80;
+        }
+        else
+        {
+            _state[Register.R] &= 0x7F;
+        }
     }
 }

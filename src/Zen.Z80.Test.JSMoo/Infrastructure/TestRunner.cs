@@ -1,5 +1,4 @@
-﻿//#define UNATTENDED
-
+﻿#define UNATTENDED
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
@@ -33,10 +32,10 @@ public class TestRunner
 
         foreach (var file in files)
         {
-            if (Path.GetFileName(file).CompareTo("dd 100 ") < 0)
-            {
-                continue;
-            }
+            //if (Path.GetFileName(file).CompareTo("dd cb __ 40") < 0)
+            //{
+            //    continue;
+            //}
 
             var tests = JsonSerializer.Deserialize<TestDefinition[]>(File.ReadAllText(file), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 
@@ -102,7 +101,7 @@ public class TestRunner
 
         FormattedConsole.WriteLine(string.Empty);
 
-        if (failedNames.Count > 0)
+        if (failedNames.Count > 0 || notImplementedNames.Count > 0)
         {
             FormattedConsole.WriteLine("  &Cyan;Press any key to see failed and not implemented test names...\n");
 
@@ -269,8 +268,7 @@ public class TestRunner
                    && state[Register.H] == test.Final.H
                    && state[Register.L] == test.Final.L
                    && state[Register.I] == test.Final.I
-                   // TODO:
-                   //&& state[Register.R] == test.Final.R
+                   && state[Register.R] == test.Final.R
                    && state[RegisterPair.IX] == test.Final.IX
                    && state[RegisterPair.IY] == test.Final.IY;
         // TODO: Alternate registers? Q, MemPtr etc...?
@@ -278,6 +276,10 @@ public class TestRunner
         foreach (var pair in test.Final.Ram)
         {
             pass = pass && ram[pair[0]] == pair[1];
+        }
+
+        if (! pass)
+        {
         }
 
         return (pass, operations, state, ram, null, firstMnemonic);

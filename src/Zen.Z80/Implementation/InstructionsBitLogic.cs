@@ -25,7 +25,7 @@ public partial class Instructions
             _state[Flag.AddSubtract] = false;
             _state[Flag.ParityOverflow] = result == 0;
             _state[Flag.X1] = (address & 0x0800) > 0;
-            _state[Flag.HalfCarry] = false;
+            _state[Flag.HalfCarry] = true;
             _state[Flag.X2] = (address & 0x2000) > 0;
             _state[Flag.Zero] = result == 0;
             _state[Flag.Sign] = (sbyte) result < 0;
