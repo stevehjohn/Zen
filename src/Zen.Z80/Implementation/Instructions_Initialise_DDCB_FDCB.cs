@@ -33,7 +33,7 @@ public partial class Instructions
 
                 if (register != null)
                 {
-                    _instructions.Add(baseOpcode + registerNumber, new Instruction(d => RLC_aRRd_R(registerPair, d, (Register) register), $"RLC ({registerPair} + d, {register}", baseOpcode + registerNumber, 0));
+                    _instructions.Add(baseOpcode + registerNumber, new Instruction(d => RLC_aRRd_R(registerPair, d, (Register) register), $"RLC ({registerPair} + d), {register}", baseOpcode + registerNumber, 0));
 
                     _instructions.Add(baseOpcode + 0x08 + registerNumber, new Instruction(d => RRC_aRRd_R(registerPair, d, register), $"RRC ({registerPair} + d), {register}", baseOpcode + 0x08 + registerNumber, 0));
 
