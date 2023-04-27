@@ -1,4 +1,4 @@
-﻿// #define UNATTENDED
+﻿#define UNATTENDED
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
@@ -33,7 +33,7 @@ public class TestRunner
 
         foreach (var file in files)
         {
-            //if (! Path.GetFileNameWithoutExtension(file).StartsWith("76"))
+            //if (!Path.GetFileNameWithoutExtension(file).StartsWith("dd 40"))
             //{
             //    continue;
             //}
@@ -261,6 +261,11 @@ public class TestRunner
         }
         catch (Exception exception)
         {
+            if (firstMnemonic == null && state.LastInstruction != null && ! state.LastInstruction.Mnemonic.StartsWith("PREFIX"))
+            {
+                firstMnemonic = state.LastInstruction.Mnemonic;
+            }
+
             return (false, operations, state, ram, exception, firstMnemonic);
         }
 
