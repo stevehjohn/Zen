@@ -23,4 +23,26 @@ public class Interface
     public TransferType TransferType { get; set; }
 
     public Action<Interface>? AddressChanged { private get; set; }
+
+    public void WriteToMemory(ushort address, byte data)
+    {
+        Mreq = true;
+
+        TransferType = TransferType.Write;
+
+        Data = data;
+
+        Address = address;
+    }
+
+    public byte ReadFromMemory(ushort address)
+    {
+        Mreq = true;
+
+        TransferType = TransferType.Read;
+
+        Address = address;
+
+        return Data;
+    }
 }

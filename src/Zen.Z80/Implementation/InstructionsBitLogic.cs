@@ -15,11 +15,7 @@ public partial class Instructions
 
             address = (ushort) (address + (sbyte) parameters[0]);
 
-            _interface.Mreq = true;
-
-            _interface.Address = address;
-
-            var data = _interface.Data;
+            var data = _interface.ReadFromMemory(address);
 
             var result = (byte) (data & bit);
 
@@ -46,20 +42,11 @@ public partial class Instructions
 
             address = (ushort) (address + (sbyte) parameters[0]);
 
-            _interface.Mreq = true;
-
-            _interface.Address = address;
-            
-            var data = _interface.Data;
+            var data = _interface.ReadFromMemory(address);
 
             var result = (byte) (data & ~bit);
 
-            _interface.TransferType = TransferType.Write;
-
-            _interface.Data = result;
-
-            // TODO: Data changed event or something?
-            _interface.Address = address;
+            _interface.WriteToMemory(address, result);
 
             if (target != null)
             {
@@ -82,27 +69,13 @@ public partial class Instructions
 
             address = (ushort) (address + (sbyte) parameters[0]);
 
-            _interface.Mreq = true;
-
-            _interface.Address = address;
-
-            var data = _interface.Data;
+            var data = _interface.ReadFromMemory(address);
 
             var topBit = (byte) ((data & 0x80) >> 7);
 
             var result = (byte) (((data << 1) & 0xFE) | topBit);
 
-            _interface.TransferType = TransferType.Write;
-
-            _interface.Data = result;
-
-            // TODO: Data changed event or something?
-            _interface.Address = address;
-
-            if (target != null)
-            {
-                _state[(Register) target] = result;
-            }
+            _interface.WriteToMemory(address, result);
 
             _state[Flag.Carry] = topBit == 1;
             _state[Flag.AddSubtract] = false;
