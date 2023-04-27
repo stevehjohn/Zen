@@ -71,6 +71,8 @@ public partial class Instructions
                 _instructions.Add(0x46 + r * 8, new Instruction(_ => LD_R_aRR((Register) register!, RegisterPair.HL), $"LD {register}, (HL)", 0x46 + r * 8, 0));
 
                 _instructions.Add(0x47 + r * 8, new Instruction(_ => LD_R_R((Register) register!, Register.A), $"LD {register}, A", 0x47 + r * 8, 0));
+
+                _instructions.Add(0xA8 + r, new Instruction(_ => XOR_R_R(Register.A, (Register) register!), $"XOR A, {register}", 0xA8 + r, 0));
             }
         }
 

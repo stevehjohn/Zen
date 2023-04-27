@@ -1,5 +1,7 @@
 ﻿// ReSharper disable InconsistentNaming
 
+using System.Net;
+using Zen.Common.Extensions;
 using Zen.Z80.Processor;
 
 namespace Zen.Z80.Implementation;
@@ -85,5 +87,26 @@ public partial class Instructions
         }
 
         _state.SetMCycles(4, 4, 3, 5, 4, 3);
+    }
+
+    public void XOR_R_R(Register target, Register source)
+    {
+        unchecked
+        {
+            var result = (byte) (_state[source] ^ _state[target]);
+
+            _state[target] = result;
+
+            _state[Flag.Carry] = false;
+            _state[Flag.AddSubtract] = false;
+            _state[Flag.ParityOverflow] = result.IsEvenParity();
+            _state[Flag.X1] = (result & 0x08) > 0;
+            _state[Flag.HalfCarry] = false;
+            _state[Flag.X2] = (result & 0x20) > 0;
+            _state[Flag.Zero] = result == 0;
+            _state[Flag.Sign] = (sbyte) result < 0;
+        }
+
+        _state.SetMCycles(4);
     }
 }
