@@ -83,13 +83,15 @@ public partial class Instructions
     {
         unchecked
         {
-            var value = _state[register];
+            var address = _state[register];
+
+            var value = _interface.ReadFromMemory(address);
 
             var topBit = (byte) ((value & 0x80) >> 7);
 
             var result = (byte) (((value << 1) & 0xFE) | topBit);
 
-            _state[register] = result;
+            _interface.WriteToMemory(address, value);
 
             _state[Flag.Carry] = topBit == 1;
             _state[Flag.AddSubtract] = false;
