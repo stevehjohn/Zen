@@ -7,7 +7,7 @@ namespace Zen.Z80.Implementation;
 
 public partial class Instructions
 {
-    public void BIT_b_IX_d(byte bit, RegisterPair source, byte[] parameters)
+    public void BIT_b_aIXd(byte bit, RegisterPair source, byte[] parameters)
     {
         unchecked
         {
@@ -34,7 +34,7 @@ public partial class Instructions
         _state.SetMCycles(4, 4, 3, 5, 4);
     }
 
-    public void RES_b_IX_d_R(byte bit, RegisterPair source, byte[] parameters, Register? target = null)
+    public void RES_b_aIXd_R(byte bit, RegisterPair source, byte[] parameters, Register? target = null)
     {
         unchecked
         {
@@ -61,7 +61,7 @@ public partial class Instructions
         _state.SetMCycles(4, 4, 3, 5, 4, 3);
     }
 
-    public void RLC_IX_d_R(RegisterPair source, byte[] parameters, Register? target = null)
+    public void RLC_aIXd_R(RegisterPair source, byte[] parameters, Register? target = null)
     {
         unchecked
         {
@@ -97,7 +97,7 @@ public partial class Instructions
         _state.SetMCycles(4, 4, 3, 5, 4, 3);
     }
 
-    public void RL_IX_d_R(RegisterPair source, byte[] parameters, Register? target = null)
+    public void RL_aIXd_R(RegisterPair source, byte[] parameters, Register? target = null)
     {
         unchecked
         {
@@ -133,7 +133,7 @@ public partial class Instructions
         _state.SetMCycles(4, 4, 3, 5, 4, 3);
     }
 
-    public void RRC_IX_d_R(RegisterPair source, byte[] parameters, Register? target = null)
+    public void RRC_aIXd_R(RegisterPair source, byte[] parameters, Register? target = null)
     {
         unchecked
         {
@@ -169,7 +169,7 @@ public partial class Instructions
         _state.SetMCycles(4, 4, 3, 5, 4, 3);
     }
 
-    public void SET_b_IX_d_R(byte bit, RegisterPair source, byte[] parameters, Register? target = null)
+    public void SET_b_aIXd_R(byte bit, RegisterPair source, byte[] parameters, Register? target = null)
     {
         unchecked
         {
