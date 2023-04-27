@@ -14,6 +14,10 @@ public class State
 
     public ushort StackPointer { get; set; }
 
+    public bool InterruptFlipFlop1 { get; set; }
+
+    public bool InterruptFlipFlop2 { get; set; }
+
     public ushort MemPtr { get; set; }
     
     public byte Q { get; set; }

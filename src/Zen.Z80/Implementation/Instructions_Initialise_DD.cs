@@ -16,6 +16,8 @@ public partial class Instructions
 
         _instructions.Add(0xDD21, new Instruction(d => LD_RR_nn(RegisterPair.IX, d), "LD IX, nn", 0xDD21, 2, 4));
 
+        _instructions.Add(0xDD40, new Instruction(_ => LD_R_R(Register.B, Register.B), "LD B, B", 0xDD40, 4));
+
         _instructions.Add(0xDDCB, new Instruction(_ => PREFIX(0xDDCB), "PREFIX 0xDDCB", 0xDDCB, 2));
     }
 }
