@@ -3,6 +3,13 @@ namespace Zen.Z80.Implementation;
 
 public partial class Instructions
 {
+    private void HALT()
+    {
+        _state.Q = 0;
+
+        _state.SetMCycles(4);
+    }
+
     private void NOP()
     {
         _state.Q = 0;

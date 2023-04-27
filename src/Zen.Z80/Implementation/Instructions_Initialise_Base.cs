@@ -16,10 +16,10 @@ public partial class Instructions
 
         _instructions.Add(0x21, new Instruction(d => LD_RR_nn(RegisterPair.HL, d), "LD HL, nn", 0x21, 2));
 
-        for (var target = 0; target < 8; target++)
+        for (var r = 0; r < 8; r++)
         {
 #pragma warning disable CS8509
-            var targetRegister = target switch
+            var register = r switch
             {
                 0 => Register.B,
                 1 => Register.C,
@@ -32,21 +32,42 @@ public partial class Instructions
             };
 #pragma warning restore CS8509
 
-            _instructions.Add(0x40 + target * 8, new Instruction(_ => LD_R_R((Register) targetRegister!, Register.B), $"LD {targetRegister}, B", 0x40 + target * 8, 0));
+            if (r == 6)
+            {
+                _instructions.Add(0x40 + r * 8, new Instruction(_ => LD_aRR_R(RegisterPair.HL, Register.B), "LD (HL), B", 0x40 + r * 8, 0));
 
-            _instructions.Add(0x41 + target * 8, new Instruction(_ => LD_R_R((Register) targetRegister!, Register.C), $"LD {targetRegister}, C", 0x41 + target * 8, 0));
+                _instructions.Add(0x41 + r * 8, new Instruction(_ => LD_aRR_R(RegisterPair.HL, Register.C), "LD (HL), C", 0x41 + r * 8, 0));
 
-            _instructions.Add(0x42 + target * 8, new Instruction(_ => LD_R_R((Register) targetRegister!, Register.D), $"LD {targetRegister}, D", 0x42 + target * 8, 0));
+                _instructions.Add(0x42 + r * 8, new Instruction(_ => LD_aRR_R(RegisterPair.HL, Register.D), "LD (HL), D", 0x42 + r * 8, 0));
 
-            _instructions.Add(0x43 + target * 8, new Instruction(_ => LD_R_R((Register) targetRegister!, Register.E), $"LD {targetRegister}, E", 0x43 + target * 8, 0));
+                _instructions.Add(0x43 + r * 8, new Instruction(_ => LD_aRR_R(RegisterPair.HL, Register.E), "LD (HL), E", 0x43 + r * 8, 0));
 
-            _instructions.Add(0x44 + target * 8, new Instruction(_ => LD_R_R((Register) targetRegister!, Register.H), $"LD {targetRegister}, H", 0x44 + target * 8, 0));
+                _instructions.Add(0x44 + r * 8, new Instruction(_ => LD_aRR_R(RegisterPair.HL, Register.H), "LD (HL), H", 0x44 + r * 8, 0));
 
-            _instructions.Add(0x45 + target * 8, new Instruction(_ => LD_R_R((Register) targetRegister!, Register.L), $"LD {targetRegister}, L", 0x45 + target * 8, 0));
+                _instructions.Add(0x45 + r * 8, new Instruction(_ => LD_aRR_R(RegisterPair.HL, Register.L), "LD (HL), L", 0x45 + r * 8, 0));
 
-            _instructions.Add(0x46 + target * 8, new Instruction(_ => LD_R_aRR((Register) targetRegister!, RegisterPair.HL), $"LD {targetRegister}, (HL)", 0x46 + target * 8, 0));
+                _instructions.Add(0x46 + r * 8, new Instruction(_ => HALT(), "HALT", 0x46 + r * 8, 0));
 
-            _instructions.Add(0x47 + target * 8, new Instruction(_ => LD_R_R((Register) targetRegister!, Register.A), $"LD {targetRegister}, A", 0x47 + target * 8, 0));
+                _instructions.Add(0x47 + r * 8, new Instruction(_ => LD_aRR_R(RegisterPair.HL, Register.A), "LD (HL), A", 0x47 + r * 8, 0));
+            }
+            else
+            {
+                _instructions.Add(0x40 + r * 8, new Instruction(_ => LD_R_R((Register) register!, Register.B), $"LD {register}, B", 0x40 + r * 8, 0));
+
+                _instructions.Add(0x41 + r * 8, new Instruction(_ => LD_R_R((Register) register!, Register.C), $"LD {register}, C", 0x41 + r * 8, 0));
+
+                _instructions.Add(0x42 + r * 8, new Instruction(_ => LD_R_R((Register) register!, Register.D), $"LD {register}, D", 0x42 + r * 8, 0));
+
+                _instructions.Add(0x43 + r * 8, new Instruction(_ => LD_R_R((Register) register!, Register.E), $"LD {register}, E", 0x43 + r * 8, 0));
+
+                _instructions.Add(0x44 + r * 8, new Instruction(_ => LD_R_R((Register) register!, Register.H), $"LD {register}, H", 0x44 + r * 8, 0));
+
+                _instructions.Add(0x45 + r * 8, new Instruction(_ => LD_R_R((Register) register!, Register.L), $"LD {register}, L", 0x45 + r * 8, 0));
+
+                _instructions.Add(0x46 + r * 8, new Instruction(_ => LD_R_aRR((Register) register!, RegisterPair.HL), $"LD {register}, (HL)", 0x46 + r * 8, 0));
+
+                _instructions.Add(0x47 + r * 8, new Instruction(_ => LD_R_R((Register) register!, Register.A), $"LD {register}, A", 0x47 + r * 8, 0));
+            }
         }
 
         _instructions.Add(0xCB, new Instruction(_ => PREFIX(0xCB), "PREFIX 0xCB", 0xCB, 0));

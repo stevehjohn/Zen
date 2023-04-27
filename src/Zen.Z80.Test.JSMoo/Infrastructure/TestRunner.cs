@@ -32,7 +32,7 @@ public class TestRunner
 
         foreach (var file in files)
         {
-            if (!Path.GetFileName(file).StartsWith("cb 06"))
+            if (!Path.GetFileName(file).StartsWith("70"))
             {
                 continue;
             }
