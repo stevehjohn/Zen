@@ -29,11 +29,9 @@ public class TestRunner
 
         var failedNames = new List<string>();
 
-        var notImplementedNames = new List<string>();
-
         foreach (var file in files)
         {
-            //if (!Path.GetFileNameWithoutExtension(file).StartsWith("dd 40"))
+            //if (!Path.GetFileNameWithoutExtension(file).StartsWith("dd cb "))
             //{
             //    continue;
             //}
@@ -58,6 +56,8 @@ public class TestRunner
                     case TestResult.Pass:
                         passed++;
 
+                        skipRemainder = true;
+
                         break;
 
                     case TestResult.Fail:
@@ -75,8 +75,6 @@ public class TestRunner
                         notImplemented++;
 
                         skipRemainder = true;
-
-                        notImplementedNames.Add(test.Name);
 
                         break;
                 }
@@ -102,7 +100,7 @@ public class TestRunner
 
         FormattedConsole.WriteLine(string.Empty);
 
-        if (failedNames.Count > 0 || notImplementedNames.Count > 0)
+        if (failedNames.Count > 0)
         {
             FormattedConsole.WriteLine("  &Cyan;Press any key to see failed test names...\n");
 
@@ -112,13 +110,6 @@ public class TestRunner
             {
                 FormattedConsole.Write($"&Red;{name}\n");
             }
-
-            //Console.WriteLine();
-
-            //foreach (var name in notImplementedNames)
-            //{
-            //    FormattedConsole.Write($"&Yellow;{name}\n");
-            //}
 
             Console.WriteLine();
         }
@@ -167,9 +158,9 @@ public class TestRunner
             }
         }
 
-        FormattedConsole.Write("&White; ]");
+        FormattedConsole.Write("&White; ]  ");
 
-        FormattedConsole.WriteLine(string.Empty);
+        FormattedConsole.WriteLine($"  &Cyan;Mnemonic&White;: &Yellow;{result.Mnemonic ?? "N/A"}");
 
         return (testResult, result.Mnemonic);
     }

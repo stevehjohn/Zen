@@ -7,86 +7,124 @@ namespace Zen.Z80.Implementation;
 
 public partial class Instructions
 {
-    //public void BIT_b_aRRd(byte bit, RegisterPair source, byte[] parameters)
-    //{
-    //    unchecked
-    //    {
-    //        var address = _state[source];
+    public void BIT_b_aRRd(byte bit, RegisterPair source, byte[] parameters)
+    {
+        unchecked
+        {
+            var address = _state[source];
 
-    //        address = (ushort) (address + (sbyte) parameters[0]);
+            address = (ushort) (address + (sbyte) parameters[0]);
 
-    //        var data = _interface.ReadFromMemory(address);
+            var data = _interface.ReadFromMemory(address);
 
-    //        var result = (byte) (data & bit);
+            var result = (byte) (data & bit);
 
-    //        // Carry unaffected
-    //        _state[Flag.AddSubtract] = false;
-    //        _state[Flag.ParityOverflow] = result == 0;
-    //        _state[Flag.X1] = (address & 0x0800) > 0;
-    //        _state[Flag.HalfCarry] = true;
-    //        _state[Flag.X2] = (address & 0x2000) > 0;
-    //        _state[Flag.Zero] = result == 0;
-    //        _state[Flag.Sign] = (sbyte) result < 0;
+            // Carry unaffected
+            _state[Flag.AddSubtract] = false;
+            _state[Flag.ParityOverflow] = result == 0;
+            _state[Flag.X1] = (address & 0x0800) > 0;
+            _state[Flag.HalfCarry] = true;
+            _state[Flag.X2] = (address & 0x2000) > 0;
+            _state[Flag.Zero] = result == 0;
+            _state[Flag.Sign] = (sbyte) result < 0;
 
-    //        _state.MemPtr = address;
-    //    }
+            _state.MemPtr = address;
+        }
 
-    //    _state.SetMCycles(4, 4, 3, 5, 4);
-    //}
+        _state.SetMCycles(4, 4, 3, 5, 4);
+    }
 
-    //public void RES_b_aRRd_R(byte bit, RegisterPair source, byte[] parameters, Register? target = null)
-    //{
-    //    unchecked
-    //    {
-    //        var address = _state[source];
+    public void RES_b_aRRd(byte bit, RegisterPair source, byte[] parameters)
+    {
+        unchecked
+        {
+            var address = _state[source];
 
-    //        address = (ushort) (address + (sbyte) parameters[0]);
+            address = (ushort) (address + (sbyte) parameters[0]);
 
-    //        var data = _interface.ReadFromMemory(address);
+            var data = _interface.ReadFromMemory(address);
 
-    //        var result = (byte) (data & ~bit);
+            var result = (byte) (data & ~bit);
 
-    //        _interface.WriteToMemory(address, result);
+            _interface.WriteToMemory(address, result);
 
-    //        if (target != null)
-    //        {
-    //            _state[(Register) target] = result;
-    //        }
+            _state.MemPtr = address;
 
-    //        _state.MemPtr = address;
+            _state.Q = 0;
+        }
 
-    //        _state.Q = 0;
-    //    }
+        _state.SetMCycles(4, 4, 3, 5, 4, 3);
+    }
 
-    //    _state.SetMCycles(4, 4, 3, 5, 4, 3);
-    //}
+    public void RES_b_aRRd_R(byte bit, RegisterPair source, byte[] parameters, Register target)
+    {
+        unchecked
+        {
+            var address = _state[source];
 
-    //public void SET_b_aRRd_R(byte bit, RegisterPair source, byte[] parameters, Register? target = null)
-    //{
-    //    unchecked
-    //    {
-    //        var address = _state[source];
+            address = (ushort) (address + (sbyte) parameters[0]);
 
-    //        address = (ushort) (address + (sbyte) parameters[0]);
+            var data = _interface.ReadFromMemory(address);
 
-    //        var data = _interface.ReadFromMemory(address);
+            var result = (byte) (data & ~bit);
 
-    //        var result = (byte) (data | bit);
+            _interface.WriteToMemory(address, result);
 
-    //        _interface.WriteToMemory(address, result);
+            _state[target] = result;
 
-    //        if (target != null)
-    //        {
-    //            _state[(Register) target] = result;
-    //        }
+            _state.MemPtr = address;
 
-    //        _state.MemPtr = address;
+            _state.Q = 0;
+        }
 
-    //        _state.Q = 0;
-    //    }
+        _state.SetMCycles(4, 4, 3, 5, 4, 3);
+    }
 
-    //    _state.SetMCycles(4, 4, 3, 5, 4, 3);
-    //}
+    public void SET_b_aRRd(byte bit, RegisterPair source, byte[] parameters)
+    {
+        unchecked
+        {
+            var address = _state[source];
+
+            address = (ushort)(address + (sbyte)parameters[0]);
+
+            var data = _interface.ReadFromMemory(address);
+
+            var result = (byte)(data | bit);
+
+            _interface.WriteToMemory(address, result);
+
+            _state.MemPtr = address;
+
+            _state.Q = 0;
+        }
+
+        _state.SetMCycles(4, 4, 3, 5, 4, 3);
+    }
+
+    public void SET_b_aRRd_R(byte bit, RegisterPair source, byte[] parameters, Register target)
+    {
+        unchecked
+        {
+            var address = _state[source];
+
+            address = (ushort)(address + (sbyte)parameters[0]);
+
+            var data = _interface.ReadFromMemory(address);
+
+            var result = (byte)(data | bit);
+
+            _interface.WriteToMemory(address, result);
+
+            _state[target] = result;
+
+            _state.MemPtr = address;
+
+            _state.Q = 0;
+        }
+
+        _state.SetMCycles(4, 4, 3, 5, 4, 3);
+    }
 
     //public void XOR_R_R(Register target, Register source)
     //{
