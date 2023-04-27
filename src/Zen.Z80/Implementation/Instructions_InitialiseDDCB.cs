@@ -47,6 +47,8 @@ public partial class Instructions
                 _instructions.Add(0xDDCB40 + registerNumber + bit * 8, new Instruction(d => BIT_b_IX_d((byte) (1 << innerBit), RegisterPair.IX, d), $"BIT {bit}, (IX + d)", 0xDDCB40 + registerNumber + bit * 8, 0));
 
                 _instructions.Add(0xDDCB80 + registerNumber + bit * 8, new Instruction(d => RES_b_IX_d_R((byte) (1 << innerBit), RegisterPair.IX, d, register), $"RES {bit}, (IX + d) {(register == null ? string.Empty : register)}".Trim(), 0xDDCB80 + registerNumber + bit * 8, 0));
+
+                _instructions.Add(0xDDCBC0 + registerNumber + bit * 8, new Instruction(d => SET_b_IX_d_R((byte) (1 << innerBit), RegisterPair.IX, d, register), $"SET {bit}, (IX + d) {(register == null ? string.Empty : register)}".Trim(), 0xDDCBC0 + registerNumber + bit * 8, 0));
             }
         }
     }

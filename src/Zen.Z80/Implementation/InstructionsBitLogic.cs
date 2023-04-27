@@ -77,6 +77,11 @@ public partial class Instructions
 
             _interface.WriteToMemory(address, result);
 
+            if (target != null)
+            {
+                _state[(Register) target] = result;
+            }
+
             _state[Flag.Carry] = topBit == 1;
             _state[Flag.AddSubtract] = false;
             _state[Flag.ParityOverflow] = result.IsEvenParity();
@@ -87,6 +92,33 @@ public partial class Instructions
             _state[Flag.Sign] = (sbyte) result < 0;
 
             _state.MemPtr = address;
+        }
+
+        _state.SetMCycles(4, 4, 3, 5, 4, 3);
+    }
+
+    public void SET_b_IX_d_R(byte bit, RegisterPair source, byte[] parameters, Register? target = null)
+    {
+        unchecked
+        {
+            var address = _state[source];
+
+            address = (ushort) (address + (sbyte) parameters[0]);
+
+            var data = _interface.ReadFromMemory(address);
+
+            var result = (byte) (data | bit);
+
+            _interface.WriteToMemory(address, result);
+
+            if (target != null)
+            {
+                _state[(Register) target] = result;
+            }
+
+            _state.MemPtr = address;
+
+            _state.Q = 0;
         }
 
         _state.SetMCycles(4, 4, 3, 5, 4, 3);
