@@ -354,7 +354,7 @@ public partial class Instructions
 
             var bottomBit = (byte) (data & 0x01);
 
-            var result = (byte) ((data >> 1) | 0x80);
+            var result = (byte) ((data >> 1) & 0x7F);
 
             _interface.WriteToMemory(address, result);
 
