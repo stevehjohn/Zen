@@ -46,7 +46,7 @@ public partial class Instructions
 
         _instructions.Add(0x3C, new Instruction(_ => INC_R(Register.A), "INC A", 0x3C, 0));
 
-        _instructions.Add(0x3D, new Instruction(_ => DEC_R(Register.A), "INC A", 0x3D, 0));
+        _instructions.Add(0x3D, new Instruction(_ => DEC_R(Register.A), "DEC A", 0x3D, 0));
 
         _instructions.Add(0x70, new Instruction(_ => LD_aRR_R(RegisterPair.HL, Register.B), "LD (HL), B", 0x70, 0));
 
@@ -63,6 +63,20 @@ public partial class Instructions
         _instructions.Add(0x76, new Instruction(_ => HALT(), "HALT", 0x76, 0));
 
         _instructions.Add(0x77, new Instruction(_ => LD_aRR_R(RegisterPair.HL, Register.A), "LD (HL), A", 0x77, 0));
+        
+        _instructions.Add(0xA8, new Instruction(_ => XOR_R_R(Register.A, Register.B), "XOR A, B", 0xA8, 0));
+        
+        _instructions.Add(0xA9, new Instruction(_ => XOR_R_R(Register.A, Register.C), "XOR A, C", 0xA9, 0));
+        
+        _instructions.Add(0xAA, new Instruction(_ => XOR_R_R(Register.A, Register.D), "XOR A, D", 0xAA, 0));
+        
+        _instructions.Add(0xAB, new Instruction(_ => XOR_R_R(Register.A, Register.E), "XOR A, E", 0xAB, 0));
+        
+        _instructions.Add(0xAC, new Instruction(_ => XOR_R_R(Register.A, Register.H), "XOR A, H", 0xAC, 0));
+        
+        _instructions.Add(0xAD, new Instruction(_ => XOR_R_R(Register.A, Register.L), "XOR A, L", 0xAD, 0));
+        
+        _instructions.Add(0xAF, new Instruction(_ => XOR_R_R(Register.A, Register.A), "XOR A, A", 0xAF, 0));
 
         for (var r = 0; r < 8; r++)
         {
@@ -82,8 +96,6 @@ public partial class Instructions
 
             if (r != 6)
             {
-                _instructions.Add(0x05 + r * 8, new Instruction(_ => DEC_R((Register) register!), $"DEC {register}", 0x05 + r * 8, 0));
-
                 _instructions.Add(0x40 + r * 8, new Instruction(_ => LD_R_R((Register) register!, Register.B), $"LD {register}, B", 0x40 + r * 8, 0));
 
                 _instructions.Add(0x41 + r * 8, new Instruction(_ => LD_R_R((Register) register!, Register.C), $"LD {register}, C", 0x41 + r * 8, 0));
@@ -99,8 +111,6 @@ public partial class Instructions
                 _instructions.Add(0x46 + r * 8, new Instruction(_ => LD_R_aRR((Register) register!, RegisterPair.HL), $"LD {register}, (HL)", 0x46 + r * 8, 0));
 
                 _instructions.Add(0x47 + r * 8, new Instruction(_ => LD_R_R((Register) register!, Register.A), $"LD {register}, A", 0x47 + r * 8, 0));
-
-                _instructions.Add(0xA8 + r, new Instruction(_ => XOR_R_R(Register.A, (Register) register!), $"XOR A, {register}", 0xA8 + r, 0));
             }
         }
 
