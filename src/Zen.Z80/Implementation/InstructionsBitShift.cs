@@ -91,7 +91,7 @@ public partial class Instructions
 
             var result = (byte) (((value << 1) & 0xFE) | topBit);
 
-            _interface.WriteToMemory(address, value);
+            _interface.WriteToMemory(address, result);
 
             _state[Flag.Carry] = topBit == 1;
             _state[Flag.AddSubtract] = false;
