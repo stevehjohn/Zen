@@ -25,11 +25,11 @@ public partial class Instructions
             };
 #pragma warning restore CS8509
 
-            _instructions.Add(0xDDCB00, new Instruction(d => RLC_IX_d_R(RegisterPair.IX, d, register), $"RLC (IX + d){(register == null ? string.Empty : $", {register}")}", 0xDDCB00, 0));
+            _instructions.Add(0xDDCB00 + registerNumber, new Instruction(d => RLC_IX_d_R(RegisterPair.IX, d, register), $"RLC (IX + d){(register == null ? string.Empty : $", {register}")}", 0xDDCB00 + registerNumber, 0));
 
-            _instructions.Add(0xDDCB08, new Instruction(d => RRC_IX_d_R(RegisterPair.IX, d, register), $"RRC (IX + d){(register == null ? string.Empty : $", {register}")}", 0xDDCB08, 0));
+            _instructions.Add(0xDDCB08 + registerNumber, new Instruction(d => RRC_IX_d_R(RegisterPair.IX, d, register), $"RRC (IX + d){(register == null ? string.Empty : $", {register}")}", 0xDDCB08 + registerNumber, 0));
 
-            _instructions.Add(0xDDCB10, new Instruction(d => RL_IX_d_R(RegisterPair.IX, d, register), $"RL (IX + d){(register == null ? string.Empty : $", {register}")}", 0xDDCB10, 0));
+            _instructions.Add(0xDDCB10 + registerNumber, new Instruction(d => RL_IX_d_R(RegisterPair.IX, d, register), $"RL (IX + d){(register == null ? string.Empty : $", {register}")}", 0xDDCB10 + registerNumber, 0));
         }
 
         for (var bit = 0; bit < 8; bit++)
