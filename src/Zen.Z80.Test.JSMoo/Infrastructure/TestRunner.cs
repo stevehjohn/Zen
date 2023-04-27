@@ -286,10 +286,6 @@ public class TestRunner
             pass = pass && ram[pair[0]] == pair[1];
         }
 
-        if (! pass)
-        {
-        }
-
         return (pass, operations, state, ram, null, firstMnemonic);
     }
 }
