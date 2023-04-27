@@ -104,7 +104,7 @@ public class TestRunner
 
         if (failedNames.Count > 0 || notImplementedNames.Count > 0)
         {
-            FormattedConsole.WriteLine("  &Cyan;Press any key to see failed and not implemented test names...\n");
+            FormattedConsole.WriteLine("  &Cyan;Press any key to see failed test names...\n");
 
             Console.ReadKey();
 
@@ -113,12 +113,12 @@ public class TestRunner
                 FormattedConsole.Write($"&Red;{name}\n");
             }
 
-            Console.WriteLine("\n");
+            //Console.WriteLine();
 
-            foreach (var name in notImplementedNames)
-            {
-                FormattedConsole.Write($"&Yellow;{name}\n");
-            }
+            //foreach (var name in notImplementedNames)
+            //{
+            //    FormattedConsole.Write($"&Yellow;{name}\n");
+            //}
 
             Console.WriteLine();
         }

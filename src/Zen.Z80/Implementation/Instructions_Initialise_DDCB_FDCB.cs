@@ -3,6 +3,8 @@
 
 using Zen.Z80.Processor;
 
+#pragma warning disable CS8509
+
 namespace Zen.Z80.Implementation;
 
 public partial class Instructions
@@ -17,7 +19,6 @@ public partial class Instructions
 
             for (var registerNumber = 0; registerNumber < 8; registerNumber++)
             {
-#pragma warning disable CS8509
                 var register = registerNumber switch
                 {
                     0 => Register.B,
@@ -29,7 +30,6 @@ public partial class Instructions
                     6 => (Register?) null,
                     7 => Register.A
                 };
-#pragma warning restore CS8509
 
                 _instructions.Add(baseOpcode + registerNumber, new Instruction(d => RLC_aRRd_R(registerPair, d, register), $"RLC ({registerPair} + d){(register == null ? string.Empty : $", {register}")}", baseOpcode + registerNumber, 0));
 
@@ -46,27 +46,10 @@ public partial class Instructions
                 _instructions.Add(baseOpcode + 0x30 + registerNumber, new Instruction(d => SLL_aRRd_R(registerPair, d, register), $"SLL ({registerPair} + d){(register == null ? string.Empty : $", {register}")}", baseOpcode + 0x30 + registerNumber, 0));
 
                 _instructions.Add(baseOpcode + 0x38 + registerNumber, new Instruction(d => SRL_aRRd_R(registerPair, d, register), $"SRL ({registerPair} + d){(register == null ? string.Empty : $", {register}")}", baseOpcode + 0x38 + registerNumber, 0));
-            }
 
-            for (var bit = 0; bit < 8; bit++)
-            {
-                var innerBit = bit;
-
-                for (var registerNumber = 0; registerNumber < 8; registerNumber++)
+                for (var bit = 0; bit < 8; bit++)
                 {
-#pragma warning disable CS8509
-                    var register = registerNumber switch
-                    {
-                        0 => Register.B,
-                        1 => Register.C,
-                        2 => Register.D,
-                        3 => Register.E,
-                        4 => Register.H,
-                        5 => Register.L,
-                        6 => (Register?) null,
-                        7 => Register.A
-                    };
-#pragma warning restore CS8509
+                    var innerBit = bit;
 
                     _instructions.Add(baseOpcode + 0x40 + registerNumber + bit * 8, new Instruction(d => BIT_b_aRRd((byte) (1 << innerBit), registerPair, d), $"BIT {bit}, ({registerPair} + d)", baseOpcode + 0x40 + registerNumber + bit * 8, 0));
 
