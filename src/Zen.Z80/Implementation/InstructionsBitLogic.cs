@@ -97,6 +97,42 @@ public partial class Instructions
         _state.SetMCycles(4, 4, 3, 5, 4, 3);
     }
 
+    public void RRC_IX_d_R(RegisterPair source, byte[] parameters, Register? target = null)
+    {
+        unchecked
+        {
+            var address = _state[source];
+
+            address = (ushort) (address + (sbyte) parameters[0]);
+
+            var data = _interface.ReadFromMemory(address);
+
+            var bottomBit = (byte) (data & 0x01);
+
+            var result = (byte) ((data >> 1) | (bottomBit << 7));
+
+            _interface.WriteToMemory(address, result);
+
+            if (target != null)
+            {
+                _state[(Register) target] = result;
+            }
+
+            _state[Flag.Carry] = bottomBit  == 1;
+            _state[Flag.AddSubtract] = false;
+            _state[Flag.ParityOverflow] = result.IsEvenParity();
+            _state[Flag.X1] = (address & 0x08) > 0;
+            _state[Flag.HalfCarry] = false;
+            _state[Flag.X2] = (address & 0x20) > 0;
+            _state[Flag.Zero] = result == 0;
+            _state[Flag.Sign] = (sbyte) result < 0;
+
+            _state.MemPtr = address;
+        }
+
+        _state.SetMCycles(4, 4, 3, 5, 4, 3);
+    }
+
     public void SET_b_IX_d_R(byte bit, RegisterPair source, byte[] parameters, Register? target = null)
     {
         unchecked

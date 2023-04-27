@@ -9,30 +9,36 @@ public partial class Instructions
 {
     private void InitialiseDDCBInstructions()
     {
-        _instructions.Add(0xDDCB00, new Instruction(d => RLC_IX_d_R(RegisterPair.IX, d, Register.B), "RLC (IX + d), B", 0xDDCB00, 0));
+        for (var registerNumber = 0; registerNumber < 8; registerNumber++)
+        {
+#pragma warning disable CS8509
+            var register = registerNumber switch
+#pragma warning restore CS8509
+            {
+                0 => Register.B,
+                1 => Register.C,
+                2 => Register.D,
+                3 => Register.E,
+                4 => Register.H,
+                5 => Register.L,
+                6 => (Register?) null,
+                7 => Register.A
+            };
 
-        _instructions.Add(0xDDCB01, new Instruction(d => RLC_IX_d_R(RegisterPair.IX, d, Register.C), "RLC (IX + d), C", 0xDDCB01, 0));
+            _instructions.Add(0xDDCB00, new Instruction(d => RLC_IX_d_R(RegisterPair.IX, d, register), $"RLC (IX + d){(register == null ? string.Empty : $", {register}")}", 0xDDCB00, 0));
 
-        _instructions.Add(0xDDCB02, new Instruction(d => RLC_IX_d_R(RegisterPair.IX, d, Register.D), "RLC (IX + d), D", 0xDDCB02, 0));
+            _instructions.Add(0xDDCB08, new Instruction(d => RRC_IX_d_R(RegisterPair.IX, d, register), $"RRC (IX + d){(register == null ? string.Empty : $", {register}")}", 0xDDCB08, 0));
+        }
 
-        _instructions.Add(0xDDCB03, new Instruction(d => RLC_IX_d_R(RegisterPair.IX, d, Register.E), "RLC (IX + d), E", 0xDDCB03, 0));
-
-        _instructions.Add(0xDDCB04, new Instruction(d => RLC_IX_d_R(RegisterPair.IX, d, Register.H), "RLC (IX + d), H", 0xDDCB04, 0));
-
-        _instructions.Add(0xDDCB05, new Instruction(d => RLC_IX_d_R(RegisterPair.IX, d, Register.L), "RLC (IX + d), L", 0xDDCB05, 0));
-
-        _instructions.Add(0xDDCB06, new Instruction(d => RLC_IX_d_R(RegisterPair.IX, d), "RLC (IX + d)", 0xDDCB06, 0));
-
-        _instructions.Add(0xDDCB07, new Instruction(d => RLC_IX_d_R(RegisterPair.IX, d, Register.A), "RLC (IX + d), A", 0xDDCB07, 0));
-     
         for (var bit = 0; bit < 8; bit++)
         {
             var innerBit = bit;
 
             for (var registerNumber = 0; registerNumber < 8; registerNumber++)
             {
-                // TODO: Create exception for default case?
+#pragma warning disable CS8509
                 var register = registerNumber switch
+#pragma warning restore CS8509
                 {
                     0 => Register.B,
                     1 => Register.C,
@@ -46,9 +52,9 @@ public partial class Instructions
 
                 _instructions.Add(0xDDCB40 + registerNumber + bit * 8, new Instruction(d => BIT_b_IX_d((byte) (1 << innerBit), RegisterPair.IX, d), $"BIT {bit}, (IX + d)", 0xDDCB40 + registerNumber + bit * 8, 0));
 
-                _instructions.Add(0xDDCB80 + registerNumber + bit * 8, new Instruction(d => RES_b_IX_d_R((byte) (1 << innerBit), RegisterPair.IX, d, register), $"RES {bit}, (IX + d) {(register == null ? string.Empty : register)}".Trim(), 0xDDCB80 + registerNumber + bit * 8, 0));
+                _instructions.Add(0xDDCB80 + registerNumber + bit * 8, new Instruction(d => RES_b_IX_d_R((byte) (1 << innerBit), RegisterPair.IX, d, register), $"RES {bit}, (IX + d){(register == null ? string.Empty : $", {register}")}", 0xDDCB80 + registerNumber + bit * 8, 0));
 
-                _instructions.Add(0xDDCBC0 + registerNumber + bit * 8, new Instruction(d => SET_b_IX_d_R((byte) (1 << innerBit), RegisterPair.IX, d, register), $"SET {bit}, (IX + d) {(register == null ? string.Empty : register)}".Trim(), 0xDDCBC0 + registerNumber + bit * 8, 0));
+                _instructions.Add(0xDDCBC0 + registerNumber + bit * 8, new Instruction(d => SET_b_IX_d_R((byte) (1 << innerBit), RegisterPair.IX, d, register), $"SET {bit}, (IX + d){(register == null ? string.Empty : $", {register}")}", 0xDDCBC0 + registerNumber + bit * 8, 0));
             }
         }
     }
