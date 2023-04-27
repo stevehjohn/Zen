@@ -1,4 +1,5 @@
 ﻿// ReSharper disable InconsistentNaming
+
 using Zen.Common.Extensions;
 using Zen.Z80.Processor;
 

@@ -10,7 +10,7 @@ public partial class Instructions
 
         InitialiseDDInstructions();
 
-        InitialiseDDCBInstructions();
+        InitialiseDDCBFDCBInstructions();
 
         InitialiseFDInstructions();
     }
