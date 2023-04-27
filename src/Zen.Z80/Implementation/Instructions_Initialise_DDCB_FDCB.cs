@@ -31,21 +31,24 @@ public partial class Instructions
                     7 => Register.A
                 };
 
-                _instructions.Add(baseOpcode + registerNumber, new Instruction(d => RLC_aRRd_R(registerPair, d, register), $"RLC ({registerPair} + d){(register == null ? string.Empty : $", {register}")}", baseOpcode + registerNumber, 0));
+                if (register != null)
+                {
+                    _instructions.Add(baseOpcode + registerNumber, new Instruction(d => RLC_aRRd_R(registerPair, d, (Register) register), $"RLC ({registerPair} + d, {register}", baseOpcode + registerNumber, 0));
 
-                _instructions.Add(baseOpcode + 0x08 + registerNumber, new Instruction(d => RRC_aRRd_R(registerPair, d, register), $"RRC ({registerPair} + d){(register == null ? string.Empty : $", {register}")}", baseOpcode + 0x08 + registerNumber, 0));
+                    _instructions.Add(baseOpcode + 0x08 + registerNumber, new Instruction(d => RRC_aRRd_R(registerPair, d, register), $"RRC ({registerPair} + d), {register}", baseOpcode + 0x08 + registerNumber, 0));
 
-                _instructions.Add(baseOpcode + 0x10 + registerNumber, new Instruction(d => RL_aRRd_R(registerPair, d, register), $"RL ({registerPair} + d){(register == null ? string.Empty : $", {register}")}", baseOpcode + 0x10 + registerNumber, 0));
+                    _instructions.Add(baseOpcode + 0x10 + registerNumber, new Instruction(d => RL_aRRd_R(registerPair, d, register), $"RL ({registerPair} + d){(register == null ? string.Empty : $", {register}")}", baseOpcode + 0x10 + registerNumber, 0));
 
-                _instructions.Add(baseOpcode + 0x18 + registerNumber, new Instruction(d => RR_aRRd_R(registerPair, d, register), $"RR ({registerPair} + d){(register == null ? string.Empty : $", {register}")}", baseOpcode + 0x18 + registerNumber, 0));
+                    _instructions.Add(baseOpcode + 0x18 + registerNumber, new Instruction(d => RR_aRRd_R(registerPair, d, register), $"RR ({registerPair} + d){(register == null ? string.Empty : $", {register}")}", baseOpcode + 0x18 + registerNumber, 0));
 
-                _instructions.Add(baseOpcode + 0x20 + registerNumber, new Instruction(d => SLA_aRRd_R(registerPair, d, register), $"SLA ({registerPair} + d){(register == null ? string.Empty : $", {register}")}", baseOpcode + 0x20 + registerNumber, 0));
+                    _instructions.Add(baseOpcode + 0x20 + registerNumber, new Instruction(d => SLA_aRRd_R(registerPair, d, register), $"SLA ({registerPair} + d){(register == null ? string.Empty : $", {register}")}", baseOpcode + 0x20 + registerNumber, 0));
 
-                _instructions.Add(baseOpcode + 0x28 + registerNumber, new Instruction(d => SRA_aRRd_R(registerPair, d, register), $"SRA ({registerPair} + d){(register == null ? string.Empty : $", {register}")}", baseOpcode + 0x28 + registerNumber, 0));
+                    _instructions.Add(baseOpcode + 0x28 + registerNumber, new Instruction(d => SRA_aRRd_R(registerPair, d, register), $"SRA ({registerPair} + d){(register == null ? string.Empty : $", {register}")}", baseOpcode + 0x28 + registerNumber, 0));
 
-                _instructions.Add(baseOpcode + 0x30 + registerNumber, new Instruction(d => SLL_aRRd_R(registerPair, d, register), $"SLL ({registerPair} + d){(register == null ? string.Empty : $", {register}")}", baseOpcode + 0x30 + registerNumber, 0));
+                    _instructions.Add(baseOpcode + 0x30 + registerNumber, new Instruction(d => SLL_aRRd_R(registerPair, d, register), $"SLL ({registerPair} + d){(register == null ? string.Empty : $", {register}")}", baseOpcode + 0x30 + registerNumber, 0));
 
-                _instructions.Add(baseOpcode + 0x38 + registerNumber, new Instruction(d => SRL_aRRd_R(registerPair, d, register), $"SRL ({registerPair} + d){(register == null ? string.Empty : $", {register}")}", baseOpcode + 0x38 + registerNumber, 0));
+                    _instructions.Add(baseOpcode + 0x38 + registerNumber, new Instruction(d => SRL_aRRd_R(registerPair, d, register), $"SRL ({registerPair} + d){(register == null ? string.Empty : $", {register}")}", baseOpcode + 0x38 + registerNumber, 0));
+                }
 
                 for (var bit = 0; bit < 8; bit++)
                 {

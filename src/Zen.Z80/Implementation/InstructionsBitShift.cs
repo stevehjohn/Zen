@@ -1,8 +1,8 @@
 ﻿// ReSharper disable InconsistentNaming
+// ReSharper disable IdentifierTypo
 
 using Zen.Common.Extensions;
 using Zen.Z80.Processor;
-// ReSharper disable IdentifierTypo
 
 namespace Zen.Z80.Implementation;
 
@@ -44,7 +44,7 @@ public partial class Instructions
         _state.SetMCycles(4, 4, 3, 5, 4, 3);
     }
 
-    public void RLC_aRRd_R(RegisterPair source, byte[] parameters, Register? target = null)
+    public void RLC_aRRd(RegisterPair source, byte[] parameters)
     {
         unchecked
         {
@@ -60,10 +60,38 @@ public partial class Instructions
 
             _interface.WriteToMemory(address, result);
 
-            if (target != null)
-            {
-                _state[(Register) target] = result;
-            }
+            _state[Flag.Carry] = topBit == 1;
+            _state[Flag.AddSubtract] = false;
+            _state[Flag.ParityOverflow] = result.IsEvenParity();
+            _state[Flag.X1] = (address & 0x08) > 0;
+            _state[Flag.HalfCarry] = false;
+            _state[Flag.X2] = (address & 0x20) > 0;
+            _state[Flag.Zero] = result == 0;
+            _state[Flag.Sign] = (sbyte) result < 0;
+
+            _state.MemPtr = address;
+        }
+
+        _state.SetMCycles(4, 4, 3, 5, 4, 3);
+    }
+
+    public void RLC_aRRd_R(RegisterPair source, byte[] parameters, Register target)
+    {
+        unchecked
+        {
+            var address = _state[source];
+
+            address = (ushort) (address + (sbyte) parameters[0]);
+
+            var data = _interface.ReadFromMemory(address);
+
+            var topBit = (byte) ((data & 0x80) >> 7);
+
+            var result = (byte) (((data << 1) & 0xFE) | topBit);
+
+            _interface.WriteToMemory(address, result);
+
+            _state[target] = result;
 
             _state[Flag.Carry] = topBit == 1;
             _state[Flag.AddSubtract] = false;
@@ -102,7 +130,7 @@ public partial class Instructions
             // Sign unaffected
         }
 
-        _state.SetMCycles(4, 4);
+        _state.SetMCycles(4);
     }
     public void RLC_aRR(RegisterPair register)
     {
