@@ -1,6 +1,7 @@
 ﻿// ReSharper disable InconsistentNaming
 // ReSharper disable IdentifierTypo
 
+using Microsoft.Win32;
 using Zen.Z80.Processor;
 
 #pragma warning disable CS8509
@@ -11,35 +12,39 @@ public partial class Instructions
 {
     private void InitialiseCBGroupInstructions()
     {
-        //var groups = new ushort[] { 0xCB, 0xDDCB, 0xFDCB };
+        InitialiseCBBitResSetInstructions();
+    }
 
-        //foreach (var group in groups)
-        //{
-        //    for (var index = 0; index < 8; index++)
-        //    {
-        //        if (index != 6)
-        //        {
-        //            var register = index switch
-        //            {
-        //                0 => Register.B,
-        //                1 => Register.C,
-        //                2 => Register.D,
-        //                3 => Register.E,
-        //                4 => Register.H,
-        //                5 => Register.L,
-        //                7 => Register.A
-        //            };
+    private void InitialiseCBBitResSetInstructions()
+    {
+        for (var bit = 0; bit < 8; bit++)
+        {
+            var bitMask = (byte) (1 << bit);
 
-        //            if (group == 0xCB)
-        //            {
-        //                InitialiseCBRInstructions(index, register);
-        //            }
-        //            else
-        //            {
-        //                _instructions.Add(group + index, new Instruction(_ => RLC_R(register), $"RLC {register}", group + index, 0));
-        //            }
-        //        }
-        //    }
-        //}
+            for (var registerNumber = 0; registerNumber < 8; registerNumber++)
+            {
+                var opCode = 0xCB40 + bit * 8 + registerNumber;
+
+                if (registerNumber != 6)
+                {
+                    var register = registerNumber switch
+                    {
+                        0 => Register.B,
+                        1 => Register.C,
+                        2 => Register.D,
+                        3 => Register.E,
+                        4 => Register.H,
+                        5 => Register.L,
+                        7 => Register.A
+                    };
+
+                    _instructions.Add(opCode, new Instruction(_ => BIT_b_R(bitMask, register), $"BIT {bit}, {register}", opCode, 0));
+                }
+                else
+                {
+                    _instructions.Add(opCode, new Instruction(_ => BIT_b_aRR(bitMask, RegisterPair.HL), $"BIT {bit}, HL", opCode, 0));
+                }
+            }
+        }
     }
 }

@@ -6,12 +6,12 @@ public partial class Instructions
     {
         InitialiseBaseInstructions();
 
+        InitialiseCBGroupInstructions();
+
         InitialiseDDInstructions();
 
         InitialiseDDCBFDCBInstructions();
 
         InitialiseFDInstructions();
-
-        //InitialiseCBGroupInstructions();
     }
 }

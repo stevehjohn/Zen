@@ -52,11 +52,11 @@ public class CoreTests
 
         _core.ExecuteCycle();
 
-        _interface.Data = 0x00;
+        _interface.Data = 0x40;
         
         _core.ExecuteCycle();
 
-        Assert.Equal(0x02, _state[Register.B]);
+        Assert.False(_state[Flag.Zero]);
     }
 
     [Fact]

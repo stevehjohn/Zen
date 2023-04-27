@@ -154,4 +154,10 @@ public class State
 
         ClockCycles = (ulong) _lastMCycles[0] +  m1 + m2 + m3 + m4 + m5 + m6;
     }
+
+    public void Reset()
+    {
+        // TODO: The rest...
+        InstructionPrefix = 0;
+    }
 }

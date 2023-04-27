@@ -42,7 +42,7 @@ public class TestRunner
 
         foreach (var file in files)
         {
-            if (!Path.GetFileNameWithoutExtension(file).StartsWith("fd cb"))
+            if (!Path.GetFileNameWithoutExtension(file).StartsWith("cb"))
             {
                 continue;
             }
@@ -176,8 +176,11 @@ public class TestRunner
         return (testResult, result.Mnemonic);
     }
 
+    // TODO: Does this need to return State and it's now a member?
     private (bool Passed, int Operations, State State, Dictionary<int, byte> Ram, Exception? Exception, string? Mnemonic) ExecuteTest(TestDefinition test)
     {
+        _state.Reset();
+
         var ram = new Dictionary<int, byte>();
 
         foreach (var pair in test.Initial.Ram)

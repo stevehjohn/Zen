@@ -1,6 +1,5 @@
 ﻿// ReSharper disable InconsistentNaming
 
-using Zen.Common.Extensions;
 using Zen.Z80.Processor;
 
 namespace Zen.Z80.Implementation;
@@ -29,6 +28,50 @@ public partial class Instructions
             _state[Flag.Sign] = (sbyte) result < 0;
 
             _state.MemPtr = address;
+        }
+
+        _state.SetMCycles(4, 4, 3, 5, 4);
+    }
+    
+    public void BIT_b_aRR(byte bit, RegisterPair source)
+    {
+        unchecked
+        {
+            var address = _state[source];
+
+            var data = _interface.ReadFromMemory(address);
+
+            var result = (byte) (data & bit);
+
+            // Carry unaffected
+            _state[Flag.AddSubtract] = false;
+            _state[Flag.ParityOverflow] = result == 0;
+            _state[Flag.X1] = (_state.MemPtr & 0x0800) > 0;
+            _state[Flag.HalfCarry] = true;
+            _state[Flag.X2] = (_state.MemPtr & 0x2000) > 0;
+            _state[Flag.Zero] = result == 0;
+            _state[Flag.Sign] = bit == 0x80 && result != 0;
+        }
+
+        _state.SetMCycles(4, 4, 3, 5, 4);
+    }
+    
+    public void BIT_b_R(byte bit, Register source)
+    {
+        unchecked
+        {
+            var data = _state[source];
+
+            var result = (byte) (data & bit);
+
+            // Carry unaffected
+            _state[Flag.AddSubtract] = false;
+            _state[Flag.ParityOverflow] = result == 0;
+            _state[Flag.X1] = bit == 0x08 && result != 0;
+            _state[Flag.HalfCarry] = true;
+            _state[Flag.X2] = bit == 0x20 && result != 0;
+            _state[Flag.Zero] = result == 0;
+            _state[Flag.Sign] = bit == 0x80 && result != 0;
         }
 
         _state.SetMCycles(4, 4, 3, 5, 4);
