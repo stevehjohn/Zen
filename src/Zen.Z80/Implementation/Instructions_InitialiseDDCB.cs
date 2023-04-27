@@ -38,6 +38,10 @@ public partial class Instructions
             _instructions.Add(0xDDCB20 + registerNumber, new Instruction(d => SLA_aRRd_R(RegisterPair.IX, d, register), $"SLA ({registerPair} + d){(register == null ? string.Empty : $", {register}")}", 0xDDCB20 + registerNumber, 0));
 
             _instructions.Add(0xDDCB28 + registerNumber, new Instruction(d => SRA_aRRd_R(RegisterPair.IX, d, register), $"SRA ({registerPair} + d){(register == null ? string.Empty : $", {register}")}", 0xDDCB28 + registerNumber, 0));
+
+            _instructions.Add(0xDDCB30 + registerNumber, new Instruction(d => SLL_aRRd_R(RegisterPair.IX, d, register), $"SLL ({registerPair} + d){(register == null ? string.Empty : $", {register}")}", 0xDDCB30 + registerNumber, 0));
+
+            _instructions.Add(0xDDCB38 + registerNumber, new Instruction(d => SRL_aRRd_R(RegisterPair.IX, d, register), $"SRL ({registerPair} + d){(register == null ? string.Empty : $", {register}")}", 0xDDCB38 + registerNumber, 0));
         }
 
         for (var bit = 0; bit < 8; bit++)
