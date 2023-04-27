@@ -118,14 +118,28 @@ public partial class Instructions
 
             _state[register] = result;
 
-            _state[Flag.Carry] = topBit == 1;
-            _state[Flag.AddSubtract] = false;
-            _state[Flag.ParityOverflow] = result.IsEvenParity();
-            _state[Flag.X1] = (result & 0x08) > 0;
-            _state[Flag.HalfCarry] = false;
-            _state[Flag.X2] = (result & 0x20) > 0;
-            _state[Flag.Zero] = result == 0;
-            _state[Flag.Sign] = (sbyte) result < 0;
+            if (register == Register.A)
+            {
+                _state[Flag.Carry] = topBit == 1;
+                _state[Flag.AddSubtract] = false;
+                // ParityOverflow unaffected
+                _state[Flag.X1] = (result & 0x08) > 0;
+                _state[Flag.HalfCarry] = false;
+                _state[Flag.X2] = (result & 0x20) > 0;
+                // Zero unaffected
+                // Sign unaffected
+            }
+            else
+            {
+                _state[Flag.Carry] = topBit == 1;
+                _state[Flag.AddSubtract] = false;
+                _state[Flag.ParityOverflow] = result.IsEvenParity();
+                _state[Flag.X1] = (result & 0x08) > 0;
+                _state[Flag.HalfCarry] = false;
+                _state[Flag.X2] = (result & 0x20) > 0;
+                _state[Flag.Zero] = result == 0;
+                _state[Flag.Sign] = (sbyte) result < 0;
+            }
         }
 
         _state.SetMCycles(4, 4);
