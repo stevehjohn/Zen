@@ -1,7 +1,6 @@
 ﻿// ReSharper disable InconsistentNaming
 // ReSharper disable IdentifierTypo
 
-using Microsoft.Win32;
 using Zen.Z80.Processor;
 
 #pragma warning disable CS8509
@@ -41,12 +40,16 @@ public partial class Instructions
                     _instructions.Add(opCode, new Instruction(_ => BIT_b_R(bitMask, register), $"BIT {bit}, {register}", opCode, 0));
 
                     _instructions.Add(opCode + 0x40, new Instruction(_ => RES_b_R(bitMask, register), $"RES {bit}, {register}", opCode + 0x40, 0));
+
+                    _instructions.Add(opCode + 0x80, new Instruction(_ => SET_b_R(bitMask, register), $"SET {bit}, {register}", opCode + 0x80, 0));
                 }
                 else
                 {
                     _instructions.Add(opCode, new Instruction(_ => BIT_b_aRR(bitMask, RegisterPair.HL), $"BIT {bit}, (HL)", opCode, 0));
 
                     _instructions.Add(opCode + 0x40, new Instruction(_ => RES_b_aRR(bitMask, RegisterPair.HL), $"RES {bit}, (HL)", opCode + 0x40, 0));
+
+                    _instructions.Add(opCode + 0x80, new Instruction(_ => SET_b_aRR(bitMask, RegisterPair.HL), $"SET {bit}, (HL)", opCode + 0x80, 0));
                 }
             }
         }

@@ -6,6 +6,7 @@ namespace Zen.Z80.Implementation;
 
 public partial class Instructions
 {
+    // TODO: Check cycles of all...
     public void BIT_b_aRRd(byte bit, RegisterPair source, byte[] parameters)
     {
         unchecked
@@ -156,6 +157,26 @@ public partial class Instructions
             _state.Q = 0;
         }
 
+        _state.SetMCycles(4, 4);
+    }
+
+    public void SET_b_aRR(byte bit, RegisterPair source)
+    {
+        unchecked
+        {
+            var address = _state[source];
+
+            var data = _interface.ReadFromMemory(address);
+
+            var result = (byte)(data | bit);
+
+            _interface.WriteToMemory(address, result);
+
+            _state.MemPtr = address;
+
+            _state.Q = 0;
+        }
+
         _state.SetMCycles(4, 4, 3, 5, 4, 3);
     }
 
@@ -203,6 +224,22 @@ public partial class Instructions
         }
 
         _state.SetMCycles(4, 4, 3, 5, 4, 3);
+    }
+        
+    public void SET_b_R(byte bit, Register source)
+    {
+        unchecked
+        {
+            var data = _state[source];
+
+            var result = (byte) (data | bit);
+
+            _state[source] = result;
+
+            _state.Q = 0;
+        }
+
+        _state.SetMCycles(4, 4);
     }
 
     //public void XOR_R_R(Register target, Register source)
