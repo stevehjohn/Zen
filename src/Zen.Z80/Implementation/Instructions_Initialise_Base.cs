@@ -34,6 +34,10 @@ public partial class Instructions
 
             if (r == 6)
             {
+                _instructions.Add(0x04 + r * 8, new Instruction(_ => INC_aRR(RegisterPair.HL), "INC (HL)", 0x04 + r * 8, 0));
+
+                _instructions.Add(0x05 + r * 8, new Instruction(_ => DEC_aRR(RegisterPair.HL), "DEC (HL)", 0x05 + r * 8, 0));
+
                 _instructions.Add(0x40 + r * 8, new Instruction(_ => LD_aRR_R(RegisterPair.HL, Register.B), "LD (HL), B", 0x40 + r * 8, 0));
 
                 _instructions.Add(0x41 + r * 8, new Instruction(_ => LD_aRR_R(RegisterPair.HL, Register.C), "LD (HL), C", 0x41 + r * 8, 0));
