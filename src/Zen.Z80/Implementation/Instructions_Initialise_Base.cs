@@ -14,6 +14,8 @@ public partial class Instructions
 
         _instructions.Add(0x04, new Instruction(_ => INC_R(Register.B), "INC B", 0x04, 0));
 
+        _instructions.Add(0x05, new Instruction(_ => DEC_R(Register.B), "DEC B", 0x05, 0));
+
         _instructions.Add(0x07, new Instruction(_ => RLCA(), "RLCA", 0x07, 0));
 
         _instructions.Add(0x0C, new Instruction(_ => INC_R(Register.C), "INC C", 0x04, 0));
@@ -22,19 +24,29 @@ public partial class Instructions
 
         _instructions.Add(0x14, new Instruction(_ => INC_R(Register.D), "INC D", 0x14, 0));
 
+        _instructions.Add(0x15, new Instruction(_ => DEC_R(Register.D), "DEC D", 0x15, 0));
+
         _instructions.Add(0x1C, new Instruction(_ => INC_R(Register.E), "INC E", 0x1C, 0));
+
+        _instructions.Add(0x1D, new Instruction(_ => DEC_R(Register.E), "DEC E", 0x1D, 0));
 
         _instructions.Add(0x21, new Instruction(d => LD_RR_nn(RegisterPair.HL, d), "LD HL, nn", 0x21, 2));
 
         _instructions.Add(0x24, new Instruction(_ => INC_R(Register.H), "INC H", 0x24, 0));
 
+        _instructions.Add(0x25, new Instruction(_ => DEC_R(Register.H), "DEC H", 0x25, 0));
+
         _instructions.Add(0x2C, new Instruction(_ => INC_R(Register.L), "INC L", 0x2C, 0));
+
+        _instructions.Add(0x2D, new Instruction(_ => DEC_R(Register.L), "DEC L", 0x2D, 0));
 
         _instructions.Add(0x34, new Instruction(_ => INC_aRR(RegisterPair.HL), "INC (HL)", 0x34, 0));
 
         _instructions.Add(0x35, new Instruction(_ => DEC_aRR(RegisterPair.HL), "DEC (HL)", 0x35, 0));
 
         _instructions.Add(0x3C, new Instruction(_ => INC_R(Register.A), "INC A", 0x3C, 0));
+
+        _instructions.Add(0x3D, new Instruction(_ => DEC_R(Register.A), "INC A", 0x3D, 0));
 
         _instructions.Add(0x70, new Instruction(_ => LD_aRR_R(RegisterPair.HL, Register.B), "LD (HL), B", 0x70, 0));
 
