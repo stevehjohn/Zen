@@ -32,10 +32,10 @@ public class TestRunner
 
         foreach (var file in files)
         {
-            //if (!Path.GetFileName(file).StartsWith("fd cb __ "))
-            //{
-            //    continue;
-            //}
+            if (!Path.GetFileName(file).StartsWith("cb "))
+            {
+                continue;
+            }
 
             var tests = JsonSerializer.Deserialize<TestDefinition[]>(File.ReadAllText(file), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 

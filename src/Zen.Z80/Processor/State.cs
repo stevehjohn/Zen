@@ -112,6 +112,19 @@ public class State
         ClockCycles = (ulong) _lastMCycles[0] +  m1 + m2 + m3;
     }
 
+    public void SetMCycles(byte m1, byte m2, byte m3, byte m4)
+    {
+        _lastMCycles[0] = LastInstruction?.ExtraCycles ?? 0;
+        _lastMCycles[1] = m1;
+        _lastMCycles[2] = m2;
+        _lastMCycles[3] = m3;
+        _lastMCycles[4] = m4;
+        _lastMCycles[5] = 0;
+        _lastMCycles[6] = 0;
+
+        ClockCycles = (ulong) _lastMCycles[0] +  m1 + m2 + m3 + m4;
+    }
+
     public void SetMCycles(byte m1, byte m2, byte m3, byte m4, byte m5)
     {
         _lastMCycles[0] = LastInstruction?.ExtraCycles ?? 0;
