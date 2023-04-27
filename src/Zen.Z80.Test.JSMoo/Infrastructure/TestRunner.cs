@@ -2,10 +2,10 @@
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
+using Zen.Common.ConsoleHelpers;
 using Zen.Z80.Exceptions;
 using Zen.Z80.Processor;
 using Zen.Z80.Test.JSMoo.Models;
-using ZXE.Common.ConsoleHelpers;
 
 namespace Zen.Z80.Test.JSMoo.Infrastructure;
 
@@ -32,10 +32,10 @@ public class TestRunner
 
         foreach (var file in files)
         {
-            if (!Path.GetFileName(file).StartsWith("fd cb __ "))
-            {
-                continue;
-            }
+            //if (!Path.GetFileName(file).StartsWith("fd cb __ "))
+            //{
+            //    continue;
+            //}
 
             var tests = JsonSerializer.Deserialize<TestDefinition[]>(File.ReadAllText(file), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 
