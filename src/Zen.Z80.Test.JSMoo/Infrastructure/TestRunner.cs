@@ -237,8 +237,6 @@ public class TestRunner
 
         try
         {
-            var cycles = 0;
-
             while (true)
             {
                 operations++;
