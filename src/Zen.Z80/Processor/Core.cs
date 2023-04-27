@@ -21,11 +21,9 @@ public class Core
 
     public void ExecuteCycle()
     {
-        _interface.Mreq = true;
+        var data = _interface.ReadFromMemory(_state.ProgramCounter);
 
-        _interface.Address = _state.ProgramCounter;
-
-        var opcode = _state.InstructionPrefix << 8 | _interface.Data;
+        var opcode = _state.InstructionPrefix << 8 | data;
 
         var instruction = _instructions[opcode];
 
@@ -43,13 +41,11 @@ public class Core
 
             for (var p = 0; p < instruction.ParameterLength; p++)
             {
-                _interface.Mreq = true;
-
-                _interface.Address = _state.ProgramCounter;
+                data = _interface.ReadFromMemory(_state.ProgramCounter);
 
                 _state.ProgramCounter++;
 
-                parameters[p] = _interface.Data;
+                parameters[p] = data;
             }
         }
 
