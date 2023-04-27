@@ -1,4 +1,6 @@
-﻿using Zen.Z80.Processor;
+﻿// ReSharper disable StringLiteralTypo
+
+using Zen.Z80.Processor;
 
 namespace Zen.Z80.Implementation;
 
@@ -12,7 +14,7 @@ public partial class Instructions
 
         _instructions.Add(0x04, new Instruction(_ => INC_R(Register.B), "INC B", 0x04, 0));
 
-        _instructions.Add(0x07, new Instruction(_ => RLC_R(Register.A), "RLC A", 0x07, 0));
+        _instructions.Add(0x07, new Instruction(_ => RLCA(), "RLCA", 0x07, 0));
 
         _instructions.Add(0x0C, new Instruction(_ => INC_R(Register.C), "INC C", 0x04, 0));
 
