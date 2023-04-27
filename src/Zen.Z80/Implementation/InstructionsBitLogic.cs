@@ -53,7 +53,7 @@ public partial class Instructions
             _state[Flag.Sign] = bit == 0x80 && result != 0;
         }
 
-        _state.SetMCycles(4, 4, 3, 5, 4);
+        _state.SetMCycles(4, 4, 4);
     }
     
     public void BIT_b_R(byte bit, Register source)
@@ -74,7 +74,7 @@ public partial class Instructions
             _state[Flag.Sign] = bit == 0x80 && result != 0;
         }
 
-        _state.SetMCycles(4, 4, 3, 5, 4);
+        _state.SetMCycles(4, 4);
     }
 
     public void RES_b_aRRd(byte bit, RegisterPair source, byte[] parameters)
@@ -116,6 +116,42 @@ public partial class Instructions
             _state[target] = result;
 
             _state.MemPtr = address;
+
+            _state.Q = 0;
+        }
+
+        _state.SetMCycles(4, 4, 3, 5, 4, 3);
+    }
+
+    public void RES_b_aRR(byte bit, RegisterPair source)
+    {
+        unchecked
+        {
+            var address = _state[source];
+
+            var data = _interface.ReadFromMemory(address);
+
+            var result = (byte) (data & ~bit);
+
+            _interface.WriteToMemory(address, result);
+
+            _state.MemPtr = address;
+
+            _state.Q = 0;
+        }
+
+        _state.SetMCycles(4, 4, 3, 5, 4, 3);
+    }
+    
+    public void RES_b_R(byte bit, Register source)
+    {
+        unchecked
+        {
+            var data = _state[source];
+
+            var result = (byte) (data & ~bit);
+
+            _state[source] = result;
 
             _state.Q = 0;
         }

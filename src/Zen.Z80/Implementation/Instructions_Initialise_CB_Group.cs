@@ -39,10 +39,14 @@ public partial class Instructions
                     };
 
                     _instructions.Add(opCode, new Instruction(_ => BIT_b_R(bitMask, register), $"BIT {bit}, {register}", opCode, 0));
+
+                    _instructions.Add(opCode + 0x40, new Instruction(_ => RES_b_R(bitMask, register), $"RES {bit}, {register}", opCode + 0x40, 0));
                 }
                 else
                 {
-                    _instructions.Add(opCode, new Instruction(_ => BIT_b_aRR(bitMask, RegisterPair.HL), $"BIT {bit}, HL", opCode, 0));
+                    _instructions.Add(opCode, new Instruction(_ => BIT_b_aRR(bitMask, RegisterPair.HL), $"BIT {bit}, (HL)", opCode, 0));
+
+                    _instructions.Add(opCode + 0x40, new Instruction(_ => RES_b_aRR(bitMask, RegisterPair.HL), $"RES {bit}, (HL)", opCode + 0x40, 0));
                 }
             }
         }
