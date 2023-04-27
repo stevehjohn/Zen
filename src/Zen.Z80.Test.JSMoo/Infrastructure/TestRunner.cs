@@ -32,10 +32,10 @@ public class TestRunner
 
         foreach (var file in files)
         {
-            if (Path.GetFileName(file).CompareTo("dd cb ") < 0)
-            {
-                continue;
-            }
+            //if (Path.GetFileName(file).CompareTo("dd cb ") < 0)
+            //{
+            //    continue;
+            //}
 
             var tests = JsonSerializer.Deserialize<TestDefinition[]>(File.ReadAllText(file), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 
@@ -286,10 +286,6 @@ public class TestRunner
         foreach (var pair in test.Final.Ram)
         {
             pass = pass && ram[pair[0]] == pair[1];
-        }
-
-        if (! pass)
-        {
         }
 
         return (pass, operations, state, ram, null, firstMnemonic);
