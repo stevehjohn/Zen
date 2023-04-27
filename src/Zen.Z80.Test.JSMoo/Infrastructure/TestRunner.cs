@@ -1,4 +1,4 @@
-﻿#define UNATTENDED
+﻿//#define UNATTENDED
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
@@ -13,7 +13,18 @@ namespace Zen.Z80.Test.JSMoo.Infrastructure;
 [ExcludeFromCodeCoverage]
 public class TestRunner
 {
-    public static void RunTests()
+    private readonly Interface _interface = new();
+
+    private readonly State _state = new();
+
+    private readonly Core _processor;
+
+    public TestRunner()
+    {
+        _processor = new Core(_interface, _state);
+    }
+
+    public void RunTests()
     {
         var files = Directory.EnumerateFiles("TestDefinitions", "*.json");
 
@@ -31,10 +42,10 @@ public class TestRunner
 
         foreach (var file in files)
         {
-            //if (!Path.GetFileNameWithoutExtension(file).StartsWith("dd cb "))
-            //{
-            //    continue;
-            //}
+            if (!Path.GetFileNameWithoutExtension(file).StartsWith("fd cb"))
+            {
+                continue;
+            }
 
             var tests = JsonSerializer.Deserialize<TestDefinition[]>(File.ReadAllText(file), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 
@@ -117,7 +128,7 @@ public class TestRunner
         Console.CursorVisible = true;
     }
 
-    private static (TestResult Result, string? Mnemonic) RunTest(TestDefinition test)
+    private (TestResult Result, string? Mnemonic) RunTest(TestDefinition test)
     {
         var result = ExecuteTest(test);
 
@@ -165,22 +176,16 @@ public class TestRunner
         return (testResult, result.Mnemonic);
     }
 
-    private static (bool Passed, int Operations, State State, Dictionary<int, byte> Ram, Exception? Exception, string? Mnemonic) ExecuteTest(TestDefinition test)
+    private (bool Passed, int Operations, State State, Dictionary<int, byte> Ram, Exception? Exception, string? Mnemonic) ExecuteTest(TestDefinition test)
     {
         var ram = new Dictionary<int, byte>();
-
-        var @interface = new Interface();
-
-        var state = new State();
-
-        var processor = new Core(@interface, state);
 
         foreach (var pair in test.Initial.Ram)
         {
             ram[pair[0]] = (byte) pair[1];
         }
 
-        @interface.AddressChanged = i =>
+        _interface.AddressChanged = i =>
         {
             if (i.TransferType == TransferType.Read)
             {
@@ -192,35 +197,35 @@ public class TestRunner
             }
         };
 
-        state.ProgramCounter = (ushort) test.Initial.PC;
-        state.StackPointer = (ushort) test.Initial.SP;
+        _state.ProgramCounter = (ushort) test.Initial.PC;
+        _state.StackPointer = (ushort) test.Initial.SP;
 
-        state[Register.A] = test.Initial.A;
-        state[Register.B] = test.Initial.B;
-        state[Register.C] = test.Initial.C;
-        state[Register.D] = test.Initial.D;
-        state[Register.E] = test.Initial.E;
-        state[Register.F] = test.Initial.F;
-        state[Register.H] = test.Initial.H;
-        state[Register.L] = test.Initial.L;
-        state[Register.A_] = test.Initial.A;
-        state[Register.B_] = test.Initial.B;
-        state[Register.C_] = test.Initial.C;
-        state[Register.D_] = test.Initial.D;
-        state[Register.E_] = test.Initial.E;
-        state[Register.F_] = test.Initial.F;
-        state[Register.H_] = test.Initial.H;
-        state[Register.L_] = test.Initial.L;
-        state[Register.I] = test.Initial.I;
-        state[Register.R] = test.Initial.R;
-        state[RegisterPair.IX] = test.Initial.IX;
-        state[RegisterPair.IY] = test.Initial.IY;
+        _state[Register.A] = test.Initial.A;
+        _state[Register.B] = test.Initial.B;
+        _state[Register.C] = test.Initial.C;
+        _state[Register.D] = test.Initial.D;
+        _state[Register.E] = test.Initial.E;
+        _state[Register.F] = test.Initial.F;
+        _state[Register.H] = test.Initial.H;
+        _state[Register.L] = test.Initial.L;
+        _state[Register.A_] = test.Initial.A;
+        _state[Register.B_] = test.Initial.B;
+        _state[Register.C_] = test.Initial.C;
+        _state[Register.D_] = test.Initial.D;
+        _state[Register.E_] = test.Initial.E;
+        _state[Register.F_] = test.Initial.F;
+        _state[Register.H_] = test.Initial.H;
+        _state[Register.L_] = test.Initial.L;
+        _state[Register.I] = test.Initial.I;
+        _state[Register.R] = test.Initial.R;
+        _state[RegisterPair.IX] = test.Initial.IX;
+        _state[RegisterPair.IY] = test.Initial.IY;
 
-        state.MemPtr = test.Initial.WZ;
-        state.Q = test.Initial.Q;
+        _state.MemPtr = test.Initial.WZ;
+        _state.Q = test.Initial.Q;
 
-        state.InterruptFlipFlop1 = test.Initial.IFF1 > 0;
-        state.InterruptFlipFlop2 = test.Initial.IFF2 > 0;
+        _state.InterruptFlipFlop1 = test.Initial.IFF1 > 0;
+        _state.InterruptFlipFlop2 = test.Initial.IFF2 > 0;
 
         var operations = 0;
 
@@ -237,14 +242,14 @@ public class TestRunner
                     break;
                 }
 
-                processor.ExecuteCycle();
+                _processor.ExecuteCycle();
 
-                if (firstMnemonic == null && ! state.LastInstruction!.Mnemonic.StartsWith("PREFIX"))
+                if (firstMnemonic == null && ! _state.LastInstruction!.Mnemonic.StartsWith("PREFIX"))
                 {
-                    firstMnemonic = state.LastInstruction.Mnemonic;
+                    firstMnemonic = _state.LastInstruction.Mnemonic;
                 }
 
-                if (state.ClockCycles >= (ulong) test.Cycles.Length)
+                if (_state.ClockCycles >= (ulong) test.Cycles.Length)
                 {
                     break;
                 }
@@ -252,29 +257,29 @@ public class TestRunner
         }
         catch (Exception exception)
         {
-            if (firstMnemonic == null && state.LastInstruction != null && ! state.LastInstruction.Mnemonic.StartsWith("PREFIX"))
+            if (firstMnemonic == null && _state.LastInstruction != null && ! _state.LastInstruction.Mnemonic.StartsWith("PREFIX"))
             {
-                firstMnemonic = state.LastInstruction.Mnemonic;
+                firstMnemonic = _state.LastInstruction.Mnemonic;
             }
 
-            return (false, operations, state, ram, exception, firstMnemonic);
+            return (false, operations, _state, ram, exception, firstMnemonic);
         }
 
-        var pass = state.ProgramCounter == test.Final.PC
-                   && state.StackPointer == test.Final.SP
-                   && state[Register.A] == test.Final.A
-                   && state[Register.B] == test.Final.B
-                   && state[Register.C] == test.Final.C
-                   && state[Register.D] == test.Final.D
-                   && state[Register.E] == test.Final.E
+        var pass = _state.ProgramCounter == test.Final.PC
+                   && _state.StackPointer == test.Final.SP
+                   && _state[Register.A] == test.Final.A
+                   && _state[Register.B] == test.Final.B
+                   && _state[Register.C] == test.Final.C
+                   && _state[Register.D] == test.Final.D
+                   && _state[Register.E] == test.Final.E
                    // TODO: Test undocumented flags.
-                   && (state[Register.F] & 0b1101_0111) == (test.Final.F & 0b1101_0111)
-                   && state[Register.H] == test.Final.H
-                   && state[Register.L] == test.Final.L
-                   && state[Register.I] == test.Final.I
-                   && state[Register.R] == test.Final.R
-                   && state[RegisterPair.IX] == test.Final.IX
-                   && state[RegisterPair.IY] == test.Final.IY;
+                   && (_state[Register.F] & 0b1101_0111) == (test.Final.F & 0b1101_0111)
+                   && _state[Register.H] == test.Final.H
+                   && _state[Register.L] == test.Final.L
+                   && _state[Register.I] == test.Final.I
+                   && _state[Register.R] == test.Final.R
+                   && _state[RegisterPair.IX] == test.Final.IX
+                   && _state[RegisterPair.IY] == test.Final.IY;
         // TODO: Alternate registers? Q, MemPtr etc...?
 
         foreach (var pair in test.Final.Ram)
@@ -282,10 +287,10 @@ public class TestRunner
             pass = pass && ram[pair[0]] == pair[1];
         }
 
-        return (pass, operations, state, ram, null, firstMnemonic);
+        return (pass, operations, _state, ram, null, firstMnemonic);
     }
 
-    private static void DumpTest(TestDefinition test)
+    private void DumpTest(TestDefinition test)
     {
         var result = ExecuteTest(test);
 

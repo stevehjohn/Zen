@@ -60,6 +60,8 @@ public class Core
             instruction.Execute(parameters[..1]);
 
             _state.LastInstruction = instruction;
+
+            _state.InstructionPrefix = 0;
         }
 
         UpdateR(instruction);

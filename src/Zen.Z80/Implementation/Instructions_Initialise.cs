@@ -10,8 +10,8 @@ public partial class Instructions
 
         InitialiseDDCBFDCBInstructions();
 
-        //InitialiseCBGroupInstructions();
+        InitialiseFDInstructions();
 
-        //InitialiseFDInstructions();
+        //InitialiseCBGroupInstructions();
     }
 }

@@ -8,7 +8,9 @@ namespace Zen.Z80.Test.JSMoo
     {
         public static void Main()
         {
-            TestRunner.RunTests();
+            var runner = new TestRunner();
+
+            runner.RunTests();
 
             Console.ReadKey();
         }

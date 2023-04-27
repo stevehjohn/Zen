@@ -1,6 +1,5 @@
 ﻿// ReSharper disable InconsistentNaming
-using Zen.Z80.Processor;
-
+// ReSharper disable StringLiteralTypo
 namespace Zen.Z80.Implementation;
 
 public partial class Instructions
@@ -15,6 +14,6 @@ public partial class Instructions
 
         //_instructions.Add(0xFD21, new Instruction(d => LD_RR_nn(RegisterPair.IY, d), "LD IY, nn", 0xFD21, 2, 4));
 
-        //_instructions.Add(0xFDCB, new Instruction(_ => PREFIX(0xFDCB), "PREFIX 0xFDCB", 0xFDCB, 2));
+        _instructions.Add(0xFDCB, new Instruction(_ => PREFIX(0xFDCB), "PREFIX 0xFDCB", 0xFDCB, 2));
     }
 }
