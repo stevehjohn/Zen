@@ -52,6 +52,8 @@ public partial class Instructions
             }
             else
             {
+                _instructions.Add(0x04 + r * 8, new Instruction(_ => INC_R((Register) register!), $"INC {register}", 0x04 + r * 8, 0));
+
                 _instructions.Add(0x40 + r * 8, new Instruction(_ => LD_R_R((Register) register!, Register.B), $"LD {register}, B", 0x40 + r * 8, 0));
 
                 _instructions.Add(0x41 + r * 8, new Instruction(_ => LD_R_R((Register) register!, Register.C), $"LD {register}, C", 0x41 + r * 8, 0));
