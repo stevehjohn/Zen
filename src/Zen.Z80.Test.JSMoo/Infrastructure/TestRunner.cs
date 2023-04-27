@@ -1,8 +1,9 @@
-﻿#define UNATTENDED
+﻿// #define UNATTENDED
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
 using Zen.Common.ConsoleHelpers;
+using Zen.Common.Extensions;
 using Zen.Z80.Exceptions;
 using Zen.Z80.Processor;
 using Zen.Z80.Test.JSMoo.Models;
@@ -62,7 +63,7 @@ public class TestRunner
                     case TestResult.Fail:
                         failedNames.Add($"{test.Name}: {result.Mnemonic ?? "UNKNOWN"}");
 
-                        // DumpTest(test);
+                        DumpTest(test);
 
 #if UNATTENDED
                         skipRemainder = true;
@@ -227,9 +228,8 @@ public class TestRunner
         state.MemPtr = test.Initial.WZ;
         state.Q = test.Initial.Q;
 
-        // TODO
-        //state.InterruptFlipFlop1 = test.Initial.IFF1 > 0;
-        //state.InterruptFlipFlop2 = test.Initial.IFF2 > 0;
+        state.InterruptFlipFlop1 = test.Initial.IFF1 > 0;
+        state.InterruptFlipFlop2 = test.Initial.IFF2 > 0;
 
         var operations = 0;
 
@@ -287,5 +287,49 @@ public class TestRunner
         }
 
         return (pass, operations, state, ram, null, firstMnemonic);
+    }
+
+    private static void DumpTest(TestDefinition test)
+    {
+        var result = ExecuteTest(test);
+
+        if (result.Exception != null)
+        {
+            FormattedConsole.WriteLine($"\n    &Cyan;Exception&White;: &Red;{result.Exception.GetType().Name}");
+        }
+
+        FormattedConsole.WriteLine("\n&Cyan;        Initial       Expected      Actual");
+
+        FormattedConsole.WriteLine($"    &Cyan;PC&White;: &Green;0x{test.Initial.PC:X4}        0x{test.Final.PC:X4}        {(test.Final.PC == result.State.ProgramCounter ? "&Green;" : "&Red;")}0x{result.State.ProgramCounter:X4}");
+        FormattedConsole.WriteLine($"    &Cyan;SP&White;: &Green;0x{test.Initial.SP:X4}        0x{test.Final.SP:X4}        {(test.Final.SP == result.State.StackPointer ? "&Green;" : "&Red;")}0x{result.State.StackPointer:X4}");
+
+        FormattedConsole.WriteLine($"    &Cyan;A &White;: &Green;0x{test.Initial.A:X2}          0x{test.Final.A:X2}          {(test.Final.A == result.State[Register.A] ? "&Green;" : "&Red;")}0x{result.State[Register.A]:X2}");
+        FormattedConsole.WriteLine($"    &Cyan;B &White;: &Green;0x{test.Initial.B:X2}          0x{test.Final.B:X2}          {(test.Final.B == result.State[Register.B] ? "&Green;" : "&Red;")}0x{result.State[Register.B]:X2}");
+        FormattedConsole.WriteLine($"    &Cyan;C &White;: &Green;0x{test.Initial.C:X2}          0x{test.Final.C:X2}          {(test.Final.C == result.State[Register.C] ? "&Green;" : "&Red;")}0x{result.State[Register.C]:X2}");
+        FormattedConsole.WriteLine($"    &Cyan;D &White;: &Green;0x{test.Initial.D:X2}          0x{test.Final.D:X2}          {(test.Final.D == result.State[Register.D] ? "&Green;" : "&Red;")}0x{result.State[Register.D]:X2}");
+        FormattedConsole.WriteLine($"    &Cyan;E &White;: &Green;0x{test.Initial.E:X2}          0x{test.Final.E:X2}          {(test.Final.E == result.State[Register.E] ? "&Green;" : "&Red;")}0x{result.State[Register.E]:X2}");
+        FormattedConsole.WriteLine($"    &Cyan;F &White;: &Green;0x{test.Initial.F:X2}          0x{test.Final.F:X2}          {(test.Final.F == result.State[Register.F] ? "&Green;" : "&Red;")}0x{result.State[Register.F]:X2}");
+        FormattedConsole.WriteLine($"    &Cyan;H &White;: &Green;0x{test.Initial.H:X2}          0x{test.Final.H:X2}          {(test.Final.H == result.State[Register.H] ? "&Green;" : "&Red;")}0x{result.State[Register.H]:X2}");
+        FormattedConsole.WriteLine($"    &Cyan;L &White;: &Green;0x{test.Initial.L:X2}          0x{test.Final.L:X2}          {(test.Final.L == result.State[Register.L] ? "&Green;" : "&Red;")}0x{result.State[Register.L]:X2}");
+
+        FormattedConsole.WriteLine($"    &Cyan;I &White;: &Green;0x{test.Initial.I:X2}          0x{test.Final.I:X2}          {(test.Final.I == result.State[Register.I] ? "&Green;" : "&Red;")}0x{result.State[Register.I]:X2}");
+        FormattedConsole.WriteLine($"    &Cyan;R &White;: &Green;0x{test.Initial.R:X2}          0x{test.Final.R:X2}          {(test.Final.R == result.State[Register.R] ? "&Green;" : "&Red;")}0x{result.State[Register.R]:X2}");
+
+        FormattedConsole.WriteLine($"    &Cyan;Q &White;: &Green;0x{test.Initial.Q:X2}          0x{test.Final.Q:X2}          {(test.Final.Q == result.State.Q ? "&Green;" : "&Red;")}0x{result.State.Q:X2}");
+        
+        var initialFlags = test.Initial.F.ToFlags();
+
+        var expectedFlags = test.Final.F.ToFlags();
+
+        FormattedConsole.WriteLine(
+            $"\n    &Cyan;F &White;: &Green;{initialFlags}      &Cyan;F &White;: &Green;{expectedFlags}      {(test.Final.F == result.State[Register.F] ? "&Green;" : "&Red;")}{result.State[Register.F].ToFlags()}");
+
+        FormattedConsole.WriteLine(string.Empty);
+
+#if ! UNATTENDED
+        FormattedConsole.WriteLine("\n    &Cyan;Press any key to continue...\n");
+
+        Console.ReadKey();
+#endif
     }
 }
