@@ -42,10 +42,10 @@ public class TestRunner
 
         foreach (var file in files)
         {
-            if (!Path.GetFileNameWithoutExtension(file).StartsWith("cb"))
-            {
-                continue;
-            }
+            //if (!Path.GetFileNameWithoutExtension(file).StartsWith("cb"))
+            //{
+            //    continue;
+            //}
 
             var tests = JsonSerializer.Deserialize<TestDefinition[]>(File.ReadAllText(file), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 

@@ -159,5 +159,7 @@ public class State
     {
         // TODO: The rest...
         InstructionPrefix = 0;
+
+        LastInstruction = null;
     }
 }
