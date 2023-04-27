@@ -10,11 +10,45 @@ public partial class Instructions
 
         _instructions.Add(0x01, new Instruction(d => LD_RR_nn(RegisterPair.BC, d), "LD BC, nn", 0x01, 2));
 
+        _instructions.Add(0x04, new Instruction(_ => INC_R(Register.B), "INC B", 0x04, 0));
+
         _instructions.Add(0x07, new Instruction(_ => RLC_R(Register.A), "RLC A", 0x07, 0));
+
+        _instructions.Add(0x0C, new Instruction(_ => INC_R(Register.C), "INC C", 0x04, 0));
 
         _instructions.Add(0x11, new Instruction(d => LD_RR_nn(RegisterPair.DE, d), "LD DE, nn", 0x11, 2));
 
+        _instructions.Add(0x14, new Instruction(_ => INC_R(Register.D), "INC D", 0x14, 0));
+
+        _instructions.Add(0x1C, new Instruction(_ => INC_R(Register.E), "INC E", 0x1C, 0));
+
         _instructions.Add(0x21, new Instruction(d => LD_RR_nn(RegisterPair.HL, d), "LD HL, nn", 0x21, 2));
+
+        _instructions.Add(0x24, new Instruction(_ => INC_R(Register.H), "INC H", 0x24, 0));
+
+        _instructions.Add(0x2C, new Instruction(_ => INC_R(Register.L), "INC L", 0x2C, 0));
+
+        _instructions.Add(0x34, new Instruction(_ => INC_aRR(RegisterPair.HL), "INC (HL)", 0x34, 0));
+
+        _instructions.Add(0x35, new Instruction(_ => DEC_aRR(RegisterPair.HL), "DEC (HL)", 0x35, 0));
+
+        _instructions.Add(0x3C, new Instruction(_ => INC_R(Register.A), "INC A", 0x3C, 0));
+
+        _instructions.Add(0x70, new Instruction(_ => LD_aRR_R(RegisterPair.HL, Register.B), "LD (HL), B", 0x70, 0));
+
+        _instructions.Add(0x71, new Instruction(_ => LD_aRR_R(RegisterPair.HL, Register.C), "LD (HL), C", 0x71, 0));
+
+        _instructions.Add(0x72, new Instruction(_ => LD_aRR_R(RegisterPair.HL, Register.D), "LD (HL), D", 0x72, 0));
+
+        _instructions.Add(0x73, new Instruction(_ => LD_aRR_R(RegisterPair.HL, Register.E), "LD (HL), E", 0x73, 0));
+
+        _instructions.Add(0x74, new Instruction(_ => LD_aRR_R(RegisterPair.HL, Register.H), "LD (HL), H", 0x74, 0));
+
+        _instructions.Add(0x75, new Instruction(_ => LD_aRR_R(RegisterPair.HL, Register.L), "LD (HL), L", 0x75, 0));
+
+        _instructions.Add(0x76, new Instruction(_ => HALT(), "HALT", 0x76, 0));
+
+        _instructions.Add(0x77, new Instruction(_ => LD_aRR_R(RegisterPair.HL, Register.A), "LD (HL), A", 0x77, 0));
 
         for (var r = 0; r < 8; r++)
         {
@@ -32,32 +66,8 @@ public partial class Instructions
             };
 #pragma warning restore CS8509
 
-            if (r == 6)
+            if (r != 6)
             {
-                _instructions.Add(0x04 + r * 8, new Instruction(_ => INC_aRR(RegisterPair.HL), "INC (HL)", 0x04 + r * 8, 0));
-
-                _instructions.Add(0x05 + r * 8, new Instruction(_ => DEC_aRR(RegisterPair.HL), "DEC (HL)", 0x05 + r * 8, 0));
-
-                _instructions.Add(0x40 + r * 8, new Instruction(_ => LD_aRR_R(RegisterPair.HL, Register.B), "LD (HL), B", 0x40 + r * 8, 0));
-
-                _instructions.Add(0x41 + r * 8, new Instruction(_ => LD_aRR_R(RegisterPair.HL, Register.C), "LD (HL), C", 0x41 + r * 8, 0));
-
-                _instructions.Add(0x42 + r * 8, new Instruction(_ => LD_aRR_R(RegisterPair.HL, Register.D), "LD (HL), D", 0x42 + r * 8, 0));
-
-                _instructions.Add(0x43 + r * 8, new Instruction(_ => LD_aRR_R(RegisterPair.HL, Register.E), "LD (HL), E", 0x43 + r * 8, 0));
-
-                _instructions.Add(0x44 + r * 8, new Instruction(_ => LD_aRR_R(RegisterPair.HL, Register.H), "LD (HL), H", 0x44 + r * 8, 0));
-
-                _instructions.Add(0x45 + r * 8, new Instruction(_ => LD_aRR_R(RegisterPair.HL, Register.L), "LD (HL), L", 0x45 + r * 8, 0));
-
-                _instructions.Add(0x46 + r * 8, new Instruction(_ => HALT(), "HALT", 0x46 + r * 8, 0));
-
-                _instructions.Add(0x47 + r * 8, new Instruction(_ => LD_aRR_R(RegisterPair.HL, Register.A), "LD (HL), A", 0x47 + r * 8, 0));
-            }
-            else
-            {
-                _instructions.Add(0x04 + r * 8, new Instruction(_ => INC_R((Register) register!), $"INC {register}", 0x04 + r * 8, 0));
-
                 _instructions.Add(0x05 + r * 8, new Instruction(_ => DEC_R((Register) register!), $"DEC {register}", 0x05 + r * 8, 0));
 
                 _instructions.Add(0x40 + r * 8, new Instruction(_ => LD_R_R((Register) register!, Register.B), $"LD {register}, B", 0x40 + r * 8, 0));
