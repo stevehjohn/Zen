@@ -132,6 +132,7 @@ public partial class Instructions
 
         _state.SetMCycles(4);
     }
+
     public void RLC_aRR(RegisterPair register)
     {
         unchecked
