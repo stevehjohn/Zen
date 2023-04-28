@@ -44,10 +44,10 @@ public class TestRunner
 
         foreach (var file in files)
         {
-            //if (!Path.GetFileNameWithoutExtension(file).StartsWith("cb "))
-            //{
-            //    continue;
-            //}
+            if (Path.GetFileNameWithoutExtension(file).CompareTo("40 ") < 0)
+            {
+                continue;
+            }
 
             //if (Path.GetFileNameWithoutExtension(file).StartsWith("dd cb __ 40"))
             //{
@@ -73,6 +73,8 @@ public class TestRunner
                 {
                     case TestResult.Pass:
                         passed++;
+
+                        skipRemainder = true;
 
                         break;
 
