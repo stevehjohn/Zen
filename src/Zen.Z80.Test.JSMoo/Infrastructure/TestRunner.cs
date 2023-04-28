@@ -44,10 +44,10 @@ public class TestRunner
 
         foreach (var file in files)
         {
-            //if (!Path.GetFileNameWithoutExtension(file).StartsWith("dd cb "))
-            //{
-            //    continue;
-            //}
+            if (!Path.GetFileNameWithoutExtension(file).StartsWith("cb "))
+            {
+                continue;
+            }
 
             //if (Path.GetFileNameWithoutExtension(file).StartsWith("dd cb __ 40"))
             //{
