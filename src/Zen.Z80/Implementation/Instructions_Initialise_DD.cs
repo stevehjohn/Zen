@@ -59,4 +59,5 @@ public partial class Instructions
         _instructions.Add(0xDD3C, new Instruction(_ => INC_R(Register.A), "INC A", 0xDD3C, 0, 4));
 
         _instructions.Add(0xDD3D, new Instruction(_ => DEC_R(Register.A), "DEC A", 0xDD3D, 0, 4));
-    }}
+    }
+}
