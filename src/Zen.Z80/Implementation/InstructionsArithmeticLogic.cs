@@ -299,6 +299,29 @@ public partial class Instructions
         _state.SetMCycles(4, 4, 3, 5, 3);
     }
 
+    public void CP_R_n(Register register, byte[] parameters)
+    {
+        unchecked
+        {
+            var left = _state[register];
+
+            var right = parameters[0];
+
+            var result = left - right;
+
+            _state[Flag.Carry] = right > left;
+            _state[Flag.AddSubtract] = true;
+            _state[Flag.ParityOverflow] = ((left ^ right) & 0x80) != 0 && ((right ^ (byte) result) & 0x80) == 0;
+            _state[Flag.X1] = (right & 0x08) > 0;
+            _state[Flag.HalfCarry] = (left & 0x0F) < (right & 0x0F);
+            _state[Flag.X2] = (right & 0x20) > 0;
+            _state[Flag.Zero] = result == 0;
+            _state[Flag.Sign] = (byte) result > 0x7F;
+        }
+
+        _state.SetMCycles(4, 3);
+    }
+
     public void CP_R_R(Register target, Register source)
     {
         unchecked
