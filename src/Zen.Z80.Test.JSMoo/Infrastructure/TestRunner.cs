@@ -292,7 +292,7 @@ public class TestRunner
             return (false, operations, _state, ram, exception, firstMnemonic, false);
         }
 
-        var warn = _state.ClockCycles !+ (ulong) test.Cycles.Length;
+        var warn = _state.ClockCycles != (ulong) test.Cycles.Length;
 
         var pass = _state.ProgramCounter == test.Final.PC
                    && _state.StackPointer == test.Final.SP
