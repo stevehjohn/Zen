@@ -35,10 +35,7 @@ public partial class Instructions
 
                     if (right == 6)
                     {
-                        if (prefix == 0x00)
-                        {
-                            _instructions.Add(opCode, new Instruction(_ => HALT(), "HALT", opCode, 0));
-                        }
+                        _instructions.Add(opCode, new Instruction(_ => HALT(), "HALT", opCode, 0, extraCycles));
 
                         continue;
                     }
@@ -54,7 +51,23 @@ public partial class Instructions
                         7 => Register.A
                     };
 
-                    _instructions.Add(opCode, new Instruction(_ => LD_aRR_R(RegisterPair.HL, rightRegister), $"LD (HL), {rightRegister}", opCode, 0));
+                    switch (prefix)
+                    {
+                        case 0xDD00:
+                            _instructions.Add(opCode, new Instruction(p => LD_aRRd_R(RegisterPair.IX, p, rightRegister), $"LD (IX + d), {rightRegister}", opCode, 1));
+
+                            break;
+
+                        case 0xFD00:
+                            _instructions.Add(opCode, new Instruction(p => LD_aRRd_R(RegisterPair.IY, p, rightRegister), $"LD (IY + d), {rightRegister}", opCode, 1));
+
+                            break;
+
+                        default:
+                            _instructions.Add(opCode, new Instruction(_ => LD_aRR_R(RegisterPair.HL, rightRegister), $"LD (HL), {rightRegister}", opCode, 0));
+
+                            break;
+                    }
                 }
 
                 continue;
@@ -66,8 +79,8 @@ public partial class Instructions
                 1 => Register.C,
                 2 => Register.D,
                 3 => Register.E,
-                4 => prefix == 0x00 ? Register.H : prefix == 0xDD ? Register.IXh : Register.IYh,
-                5 => prefix == 0x00 ? Register.L : prefix == 0xDD ? Register.IXl : Register.IYl,
+                4 => prefix == 0x00 ? Register.H : prefix == 0xDD00 ? Register.IXh : Register.IYh,
+                5 => prefix == 0x00 ? Register.L : prefix == 0xDD00 ? Register.IXl : Register.IYl,
                 7 => Register.A
             };
 
@@ -77,7 +90,34 @@ public partial class Instructions
 
                 if (right == 6)
                 {
-                    _instructions.Add(opCode, new Instruction(_ => LD_R_aRR(leftRegister, RegisterPair.HL), $"LD {leftRegister}, (HL)", opCode, 0));
+                    if (prefix != 0x00)
+                    {
+                        var pair = prefix == 0xDD00 ? RegisterPair.IX : RegisterPair.IY;
+
+                        switch (leftRegister)
+                        {
+                            case Register.IXh:
+                            case Register.IYh:
+                                _instructions.Add(opCode, new Instruction(p => LD_R_aRRd(Register.H, pair, p), $"LD H, ({pair} + d)", opCode, 1));
+
+                                break;
+
+                            case Register.IXl:
+                            case Register.IYl:
+                                _instructions.Add(opCode, new Instruction(p => LD_R_aRRd(Register.L, pair, p), $"LD L, ({pair} + d)", opCode, 1));
+
+                                break;
+
+                            default:
+                                _instructions.Add(opCode, new Instruction(p => LD_R_aRRd(leftRegister, pair, p), $"LD {leftRegister}, ({pair} + d)", opCode, 1));
+
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        _instructions.Add(opCode, new Instruction(_ => LD_R_aRR(leftRegister, RegisterPair.HL), $"LD {leftRegister}, (HL)", opCode, 0));
+                    }
 
                     continue;
                 }
@@ -88,8 +128,8 @@ public partial class Instructions
                     1 => Register.C,
                     2 => Register.D,
                     3 => Register.E,
-                    4 => prefix == 0x00 ? Register.H : prefix == 0xDD ? Register.IXh : Register.IYh,
-                    5 => prefix == 0x00 ? Register.L : prefix == 0xDD ? Register.IXl : Register.IYl,
+                    4 => prefix == 0x00 ? Register.H : prefix == 0xDD00 ? Register.IXh : Register.IYh,
+                    5 => prefix == 0x00 ? Register.L : prefix == 0xDD00 ? Register.IXl : Register.IYl,
                     7 => Register.A
                 };
 
