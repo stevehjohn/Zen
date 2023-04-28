@@ -269,6 +269,10 @@ public class TestRunner
                     break;
                 }
 
+                if (test.Name.StartsWith("DD 34"))
+                {
+                }
+
                 _processor.ExecuteCycle();
 
                 if (firstMnemonic == null && ! _state.LastInstruction!.Mnemonic.StartsWith("PREFIX"))
