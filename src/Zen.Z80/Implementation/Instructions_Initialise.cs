@@ -23,6 +23,8 @@ public partial class Instructions
 
     private void InitialiseLDByteInstructions(int prefix = 0x00)
     {
+        var extraCycles = (byte) (prefix != 0x00 ? 4 : 0);
+
         for (var left = 0; left < 8; left++)
         {
             if (left == 6)
@@ -64,8 +66,8 @@ public partial class Instructions
                 1 => Register.C,
                 2 => Register.D,
                 3 => Register.E,
-                4 => prefix == 0x00 ? Register.H : prefix == 0xDD ? Register.IXh : Register.IXl,
-                5 => prefix == 0x00 ? Register.L : prefix == 0xDD ? Register.IYh : Register.IYl,
+                4 => prefix == 0x00 ? Register.H : prefix == 0xDD ? Register.IXh : Register.IYh,
+                5 => prefix == 0x00 ? Register.L : prefix == 0xDD ? Register.IXl : Register.IYl,
                 7 => Register.A
             };
 
@@ -86,12 +88,13 @@ public partial class Instructions
                     1 => Register.C,
                     2 => Register.D,
                     3 => Register.E,
-                    4 => prefix == 0x00 ? Register.H : prefix == 0xDD ? Register.IXh : Register.IXl,
-                    5 => prefix == 0x00 ? Register.L : prefix == 0xDD ? Register.IYh : Register.IYl,
+                    4 => prefix == 0x00 ? Register.H : prefix == 0xDD ? Register.IXh : Register.IYh,
+                    5 => prefix == 0x00 ? Register.L : prefix == 0xDD ? Register.IXl : Register.IYl,
                     7 => Register.A
                 };
 
-                _instructions.Add(opCode, new Instruction(_ => LD_R_R(leftRegister, rightRegister), $"LD {leftRegister}, {rightRegister}", opCode, 0));
+                _instructions.Add(opCode, new Instruction(_ => LD_R_R(leftRegister, rightRegister), $"LD {leftRegister}, {rightRegister}", opCode, 0, extraCycles));
             }
         }
-    }}
+    }
+}

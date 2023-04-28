@@ -362,6 +362,9 @@ public class TestRunner
 
         FormattedConsole.WriteLine($"    &Cyan;Q &White;: &Green;0x{test.Initial.Q:X2}          0x{test.Final.Q:X2}          {(test.Final.Q == result.State.Q ? "&Green;" : "&Red;")}0x{result.State.Q:X2}");
 
+        FormattedConsole.WriteLine($"    &Cyan;IX&White;: &Green;0x{test.Initial.IX:X4}        0x{test.Final.IX:X4}        {(test.Final.IX == result.State[RegisterPair.IX] ? "&Green;" : "&Red;")}0x{result.State[RegisterPair.IX]:X4}");
+        FormattedConsole.WriteLine($"    &Cyan;IY&White;: &Green;0x{test.Initial.IY:X4}        0x{test.Final.IY:X4}        {(test.Final.IY == result.State[RegisterPair.IY] ? "&Green;" : "&Red;")}0x{result.State[RegisterPair.IY]:X4}");
+
         var initialFlags = test.Initial.F.ToFlags();
 
         var expectedFlags = test.Final.F.ToFlags();
