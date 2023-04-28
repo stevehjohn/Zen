@@ -108,6 +108,8 @@ public partial class Instructions
 
                 _instructions.Add(0x88 + index, new Instruction(_ => ADC_R_aRR(Register.A, RegisterPair.HL), "ADC A, (HL)", 0x88 + index, 0));
 
+                _instructions.Add(0x90 + index, new Instruction(_ => SUB_R_aRR(Register.A, RegisterPair.HL), "SUB A, (HL)", 0x90 + index, 0));
+
                 continue;
             }
 
@@ -125,6 +127,8 @@ public partial class Instructions
             _instructions.Add(0x80 + index, new Instruction(_ => ADD_R_R(Register.A, rightRegister), $"ADD A, {rightRegister}", 0x80 + index, 0));
 
             _instructions.Add(0x88 + index, new Instruction(_ => ADC_R_R(Register.A, rightRegister), $"ADC A, {rightRegister}", 0x88 + index, 0));
+
+            _instructions.Add(0x90 + index, new Instruction(_ => SUB_R_R(Register.A, rightRegister), $"SUB A, {rightRegister}", 0x90 + index, 0));
         }
     }
 }
