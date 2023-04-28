@@ -1,4 +1,6 @@
-﻿//#define UNATTENDED
+﻿#define UNATTENDED
+#define UNDOCUMENTED
+// #define EXACT
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
@@ -66,8 +68,6 @@ public class TestRunner
                 {
                     case TestResult.Pass:
                         passed++;
-
-                        skipRemainder = true;
 
                         break;
 
@@ -275,15 +275,30 @@ public class TestRunner
                    && _state[Register.C] == test.Final.C
                    && _state[Register.D] == test.Final.D
                    && _state[Register.E] == test.Final.E
-                   // TODO: Test undocumented flags.
                    && (_state[Register.F] & 0b1101_0111) == (test.Final.F & 0b1101_0111)
                    && _state[Register.H] == test.Final.H
                    && _state[Register.L] == test.Final.L
                    && _state[Register.I] == test.Final.I
                    && _state[Register.R] == test.Final.R
                    && _state[RegisterPair.IX] == test.Final.IX
-                   && _state[RegisterPair.IY] == test.Final.IY;
-        // TODO: Alternate registers? Q, MemPtr etc...?
+                   && _state[RegisterPair.IY] == test.Final.IY
+                   && _state[RegisterPair.AF_] == test.Final.AF_
+                   && _state[RegisterPair.BC_] == test.Final.BC_
+                   && _state[RegisterPair.DE_] == test.Final.DE_
+                   && _state[RegisterPair.HL_] == test.Final.HL_;
+
+        pass &= _state.InterruptFlipFlop1 == test.Final.IFF1 > 0
+                && _state.InterruptFlipFlop2 == test.Final.IFF2 > 0;
+
+#if UNDOCUMENTED
+        pass &= _state[Register.F] == test.Final.F;
+#endif
+
+#if EXACT
+        pass &= _state[Register.F] == test.Final.F
+                && _state.Q == test.Final.Q
+                && _state.MemPtr == test.Final.WZ;
+#endif
 
         foreach (var pair in test.Final.Ram)
         {
@@ -320,7 +335,7 @@ public class TestRunner
         FormattedConsole.WriteLine($"    &Cyan;R &White;: &Green;0x{test.Initial.R:X2}          0x{test.Final.R:X2}          {(test.Final.R == result.State[Register.R] ? "&Green;" : "&Red;")}0x{result.State[Register.R]:X2}");
 
         FormattedConsole.WriteLine($"    &Cyan;Q &White;: &Green;0x{test.Initial.Q:X2}          0x{test.Final.Q:X2}          {(test.Final.Q == result.State.Q ? "&Green;" : "&Red;")}0x{result.State.Q:X2}");
-        
+
         var initialFlags = test.Initial.F.ToFlags();
 
         var expectedFlags = test.Final.F.ToFlags();
