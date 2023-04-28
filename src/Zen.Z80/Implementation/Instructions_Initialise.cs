@@ -175,6 +175,14 @@ public partial class Instructions
                     _instructions.Add(prefix + 0x90 + index, new Instruction(p => SUB_R_aRRd(Register.A, pair, p), $"SUB A, ({pair} + d)", prefix + 0x90 + index, 1, extraCycles));
 
                     _instructions.Add(prefix + 0x98 + index, new Instruction(p => SBC_R_aRRd(Register.A, pair, p), $"SBC A, ({pair} + d)", prefix + 0x98 + index, 1, extraCycles));
+
+                    _instructions.Add(prefix + 0xA0 + index, new Instruction(p => AND_R_aRRd(Register.A, pair, p), $"AND A, ({pair} + d)", prefix + 0xA0 + index, 1, extraCycles));
+
+                    _instructions.Add(prefix + 0xA8 + index, new Instruction(p => XOR_R_aRRd(Register.A, pair, p), $"XOR A, ({pair} + d)", prefix + 0xA8 + index, 1, extraCycles));
+
+                    _instructions.Add(prefix + 0xB0 + index, new Instruction(p => OR_R_aRRd(Register.A, pair, p), $"OR A, ({pair} + d)", prefix + 0xB0 + index, 1, extraCycles));
+
+                    _instructions.Add(prefix + 0xB8 + index, new Instruction(p => CP_R_aRRd(Register.A, pair, p), $"CP A, ({pair} + d)", prefix + 0xB8 + index, 1, extraCycles));
                 }
 
                 continue;
