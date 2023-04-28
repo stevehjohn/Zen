@@ -8,9 +8,9 @@ public partial class Instructions
 {
     private void InitialiseBaseInstructions()
     {
-        //        _instructions.Add(0x00, new Instruction(_ => NOP(), "NOP", 0x00, 0));
+        _instructions.Add(0x00, new Instruction(_ => NOP(), "NOP", 0x00, 0));
 
-        //        _instructions.Add(0x01, new Instruction(d => LD_RR_nn(RegisterPair.BC, d), "LD BC, nn", 0x01, 2));
+        _instructions.Add(0x01, new Instruction(d => LD_RR_nn(RegisterPair.BC, d), "LD BC, nn", 0x01, 2));
 
         //        _instructions.Add(0x04, new Instruction(_ => INC_R(Register.B), "INC B", 0x04, 0));
 

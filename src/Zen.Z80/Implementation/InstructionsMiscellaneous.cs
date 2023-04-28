@@ -1,4 +1,5 @@
 ﻿// ReSharper disable InconsistentNaming
+
 namespace Zen.Z80.Implementation;
 
 public partial class Instructions
@@ -12,12 +13,12 @@ public partial class Instructions
     //    _state.SetMCycles(4);
     //}
 
-    //private void NOP()
-    //{
-    //    _state.Q = 0;
+    private void NOP()
+    {
+        _state.Q = 0;
 
-    //    _state.SetMCycles(4);
-    //}
+        _state.SetMCycles(4);
+    }
 
     private void PREFIX(ushort parameters)
     {
