@@ -116,6 +116,8 @@ public partial class Instructions
 
                 _instructions.Add(0xA8 + index, new Instruction(_ => XOR_R_aRR(Register.A, RegisterPair.HL), "XOR A, (HL)", 0xA8 + index, 0));
 
+                _instructions.Add(0xB0 + index, new Instruction(_ => OR_R_aRR(Register.A, RegisterPair.HL), "OR A, (HL)", 0xB0 + index, 0));
+
                 continue;
             }
 
@@ -141,6 +143,8 @@ public partial class Instructions
             _instructions.Add(0xA0 + index, new Instruction(_ => AND_R_R(Register.A, rightRegister), $"AND A, {rightRegister}", 0xA0 + index, 0));
 
             _instructions.Add(0xA8 + index, new Instruction(_ => XOR_R_R(Register.A, rightRegister), $"XOR A, {rightRegister}", 0xA8 + index, 0));
+
+            _instructions.Add(0xB0 + index, new Instruction(_ => OR_R_R(Register.A, rightRegister), $"OR A, {rightRegister}", 0xB0 + index, 0));
         }
     }
 }

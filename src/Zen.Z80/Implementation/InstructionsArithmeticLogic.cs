@@ -122,7 +122,7 @@ public partial class Instructions
             var address = _state[source];
 
             var right = _interface.ReadFromMemory(address);
-            
+
             var result = _state[target] & right;
 
             _state[target] = (byte) result;
@@ -263,6 +263,52 @@ public partial class Instructions
             _state[Flag.HalfCarry] = (left & 0x0F) < (right & 0x0F);
             _state[Flag.X2] = (result & 0x20) > 0;
             _state[Flag.Zero] = (byte) result == 0;
+            _state[Flag.Sign] = (sbyte) result < 0;
+        }
+
+        _state.SetMCycles(4);
+    }
+
+    public void OR_R_aRR(Register target, RegisterPair source)
+    {
+        unchecked
+        {
+            var address = _state[source];
+
+            var data = _interface.ReadFromMemory(address);
+
+            var result = (byte) (data | _state[target]);
+
+            _state[target] = result;
+
+            _state[Flag.Carry] = false;
+            _state[Flag.AddSubtract] = false;
+            _state[Flag.ParityOverflow] = result.IsEvenParity();
+            _state[Flag.X1] = (result & 0x08) > 0;
+            _state[Flag.HalfCarry] = false;
+            _state[Flag.X2] = (result & 0x20) > 0;
+            _state[Flag.Zero] = result == 0;
+            _state[Flag.Sign] = (sbyte) result < 0;
+        }
+
+        _state.SetMCycles(4, 3);
+    }
+
+    public void OR_R_R(Register target, Register source)
+    {
+        unchecked
+        {
+            var result = (byte) (_state[source] | _state[target]);
+
+            _state[target] = result;
+
+            _state[Flag.Carry] = false;
+            _state[Flag.AddSubtract] = false;
+            _state[Flag.ParityOverflow] = result.IsEvenParity();
+            _state[Flag.X1] = (result & 0x08) > 0;
+            _state[Flag.HalfCarry] = false;
+            _state[Flag.X2] = (result & 0x20) > 0;
+            _state[Flag.Zero] = result == 0;
             _state[Flag.Sign] = (sbyte) result < 0;
         }
 
