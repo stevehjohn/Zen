@@ -12,6 +12,8 @@ public partial class Instructions
     private void InitialiseCBInstructions()
     {
         InitialiseCBBitResSetInstructions();
+
+        InitialiseCBBitShiftInstructions();
     }
 
     private void InitialiseCBBitResSetInstructions()
@@ -51,6 +53,34 @@ public partial class Instructions
 
                     _instructions.Add(opCode + 0x80, new Instruction(_ => SET_b_aRR(bitMask, RegisterPair.HL), $"SET {bit}, (HL)", opCode + 0x80, 0));
                 }
+            }
+        }
+    }
+
+    private void InitialiseCBBitShiftInstructions()
+    {
+        for (var registerNumber = 0; registerNumber < 8; registerNumber++)
+        {
+            var opCode = 0xCB00 + registerNumber;
+
+            if (registerNumber != 6)
+            {
+                var register = registerNumber switch
+                {
+                    0 => Register.B,
+                    1 => Register.C,
+                    2 => Register.D,
+                    3 => Register.E,
+                    4 => Register.H,
+                    5 => Register.L,
+                    7 => Register.A
+                };
+
+                _instructions.Add(opCode, new Instruction(_ => RLC_R(register), $"RLC {register}", opCode, 0));
+            }
+            else
+            {
+                _instructions.Add(opCode, new Instruction(_ => RLC_aRR(RegisterPair.HL), "RLC (HL)", opCode, 0));
             }
         }
     }
