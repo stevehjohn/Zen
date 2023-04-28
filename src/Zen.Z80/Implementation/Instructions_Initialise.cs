@@ -6,7 +6,7 @@ public partial class Instructions
     {
         InitialiseBaseInstructions();
 
-        InitialiseCBGroupInstructions();
+        InitialiseCBInstructions();
 
         InitialiseDDInstructions();
 

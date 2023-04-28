@@ -68,9 +68,9 @@ public partial class Instructions
             // Carry unaffected
             _state[Flag.AddSubtract] = false;
             _state[Flag.ParityOverflow] = result == 0;
-            _state[Flag.X1] = bit == 0x08 && result != 0;
+            _state[Flag.X1] = (data & 0x08) > 0;
             _state[Flag.HalfCarry] = true;
-            _state[Flag.X2] = bit == 0x20 && result != 0;
+            _state[Flag.X2] = (data & 0x20) > 0;
             _state[Flag.Zero] = result == 0;
             _state[Flag.Sign] = bit == 0x80 && result != 0;
         }

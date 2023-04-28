@@ -9,7 +9,7 @@ namespace Zen.Z80.Implementation;
 
 public partial class Instructions
 {
-    private void InitialiseCBGroupInstructions()
+    private void InitialiseCBInstructions()
     {
         InitialiseCBBitResSetInstructions();
     }

@@ -14,24 +14,24 @@ public partial class Instructions
         {
             var address = _state[source];
 
-            address = (ushort)(address + (sbyte)parameters[0]);
+            address = (ushort) (address + (sbyte) parameters[0]);
 
             var data = _interface.ReadFromMemory(address);
 
-            var topBit = (byte)((data & 0x80) >> 7);
+            var topBit = (byte) ((data & 0x80) >> 7);
 
-            var result = (byte)(((data << 1) & 0xFE) | (byte)(_state[Flag.Carry] ? 0x01 : 0x00));
+            var result = (byte) (((data << 1) & 0xFE) | (byte) (_state[Flag.Carry] ? 0x01 : 0x00));
 
             _interface.WriteToMemory(address, result);
 
             _state[Flag.Carry] = topBit == 1;
             _state[Flag.AddSubtract] = false;
             _state[Flag.ParityOverflow] = result.IsEvenParity();
-            _state[Flag.X1] = (address & 0x08) > 0;
+            _state[Flag.X1] = (result & 0x08) > 0;
             _state[Flag.HalfCarry] = false;
-            _state[Flag.X2] = (address & 0x20) > 0;
+            _state[Flag.X2] = (result & 0x20) > 0;
             _state[Flag.Zero] = result == 0;
-            _state[Flag.Sign] = (sbyte)result < 0;
+            _state[Flag.Sign] = (sbyte) result < 0;
 
             _state.MemPtr = address;
         }
@@ -45,13 +45,13 @@ public partial class Instructions
         {
             var address = _state[source];
 
-            address = (ushort)(address + (sbyte)parameters[0]);
+            address = (ushort) (address + (sbyte) parameters[0]);
 
             var data = _interface.ReadFromMemory(address);
 
-            var topBit = (byte)((data & 0x80) >> 7);
+            var topBit = (byte) ((data & 0x80) >> 7);
 
-            var result = (byte)(((data << 1) & 0xFE) | (byte)(_state[Flag.Carry] ? 0x01 : 0x00));
+            var result = (byte) (((data << 1) & 0xFE) | (byte) (_state[Flag.Carry] ? 0x01 : 0x00));
 
             _interface.WriteToMemory(address, result);
 
@@ -60,11 +60,11 @@ public partial class Instructions
             _state[Flag.Carry] = topBit == 1;
             _state[Flag.AddSubtract] = false;
             _state[Flag.ParityOverflow] = result.IsEvenParity();
-            _state[Flag.X1] = (address & 0x08) > 0;
+            _state[Flag.X1] = (result & 0x08) > 0;
             _state[Flag.HalfCarry] = false;
-            _state[Flag.X2] = (address & 0x20) > 0;
+            _state[Flag.X2] = (result & 0x20) > 0;
             _state[Flag.Zero] = result == 0;
-            _state[Flag.Sign] = (sbyte)result < 0;
+            _state[Flag.Sign] = (sbyte) result < 0;
 
             _state.MemPtr = address;
         }
@@ -78,24 +78,24 @@ public partial class Instructions
         {
             var address = _state[source];
 
-            address = (ushort)(address + (sbyte)parameters[0]);
+            address = (ushort) (address + (sbyte) parameters[0]);
 
             var data = _interface.ReadFromMemory(address);
 
-            var topBit = (byte)((data & 0x80) >> 7);
+            var topBit = (byte) ((data & 0x80) >> 7);
 
-            var result = (byte)(((data << 1) & 0xFE) | topBit);
+            var result = (byte) (((data << 1) & 0xFE) | topBit);
 
             _interface.WriteToMemory(address, result);
 
             _state[Flag.Carry] = topBit == 1;
             _state[Flag.AddSubtract] = false;
             _state[Flag.ParityOverflow] = result.IsEvenParity();
-            _state[Flag.X1] = (address & 0x08) > 0;
+            _state[Flag.X1] = (result & 0x08) > 0;
             _state[Flag.HalfCarry] = false;
-            _state[Flag.X2] = (address & 0x20) > 0;
+            _state[Flag.X2] = (result & 0x20) > 0;
             _state[Flag.Zero] = result == 0;
-            _state[Flag.Sign] = (sbyte)result < 0;
+            _state[Flag.Sign] = (sbyte) result < 0;
 
             _state.MemPtr = address;
         }
@@ -109,13 +109,13 @@ public partial class Instructions
         {
             var address = _state[source];
 
-            address = (ushort)(address + (sbyte)parameters[0]);
+            address = (ushort) (address + (sbyte) parameters[0]);
 
             var data = _interface.ReadFromMemory(address);
 
-            var topBit = (byte)((data & 0x80) >> 7);
+            var topBit = (byte) ((data & 0x80) >> 7);
 
-            var result = (byte)(((data << 1) & 0xFE) | topBit);
+            var result = (byte) (((data << 1) & 0xFE) | topBit);
 
             _interface.WriteToMemory(address, result);
 
@@ -124,11 +124,11 @@ public partial class Instructions
             _state[Flag.Carry] = topBit == 1;
             _state[Flag.AddSubtract] = false;
             _state[Flag.ParityOverflow] = result.IsEvenParity();
-            _state[Flag.X1] = (address & 0x08) > 0;
+            _state[Flag.X1] = (result & 0x08) > 0;
             _state[Flag.HalfCarry] = false;
-            _state[Flag.X2] = (address & 0x20) > 0;
+            _state[Flag.X2] = (result & 0x20) > 0;
             _state[Flag.Zero] = result == 0;
-            _state[Flag.Sign] = (sbyte)result < 0;
+            _state[Flag.Sign] = (sbyte) result < 0;
 
             _state.MemPtr = address;
         }
@@ -142,13 +142,13 @@ public partial class Instructions
         {
             var address = _state[source];
 
-            address = (ushort)(address + (sbyte)parameters[0]);
+            address = (ushort) (address + (sbyte) parameters[0]);
 
             var data = _interface.ReadFromMemory(address);
 
-            var bottomBit = (byte)(data & 0x01);
+            var bottomBit = (byte) (data & 0x01);
 
-            var result = (byte)((data >> 1) | (byte)(_state[Flag.Carry] ? 0x80 : 0x00));
+            var result = (byte) ((data >> 1) | (byte) (_state[Flag.Carry] ? 0x80 : 0x00));
 
             _interface.WriteToMemory(address, result);
 
@@ -157,11 +157,11 @@ public partial class Instructions
             _state[Flag.Carry] = bottomBit == 1;
             _state[Flag.AddSubtract] = false;
             _state[Flag.ParityOverflow] = result.IsEvenParity();
-            _state[Flag.X1] = (address & 0x08) > 0;
+            _state[Flag.X1] = (result & 0x08) > 0;
             _state[Flag.HalfCarry] = false;
-            _state[Flag.X2] = (address & 0x20) > 0;
+            _state[Flag.X2] = (result & 0x20) > 0;
             _state[Flag.Zero] = result == 0;
-            _state[Flag.Sign] = (sbyte)result < 0;
+            _state[Flag.Sign] = (sbyte) result < 0;
 
             _state.MemPtr = address;
         }
@@ -175,24 +175,24 @@ public partial class Instructions
         {
             var address = _state[source];
 
-            address = (ushort)(address + (sbyte)parameters[0]);
+            address = (ushort) (address + (sbyte) parameters[0]);
 
             var data = _interface.ReadFromMemory(address);
 
-            var bottomBit = (byte)(data & 0x01);
+            var bottomBit = (byte) (data & 0x01);
 
-            var result = (byte)((data >> 1) | (byte)(_state[Flag.Carry] ? 0x80 : 0x00));
+            var result = (byte) ((data >> 1) | (byte) (_state[Flag.Carry] ? 0x80 : 0x00));
 
             _interface.WriteToMemory(address, result);
 
             _state[Flag.Carry] = bottomBit == 1;
             _state[Flag.AddSubtract] = false;
             _state[Flag.ParityOverflow] = result.IsEvenParity();
-            _state[Flag.X1] = (address & 0x08) > 0;
+            _state[Flag.X1] = (result & 0x08) > 0;
             _state[Flag.HalfCarry] = false;
-            _state[Flag.X2] = (address & 0x20) > 0;
+            _state[Flag.X2] = (result & 0x20) > 0;
             _state[Flag.Zero] = result == 0;
-            _state[Flag.Sign] = (sbyte)result < 0;
+            _state[Flag.Sign] = (sbyte) result < 0;
 
             _state.MemPtr = address;
         }
@@ -206,13 +206,13 @@ public partial class Instructions
         {
             var address = _state[source];
 
-            address = (ushort)(address + (sbyte)parameters[0]);
+            address = (ushort) (address + (sbyte) parameters[0]);
 
             var data = _interface.ReadFromMemory(address);
 
-            var bottomBit = (byte)(data & 0x01);
+            var bottomBit = (byte) (data & 0x01);
 
-            var result = (byte)((data >> 1) | (bottomBit << 7));
+            var result = (byte) ((data >> 1) | (bottomBit << 7));
 
             _interface.WriteToMemory(address, result);
 
@@ -221,11 +221,11 @@ public partial class Instructions
             _state[Flag.Carry] = bottomBit == 1;
             _state[Flag.AddSubtract] = false;
             _state[Flag.ParityOverflow] = result.IsEvenParity();
-            _state[Flag.X1] = (address & 0x08) > 0;
+            _state[Flag.X1] = (result & 0x08) > 0;
             _state[Flag.HalfCarry] = false;
-            _state[Flag.X2] = (address & 0x20) > 0;
+            _state[Flag.X2] = (result & 0x20) > 0;
             _state[Flag.Zero] = result == 0;
-            _state[Flag.Sign] = (sbyte)result < 0;
+            _state[Flag.Sign] = (sbyte) result < 0;
 
             _state.MemPtr = address;
         }
@@ -239,24 +239,24 @@ public partial class Instructions
         {
             var address = _state[source];
 
-            address = (ushort)(address + (sbyte)parameters[0]);
+            address = (ushort) (address + (sbyte) parameters[0]);
 
             var data = _interface.ReadFromMemory(address);
 
-            var bottomBit = (byte)(data & 0x01);
+            var bottomBit = (byte) (data & 0x01);
 
-            var result = (byte)((data >> 1) | (bottomBit << 7));
+            var result = (byte) ((data >> 1) | (bottomBit << 7));
 
             _interface.WriteToMemory(address, result);
 
             _state[Flag.Carry] = bottomBit == 1;
             _state[Flag.AddSubtract] = false;
             _state[Flag.ParityOverflow] = result.IsEvenParity();
-            _state[Flag.X1] = (address & 0x08) > 0;
+            _state[Flag.X1] = (result & 0x08) > 0;
             _state[Flag.HalfCarry] = false;
-            _state[Flag.X2] = (address & 0x20) > 0;
+            _state[Flag.X2] = (result & 0x20) > 0;
             _state[Flag.Zero] = result == 0;
-            _state[Flag.Sign] = (sbyte)result < 0;
+            _state[Flag.Sign] = (sbyte) result < 0;
 
             _state.MemPtr = address;
         }
@@ -270,24 +270,24 @@ public partial class Instructions
         {
             var address = _state[source];
 
-            address = (ushort)(address + (sbyte)parameters[0]);
+            address = (ushort) (address + (sbyte) parameters[0]);
 
             var data = _interface.ReadFromMemory(address);
 
-            var topBit = (byte)((data & 0x80) >> 7);
+            var topBit = (byte) ((data & 0x80) >> 7);
 
-            var result = (byte)((data << 1) & 0xFE);
+            var result = (byte) ((data << 1) & 0xFE);
 
             _interface.WriteToMemory(address, result);
 
             _state[Flag.Carry] = topBit == 1;
             _state[Flag.AddSubtract] = false;
             _state[Flag.ParityOverflow] = result.IsEvenParity();
-            _state[Flag.X1] = (address & 0x08) > 0;
+            _state[Flag.X1] = (result & 0x08) > 0;
             _state[Flag.HalfCarry] = false;
-            _state[Flag.X2] = (address & 0x20) > 0;
+            _state[Flag.X2] = (result & 0x20) > 0;
             _state[Flag.Zero] = result == 0;
-            _state[Flag.Sign] = (sbyte)result < 0;
+            _state[Flag.Sign] = (sbyte) result < 0;
 
             _state.MemPtr = address;
         }
@@ -301,13 +301,13 @@ public partial class Instructions
         {
             var address = _state[source];
 
-            address = (ushort)(address + (sbyte)parameters[0]);
+            address = (ushort) (address + (sbyte) parameters[0]);
 
             var data = _interface.ReadFromMemory(address);
 
-            var topBit = (byte)((data & 0x80) >> 7);
+            var topBit = (byte) ((data & 0x80) >> 7);
 
-            var result = (byte)((data << 1) & 0xFE);
+            var result = (byte) ((data << 1) & 0xFE);
 
             _interface.WriteToMemory(address, result);
 
@@ -316,11 +316,11 @@ public partial class Instructions
             _state[Flag.Carry] = topBit == 1;
             _state[Flag.AddSubtract] = false;
             _state[Flag.ParityOverflow] = result.IsEvenParity();
-            _state[Flag.X1] = (address & 0x08) > 0;
+            _state[Flag.X1] = (result & 0x08) > 0;
             _state[Flag.HalfCarry] = false;
-            _state[Flag.X2] = (address & 0x20) > 0;
+            _state[Flag.X2] = (result & 0x20) > 0;
             _state[Flag.Zero] = result == 0;
-            _state[Flag.Sign] = (sbyte)result < 0;
+            _state[Flag.Sign] = (sbyte) result < 0;
 
             _state.MemPtr = address;
         }
@@ -334,24 +334,24 @@ public partial class Instructions
         {
             var address = _state[source];
 
-            address = (ushort)(address + (sbyte)parameters[0]);
+            address = (ushort) (address + (sbyte) parameters[0]);
 
             var data = _interface.ReadFromMemory(address);
 
-            var topBit = (byte)((data & 0x80) >> 7);
+            var topBit = (byte) ((data & 0x80) >> 7);
 
-            var result = (byte)(((data << 1) & 0xFE) | 0x01);
+            var result = (byte) (((data << 1) & 0xFE) | 0x01);
 
             _interface.WriteToMemory(address, result);
 
             _state[Flag.Carry] = topBit == 1;
             _state[Flag.AddSubtract] = false;
             _state[Flag.ParityOverflow] = result.IsEvenParity();
-            _state[Flag.X1] = (address & 0x08) > 0;
+            _state[Flag.X1] = (result & 0x08) > 0;
             _state[Flag.HalfCarry] = false;
-            _state[Flag.X2] = (address & 0x20) > 0;
+            _state[Flag.X2] = (result & 0x20) > 0;
             _state[Flag.Zero] = result == 0;
-            _state[Flag.Sign] = (sbyte)result < 0;
+            _state[Flag.Sign] = (sbyte) result < 0;
 
             _state.MemPtr = address;
         }
@@ -365,13 +365,13 @@ public partial class Instructions
         {
             var address = _state[source];
 
-            address = (ushort)(address + (sbyte)parameters[0]);
+            address = (ushort) (address + (sbyte) parameters[0]);
 
             var data = _interface.ReadFromMemory(address);
 
-            var topBit = (byte)((data & 0x80) >> 7);
+            var topBit = (byte) ((data & 0x80) >> 7);
 
-            var result = (byte)(((data << 1) & 0xFE) | 0x01);
+            var result = (byte) (((data << 1) & 0xFE) | 0x01);
 
             _interface.WriteToMemory(address, result);
 
@@ -380,11 +380,11 @@ public partial class Instructions
             _state[Flag.Carry] = topBit == 1;
             _state[Flag.AddSubtract] = false;
             _state[Flag.ParityOverflow] = result.IsEvenParity();
-            _state[Flag.X1] = (address & 0x08) > 0;
+            _state[Flag.X1] = (result & 0x08) > 0;
             _state[Flag.HalfCarry] = false;
-            _state[Flag.X2] = (address & 0x20) > 0;
+            _state[Flag.X2] = (result & 0x20) > 0;
             _state[Flag.Zero] = result == 0;
-            _state[Flag.Sign] = (sbyte)result < 0;
+            _state[Flag.Sign] = (sbyte) result < 0;
 
             _state.MemPtr = address;
         }
@@ -398,26 +398,26 @@ public partial class Instructions
         {
             var address = _state[source];
 
-            address = (ushort)(address + (sbyte)parameters[0]);
+            address = (ushort) (address + (sbyte) parameters[0]);
 
             var data = _interface.ReadFromMemory(address);
 
-            var topBit = (byte)(data & 0x80);
+            var topBit = (byte) (data & 0x80);
 
-            var bottomBit = (byte)(data & 0x01);
+            var bottomBit = (byte) (data & 0x01);
 
-            var result = (byte)((data >> 1) | topBit);
+            var result = (byte) ((data >> 1) | topBit);
 
             _interface.WriteToMemory(address, result);
 
             _state[Flag.Carry] = bottomBit == 1;
             _state[Flag.AddSubtract] = false;
             _state[Flag.ParityOverflow] = result.IsEvenParity();
-            _state[Flag.X1] = (address & 0x08) > 0;
+            _state[Flag.X1] = (result & 0x08) > 0;
             _state[Flag.HalfCarry] = false;
-            _state[Flag.X2] = (address & 0x20) > 0;
+            _state[Flag.X2] = (result & 0x20) > 0;
             _state[Flag.Zero] = result == 0;
-            _state[Flag.Sign] = (sbyte)result < 0;
+            _state[Flag.Sign] = (sbyte) result < 0;
 
             _state.MemPtr = address;
         }
@@ -431,15 +431,15 @@ public partial class Instructions
         {
             var address = _state[source];
 
-            address = (ushort)(address + (sbyte)parameters[0]);
+            address = (ushort) (address + (sbyte) parameters[0]);
 
             var data = _interface.ReadFromMemory(address);
 
-            var topBit = (byte)(data & 0x80);
+            var topBit = (byte) (data & 0x80);
 
-            var bottomBit = (byte)(data & 0x01);
+            var bottomBit = (byte) (data & 0x01);
 
-            var result = (byte)((data >> 1) | topBit);
+            var result = (byte) ((data >> 1) | topBit);
 
             _interface.WriteToMemory(address, result);
 
@@ -448,11 +448,11 @@ public partial class Instructions
             _state[Flag.Carry] = bottomBit == 1;
             _state[Flag.AddSubtract] = false;
             _state[Flag.ParityOverflow] = result.IsEvenParity();
-            _state[Flag.X1] = (address & 0x08) > 0;
+            _state[Flag.X1] = (result & 0x08) > 0;
             _state[Flag.HalfCarry] = false;
-            _state[Flag.X2] = (address & 0x20) > 0;
+            _state[Flag.X2] = (result & 0x20) > 0;
             _state[Flag.Zero] = result == 0;
-            _state[Flag.Sign] = (sbyte)result < 0;
+            _state[Flag.Sign] = (sbyte) result < 0;
 
             _state.MemPtr = address;
         }
@@ -466,24 +466,24 @@ public partial class Instructions
         {
             var address = _state[source];
 
-            address = (ushort)(address + (sbyte)parameters[0]);
+            address = (ushort) (address + (sbyte) parameters[0]);
 
             var data = _interface.ReadFromMemory(address);
 
-            var bottomBit = (byte)(data & 0x01);
+            var bottomBit = (byte) (data & 0x01);
 
-            var result = (byte)((data >> 1) & 0x7F);
+            var result = (byte) ((data >> 1) & 0x7F);
 
             _interface.WriteToMemory(address, result);
 
             _state[Flag.Carry] = bottomBit == 1;
             _state[Flag.AddSubtract] = false;
             _state[Flag.ParityOverflow] = result.IsEvenParity();
-            _state[Flag.X1] = (address & 0x08) > 0;
+            _state[Flag.X1] = (result & 0x08) > 0;
             _state[Flag.HalfCarry] = false;
-            _state[Flag.X2] = (address & 0x20) > 0;
+            _state[Flag.X2] = (result & 0x20) > 0;
             _state[Flag.Zero] = result == 0;
-            _state[Flag.Sign] = (sbyte)result < 0;
+            _state[Flag.Sign] = (sbyte) result < 0;
 
             _state.MemPtr = address;
         }
@@ -497,13 +497,13 @@ public partial class Instructions
         {
             var address = _state[source];
 
-            address = (ushort)(address + (sbyte)parameters[0]);
+            address = (ushort) (address + (sbyte) parameters[0]);
 
             var data = _interface.ReadFromMemory(address);
 
-            var bottomBit = (byte)(data & 0x01);
+            var bottomBit = (byte) (data & 0x01);
 
-            var result = (byte)((data >> 1) & 0x7F);
+            var result = (byte) ((data >> 1) & 0x7F);
 
             _interface.WriteToMemory(address, result);
 
@@ -512,11 +512,11 @@ public partial class Instructions
             _state[Flag.Carry] = bottomBit == 1;
             _state[Flag.AddSubtract] = false;
             _state[Flag.ParityOverflow] = result.IsEvenParity();
-            _state[Flag.X1] = (address & 0x08) > 0;
+            _state[Flag.X1] = (result & 0x08) > 0;
             _state[Flag.HalfCarry] = false;
-            _state[Flag.X2] = (address & 0x20) > 0;
+            _state[Flag.X2] = (result & 0x20) > 0;
             _state[Flag.Zero] = result == 0;
-            _state[Flag.Sign] = (sbyte)result < 0;
+            _state[Flag.Sign] = (sbyte) result < 0;
 
             _state.MemPtr = address;
         }
