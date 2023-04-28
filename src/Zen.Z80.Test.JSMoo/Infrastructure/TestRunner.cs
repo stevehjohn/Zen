@@ -204,7 +204,7 @@ public class TestRunner
         return (testResult, result.Mnemonic, result.Warn);
     }
 
-    // TODO: Does this need to return State and it's now a member?
+    // TODO: Does this need to return State as it's now a member?
     private (bool Passed, int Operations, State State, Dictionary<int, byte> Ram, Exception? Exception, string? Mnemonic, bool Warn) ExecuteTest(TestDefinition test)
     {
         _state.Reset();

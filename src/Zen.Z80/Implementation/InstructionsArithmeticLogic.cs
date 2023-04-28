@@ -35,6 +35,35 @@ public partial class Instructions
 
         _state.SetMCycles(4, 3);
     }
+    
+    public void ADC_R_aRRd(Register target, RegisterPair source, byte[] parameters)
+    {
+        unchecked
+        {
+            var left = _state[target];
+
+            var address = _state[source];
+
+            address = (ushort) (address + (sbyte) parameters[0]);
+
+            var right = _interface.ReadFromMemory(address);
+
+            var result = left + right;
+
+            _state[target] = (byte) result;
+
+            _state[Flag.Carry] = result > 0xFF;
+            _state[Flag.AddSubtract] = false;
+            _state[Flag.ParityOverflow] = ((left ^ right) & 0x80) == 0 && ((left ^ result) & 0x80) != 0;
+            _state[Flag.X1] = (result & 0x08) > 0;
+            _state[Flag.HalfCarry] = (left & 0x0F) + (right & 0x0F) > 0xF;
+            _state[Flag.X2] = (result & 0x20) > 0;
+            _state[Flag.Zero] = (byte) result == 0;
+            _state[Flag.Sign] = (sbyte) result < 0;
+        }
+
+        _state.SetMCycles(4, 4, 3, 5, 3);
+    }
 
     public void ADC_R_R(Register target, Register source)
     {
@@ -88,6 +117,35 @@ public partial class Instructions
         }
 
         _state.SetMCycles(4, 3);
+    }
+
+    public void ADD_R_aRRd(Register target, RegisterPair source, byte[] parameters)
+    {
+        unchecked
+        {
+            var left = _state[target];
+
+            var address = _state[source];
+
+            address = (ushort) (address + (sbyte) parameters[0]);
+
+            var right = _interface.ReadFromMemory(address);
+
+            var result = left + right;
+
+            _state[target] = (byte) result;
+
+            _state[Flag.Carry] = result > 0xFF;
+            _state[Flag.AddSubtract] = false;
+            _state[Flag.ParityOverflow] = ((left ^ right) & 0x80) == 0 && ((left ^ result) & 0x80) != 0;
+            _state[Flag.X1] = (result & 0x08) > 0;
+            _state[Flag.HalfCarry] = (left & 0x0F) + (right & 0x0F) > 0xF;
+            _state[Flag.X2] = (result & 0x20) > 0;
+            _state[Flag.Zero] = (byte) result == 0;
+            _state[Flag.Sign] = (sbyte) result < 0;
+        }
+
+        _state.SetMCycles(4, 4, 3, 5, 3);
     }
 
     public void ADD_R_R(Register target, Register source)
@@ -209,6 +267,37 @@ public partial class Instructions
         _state.SetMCycles(4);
     }
 
+    public void SBC_R_aRRd(Register target, RegisterPair source, byte[] parameters)
+    {
+        unchecked
+        {
+            var left = _state[target];
+
+            var address = _state[source];
+
+            address = (ushort) (address + (sbyte) address);
+
+            var right = _interface.ReadFromMemory(address);
+
+            var carry = (byte) (_state[Flag.Carry] ? 1 : 0);
+
+            var result = left - right - carry;
+
+            _state[target] = (byte) result;
+
+            _state[Flag.Carry] = result < 0;
+            _state[Flag.AddSubtract] = true;
+            _state[Flag.ParityOverflow] = (sbyte) left - (sbyte) right - carry is < -128 or > 127;
+            _state[Flag.X1] = (result & 0x08) > 0;
+            _state[Flag.HalfCarry] = (left & 0x0F) < (right & 0x0F) + carry;
+            _state[Flag.X2] = (result & 0x20) > 0;
+            _state[Flag.Zero] = (byte) result == 0;
+            _state[Flag.Sign] = (sbyte) result < 0;
+        }
+
+        _state.SetMCycles(4, 4, 3, 5, 3);
+    }
+
     public void SBC_R_aRR(Register target, RegisterPair source)
     {
         unchecked
@@ -263,6 +352,35 @@ public partial class Instructions
         }
 
         _state.SetMCycles(4);
+    }
+
+    public void SUB_R_aRRd(Register target, RegisterPair source, byte[] parameters)
+    {
+        unchecked
+        {
+            var left = _state[target];
+
+            var address = _state[source];
+
+            address = (ushort) (address + (sbyte) parameters[0]);
+
+            var right = _interface.ReadFromMemory(address);
+
+            var result = left - right;
+
+            _state[target] = (byte) result;
+
+            _state[Flag.Carry] = result < 0;
+            _state[Flag.AddSubtract] = true;
+            _state[Flag.ParityOverflow] = ((left ^ right) & 0x80) != 0 && ((right ^ result) & 0x80) == 0;
+            _state[Flag.X1] = (result & 0x08) > 0;
+            _state[Flag.HalfCarry] = (left & 0x0F) < (right & 0x0F);
+            _state[Flag.X2] = (result & 0x20) > 0;
+            _state[Flag.Zero] = (byte) result == 0;
+            _state[Flag.Sign] = (sbyte) result < 0;
+        }
+
+        _state.SetMCycles(4, 4, 3, 5, 3);
     }
 
     public void SUB_R_aRR(Register target, RegisterPair source)
