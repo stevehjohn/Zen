@@ -10,6 +10,8 @@ public partial class Instructions
         _instructions.Add(0xFD00, new Instruction(_ => NOP(), "NOP", 0xFD00, 0, 4));
                 
         InitialiseLDByteInstructions(0xFD00);
+                
+        InitialiseArithmeticLogicInstructions(0xDD00);
 
         _instructions.Add(0xFDCB, new Instruction(_ => PREFIX(0xFDCB), "PREFIX 0xFDCB", 0xFDCB, 2));
     }
