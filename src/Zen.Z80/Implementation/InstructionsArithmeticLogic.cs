@@ -175,7 +175,7 @@ public partial class Instructions
 
             _state[Flag.Carry] = right > left;
             _state[Flag.AddSubtract] = true;
-            _state[Flag.ParityOverflow] = ((left ^ right) & 0x80) != 0 && ((left ^ (byte) result) & 0x80) == 0;
+            _state[Flag.ParityOverflow] = ((left ^ right) & 0x80) != 0 && ((right ^ (byte) result) & 0x80) == 0;
             _state[Flag.X1] = (right & 0x08) > 0;
             _state[Flag.HalfCarry] = (left & 0x0F) < (right & 0x0F);
             _state[Flag.X2] = (right & 0x20) > 0;
@@ -198,7 +198,7 @@ public partial class Instructions
 
             _state[Flag.Carry] = right > left;
             _state[Flag.AddSubtract] = true;
-            _state[Flag.ParityOverflow] = ((left ^ right) & 0x80) != 0 && ((left ^ (byte) result) & 0x80) == 0;
+            _state[Flag.ParityOverflow] = ((left ^ right) & 0x80) != 0 && ((right ^ (byte) result) & 0x80) == 0;
             _state[Flag.X1] = (right & 0x08) > 0;
             _state[Flag.HalfCarry] = (left & 0x0F) < (right & 0x0F);
             _state[Flag.X2] = (right & 0x20) > 0;
