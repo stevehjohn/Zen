@@ -78,7 +78,7 @@ public class TestRunner
 
                         if (result.Warn)
                         {
-                            warnNames.Add($"{test.Name}: {result.Mnemonic ?? "UNKNOWN"}");
+                            warnNames.Add($"{test.Name}: {result.Mnemonic ?? "UNKNOWN"}    &Yellow;{_state.ClockCycles} != {test.Cycles.Length}");
                         }
 
                         skipRemainder = true;
@@ -204,8 +204,7 @@ public class TestRunner
         return (testResult, result.Mnemonic, result.Warn);
     }
 
-    // TODO: Does this need to return State as it's now a member?
-    private (bool Passed, int Operations, State State, Dictionary<int, byte> Ram, Exception? Exception, string? Mnemonic, bool Warn) ExecuteTest(TestDefinition test)
+    private (bool Passed, int Operations, Dictionary<int, byte> Ram, Exception? Exception, string? Mnemonic, bool Warn) ExecuteTest(TestDefinition test)
     {
         _state.Reset();
 
@@ -293,7 +292,7 @@ public class TestRunner
                 firstMnemonic = _state.LastInstruction.Mnemonic;
             }
 
-            return (false, operations, _state, ram, exception, firstMnemonic, false);
+            return (false, operations, ram, exception, firstMnemonic, false);
         }
 
         var warn = _state.ClockCycles != (ulong) test.Cycles.Length;
@@ -335,7 +334,7 @@ public class TestRunner
             pass = pass && ram[pair[0]] == pair[1];
         }
 
-        return (pass, operations, _state, ram, null, firstMnemonic, warn);
+        return (pass, operations, ram, null, firstMnemonic, warn);
     }
 
     private void DumpTest(TestDefinition test)
@@ -349,32 +348,32 @@ public class TestRunner
 
         FormattedConsole.WriteLine("\n&Cyan;        Initial       Expected      Actual");
 
-        FormattedConsole.WriteLine($"    &Cyan;PC&White;: &Green;0x{test.Initial.PC:X4}        0x{test.Final.PC:X4}        {(test.Final.PC == result.State.ProgramCounter ? "&Green;" : "&Red;")}0x{result.State.ProgramCounter:X4}");
-        FormattedConsole.WriteLine($"    &Cyan;SP&White;: &Green;0x{test.Initial.SP:X4}        0x{test.Final.SP:X4}        {(test.Final.SP == result.State.StackPointer ? "&Green;" : "&Red;")}0x{result.State.StackPointer:X4}");
+        FormattedConsole.WriteLine($"    &Cyan;PC&White;: &Green;0x{test.Initial.PC:X4}        0x{test.Final.PC:X4}        {(test.Final.PC == _state.ProgramCounter ? "&Green;" : "&Red;")}0x{_state.ProgramCounter:X4}");
+        FormattedConsole.WriteLine($"    &Cyan;SP&White;: &Green;0x{test.Initial.SP:X4}        0x{test.Final.SP:X4}        {(test.Final.SP == _state.StackPointer ? "&Green;" : "&Red;")}0x{_state.StackPointer:X4}");
 
-        FormattedConsole.WriteLine($"    &Cyan;A &White;: &Green;0x{test.Initial.A:X2}          0x{test.Final.A:X2}          {(test.Final.A == result.State[Register.A] ? "&Green;" : "&Red;")}0x{result.State[Register.A]:X2}");
-        FormattedConsole.WriteLine($"    &Cyan;B &White;: &Green;0x{test.Initial.B:X2}          0x{test.Final.B:X2}          {(test.Final.B == result.State[Register.B] ? "&Green;" : "&Red;")}0x{result.State[Register.B]:X2}");
-        FormattedConsole.WriteLine($"    &Cyan;C &White;: &Green;0x{test.Initial.C:X2}          0x{test.Final.C:X2}          {(test.Final.C == result.State[Register.C] ? "&Green;" : "&Red;")}0x{result.State[Register.C]:X2}");
-        FormattedConsole.WriteLine($"    &Cyan;D &White;: &Green;0x{test.Initial.D:X2}          0x{test.Final.D:X2}          {(test.Final.D == result.State[Register.D] ? "&Green;" : "&Red;")}0x{result.State[Register.D]:X2}");
-        FormattedConsole.WriteLine($"    &Cyan;E &White;: &Green;0x{test.Initial.E:X2}          0x{test.Final.E:X2}          {(test.Final.E == result.State[Register.E] ? "&Green;" : "&Red;")}0x{result.State[Register.E]:X2}");
-        FormattedConsole.WriteLine($"    &Cyan;F &White;: &Green;0x{test.Initial.F:X2}          0x{test.Final.F:X2}          {(test.Final.F == result.State[Register.F] ? "&Green;" : "&Red;")}0x{result.State[Register.F]:X2}");
-        FormattedConsole.WriteLine($"    &Cyan;H &White;: &Green;0x{test.Initial.H:X2}          0x{test.Final.H:X2}          {(test.Final.H == result.State[Register.H] ? "&Green;" : "&Red;")}0x{result.State[Register.H]:X2}");
-        FormattedConsole.WriteLine($"    &Cyan;L &White;: &Green;0x{test.Initial.L:X2}          0x{test.Final.L:X2}          {(test.Final.L == result.State[Register.L] ? "&Green;" : "&Red;")}0x{result.State[Register.L]:X2}");
+        FormattedConsole.WriteLine($"    &Cyan;A &White;: &Green;0x{test.Initial.A:X2}          0x{test.Final.A:X2}          {(test.Final.A == _state[Register.A] ? "&Green;" : "&Red;")}0x{_state[Register.A]:X2}");
+        FormattedConsole.WriteLine($"    &Cyan;B &White;: &Green;0x{test.Initial.B:X2}          0x{test.Final.B:X2}          {(test.Final.B == _state[Register.B] ? "&Green;" : "&Red;")}0x{_state[Register.B]:X2}");
+        FormattedConsole.WriteLine($"    &Cyan;C &White;: &Green;0x{test.Initial.C:X2}          0x{test.Final.C:X2}          {(test.Final.C == _state[Register.C] ? "&Green;" : "&Red;")}0x{_state[Register.C]:X2}");
+        FormattedConsole.WriteLine($"    &Cyan;D &White;: &Green;0x{test.Initial.D:X2}          0x{test.Final.D:X2}          {(test.Final.D == _state[Register.D] ? "&Green;" : "&Red;")}0x{_state[Register.D]:X2}");
+        FormattedConsole.WriteLine($"    &Cyan;E &White;: &Green;0x{test.Initial.E:X2}          0x{test.Final.E:X2}          {(test.Final.E == _state[Register.E] ? "&Green;" : "&Red;")}0x{_state[Register.E]:X2}");
+        FormattedConsole.WriteLine($"    &Cyan;F &White;: &Green;0x{test.Initial.F:X2}          0x{test.Final.F:X2}          {(test.Final.F == _state[Register.F] ? "&Green;" : "&Red;")}0x{_state[Register.F]:X2}");
+        FormattedConsole.WriteLine($"    &Cyan;H &White;: &Green;0x{test.Initial.H:X2}          0x{test.Final.H:X2}          {(test.Final.H == _state[Register.H] ? "&Green;" : "&Red;")}0x{_state[Register.H]:X2}");
+        FormattedConsole.WriteLine($"    &Cyan;L &White;: &Green;0x{test.Initial.L:X2}          0x{test.Final.L:X2}          {(test.Final.L == _state[Register.L] ? "&Green;" : "&Red;")}0x{_state[Register.L]:X2}");
 
-        FormattedConsole.WriteLine($"    &Cyan;I &White;: &Green;0x{test.Initial.I:X2}          0x{test.Final.I:X2}          {(test.Final.I == result.State[Register.I] ? "&Green;" : "&Red;")}0x{result.State[Register.I]:X2}");
-        FormattedConsole.WriteLine($"    &Cyan;R &White;: &Green;0x{test.Initial.R:X2}          0x{test.Final.R:X2}          {(test.Final.R == result.State[Register.R] ? "&Green;" : "&Red;")}0x{result.State[Register.R]:X2}");
+        FormattedConsole.WriteLine($"    &Cyan;I &White;: &Green;0x{test.Initial.I:X2}          0x{test.Final.I:X2}          {(test.Final.I == _state[Register.I] ? "&Green;" : "&Red;")}0x{_state[Register.I]:X2}");
+        FormattedConsole.WriteLine($"    &Cyan;R &White;: &Green;0x{test.Initial.R:X2}          0x{test.Final.R:X2}          {(test.Final.R == _state[Register.R] ? "&Green;" : "&Red;")}0x{_state[Register.R]:X2}");
 
-        FormattedConsole.WriteLine($"    &Cyan;Q &White;: &Green;0x{test.Initial.Q:X2}          0x{test.Final.Q:X2}          {(test.Final.Q == result.State.Q ? "&Green;" : "&Red;")}0x{result.State.Q:X2}");
+        FormattedConsole.WriteLine($"    &Cyan;Q &White;: &Green;0x{test.Initial.Q:X2}          0x{test.Final.Q:X2}          {(test.Final.Q == _state.Q ? "&Green;" : "&Red;")}0x{_state.Q:X2}");
 
-        FormattedConsole.WriteLine($"    &Cyan;IX&White;: &Green;0x{test.Initial.IX:X4}        0x{test.Final.IX:X4}        {(test.Final.IX == result.State[RegisterPair.IX] ? "&Green;" : "&Red;")}0x{result.State[RegisterPair.IX]:X4}");
-        FormattedConsole.WriteLine($"    &Cyan;IY&White;: &Green;0x{test.Initial.IY:X4}        0x{test.Final.IY:X4}        {(test.Final.IY == result.State[RegisterPair.IY] ? "&Green;" : "&Red;")}0x{result.State[RegisterPair.IY]:X4}");
+        FormattedConsole.WriteLine($"    &Cyan;IX&White;: &Green;0x{test.Initial.IX:X4}        0x{test.Final.IX:X4}        {(test.Final.IX == _state[RegisterPair.IX] ? "&Green;" : "&Red;")}0x{_state[RegisterPair.IX]:X4}");
+        FormattedConsole.WriteLine($"    &Cyan;IY&White;: &Green;0x{test.Initial.IY:X4}        0x{test.Final.IY:X4}        {(test.Final.IY == _state[RegisterPair.IY] ? "&Green;" : "&Red;")}0x{_state[RegisterPair.IY]:X4}");
 
         var initialFlags = test.Initial.F.ToFlags();
 
         var expectedFlags = test.Final.F.ToFlags();
 
         FormattedConsole.WriteLine(
-            $"\n    &Cyan;F &White;: &Green;{initialFlags}      &Cyan;F &White;: &Green;{expectedFlags}      {(test.Final.F == result.State[Register.F] ? "&Green;" : "&Red;")}{result.State[Register.F].ToFlags()}");
+            $"\n    &Cyan;F &White;: &Green;{initialFlags}      &Cyan;F &White;: &Green;{expectedFlags}      {(test.Final.F == _state[Register.F] ? "&Green;" : "&Red;")}{_state[Register.F].ToFlags()}");
 
         FormattedConsole.WriteLine(string.Empty);
         FormattedConsole.Write("    &Cyan;RAM differences&White;: ");
