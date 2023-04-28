@@ -13,6 +13,8 @@ public partial class Instructions
 
         InitialiseLDByteInstructions();
 
+        InitialiseLDWordInstructions();
+
         InitialiseArithmeticLogicInstructions();
 
         InitialiseRETInstructions();
@@ -21,13 +23,30 @@ public partial class Instructions
 
         InitialiseIncDecInstructions();
 
-        _instructions.Add(0x01, new Instruction(d => LD_RR_nn(RegisterPair.BC, d), "LD BC, nn", 0x01, 2));
-
         _instructions.Add(0xCB, new Instruction(_ => PREFIX(0xCB), "PREFIX 0xCB", 0xCB, 0));
 
         _instructions.Add(0xDD, new Instruction(_ => PREFIX(0xDD), "PREFIX 0xDD", 0xDD, 0));
 
         _instructions.Add(0xFD, new Instruction(_ => PREFIX(0xFD), "PREFIX 0xFD", 0xFD, 0));
+    }
+
+    private void InitialiseLDWordInstructions()
+    {
+        _instructions.Add(0x01, new Instruction(p => LD_RR_nn(RegisterPair.BC, p), "LD BC, nn", 0x01, 2));
+
+        _instructions.Add(0x02, new Instruction(_ => LD_aRR_R(RegisterPair.BC, Register.A), "LD (BC), A", 0x02, 0));
+
+        _instructions.Add(0x11, new Instruction(p => LD_RR_nn(RegisterPair.DE, p), "LD DE, nn", 0x11, 2));
+
+        _instructions.Add(0x12, new Instruction(_ => LD_aRR_R(RegisterPair.DE, Register.A), "LD (DE), A", 0x12, 0));
+
+        _instructions.Add(0x21, new Instruction(p => LD_RR_nn(RegisterPair.HL, p), "LD HL, nn", 0x21, 2));
+
+        _instructions.Add(0x22, new Instruction(p => LD_ann_RR(p, RegisterPair.HL), "LD (nn), HL", 0x22, 2));
+
+        _instructions.Add(0x31, new Instruction(p => LD_RR_nn(RegisterPair.SP, p), "LD SP, nn", 0x31, 2));
+
+        _instructions.Add(0x32, new Instruction(p => LD_ann_R(p, Register.A), "LD (nn), A", 0x32, 2));
     }
 
     private void InitialiseRETInstructions()

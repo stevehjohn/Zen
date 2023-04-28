@@ -377,6 +377,44 @@ public class TestRunner
             $"\n    &Cyan;F &White;: &Green;{initialFlags}      &Cyan;F &White;: &Green;{expectedFlags}      {(test.Final.F == result.State[Register.F] ? "&Green;" : "&Red;")}{result.State[Register.F].ToFlags()}");
 
         FormattedConsole.WriteLine(string.Empty);
+        FormattedConsole.Write("    &Cyan;RAM differences&White;: ");
+
+        var ramDifference = false;
+
+        foreach (var entry in test.Final.Ram)
+        {
+            if (result.Ram[entry[0]] != entry[1])
+            {
+                ramDifference = true;
+
+                break;
+            }
+        }
+
+        if (! ramDifference)
+        {
+            FormattedConsole.WriteLine("&Green; NONE\n");
+        }
+        else
+        {
+            FormattedConsole.WriteLine("\n");
+
+            FormattedConsole.WriteLine("&Cyan;              Expected    Actual");
+
+            foreach (var entry in test.Final.Ram)
+            {
+                if (result.Ram[entry[0]] != entry[1])
+                {
+                    FormattedConsole.Write($"      &Cyan;0x{entry[0]:X4}&White;:");
+
+                    FormattedConsole.Write($"     &Green;0x{entry[1]:X2}");
+
+                    FormattedConsole.WriteLine($"      &Red;0x{result.Ram[entry[0]]:X2}");
+                }
+            }
+
+            FormattedConsole.WriteLine(string.Empty);
+        }
 
 #if ! UNATTENDED
         FormattedConsole.WriteLine("\n    &Cyan;Press any key to continue...\n");

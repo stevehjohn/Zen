@@ -1,11 +1,63 @@
 ﻿// ReSharper disable InconsistentNaming
 
+using Microsoft.Win32;
+using Zen.Common.Extensions;
 using Zen.Z80.Processor;
 
 namespace Zen.Z80.Implementation;
 
 public partial class Instructions
 {
+    //private void LD_aRR_nn(RegisterPair register, byte[] parameters)
+    //{
+    //    unchecked
+    //    {
+    //        var address = _state[register];
+
+    //        _interface.WriteToMemory(address, parameters[0]);
+
+    //        _state.MemPtr = (ushort) (((_state[target] + 1) & 0xFF) | (_state[source] << 8));
+
+    //        _state.Q = 0;
+    //    }
+
+    //    _state.SetMCycles(4, 3);
+    //}
+
+    private void LD_ann_R(byte[] parameters, Register source)
+    {
+        unchecked
+        {
+            var address = parameters.ReadLittleEndian();
+
+            _interface.WriteToMemory(address, _state[source]);
+
+            _state.MemPtr = (ushort) ((((parameters[1] << 8) | parameters[0] + 1) & 0xFF) | (_state[source] << 8));
+
+            _state.Q = 0;
+        }
+
+        _state.SetMCycles(4, 3);
+    }
+
+    private void LD_ann_RR(byte[] parameters, RegisterPair source)
+    {
+        unchecked
+        {
+            var address = parameters.ReadLittleEndian();
+
+            _interface.WriteToMemory(address, (byte) (_state[source] & 0xFF));
+
+            _interface.WriteToMemory((ushort) (address + 1), (byte) ((_state[source] & 0xFF00) >> 8));
+
+            _state.MemPtr = (ushort) ((parameters[1] << 8 | parameters[0]) + 1);
+
+            _state.Q = 0;
+        }
+
+        _state.SetMCycles(4, 3);
+    }
+
     private void LD_aRR_R(RegisterPair target, Register source)
     {
         unchecked
