@@ -1,4 +1,4 @@
-﻿// #define UNATTENDED
+﻿#define UNATTENDED
 #define UNDOCUMENTED
 // #define EXACT
 using System.Diagnostics;
