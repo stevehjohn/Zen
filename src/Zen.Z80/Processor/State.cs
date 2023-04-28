@@ -4,15 +4,23 @@ namespace Zen.Z80.Processor;
 
 public class State
 {
-    private const int RegisterCount = 22;
+    private const int RegisterCount = 26;
 
     private readonly byte[] _registers = new byte[RegisterCount];
 
     private readonly byte[] _lastMCycles = new byte[7];
 
-    public ushort ProgramCounter { get; set; }
+    public ushort ProgramCounter
+    {
+        get => this[RegisterPair.PC];
+        set => this[RegisterPair.PC] = value;
+    }
 
-    public ushort StackPointer { get; set; }
+    public ushort StackPointer 
+    {
+        get => this[RegisterPair.SP];
+        set => this[RegisterPair.SP] = value;
+    }
 
     public bool InterruptFlipFlop1 { get; set; }
 

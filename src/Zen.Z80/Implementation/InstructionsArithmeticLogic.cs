@@ -1,5 +1,6 @@
 ﻿// ReSharper disable InconsistentNaming
 
+using Microsoft.Win32;
 using Zen.Common.Extensions;
 using Zen.Z80.Processor;
 
@@ -321,6 +322,31 @@ public partial class Instructions
         _state.SetMCycles(4);
     }
 
+    private void DEC_aRR(RegisterPair registers)
+    {
+        unchecked
+        {
+            var address = _state[registers];
+
+            var value = _interface.ReadFromMemory(address);
+
+            var result = (byte) (value - 1);
+
+            _interface.WriteToMemory(address, result);
+
+            // Carry unaffected
+            _state[Flag.AddSubtract] = true;
+            _state[Flag.ParityOverflow] = value == 0x80;
+            _state[Flag.X1] = (result & 0x08) > 0;
+            _state[Flag.HalfCarry] = (value & 0x0F) == 0;
+            _state[Flag.X2] = (result & 0x20) > 0;
+            _state[Flag.Zero] = result == 0;
+            _state[Flag.Sign] = (sbyte) result < 0;
+        }
+
+        _state.SetMCycles(4, 4, 3);
+    }
+
     private void DEC_R(Register register)
     {
         unchecked
@@ -358,6 +384,31 @@ public partial class Instructions
         }
 
         _state.SetMCycles(6);
+    }
+    
+    private void INC_aRR(RegisterPair registers)
+    {
+        unchecked
+        {
+            var address = _state[registers];
+
+            var value = _interface.ReadFromMemory(address);
+
+            var result = (byte) (value + 1);
+
+            _interface.WriteToMemory(address, result);
+
+            // Carry unaffected
+            _state[Flag.AddSubtract] = false;
+            _state[Flag.ParityOverflow] = value == 0x7F;
+            _state[Flag.X1] = (result & 0x08) > 0;
+            _state[Flag.HalfCarry] = (value & 0x0F) + 1 > 0xF;
+            _state[Flag.X2] = (result & 0x20) > 0;
+            _state[Flag.Zero] = result == 0;
+            _state[Flag.Sign] = (sbyte) result < 0;
+        }
+
+        _state.SetMCycles(4, 4, 3);
     }
 
     private void INC_R(Register register)

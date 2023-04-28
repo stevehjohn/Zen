@@ -12,5 +12,7 @@ public enum RegisterPair
     AF_ = 0x0809,
     BC_ = 0x0A0B,
     DE_ = 0x0C0D,
-    HL_ = 0x0E0F
+    HL_ = 0x0E0F,
+    PC  = 0x1617,
+    SP  = 0x1819
 }

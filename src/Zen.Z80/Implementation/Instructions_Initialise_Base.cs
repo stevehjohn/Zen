@@ -105,5 +105,17 @@ public partial class Instructions
         _instructions.Add(0x2C, new Instruction(_ => INC_R(Register.L), "INC L", 0x2C, 0));
 
         _instructions.Add(0x2D, new Instruction(_ => DEC_R(Register.L), "DEC L", 0x2D, 0));
+
+        _instructions.Add(0x33, new Instruction(_ => INC_RR(RegisterPair.SP), "INC SP", 0x33, 0));
+        
+        _instructions.Add(0x34, new Instruction(_ => INC_aRR(RegisterPair.HL), "INC (HL)", 0x34, 0));
+
+        _instructions.Add(0x35, new Instruction(_ => DEC_aRR(RegisterPair.HL), "DEC (HL)", 0x35, 0));
+
+        _instructions.Add(0x3B, new Instruction(_ => DEC_RR(RegisterPair.SP), "DEC SP", 0x3B, 0));
+
+        _instructions.Add(0x3C, new Instruction(_ => INC_R(Register.A), "INC A", 0x3C, 0));
+
+        _instructions.Add(0x3D, new Instruction(_ => DEC_R(Register.A), "DEC A", 0x3D, 0));
     }
 }
