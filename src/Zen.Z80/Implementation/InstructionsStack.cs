@@ -30,11 +30,11 @@ public partial class Instructions
     {
         unchecked
         {
-            var data = _interface.ReadFromMemory(_state.StackPointer);
+            var data = (ushort) _interface.ReadFromMemory(_state.StackPointer);
 
             _state.StackPointer++;
 
-            data |= _interface.ReadFromMemory(_state.StackPointer);
+            data |= (ushort) (_interface.ReadFromMemory(_state.StackPointer) << 8);
 
             _state.StackPointer++;
 
