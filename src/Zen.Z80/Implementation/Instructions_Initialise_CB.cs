@@ -78,13 +78,21 @@ public partial class Instructions
 
                 _instructions.Add(opCode, new Instruction(_ => RLC_R(register), $"RLC {register}", opCode, 0));
 
-                _instructions.Add(opCode, new Instruction(_ => RRC_R(register), $"RRC {register}", opCode, 0));
+                _instructions.Add(opCode + 0x08, new Instruction(_ => RRC_R(register), $"RRC {register}", opCode + 0x08, 0));
+
+                _instructions.Add(opCode + 0x10, new Instruction(_ => RL_R(register), $"RL {register}", opCode + 0x10, 0));
+
+                _instructions.Add(opCode + 0x18, new Instruction(_ => RR_R(register), $"RR {register}", opCode + 0x18, 0));
             }
             else
             {
                 _instructions.Add(opCode, new Instruction(_ => RLC_aRR(RegisterPair.HL), "RLC (HL)", opCode, 0));
 
                 _instructions.Add(opCode + 0x08, new Instruction(_ => RRC_aRR(RegisterPair.HL), "RRC (HL)", opCode + 0x08, 0));
+
+                _instructions.Add(opCode + 0x10, new Instruction(_ => RL_aRR(RegisterPair.HL), "RL (HL)", opCode + 0x10, 0));
+
+                _instructions.Add(opCode + 0x18, new Instruction(_ => RR_aRR(RegisterPair.HL), "RR (HL)", opCode + 0x18, 0));
             }
         }
     }
