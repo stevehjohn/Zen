@@ -60,17 +60,44 @@ public partial class Instructions
 
     private void JP_F_nn(Flag flag, byte[] parameters, bool not = false)
     {
-        var condition = not ? ! _state[flag] : _state[flag];
-
-        if (condition)
+        unchecked
         {
-            _state.ProgramCounter = parameters.ReadLittleEndian();
+            var condition = not ? ! _state[flag] : _state[flag];
+
+            if (condition)
+            {
+                _state.ProgramCounter = parameters.ReadLittleEndian();
+
+                _state.MemPtr = _state.ProgramCounter;
+
+                _state.Q = 0;
+            }
+        }
+
+        _state.SetMCycles(4, 3, 3);
+    }
+
+    private void RST(byte address)
+    {
+        unchecked
+        {
+            var pc = _state.ProgramCounter;
+
+            _state.StackPointer--;
+
+            _interface.WriteToMemory(_state.StackPointer, (byte) ((pc & 0xFF00) >> 8));
+
+            _state.StackPointer--;
+
+            _interface.WriteToMemory(_state.StackPointer, (byte) (pc & 0x00FF));
+
+            _state.ProgramCounter = address;
 
             _state.MemPtr = _state.ProgramCounter;
 
             _state.Q = 0;
         }
 
-        _state.SetMCycles(4, 3, 3);
+        _state.SetMCycles(5, 3, 3);
     }
 }

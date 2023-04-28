@@ -146,11 +146,27 @@ public partial class Instructions
 
         _instructions.Add(0xC3, new Instruction(JP_nn, "JP nn", 0xC3, 2));
 
+        _instructions.Add(0xC7, new Instruction(_ => RST(0x00), "RST 0x00", 0xC7, 0));
+
+        _instructions.Add(0xCF, new Instruction(_ => RST(0x08), "RST 0x08", 0xCF, 0));
+
         _instructions.Add(0xD2, new Instruction(p => JP_F_nn(Flag.Carry, p, true), "JP NC, nn", 0xD2, 2));
+
+        _instructions.Add(0xD7, new Instruction(_ => RST(0x10), "RST 0x10", 0xD7, 0));
+
+        _instructions.Add(0xDF, new Instruction(_ => RST(0x18), "RST 0x18", 0xDF, 0));
 
         _instructions.Add(0xE2, new Instruction(p => JP_F_nn(Flag.ParityOverflow, p, true), "JP PO, nn", 0xE2, 2));
 
+        _instructions.Add(0xE7, new Instruction(_ => RST(0x20), "RST 0x20", 0xE7, 0));
+
+        _instructions.Add(0xEF, new Instruction(_ => RST(0x28), "RST 0x28", 0xEF, 0));
+
         _instructions.Add(0xF2, new Instruction(p => JP_F_nn(Flag.Sign, p, true), "JP NS, nn", 0xF2, 2));
+
+        _instructions.Add(0xF7, new Instruction(_ => RST(0x30), "RST 0x30", 0xF7, 0));
+
+        _instructions.Add(0xFF, new Instruction(_ => RST(0x38), "RST 0x38", 0xFF, 0));
 
         _instructions.Add(0xCA, new Instruction(p => JP_F_nn(Flag.Zero, p), "JP Z, nn", 0xCA, 2));
 
