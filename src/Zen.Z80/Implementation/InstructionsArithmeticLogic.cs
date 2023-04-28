@@ -35,7 +35,7 @@ public partial class Instructions
 
         _state.SetMCycles(4, 3);
     }
-    
+
     public void ADC_R_aRRd(Register target, RegisterPair source, byte[] parameters)
     {
         unchecked
@@ -319,6 +319,52 @@ public partial class Instructions
         }
 
         _state.SetMCycles(4);
+    }
+
+    private void INC_R(Register register)
+    {
+        unchecked
+        {
+            var value = _state[register];
+
+            var result = (byte) (value + 1);
+
+            _state[register] = result;
+
+            // Carry unaffected
+            _state[Flag.AddSubtract] = false;
+            _state[Flag.ParityOverflow] = value == 0x7F;
+            _state[Flag.X1] = (result & 0x08) > 0;
+            _state[Flag.HalfCarry] = (value & 0x0F) + 1 > 0xF;
+            _state[Flag.X2] = (result & 0x20) > 0;
+            _state[Flag.Zero] = result == 0;
+            _state[Flag.Sign] = (sbyte) result < 0;
+        }
+
+        _state.SetMCycles(4);
+    }
+
+    private void INC_RR(RegisterPair registers)
+    {
+        unchecked
+        {
+            var value = _state[registers];
+
+            var result = (ushort) (value + 1);
+
+            _state[registers] = result;
+
+            // Carry unaffected
+            _state[Flag.AddSubtract] = false;
+            _state[Flag.ParityOverflow] = value == 0x7F;
+            _state[Flag.X1] = (result & 0x08) > 0;
+            _state[Flag.HalfCarry] = (value & 0x0F) + 1 > 0xF;
+            _state[Flag.X2] = (result & 0x20) > 0;
+            _state[Flag.Zero] = result == 0;
+            _state[Flag.Sign] = (sbyte) result < 0;
+        }
+
+        _state.SetMCycles(6);
     }
 
     public void SBC_R_aRRd(Register target, RegisterPair source, byte[] parameters)

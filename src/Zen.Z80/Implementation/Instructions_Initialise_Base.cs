@@ -19,6 +19,8 @@ public partial class Instructions
 
         InitialiseStackInstructions();
 
+        InitialiseIncDecInstructions();
+
         _instructions.Add(0x01, new Instruction(d => LD_RR_nn(RegisterPair.BC, d), "LD BC, nn", 0x01, 2));
 
         _instructions.Add(0xCB, new Instruction(_ => PREFIX(0xCB), "PREFIX 0xCB", 0xCB, 0));
@@ -64,5 +66,12 @@ public partial class Instructions
         _instructions.Add(0xE1, new Instruction(_ => POP(RegisterPair.HL), "POP HL", 0xE1, 0));
 
         _instructions.Add(0xF1, new Instruction(_ => POP(RegisterPair.AF), "POP AF", 0xF1, 0));
+    }
+
+    private void InitialiseIncDecInstructions()
+    {
+        _instructions.Add(0x03, new Instruction(_ => INC_RR(RegisterPair.BC), "INC BC", 0x04, 0));
+
+        _instructions.Add(0x04, new Instruction(_ => INC_R(Register.B), "INC B", 0x04, 0));
     }
 }
