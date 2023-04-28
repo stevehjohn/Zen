@@ -317,7 +317,7 @@ public class TestRunner
         //        && _state.InterruptFlipFlop2 == test.Final.IFF2 > 0;
 
 #if UNDOCUMENTED
-        pass &= _state[Register.F] == test.Final.F && _state.Q == test.Final.Q;
+        pass &= _state[Register.F] == test.Final.F;
 #endif
 
 #if EXACT

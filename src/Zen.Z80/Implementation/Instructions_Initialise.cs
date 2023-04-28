@@ -144,21 +144,21 @@ public partial class Instructions
         {
             if (index == 6)
             {
-                _instructions.Add(0x80 + index, new Instruction(_ => ADD_R_aRR(Register.A, RegisterPair.HL), "ADD A, (HL)", 0x80 + index, 0));
+                _instructions.Add(prefix + 0x80 + index, new Instruction(_ => ADD_R_aRR(Register.A, RegisterPair.HL), "ADD A, (HL)", prefix + 0x80 + index, 0));
 
-                _instructions.Add(0x88 + index, new Instruction(_ => ADC_R_aRR(Register.A, RegisterPair.HL), "ADC A, (HL)", 0x88 + index, 0));
+                _instructions.Add(prefix + 0x88 + index, new Instruction(_ => ADC_R_aRR(Register.A, RegisterPair.HL), "ADC A, (HL)", prefix + 0x88 + index, 0));
 
-                _instructions.Add(0x90 + index, new Instruction(_ => SUB_R_aRR(Register.A, RegisterPair.HL), "SUB A, (HL)", 0x90 + index, 0));
+                _instructions.Add(prefix + 0x90 + index, new Instruction(_ => SUB_R_aRR(Register.A, RegisterPair.HL), "SUB A, (HL)", prefix + 0x90 + index, 0));
 
-                _instructions.Add(0x98 + index, new Instruction(_ => SBC_R_aRR(Register.A, RegisterPair.HL), "SBC A, (HL)", 0x98 + index, 0));
+                _instructions.Add(prefix + 0x98 + index, new Instruction(_ => SBC_R_aRR(Register.A, RegisterPair.HL), "SBC A, (HL)", prefix + 0x98 + index, 0));
 
-                _instructions.Add(0xA0 + index, new Instruction(_ => AND_R_aRR(Register.A, RegisterPair.HL), "AND A, (HL)", 0xA0 + index, 0));
+                _instructions.Add(prefix + 0xA0 + index, new Instruction(_ => AND_R_aRR(Register.A, RegisterPair.HL), "AND A, (HL)", prefix + 0xA0 + index, 0));
 
-                _instructions.Add(0xA8 + index, new Instruction(_ => XOR_R_aRR(Register.A, RegisterPair.HL), "XOR A, (HL)", 0xA8 + index, 0));
+                _instructions.Add(prefix + 0xA8 + index, new Instruction(_ => XOR_R_aRR(Register.A, RegisterPair.HL), "XOR A, (HL)", prefix + 0xA8 + index, 0));
 
-                _instructions.Add(0xB0 + index, new Instruction(_ => OR_R_aRR(Register.A, RegisterPair.HL), "OR A, (HL)", 0xB0 + index, 0));
+                _instructions.Add(prefix + 0xB0 + index, new Instruction(_ => OR_R_aRR(Register.A, RegisterPair.HL), "OR A, (HL)", prefix + 0xB0 + index, 0));
 
-                _instructions.Add(0xB8 + index, new Instruction(_ => CP_R_aRR(Register.A, RegisterPair.HL), "CP A, (HL)", 0xB8 + index, 0));
+                _instructions.Add(prefix + 0xB8 + index, new Instruction(_ => CP_R_aRR(Register.A, RegisterPair.HL), "CP A, (HL)", prefix + 0xB8 + index, 0));
 
                 continue;
             }
@@ -169,26 +169,26 @@ public partial class Instructions
                 1 => Register.C,
                 2 => Register.D,
                 3 => Register.E,
-                4 => Register.H,
-                5 => Register.L,
+                4 => prefix == 0x00 ? Register.H : prefix == 0xDD00 ? Register.IXh : Register.IYh,
+                5 => prefix == 0x00 ? Register.L : prefix == 0xDD00 ? Register.IXl : Register.IYl,
                 7 => Register.A
             };
 
-            _instructions.Add(0x80 + index, new Instruction(_ => ADD_R_R(Register.A, rightRegister), $"ADD A, {rightRegister}", 0x80 + index, 0));
+            _instructions.Add(prefix + 0x80 + index, new Instruction(_ => ADD_R_R(Register.A, rightRegister), $"ADD A, {rightRegister}", prefix + 0x80 + index, 0));
 
-            _instructions.Add(0x88 + index, new Instruction(_ => ADC_R_R(Register.A, rightRegister), $"ADC A, {rightRegister}", 0x88 + index, 0));
+            _instructions.Add(prefix + 0x88 + index, new Instruction(_ => ADC_R_R(Register.A, rightRegister), $"ADC A, {rightRegister}", prefix + 0x88 + index, 0));
 
-            _instructions.Add(0x90 + index, new Instruction(_ => SUB_R_R(Register.A, rightRegister), $"SUB A, {rightRegister}", 0x90 + index, 0));
+            _instructions.Add(prefix + 0x90 + index, new Instruction(_ => SUB_R_R(Register.A, rightRegister), $"SUB A, {rightRegister}", prefix + 0x90 + index, 0));
 
-            _instructions.Add(0x98 + index, new Instruction(_ => SBC_R_R(Register.A, rightRegister), $"SBC A, {rightRegister}", 0x98 + index, 0));
+            _instructions.Add(prefix + 0x98 + index, new Instruction(_ => SBC_R_R(Register.A, rightRegister), $"SBC A, {rightRegister}", prefix + 0x98 + index, 0));
 
-            _instructions.Add(0xA0 + index, new Instruction(_ => AND_R_R(Register.A, rightRegister), $"AND A, {rightRegister}", 0xA0 + index, 0));
+            _instructions.Add(prefix + 0xA0 + index, new Instruction(_ => AND_R_R(Register.A, rightRegister), $"AND A, {rightRegister}", prefix + 0xA0 + index, 0));
 
-            _instructions.Add(0xA8 + index, new Instruction(_ => XOR_R_R(Register.A, rightRegister), $"XOR A, {rightRegister}", 0xA8 + index, 0));
+            _instructions.Add(prefix + 0xA8 + index, new Instruction(_ => XOR_R_R(Register.A, rightRegister), $"XOR A, {rightRegister}", prefix + 0xA8 + index, 0));
 
-            _instructions.Add(0xB0 + index, new Instruction(_ => OR_R_R(Register.A, rightRegister), $"OR A, {rightRegister}", 0xB0 + index, 0));
+            _instructions.Add(prefix + 0xB0 + index, new Instruction(_ => OR_R_R(Register.A, rightRegister), $"OR A, {rightRegister}", prefix + 0xB0 + index, 0));
 
-            _instructions.Add(0xB8 + index, new Instruction(_ => CP_R_R(Register.A, rightRegister), $"CP A, {rightRegister}", 0xB8 + index, 0));
+            _instructions.Add(prefix + 0xB8 + index, new Instruction(_ => CP_R_R(Register.A, rightRegister), $"CP A, {rightRegister}", prefix + 0xB8 + index, 0));
         }
     }
 }

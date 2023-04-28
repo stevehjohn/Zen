@@ -11,7 +11,7 @@ public partial class Instructions
                 
         InitialiseLDByteInstructions(0xFD00);
                 
-        InitialiseArithmeticLogicInstructions(0xDD00);
+        InitialiseArithmeticLogicInstructions(0xFD00);
 
         _instructions.Add(0xFDCB, new Instruction(_ => PREFIX(0xFDCB), "PREFIX 0xFDCB", 0xFDCB, 2));
     }
