@@ -42,12 +42,14 @@ public class TestRunner
 
         var failedNames = new List<string>();
 
+        var warnNames = new List<string>();
+        
         foreach (var file in files)
         {
-            if (Path.GetFileNameWithoutExtension(file).CompareTo("bf ") < 0)
-            {
-                continue;
-            }
+            //if (Path.GetFileNameWithoutExtension(file).CompareTo("bf ") < 0)
+            //{
+            //    continue;
+            //}
 
             //if (Path.GetFileNameWithoutExtension(file).StartsWith("dd cb __ 40"))
             //{
@@ -73,6 +75,11 @@ public class TestRunner
                 {
                     case TestResult.Pass:
                         passed++;
+
+                        if (result.Warn)
+                        {
+                            warnNames.Add($"{test.Name}: {result.Mnemonic ?? "UNKNOWN"}");
+                        }
 
                         skipRemainder = true;
 
@@ -118,11 +125,18 @@ public class TestRunner
 
         FormattedConsole.WriteLine(string.Empty);
 
-        if (failedNames.Count > 0)
+        if (failedNames.Count > 0 || warnNames.Count > 0)
         {
-            FormattedConsole.WriteLine("  &Cyan;Press any key to see failed test names...\n");
+            FormattedConsole.WriteLine("  &Cyan;Press any key to see warn/failed test names...\n");
 
             Console.ReadKey();
+
+            foreach (var name in warnNames)
+            {
+                FormattedConsole.Write($"&DarkGreen;{name}\n");
+            }
+
+            Console.WriteLine();
 
             foreach (var name in failedNames)
             {
@@ -135,7 +149,7 @@ public class TestRunner
         Console.CursorVisible = true;
     }
 
-    private (TestResult Result, string? Mnemonic) RunTest(TestDefinition test)
+    private (TestResult Result, string? Mnemonic, bool Warn) RunTest(TestDefinition test)
     {
         var result = ExecuteTest(test);
 
@@ -151,7 +165,14 @@ public class TestRunner
 
         if (result.Passed)
         {
-            FormattedConsole.Write("&Green;PASS");
+            if (result.Warn)
+            {
+                FormattedConsole.Write("&DarkGreen;WARN");
+            }
+            else
+            {
+                FormattedConsole.Write("&Green;PASS");
+            }
 
             testResult = TestResult.Pass;
         }
@@ -180,11 +201,11 @@ public class TestRunner
 
         FormattedConsole.WriteLine($"  &Cyan;Mnemonic&White;: &Yellow;{result.Mnemonic ?? "N/A"}");
 
-        return (testResult, result.Mnemonic);
+        return (testResult, result.Mnemonic, result.Warn);
     }
 
     // TODO: Does this need to return State and it's now a member?
-    private (bool Passed, int Operations, State State, Dictionary<int, byte> Ram, Exception? Exception, string? Mnemonic) ExecuteTest(TestDefinition test)
+    private (bool Passed, int Operations, State State, Dictionary<int, byte> Ram, Exception? Exception, string? Mnemonic, bool Warn) ExecuteTest(TestDefinition test)
     {
         _state.Reset();
 
@@ -268,8 +289,10 @@ public class TestRunner
                 firstMnemonic = _state.LastInstruction.Mnemonic;
             }
 
-            return (false, operations, _state, ram, exception, firstMnemonic);
+            return (false, operations, _state, ram, exception, firstMnemonic, false);
         }
+
+        var warn = _state.ClockCycles !+ (ulong) test.Cycles.Length;
 
         var pass = _state.ProgramCounter == test.Final.PC
                    && _state.StackPointer == test.Final.SP
@@ -308,7 +331,7 @@ public class TestRunner
             pass = pass && ram[pair[0]] == pair[1];
         }
 
-        return (pass, operations, _state, ram, null, firstMnemonic);
+        return (pass, operations, _state, ram, null, firstMnemonic, warn);
     }
 
     private void DumpTest(TestDefinition test)

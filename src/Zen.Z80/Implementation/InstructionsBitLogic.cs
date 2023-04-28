@@ -141,7 +141,7 @@ public partial class Instructions
             _state.Q = 0;
         }
 
-        _state.SetMCycles(4, 4, 3, 5, 4, 3);
+        _state.SetMCycles(4, 4, 4, 3);
     }
     
     public void RES_b_R(byte bit, Register source)
@@ -177,7 +177,7 @@ public partial class Instructions
             _state.Q = 0;
         }
 
-        _state.SetMCycles(4, 4, 3, 5, 4, 3);
+        _state.SetMCycles(4, 4, 4, 3);
     }
 
     public void SET_b_aRRd(byte bit, RegisterPair source, byte[] parameters)

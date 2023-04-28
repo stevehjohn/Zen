@@ -34,7 +34,7 @@ public partial class Instructions
             _state.MemPtr = address;
         }
 
-        _state.SetMCycles(4, 4, 3, 5, 4, 3);
+        _state.SetMCycles(4, 4, 4, 3);
     }
 
     public void RL_aRRd(RegisterPair source, byte[] parameters)
@@ -152,7 +152,7 @@ public partial class Instructions
             _state.MemPtr = address;
         }
 
-        _state.SetMCycles(4, 4, 3, 5, 4, 3);
+        _state.SetMCycles(4, 4, 4, 3);
     }
 
     public void RLC_aRRd(RegisterPair source, byte[] parameters)
@@ -302,7 +302,7 @@ public partial class Instructions
             _state.MemPtr = address;
         }
 
-        _state.SetMCycles(4, 4, 3, 5, 4, 3);
+        _state.SetMCycles(4, 4, 4, 3);
     }
 
     public void RR_aRRd(RegisterPair source, byte[] parameters)
@@ -412,7 +412,7 @@ public partial class Instructions
             _state.MemPtr = address;
         }
 
-        _state.SetMCycles(4, 4, 3, 5, 4, 3);
+        _state.SetMCycles(4, 4, 4, 3);
     }
 
     public void RRC_aRRd_R(RegisterPair source, byte[] parameters, Register target)
@@ -505,7 +505,7 @@ public partial class Instructions
             _state.MemPtr = address;
         }
 
-        _state.SetMCycles(4, 4, 3, 5, 4, 3);
+        _state.SetMCycles(4, 4, 4, 3);
     }
 
     public void SLA_aRRd(RegisterPair source, byte[] parameters)
@@ -623,7 +623,7 @@ public partial class Instructions
             _state.MemPtr = address;
         }
 
-        _state.SetMCycles(4, 4, 3, 5, 4, 3);
+        _state.SetMCycles(4, 4, 4, 3);
     }
 
     public void SLL_aRRd(RegisterPair source, byte[] parameters)
@@ -743,7 +743,7 @@ public partial class Instructions
             _state.MemPtr = address;
         }
 
-        _state.SetMCycles(4, 4, 3, 5, 4, 3);
+        _state.SetMCycles(4, 4, 4, 3);
     }
 
     public void SRA_aRRd(RegisterPair source, byte[] parameters)
@@ -867,7 +867,7 @@ public partial class Instructions
             _state.MemPtr = address;
         }
 
-        _state.SetMCycles(4, 4, 3, 5, 4, 3);
+        _state.SetMCycles(4, 4, 4, 3);
     }
 
     public void SRL_aRRd(RegisterPair source, byte[] parameters)
