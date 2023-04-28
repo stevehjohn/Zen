@@ -14,7 +14,7 @@ public partial class Instructions
 
             _interface.WriteToMemory(address, _state[source]);
 
-            _state.MemPtr = (ushort)(((_state[target] + 1) & 0xFF) | (_state[source] << 8));
+            _state.MemPtr = (ushort) (((_state[target] + 1) & 0xFF) | (_state[source] << 8));
 
             _state.Q = 0;
         }
@@ -56,7 +56,7 @@ public partial class Instructions
                 _state[Flag.HalfCarry] = false;
                 _state[Flag.X2] = (value & 0x20) > 0;
                 _state[Flag.Zero] = value == 0;
-                _state[Flag.Sign] = (sbyte)value < 0;
+                _state[Flag.Sign] = (sbyte) value < 0;
             }
             else
             {

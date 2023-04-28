@@ -20,5 +20,9 @@ public enum Register
     H_  = 0x000E,
     L_  = 0x000F,
     I   = 0x0010,
-    R   = 0x0011
+    R   = 0x0011,
+    IXh = 0x0012,
+    IXl = 0x0013,
+    IYh = 0x0014,
+    IYl = 0x0015
 }
