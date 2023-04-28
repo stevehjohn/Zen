@@ -37,7 +37,7 @@ public partial class Instructions
             _state.Q = 0;
         }
 
-        _state.SetMCycles(4, 3);
+        _state.SetMCycles(4, 3, 3, 3);
     }
 
     private void LD_ann_RR(byte[] parameters, RegisterPair source)
@@ -55,7 +55,7 @@ public partial class Instructions
             _state.Q = 0;
         }
 
-        _state.SetMCycles(4, 3);
+        _state.SetMCycles(4, 4, 3, 3, 3, 3);
     }
 
     private void LD_aRR_R(RegisterPair target, Register source)

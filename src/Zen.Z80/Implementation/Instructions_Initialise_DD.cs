@@ -52,9 +52,9 @@ public partial class Instructions
 
         _instructions.Add(0xDD33, new Instruction(_ => INC_RR(RegisterPair.SP), "INC SP", 0xDD33, 0, 4));
         
-        _instructions.Add(0xDD34, new Instruction(p => INC_aRRd(RegisterPair.IX, p), "INC (IX + d)", 0xDD34, 1, 4));
+        _instructions.Add(0xDD34, new Instruction(p => INC_aRRd(RegisterPair.IX, p), "INC (IX + d)", 0xDD34, 1));
 
-        _instructions.Add(0xDD35, new Instruction(p => DEC_aRRd(RegisterPair.IX, p), "DEC (IX + d)", 0xDD35, 1, 4));
+        _instructions.Add(0xDD35, new Instruction(p => DEC_aRRd(RegisterPair.IX, p), "DEC (IX + d)", 0xDD35, 1));
 
         _instructions.Add(0xDD3C, new Instruction(_ => INC_R(Register.A), "INC A", 0xDD3C, 0, 4));
 
