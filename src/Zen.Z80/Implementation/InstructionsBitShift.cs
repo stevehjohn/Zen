@@ -597,6 +597,35 @@ public partial class Instructions
         _state.SetMCycles(4, 4);
     }
 
+    public void SLL_aRR(RegisterPair source)
+    {
+        unchecked
+        {
+            var address = _state[source];
+
+            var data = _interface.ReadFromMemory(address);
+
+            var topBit = (byte) ((data & 0x80) >> 7);
+
+            var result = (byte) (((data << 1) & 0xFE) | 0x01);
+
+            _interface.WriteToMemory(address, result);
+
+            _state[Flag.Carry] = topBit == 1;
+            _state[Flag.AddSubtract] = false;
+            _state[Flag.ParityOverflow] = result.IsEvenParity();
+            _state[Flag.X1] = (result & 0x08) > 0;
+            _state[Flag.HalfCarry] = false;
+            _state[Flag.X2] = (result & 0x20) > 0;
+            _state[Flag.Zero] = result == 0;
+            _state[Flag.Sign] = (sbyte) result < 0;
+
+            _state.MemPtr = address;
+        }
+
+        _state.SetMCycles(4, 4, 3, 5, 4, 3);
+    }
+
     public void SLL_aRRd(RegisterPair source, byte[] parameters)
     {
         unchecked
@@ -626,6 +655,31 @@ public partial class Instructions
         }
 
         _state.SetMCycles(4, 4, 3, 5, 4, 3);
+    }
+    
+    public void SLL_R(Register register)
+    {
+        unchecked
+        {
+            var data = _state[register];
+
+            var topBit = (byte) ((data & 0x80) >> 7);
+
+            var result = (byte) (((data << 1) & 0xFE) | 0x01);
+
+            _state[register] = result;
+
+            _state[Flag.Carry] = topBit == 1;
+            _state[Flag.AddSubtract] = false;
+            _state[Flag.ParityOverflow] = result.IsEvenParity();
+            _state[Flag.X1] = (result & 0x08) > 0;
+            _state[Flag.HalfCarry] = false;
+            _state[Flag.X2] = (result & 0x20) > 0;
+            _state[Flag.Zero] = result == 0;
+            _state[Flag.Sign] = (sbyte) result < 0;
+        }
+
+        _state.SetMCycles(4, 4);
     }
 
     public void SLL_aRRd_R(RegisterPair source, byte[] parameters, Register target)
