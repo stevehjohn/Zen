@@ -354,14 +354,7 @@ public partial class Instructions
 
             _state[registers] = result;
 
-            // Carry unaffected
-            _state[Flag.AddSubtract] = false;
-            _state[Flag.ParityOverflow] = value == 0x7F;
-            _state[Flag.X1] = (result & 0x08) > 0;
-            _state[Flag.HalfCarry] = (value & 0x0F) + 1 > 0xF;
-            _state[Flag.X2] = (result & 0x20) > 0;
-            _state[Flag.Zero] = result == 0;
-            _state[Flag.Sign] = (sbyte) result < 0;
+            _state.Q = 0;
         }
 
         _state.SetMCycles(6);
