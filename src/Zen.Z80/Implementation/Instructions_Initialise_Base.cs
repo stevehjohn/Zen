@@ -142,6 +142,16 @@ public partial class Instructions
 
     private void InitialiseBranchInstructions()
     {
+        _instructions.Add(0x18, new Instruction(JR_e, "JR e", 0x18, 1));
+
+        _instructions.Add(0x20, new Instruction(p => JR_F_e(Flag.Zero, p, true), "JR NZ, e", 0x20, 1));
+
+        _instructions.Add(0x28, new Instruction(p => JR_F_e(Flag.Zero, p), "JR Z, e", 0x28, 1));
+
+        _instructions.Add(0x30, new Instruction(p => JR_F_e(Flag.Carry, p, true), "JR NC, e", 0x30, 1));
+
+        _instructions.Add(0x38, new Instruction(p => JR_F_e(Flag.Carry, p), "JR C, e", 0x38, 1));
+
         _instructions.Add(0xC2, new Instruction(p => JP_F_nn(Flag.Zero, p, true), "JP NZ, nn", 0xC2, 2));
 
         _instructions.Add(0xC3, new Instruction(JP_nn, "JP nn", 0xC3, 2));
