@@ -112,7 +112,7 @@ public partial class Instructions
 
                 _instructions.Add(0x98 + index, new Instruction(_ => SBC_R_aRR(Register.A, RegisterPair.HL), "SBC A, (HL)", 0x98 + index, 0));
 
-
+                _instructions.Add(0xA0 + index, new Instruction(_ => AND_R_aRR(Register.A, RegisterPair.HL), "AND A, (HL)", 0xA0 + index, 0));
 
                 _instructions.Add(0xA8 + index, new Instruction(_ => XOR_R_aRR(Register.A, RegisterPair.HL), "XOR A, (HL)", 0xA8 + index, 0));
 
@@ -138,7 +138,7 @@ public partial class Instructions
 
             _instructions.Add(0x98 + index, new Instruction(_ => SBC_R_R(Register.A, rightRegister), $"SBC A, {rightRegister}", 0x98 + index, 0));
 
-            //_instructions.Add(0xA0 + index, new Instruction(_ => SBC_R_R(Register.A, rightRegister), $"SBC A, {rightRegister}", 0xA0 + index, 0));
+            _instructions.Add(0xA0 + index, new Instruction(_ => AND_R_R(Register.A, rightRegister), $"AND A, {rightRegister}", 0xA0 + index, 0));
 
             _instructions.Add(0xA8 + index, new Instruction(_ => XOR_R_R(Register.A, rightRegister), $"XOR A, {rightRegister}", 0xA8 + index, 0));
         }
