@@ -44,7 +44,7 @@ public class TestRunner
 
         foreach (var file in files)
         {
-            if (Path.GetFileNameWithoutExtension(file).CompareTo("40 ") < 0)
+            if (Path.GetFileNameWithoutExtension(file).CompareTo("7F ") < 0)
             {
                 continue;
             }

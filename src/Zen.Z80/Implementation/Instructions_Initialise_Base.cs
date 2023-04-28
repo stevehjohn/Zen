@@ -15,6 +15,8 @@ public partial class Instructions
 
         InitialiseLDByteInstructions();
 
+        InitialiseArithmeticLogicInstructions();
+
         _instructions.Add(0x01, new Instruction(d => LD_RR_nn(RegisterPair.BC, d), "LD BC, nn", 0x01, 2));
 
         _instructions.Add(0xCB, new Instruction(_ => PREFIX(0xCB), "PREFIX 0xCB", 0xCB, 0));
@@ -93,6 +95,30 @@ public partial class Instructions
 
                 _instructions.Add(opCode, new Instruction(_ => LD_R_R(leftRegister, rightRegister), $"LD {leftRegister}, {rightRegister}", opCode, 0));
             }
+        }
+    }
+
+    private void InitialiseArithmeticLogicInstructions()
+    {
+        for (var index = 0; index < 8; index++)
+        {
+            if (index == 6)
+            {
+                continue;
+            }
+
+            var rightRegister = index switch
+            {
+                0 => Register.B,
+                1 => Register.C,
+                2 => Register.D,
+                3 => Register.E,
+                4 => Register.H,
+                5 => Register.L,
+                7 => Register.A
+            };
+
+            _instructions.Add(0x80 + index, new Instruction(_ => ADD_R_R(Register.A, rightRegister), $"ADD A, {rightRegister}", 0x80 + index, 0));
         }
     }
 }
