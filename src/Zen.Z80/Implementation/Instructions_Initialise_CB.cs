@@ -89,6 +89,8 @@ public partial class Instructions
                 _instructions.Add(opCode + 0x28, new Instruction(_ => SRA_R(register), $"SRA {register}", opCode + 0x28, 0));
 
                 _instructions.Add(opCode + 0x30, new Instruction(_ => SLL_R(register), $"SLL {register}", opCode + 0x30, 0));
+
+                _instructions.Add(opCode + 0x38, new Instruction(_ => SRL_R(register), $"SRL {register}", opCode + 0x38, 0));
             }
             else
             {
@@ -105,6 +107,8 @@ public partial class Instructions
                 _instructions.Add(opCode + 0x28, new Instruction(_ => SRA_aRR(RegisterPair.HL), "SRA (HL)", opCode + 0x28, 0));
 
                 _instructions.Add(opCode + 0x30, new Instruction(_ => SLL_aRR(RegisterPair.HL), "SLL (HL)", opCode + 0x30, 0));
+
+                _instructions.Add(opCode + 0x38, new Instruction(_ => SRL_aRR(RegisterPair.HL), "SRL (HL)", opCode + 0x38, 0));
             }
         }
     }
