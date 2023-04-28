@@ -78,9 +78,9 @@ public partial class Instructions
 
         _instructions.Add(0x0B, new Instruction(_ => DEC_RR(RegisterPair.BC), "DEC BC", 0x0B, 0));
 
-        _instructions.Add(0x0C, new Instruction(_ => INC_R(Register.B), "INC C", 0x0C, 0));
+        _instructions.Add(0x0C, new Instruction(_ => INC_R(Register.C), "INC C", 0x0C, 0));
 
-        _instructions.Add(0x0D, new Instruction(_ => DEC_R(Register.B), "DEC C", 0x0D, 0));
+        _instructions.Add(0x0D, new Instruction(_ => DEC_R(Register.C), "DEC C", 0x0D, 0));
 
         _instructions.Add(0x13, new Instruction(_ => INC_RR(RegisterPair.DE), "INC DE", 0x13, 0));
 

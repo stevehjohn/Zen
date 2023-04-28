@@ -357,7 +357,7 @@ public partial class Instructions
             _state.Q = 0;
         }
 
-        _state.SetMCycles(4);
+        _state.SetMCycles(6);
     }
 
     private void INC_R(Register register)
