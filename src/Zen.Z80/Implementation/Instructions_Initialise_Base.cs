@@ -23,6 +23,8 @@ public partial class Instructions
 
         InitialiseIncDecInstructions();
 
+        InitialiseBranchInstructions();
+
         _instructions.Add(0xCB, new Instruction(_ => PREFIX(0xCB), "PREFIX 0xCB", 0xCB, 0));
 
         _instructions.Add(0xDD, new Instruction(_ => PREFIX(0xDD), "PREFIX 0xDD", 0xDD, 0));
@@ -51,21 +53,21 @@ public partial class Instructions
 
     private void InitialiseRETInstructions()
     {
-        _instructions.Add(0xC0, new Instruction(_ => RET(Flag.Zero, true), "RET NZ", 0xC0, 0));
+        _instructions.Add(0xC0, new Instruction(_ => RET_F(Flag.Zero, true), "RET NZ", 0xC0, 0));
 
-        _instructions.Add(0xD0, new Instruction(_ => RET(Flag.Carry, true), "RET NC", 0xD0, 0));
+        _instructions.Add(0xD0, new Instruction(_ => RET_F(Flag.Carry, true), "RET NC", 0xD0, 0));
 
-        _instructions.Add(0xE0, new Instruction(_ => RET(Flag.ParityOverflow, true), "RET PO", 0xE0, 0));
+        _instructions.Add(0xE0, new Instruction(_ => RET_F(Flag.ParityOverflow, true), "RET PO", 0xE0, 0));
 
-        _instructions.Add(0xF0, new Instruction(_ => RET(Flag.Sign, true), "RET NS", 0xF0, 0));
+        _instructions.Add(0xF0, new Instruction(_ => RET_F(Flag.Sign, true), "RET NS", 0xF0, 0));
 
-        _instructions.Add(0xC8, new Instruction(_ => RET(Flag.Zero), "RET Z", 0xC8, 0));
+        _instructions.Add(0xC8, new Instruction(_ => RET_F(Flag.Zero), "RET Z", 0xC8, 0));
 
-        _instructions.Add(0xD8, new Instruction(_ => RET(Flag.Carry), "RET C", 0xD8, 0));
+        _instructions.Add(0xD8, new Instruction(_ => RET_F(Flag.Carry), "RET C", 0xD8, 0));
 
-        _instructions.Add(0xE8, new Instruction(_ => RET(Flag.ParityOverflow), "RET PE", 0xE8, 0));
+        _instructions.Add(0xE8, new Instruction(_ => RET_F(Flag.ParityOverflow), "RET PE", 0xE8, 0));
 
-        _instructions.Add(0xF8, new Instruction(_ => RET(Flag.Sign), "RET S", 0xF8, 0));
+        _instructions.Add(0xF8, new Instruction(_ => RET_F(Flag.Sign), "RET S", 0xF8, 0));
     }
 
     private void InitialiseStackInstructions()
@@ -136,5 +138,26 @@ public partial class Instructions
         _instructions.Add(0x3C, new Instruction(_ => INC_R(Register.A), "INC A", 0x3C, 0));
 
         _instructions.Add(0x3D, new Instruction(_ => DEC_R(Register.A), "DEC A", 0x3D, 0));
+    }
+
+    private void InitialiseBranchInstructions()
+    {
+        _instructions.Add(0xC2, new Instruction(p => JP_F_nn(Flag.Zero, p, true), "JP NZ, nn", 0xC2, 2));
+
+        _instructions.Add(0xC3, new Instruction(JP_nn, "JP nn", 0xC3, 2));
+
+        _instructions.Add(0xD2, new Instruction(p => JP_F_nn(Flag.Carry, p, true), "JP NC, nn", 0xD2, 2));
+
+        _instructions.Add(0xE2, new Instruction(p => JP_F_nn(Flag.ParityOverflow, p, true), "JP PO, nn", 0xE2, 2));
+
+        _instructions.Add(0xF2, new Instruction(p => JP_F_nn(Flag.Sign, p, true), "JP NS, nn", 0xF2, 2));
+
+        _instructions.Add(0xCA, new Instruction(p => JP_F_nn(Flag.Zero, p), "JP Z, nn", 0xCA, 2));
+
+        _instructions.Add(0xDA, new Instruction(p => JP_F_nn(Flag.Carry, p), "JP C, nn", 0xDA, 2));
+
+        _instructions.Add(0xEA, new Instruction(p => JP_F_nn(Flag.ParityOverflow, p), "JP PE, nn", 0xEA, 2));
+
+        _instructions.Add(0xFA, new Instruction(p => JP_F_nn(Flag.Sign, p), "JP S, nn", 0xFA, 2));
     }
 }
