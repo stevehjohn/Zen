@@ -17,6 +17,8 @@ public partial class Instructions
 
         InitialiseRETInstructions();
 
+        InitialiseStackInstructions();
+
         _instructions.Add(0x01, new Instruction(d => LD_RR_nn(RegisterPair.BC, d), "LD BC, nn", 0x01, 2));
 
         _instructions.Add(0xCB, new Instruction(_ => PREFIX(0xCB), "PREFIX 0xCB", 0xCB, 0));
@@ -43,5 +45,24 @@ public partial class Instructions
         _instructions.Add(0xE8, new Instruction(_ => RET(Flag.ParityOverflow), "RET PE", 0xE8, 0));
 
         _instructions.Add(0xF8, new Instruction(_ => RET(Flag.Sign), "RET S", 0xF8, 0));
+    }
+
+    private void InitialiseStackInstructions()
+    {
+        _instructions.Add(0xC5, new Instruction(_ => PUSH(RegisterPair.BC), "PUSH BC", 0xC5, 0));
+
+        _instructions.Add(0xD5, new Instruction(_ => PUSH(RegisterPair.DE), "PUSH DE", 0xD5, 0));
+
+        _instructions.Add(0xE5, new Instruction(_ => PUSH(RegisterPair.HL), "PUSH HL", 0xE5, 0));
+
+        _instructions.Add(0xF5, new Instruction(_ => PUSH(RegisterPair.AF), "PUSH AF", 0xF5, 0));
+
+        _instructions.Add(0xC1, new Instruction(_ => POP(RegisterPair.BC), "POP BC", 0xC1, 0));
+
+        _instructions.Add(0xD1, new Instruction(_ => POP(RegisterPair.DE), "POP DE", 0xD1, 0));
+
+        _instructions.Add(0xE1, new Instruction(_ => POP(RegisterPair.HL), "POP HL", 0xE1, 0));
+
+        _instructions.Add(0xF1, new Instruction(_ => POP(RegisterPair.AF), "POP AF", 0xF1, 0));
     }
 }
