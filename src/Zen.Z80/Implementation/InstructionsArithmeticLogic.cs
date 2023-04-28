@@ -7,6 +7,89 @@ namespace Zen.Z80.Implementation;
 
 public partial class Instructions
 {
+    public void ADC_R_aRR(Register target, RegisterPair source)
+    {
+        unchecked
+        {
+            var left = _state[target];
+
+            var address = _state[source];
+
+            var right = _interface.ReadFromMemory(address);
+
+            var carry = (byte) (_state[Flag.Carry] ? 1 : 0);
+
+            var result = left + right + carry;
+
+            _state[target] = (byte) result;
+
+            _state[Flag.Carry] = result > 0xFF;
+            _state[Flag.AddSubtract] = false;
+            _state[Flag.ParityOverflow] = ((left ^ right) & 0x80) == 0 && ((left ^ result) & 0x80) != 0;
+            _state[Flag.X1] = (result & 0x08) > 0;
+            _state[Flag.HalfCarry] = (left & 0x0F) + (right & 0x0F) + carry > 0xF;
+            _state[Flag.X2] = (result & 0x20) > 0;
+            _state[Flag.Zero] = (byte) result == 0;
+            _state[Flag.Sign] = (sbyte) result < 0;
+        }
+
+        _state.SetMCycles(4, 3);
+    }
+
+    public void ADC_R_R(Register target, Register source)
+    {
+        unchecked
+        {
+            var left = _state[target];
+
+            var right = _state[source];
+
+            var carry = (byte) (_state[Flag.Carry] ? 1 : 0);
+
+            var result = left + right + carry;
+
+            _state[target] = (byte) result;
+
+            _state[Flag.Carry] = result > 0xFF;
+            _state[Flag.AddSubtract] = false;
+            _state[Flag.ParityOverflow] = ((left ^ right) & 0x80) == 0 && ((left ^ result) & 0x80) != 0;
+            _state[Flag.X1] = (result & 0x08) > 0;
+            _state[Flag.HalfCarry] = (left & 0x0F) + (right & 0x0F) + carry > 0xF;
+            _state[Flag.X2] = (result & 0x20) > 0;
+            _state[Flag.Zero] = (byte) result == 0;
+            _state[Flag.Sign] = (sbyte) result < 0;
+        }
+
+        _state.SetMCycles(4);
+    }
+
+    public void ADD_R_aRR(Register target, RegisterPair source)
+    {
+        unchecked
+        {
+            var left = _state[target];
+
+            var address = _state[source];
+
+            var right = _interface.ReadFromMemory(address);
+
+            var result = left + right;
+
+            _state[target] = (byte) result;
+
+            _state[Flag.Carry] = result > 0xFF;
+            _state[Flag.AddSubtract] = false;
+            _state[Flag.ParityOverflow] = ((left ^ right) & 0x80) == 0 && ((left ^ result) & 0x80) != 0;
+            _state[Flag.X1] = (result & 0x08) > 0;
+            _state[Flag.HalfCarry] = (left & 0x0F) + (right & 0x0F) > 0xF;
+            _state[Flag.X2] = (result & 0x20) > 0;
+            _state[Flag.Zero] = (byte) result == 0;
+            _state[Flag.Sign] = (sbyte) result < 0;
+        }
+
+        _state.SetMCycles(4, 3);
+    }
+
     public void ADD_R_R(Register target, Register source)
     {
         unchecked

@@ -104,6 +104,10 @@ public partial class Instructions
         {
             if (index == 6)
             {
+                _instructions.Add(0x80 + index, new Instruction(_ => ADD_R_aRR(Register.A, RegisterPair.HL), "ADD A, (HL)", 0x80 + index, 0));
+
+                _instructions.Add(0x88 + index, new Instruction(_ => ADC_R_aRR(Register.A, RegisterPair.HL), "ADC A, (HL)", 0x88 + index, 0));
+
                 continue;
             }
 
@@ -119,6 +123,8 @@ public partial class Instructions
             };
 
             _instructions.Add(0x80 + index, new Instruction(_ => ADD_R_R(Register.A, rightRegister), $"ADD A, {rightRegister}", 0x80 + index, 0));
+
+            _instructions.Add(0x88 + index, new Instruction(_ => ADC_R_R(Register.A, rightRegister), $"ADC A, {rightRegister}", 0x88 + index, 0));
         }
     }
 }
