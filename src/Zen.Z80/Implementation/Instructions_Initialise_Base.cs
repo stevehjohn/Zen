@@ -68,7 +68,7 @@ public partial class Instructions
 
         _instructions.Add(0x26, new Instruction(p => LD_R_n(Register.H, p), "LD H, n", 0x26, 1));
 
-        _instructions.Add(0x27, new Instruction(_ => DAA(), "DAA", 0x27, 1));
+        _instructions.Add(0x27, new Instruction(_ => DAA(), "DAA", 0x27, 0));
 
         _instructions.Add(0x29, new Instruction(_ => ADD_RR_RR(RegisterPair.HL, RegisterPair.HL), "ADD HL, HL", 0x29, 0));
 
