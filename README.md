@@ -11,5 +11,6 @@ This project aims to take the lessons learned from ZXE and build upon them.
 ## Useful References
 
 - https://clrhome.org/table/
+- http://ped.7gods.org/Z80N_table_ClrHome.html
 - https://github.com/Agaxia/Z80Plus/blob/master/sources/Z80Plus.cpp
 - https://github.com/raddad772/jsmoo/tree/main/misc/tests/GeneratedTests/z80
