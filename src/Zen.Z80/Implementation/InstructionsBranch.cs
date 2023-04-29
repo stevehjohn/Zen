@@ -217,7 +217,7 @@ public partial class Instructions
             _state.Q = 0;
         }
 
-        _state.SetMCycles(4, 3, 3);
+        _state.SetMCycles(4, 4, 3, 3);
     }
     
     private void RETN()
@@ -243,7 +243,7 @@ public partial class Instructions
             _state.Q = 0;
         }
 
-        _state.SetMCycles(4, 3, 3);
+        _state.SetMCycles(4, 4, 3, 3);
     }
 
     private void RET_F(Flag flag, bool not = false)
