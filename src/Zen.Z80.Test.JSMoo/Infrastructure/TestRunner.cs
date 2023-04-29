@@ -1,6 +1,8 @@
 ﻿// #define UNATTENDED
 // #define UNDOCUMENTED
 // #define EXACT
+#define QUICK
+
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
@@ -43,7 +45,9 @@ public class TestRunner
         var failedNames = new List<string>();
 
         var warnNames = new List<string>();
-        
+
+        var nimpNames = new List<string>();
+
         foreach (var file in files)
         {
             //if (Path.GetFileNameWithoutExtension(file).CompareTo("3E ") < 0)
@@ -81,7 +85,9 @@ public class TestRunner
                             warnNames.Add($"{test.Name}: {result.Mnemonic ?? "UNKNOWN"}    &Yellow;{_state.ClockCycles} != {test.Cycles.Length}");
                         }
 
+#if QUICK
                         skipRemainder = true;
+#endif
 
                         break;
 
@@ -97,6 +103,8 @@ public class TestRunner
                         break;
 
                     case TestResult.NotImplemented:
+                        nimpNames.Add($"{test.Name}: {result.Mnemonic ?? "UNKNOWN"}");
+
                         notImplemented++;
 
                         skipRemainder = true;
