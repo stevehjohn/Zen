@@ -7,22 +7,6 @@ namespace Zen.Z80.Implementation;
 
 public partial class Instructions
 {
-    //private void LD_aRR_nn(RegisterPair register, byte[] parameters)
-    //{
-    //    unchecked
-    //    {
-    //        var address = _state[register];
-
-    //        _interface.WriteToMemory(address, parameters[0]);
-
-    //        _state.MemPtr = (ushort) (((_state[target] + 1) & 0xFF) | (_state[source] << 8));
-
-    //        _state.Q = 0;
-    //    }
-
-    //    _state.SetMCycles(4, 3);
-    //}
-
     private void LD_ann_R(byte[] parameters, Register source)
     {
         unchecked
