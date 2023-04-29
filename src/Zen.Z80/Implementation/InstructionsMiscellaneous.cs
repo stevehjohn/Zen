@@ -91,6 +91,15 @@ public partial class Instructions
         _state.SetMCycles(4);
     }
 
+    private void IM(InterruptMode mode)
+    {
+        _state.InterruptMode = mode;
+
+        _state.Q = 0;
+
+        _state.SetMCycles(4, 4);
+    }
+
     private void NOP()
     {
         _state.Q = 0;

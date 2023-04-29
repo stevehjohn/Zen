@@ -22,9 +22,13 @@ public class State
         set => this[RegisterPair.SP] = value;
     }
 
+    public InterruptMode InterruptMode { get; set; }
+
     public bool InterruptFlipFlop1 { get; set; }
 
     public bool InterruptFlipFlop2 { get; set; }
+
+    public bool IgnoreNextInterrupt { get; set; }
 
     public ushort MemPtr { get; set; }
     
@@ -35,8 +39,6 @@ public class State
     public ulong ClockCycles { get; set; }
 
     public Instruction? LastInstruction { get; set; }
-
-    public bool IgnoreNextInterrupt { get; set; }
 
     public bool this[Flag flag]
     {
