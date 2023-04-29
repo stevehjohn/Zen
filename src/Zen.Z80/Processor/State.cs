@@ -36,6 +36,8 @@ public class State
 
     public Instruction? LastInstruction { get; set; }
 
+    public bool IgnoreNextInterrupt { get; set; }
+
     public bool this[Flag flag]
     {
         get => (this[Register.F] & (byte) flag) > 0;

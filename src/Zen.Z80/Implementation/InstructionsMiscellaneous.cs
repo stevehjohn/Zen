@@ -6,6 +6,30 @@ namespace Zen.Z80.Implementation;
 
 public partial class Instructions
 {
+    private void DI()
+    {
+        _state.InterruptFlipFlop1 = false;
+
+        _state.InterruptFlipFlop2 = false;
+
+        _state.Q = 0;
+
+        _state.SetMCycles(4);
+    }
+
+    private void EI()
+    {
+        _state.InterruptFlipFlop1 = true;
+
+        _state.InterruptFlipFlop2 = true;
+
+        _state.IgnoreNextInterrupt = true;
+
+        _state.Q = 0;
+
+        _state.SetMCycles(4);
+    }
+
     private void EX_RR_RR(RegisterPair left, RegisterPair right)
     {
         unchecked
