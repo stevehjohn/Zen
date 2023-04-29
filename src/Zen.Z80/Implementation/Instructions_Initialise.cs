@@ -18,6 +18,8 @@ public partial class Instructions
 
         InitialiseDDCBFDCBInstructions();
 
+        InitialiseEDInstructions();
+
         InitialiseFDInstructions();
     }
 
