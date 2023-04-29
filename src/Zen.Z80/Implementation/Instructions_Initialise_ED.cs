@@ -72,6 +72,10 @@ public partial class Instructions
 
         _instructions.Add(0xEDA0, new Instruction(_ => LDI(), "LDI", 0xEDA0, 0));
 
+        _instructions.Add(0xEDA8, new Instruction(_ => LDD(), "LDD", 0xEDA8, 0));
+
         _instructions.Add(0xEDB0, new Instruction(_ => LDIR(), "LDIR", 0xEDB0, 0));
+
+        _instructions.Add(0xEDB8, new Instruction(_ => LDDR(), "LDDR", 0xEDB8, 0));
     }
 }
