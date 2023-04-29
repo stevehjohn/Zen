@@ -195,7 +195,7 @@ public partial class Instructions
             }
         }
 
-        if (target == Register.I || target == Register.R)
+        if (target == Register.I || target == Register.R || source == Register.I || source == Register.R)
         {
             _state.SetMCycles(4, 5);
         }

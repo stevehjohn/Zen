@@ -23,7 +23,7 @@ public partial class Instructions
 
         _instructions.Add(0xED53, new Instruction(p => LD_ann_RR(p, RegisterPair.DE), "LD (nn), DE", 0xED53, 2, 4));
 
-        _instructions.Add(0xED57, new Instruction(_ => LD_R_R(Register.A, Register.I), "LD A, I", 0xED57, 0, 4));
+        _instructions.Add(0xED57, new Instruction(_ => LD_R_R(Register.A, Register.I), "LD A, I", 0xED57, 0));
 
         _instructions.Add(0xED5B, new Instruction(p => LD_RR_ann(RegisterPair.DE, p), "LD DE, (nn)", 0xED5B, 2, 4));
 
