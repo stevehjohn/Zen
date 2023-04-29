@@ -373,7 +373,7 @@ public class TestRunner
         var expectedFlags = test.Final.F.ToFlags();
 
         FormattedConsole.WriteLine(
-            $"\n    &Cyan;F &White;: &Green;{initialFlags}      &Cyan;F &White;: &Green;{expectedFlags}      {(test.Final.F == _state[Register.F] ? "&Green;" : "&Red;")}{_state[Register.F].ToFlags()}");
+            $"\n    &Cyan;F &White;: &Green;{initialFlags}      &Green;{expectedFlags}      {(test.Final.F == _state[Register.F] ? "&Green;" : "&Red;")}{_state[Register.F].ToFlags()}");
 
         FormattedConsole.WriteLine(string.Empty);
         FormattedConsole.Write("    &Cyan;RAM differences&White;: ");

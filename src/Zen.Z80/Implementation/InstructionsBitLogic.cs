@@ -6,7 +6,6 @@ namespace Zen.Z80.Implementation;
 
 public partial class Instructions
 {
-    // TODO: Check cycles of all...
     public void BIT_b_aRRd(byte bit, RegisterPair source, byte[] parameters)
     {
         unchecked
@@ -76,6 +75,48 @@ public partial class Instructions
         }
 
         _state.SetMCycles(4, 4);
+    }
+    
+    public void CCF()
+    {
+        unchecked
+        {
+            var value = _state[Flag.Carry];
+
+            var x = (byte) (_state.Q ^ (_state[Register.F] | _state[Register.A]));
+
+            _state[Flag.Carry] = ! value;
+            _state[Flag.AddSubtract] = false;
+            // ParityOverflow unaffected
+            _state[Flag.X1] = (x & 0x08) > 0;
+            _state[Flag.HalfCarry] = value;
+            _state[Flag.X2] = (x & 0x20) > 0;
+            // Zero unaffected
+            // Sign unaffected
+        }
+
+        _state.SetMCycles(4);
+    }
+    
+    public void CPL()
+    {
+        unchecked
+        {
+            var result = _state[Register.A] ^ 0xFF;
+
+            _state[Register.A] = (byte) result;
+
+            // Carry unaffected
+            _state[Flag.AddSubtract] = true;
+            // ParityOverflow unaffected
+            _state[Flag.X1] = (result & 0x08) > 0;
+            _state[Flag.HalfCarry] = true;
+            _state[Flag.X2] = (result & 0x20) > 0;
+            // Zero unaffected
+            // Sign unaffected
+        }
+
+        _state.SetMCycles(4);
     }
 
     public void RES_b_aRRd(byte bit, RegisterPair source, byte[] parameters)
