@@ -77,6 +77,8 @@ public partial class Instructions
         _instructions.Add(0x2F, new Instruction(_ => CPL(), "CPL", 0x2F, 0));
 
         _instructions.Add(0x36, new Instruction(p => LD_aRR_n(RegisterPair.HL, p), "LD (HL), n", 0x36, 1));
+
+        _instructions.Add(0x37, new Instruction(_ => SCF(), "SCF", 0x37, 0));
         
         _instructions.Add(0x39, new Instruction(_ => ADD_RR_RR(RegisterPair.HL, RegisterPair.SP), "ADD HL, SP", 0x39, 0));
 

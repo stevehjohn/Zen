@@ -200,6 +200,25 @@ public partial class Instructions
 
         _state.SetMCycles(4, 4);
     }
+        
+    public void SCF()
+    {
+        unchecked
+        {
+            var x = (byte) ((_state.Q ^ _state[Register.F]) | _state[Register.A]);
+
+            _state[Flag.Carry] = true;
+            _state[Flag.AddSubtract] = false;
+            // ParityOverflow unaffected
+            _state[Flag.X1] = (x & 0x08) > 0;
+            _state[Flag.HalfCarry] = false;
+            _state[Flag.X2] = (x & 0x20) > 0;
+            // Zero unaffected
+            // Sign unaffected
+        }
+
+        _state.SetMCycles(4);
+    }
 
     public void SET_b_aRR(byte bit, RegisterPair source)
     {
