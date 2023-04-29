@@ -156,9 +156,18 @@ public partial class Instructions
             // Zero unaffected
             // Sign unaffected
 
+            if (_state[RegisterPair.BC] != 1)
+            {
+                _state.MemPtr = (ushort) (_state.ProgramCounter + 1);
+            }
+
             if (_state[RegisterPair.BC] != 0)
             {
                 _state.ProgramCounter -= 2;
+
+                _state.SetMCycles(4, 4, 3, 5, 5);
+
+                return;
             }
         }
 
