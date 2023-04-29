@@ -385,6 +385,31 @@ public partial class Instructions
 
         _state.SetMCycles(4, 4);
     }
+    
+    public void RRCA()
+    {
+        unchecked
+        {
+            var data = _state[Register.A];
+
+            var bottomBit = (byte) (data & 0x01);
+
+            var result = (byte) ((data >> 1) | (bottomBit << 7));
+
+            _state[Register.A] = result;
+
+            _state[Flag.Carry] = bottomBit == 1;
+            _state[Flag.AddSubtract] = false;
+            _state[Flag.ParityOverflow] = result.IsEvenParity();
+            _state[Flag.X1] = (result & 0x08) > 0;
+            _state[Flag.HalfCarry] = false;
+            _state[Flag.X2] = (result & 0x20) > 0;
+            _state[Flag.Zero] = result == 0;
+            _state[Flag.Sign] = (sbyte) result < 0;
+        }
+
+        _state.SetMCycles(4);
+    }
 
     public void RRC_R(Register register)
     {
@@ -409,31 +434,6 @@ public partial class Instructions
         }
 
         _state.SetMCycles(4, 4);
-    }
-
-    public void RRCA()
-    {
-        unchecked
-        {
-            var data = _state[Register.A];
-
-            var bottomBit = (byte) (data & 0x01);
-
-            var result = (byte) ((data >> 1) | (bottomBit << 7));
-
-            _state[Register.A] = result;
-
-            _state[Flag.Carry] = bottomBit == 1;
-            _state[Flag.AddSubtract] = false;
-            _state[Flag.ParityOverflow] = result.IsEvenParity();
-            _state[Flag.X1] = (result & 0x08) > 0;
-            _state[Flag.HalfCarry] = false;
-            _state[Flag.X2] = (result & 0x20) > 0;
-            _state[Flag.Zero] = result == 0;
-            _state[Flag.Sign] = (sbyte) result < 0;
-        }
-
-        _state.SetMCycles(4);
     }
     
     public void RRC_aRR(RegisterPair source)
