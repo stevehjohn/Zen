@@ -30,6 +30,8 @@ public partial class Instructions
         _instructions.Add(0xCB, new Instruction(_ => PREFIX(0xCB), "PREFIX 0xCB", 0xCB, 0));
             
         _instructions.Add(0xDD, new Instruction(_ => PREFIX(0xDD), "PREFIX 0xDD", 0xDD, 0));
+            
+        _instructions.Add(0xED, new Instruction(_ => PREFIX(0xED), "PREFIX 0xED", 0xED, 0));
 
         _instructions.Add(0xFD, new Instruction(_ => PREFIX(0xFD), "PREFIX 0xFD", 0xFD, 0));
     }
@@ -57,6 +59,10 @@ public partial class Instructions
         _instructions.Add(0x36, new Instruction(p => LD_aRR_n(RegisterPair.HL, p), "LD (HL), n", 0x36, 1));
 
         _instructions.Add(0x3E, new Instruction(p => LD_R_n(Register.A, p), "LD A, n", 0x3E, 1));
+
+        _instructions.Add(0xCE, new Instruction(p => ADC_R_n(Register.A, p), "ADC A, n", 0xCE, 1));
+
+        _instructions.Add(0xDE, new Instruction(p => SBC_R_n(Register.A, p), "SBC A, n", 0xDE, 1));
 
         _instructions.Add(0xFE, new Instruction(p => CP_R_n(Register.A, p), "CP A, n", 0xFE, 1));
     }
