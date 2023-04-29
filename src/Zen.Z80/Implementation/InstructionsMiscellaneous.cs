@@ -1,5 +1,6 @@
 ﻿// ReSharper disable InconsistentNaming
 
+using Zen.Common.Extensions;
 using Zen.Z80.Processor;
 
 namespace Zen.Z80.Implementation;
@@ -112,5 +113,77 @@ public partial class Instructions
         _state.InstructionPrefix = parameters;
 
         _state.SetMCycles(0);
+    }
+
+    private void RLD()
+    {
+        unchecked
+        {
+            var value = _interface.ReadFromMemory(_state[RegisterPair.HL]);
+
+            var al = (byte) (_state[Register.A] & 0x0F);
+
+            var ah = (byte) (_state[Register.A] & 0xF0);
+
+            var vl = (byte) (value & 0x0F);
+
+            var vh = (byte) (value & 0xF0);
+
+            _state[Register.A] = (byte) (ah | vh >> 4);
+
+            value = (byte) ((vl << 4) | al);
+
+            _interface.WriteToMemory(_state[RegisterPair.HL], value);
+
+            // Flags
+            // Carry unaffected
+            _state[Flag.AddSubtract] = false;
+            _state[Flag.ParityOverflow] = _state[Register.A].IsEvenParity();
+            _state[Flag.X1] = (_state[Register.A] & 0x08) > 0;
+            _state[Flag.HalfCarry] = false;
+            _state[Flag.X2] = (_state[Register.A] & 0x20) > 0;
+            _state[Flag.Zero] = _state[Register.A] == 0;
+            _state[Flag.Sign] = (sbyte) _state[Register.A] < 0;
+
+            _state.MemPtr = (ushort) (_state[RegisterPair.HL] + 1);
+        }
+
+        _state.SetMCycles(4, 4, 3, 4, 3);
+    }
+
+    private void RRD()
+    {
+        unchecked
+        {
+            var value = _interface.ReadFromMemory(_state[RegisterPair.HL]);
+
+            var al = (byte) (_state[Register.A] & 0x0F);
+
+            var ah = (byte) (_state[Register.A] & 0xF0);
+
+            var vl = (byte) (value & 0x0F);
+
+            var vh = (byte) (value & 0xF0);
+
+            _state[Register.A] = (byte) (ah | vl);
+
+            value = (byte) ((al << 4) | (vh >> 4));
+
+            _interface.WriteToMemory(_state[RegisterPair.HL], value);
+
+            // Flags
+            // Carry unaffected
+            _state[Flag.AddSubtract] = false;
+            _state[Flag.ParityOverflow] = _state[Register.A].IsEvenParity();
+            _state[Flag.X1] = (_state[Register.A] & 0x08) > 0;
+            _state[Flag.HalfCarry] = false;
+            _state[Flag.X2] = (_state[Register.A] & 0x20) > 0;
+            _state[Flag.Zero] = _state[Register.A] == 0;
+            _state[Flag.Sign] = (sbyte) _state[Register.A] < 0;
+
+            _state.MemPtr = (ushort) (_state[RegisterPair.HL] + 1);
+        }
+
+        _state.SetMCycles(4, 4, 3, 4, 3);
     }
 }

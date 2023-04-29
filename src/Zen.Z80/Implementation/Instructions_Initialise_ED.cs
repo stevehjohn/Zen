@@ -44,7 +44,11 @@ public partial class Instructions
 
         _instructions.Add(0xED63, new Instruction(p => LD_ann_RR(p, RegisterPair.HL), "LD (nn), HL", 0xED63, 2, 4));
 
+        _instructions.Add(0xED67, new Instruction(_ => RRD(), "RRD", 0xED67, 0));
+
         _instructions.Add(0xED6B, new Instruction(p => LD_RR_ann(RegisterPair.HL, p), "LD HL, (nn)", 0xED6B, 2, 4));
+
+        _instructions.Add(0xED6F, new Instruction(_ => RLD(), "RLD", 0xED6F, 0));
 
         _instructions.Add(0xED73, new Instruction(p => LD_ann_RR(p, RegisterPair.SP), "LD (nn), SP", 0xED73, 2, 4));
 
