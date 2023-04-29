@@ -133,7 +133,7 @@ public class TestRunner
 
         FormattedConsole.WriteLine(string.Empty);
 
-        if (failedNames.Count > 0 || warnNames.Count > 0)
+        if (failedNames.Count > 0 || warnNames.Count > 0 || nimpNames.Count > 0)
         {
             FormattedConsole.WriteLine("  &Cyan;Press any key to see warn/failed test names...\n");
 
