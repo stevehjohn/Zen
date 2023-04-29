@@ -67,10 +67,16 @@ public partial class Instructions
                 _state.MemPtr = _state.ProgramCounter;
 
                 _state.Q = 0;
+
+                _state.SetMCycles(4, 3, 5);
+
+                return;
             }
         }
 
-        _state.SetMCycles(4, 3, 5);
+        _state.Q = 0;
+
+        _state.SetMCycles(4, 3);
     }
 
     private void RET_F(Flag flag, bool not = false)
