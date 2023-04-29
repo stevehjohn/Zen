@@ -766,7 +766,7 @@ public partial class Instructions
             _state.MemPtr = (ushort) (_state[target] + 1);
         }
 
-        _state.SetMCycles(4);
+        _state.SetMCycles(4, 4, 4, 3);
     }
 
     public void SUB_R_aRRd(Register target, RegisterPair source, byte[] parameters)

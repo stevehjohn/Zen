@@ -14,6 +14,8 @@ public partial class Instructions
 
     private void InitialiseEDLoadInstructions()
     {
+        _instructions.Add(0xED42, new Instruction(_ => SBC_RR_RR(RegisterPair.HL, RegisterPair.BC), "SBC HL, BC", 0xED42, 0));
+
         _instructions.Add(0xED43, new Instruction(p => LD_ann_RR(p, RegisterPair.BC), "LD (nn), BC", 0xED43, 2, 4));
 
         _instructions.Add(0xED44, new Instruction(_ => NEG(), "NEG A", 0xED44, 0));
