@@ -40,6 +40,8 @@ public partial class Instructions
     {
         _instructions.Add(0x06, new Instruction(p => LD_R_n(Register.B, p), "LD B, n", 0x06, 1));
 
+        _instructions.Add(0x07, new Instruction(_ => RLCA(), "RLCA", 0x07, 0));
+
         _instructions.Add(0x08, new Instruction(_ => EX_RR_RR1(RegisterPair.AF, RegisterPair.AF_), "EX AF, AF'", 0x08, 0));
 
         _instructions.Add(0x09, new Instruction(_ => ADD_RR_RR(RegisterPair.HL, RegisterPair.BC), "ADD HL, BC", 0x09, 0));

@@ -219,6 +219,31 @@ public partial class Instructions
         _state.SetMCycles(4, 4, 3, 5, 4, 3);
     }
     
+    public void RLCA()
+    {
+        unchecked
+        {
+            var data = _state[Register.A];
+
+            var topBit = (byte) ((data & 0x80) >> 7);
+
+            var result = (byte) (((data << 1) & 0xFE) | topBit);
+
+            _state[Register.A] = result;
+
+            _state[Flag.Carry] = topBit == 1;
+            _state[Flag.AddSubtract] = false;
+            // ParityOverflow unaffected
+            _state[Flag.X1] = (result & 0x08) > 0;
+            _state[Flag.HalfCarry] = false;
+            _state[Flag.X2] = (result & 0x20) > 0;
+            // Zero unaffected
+            // Sign unaffected
+        }
+
+        _state.SetMCycles(4);
+    }
+    
     public void RLC_R(Register register)
     {
         unchecked
@@ -243,6 +268,7 @@ public partial class Instructions
 
         _state.SetMCycles(4, 4);
     }
+
     public void RR_aRRd_R(RegisterPair source, byte[] parameters, Register target)
     {
         unchecked
