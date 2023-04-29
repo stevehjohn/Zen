@@ -20,6 +20,8 @@ public class Interface
 
     public bool Mreq { get; set; }
 
+    public bool Iorq { get; set; }
+
     public TransferType TransferType { get; set; }
 
     public Action<Interface>? AddressChanged { private get; set; }
@@ -27,6 +29,8 @@ public class Interface
     public void WriteToMemory(ushort address, byte data)
     {
         Mreq = true;
+
+        Iorq = false;
 
         TransferType = TransferType.Write;
 
@@ -39,9 +43,24 @@ public class Interface
     {
         Mreq = true;
 
+        Iorq = false;
+
         TransferType = TransferType.Read;
 
         Address = address;
+
+        return Data;
+    }
+
+    public byte ReadFromPort(ushort port)
+    {
+        Mreq = false;
+
+        Iorq = true;
+
+        TransferType = TransferType.Read;
+
+        Address = port;
 
         return Data;
     }
