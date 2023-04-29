@@ -42,7 +42,7 @@ public partial class Instructions
 
         _instructions.Add(0x07, new Instruction(_ => RLCA(), "RLCA", 0x07, 0));
 
-        _instructions.Add(0x08, new Instruction(_ => EX_RR_RR1(RegisterPair.AF, RegisterPair.AF_), "EX AF, AF'", 0x08, 0));
+        _instructions.Add(0x08, new Instruction(_ => EX_RR_RR(RegisterPair.AF, RegisterPair.AF_), "EX AF, AF'", 0x08, 0));
 
         _instructions.Add(0x09, new Instruction(_ => ADD_RR_RR(RegisterPair.HL, RegisterPair.BC), "ADD HL, BC", 0x09, 0));
 
@@ -97,6 +97,8 @@ public partial class Instructions
         _instructions.Add(0xCE, new Instruction(p => ADC_R_n(Register.A, p), "ADC A, n", 0xCE, 1));
 
         _instructions.Add(0xDE, new Instruction(p => SBC_R_n(Register.A, p), "SBC A, n", 0xDE, 1));
+
+        _instructions.Add(0xEB, new Instruction(_ => EX_RR_RR(RegisterPair.DE, RegisterPair.HL), "EX DE, HL", 0xEB, 0));
 
         _instructions.Add(0xEE, new Instruction(p => XOR_R_n(Register.A, p), "XOR A, n", 0xEE, 1));
 

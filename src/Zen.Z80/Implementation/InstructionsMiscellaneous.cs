@@ -6,7 +6,7 @@ namespace Zen.Z80.Implementation;
 
 public partial class Instructions
 {
-    private void EX_RR_RR1(RegisterPair left, RegisterPair right)
+    private void EX_RR_RR(RegisterPair left, RegisterPair right)
     {
         unchecked
         {
