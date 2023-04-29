@@ -174,6 +174,31 @@ public partial class Instructions
 
         _state.SetMCycles(4, 4, 3, 5, 3);
     }
+    
+    public void ADD_R_n(Register target, byte[] parameters)
+    {
+        unchecked
+        {
+            var left = _state[target];
+
+            var right = parameters[0];
+
+            var result = left + right;
+
+            _state[target] = (byte) result;
+
+            _state[Flag.Carry] = result > 0xFF;
+            _state[Flag.AddSubtract] = false;
+            _state[Flag.ParityOverflow] = ((left ^ right) & 0x80) == 0 && ((left ^ result) & 0x80) != 0;
+            _state[Flag.X1] = (result & 0x08) > 0;
+            _state[Flag.HalfCarry] = (left & 0x0F) + (right & 0x0F) > 0xF;
+            _state[Flag.X2] = (result & 0x20) > 0;
+            _state[Flag.Zero] = (byte) result == 0;
+            _state[Flag.Sign] = (sbyte) result < 0;
+        }
+
+        _state.SetMCycles(4, 3);
+    }
 
     public void ADD_R_R(Register target, Register source)
     {
