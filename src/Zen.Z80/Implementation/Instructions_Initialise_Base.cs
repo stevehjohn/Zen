@@ -42,6 +42,8 @@ public partial class Instructions
 
         _instructions.Add(0x08, new Instruction(_ => EX_RR_RR1(RegisterPair.AF, RegisterPair.AF_), "EX AF, AF'", 0x08, 0));
 
+        _instructions.Add(0x09, new Instruction(_ => ADD_RR_RR(RegisterPair.HL, RegisterPair.BC), "ADD HL, BC", 0x09, 1));
+
         _instructions.Add(0x0A, new Instruction(_ => LD_R_aRR(Register.A, RegisterPair.BC), "LD A, (BC)", 0x0A, 0));
 
         _instructions.Add(0x0E, new Instruction(p => LD_R_n(Register.C, p), "LD C, n", 0x0E, 1));
@@ -49,6 +51,8 @@ public partial class Instructions
         _instructions.Add(0x0F, new Instruction(_ => RRCA(), "RRCA", 0x0F, 0));
 
         _instructions.Add(0x10, new Instruction(DJNZ_e, "DJNZ p", 0x10, 1));
+
+        _instructions.Add(0x19, new Instruction(_ => ADD_RR_RR(RegisterPair.HL, RegisterPair.DE), "ADD HL, DE", 0x19, 1));
 
         _instructions.Add(0x1A, new Instruction(_ => LD_R_aRR(Register.A, RegisterPair.DE), "LD A, (DE)", 0x1A, 0));
 
@@ -60,6 +64,8 @@ public partial class Instructions
 
         _instructions.Add(0x26, new Instruction(p => LD_R_n(Register.H, p), "LD H, n", 0x26, 1));
 
+        _instructions.Add(0x29, new Instruction(_ => ADD_RR_RR(RegisterPair.HL, RegisterPair.HL), "ADD HL, HL", 0x29, 1));
+
         _instructions.Add(0x2A, new Instruction(p => LD_RR_ann(RegisterPair.HL, p), "LD HL, (nn)", 0x2A, 2));
 
         _instructions.Add(0x2E, new Instruction(p => LD_R_n(Register.L, p), "LD L, n", 0x2E, 1));
@@ -67,6 +73,8 @@ public partial class Instructions
         _instructions.Add(0x2F, new Instruction(_ => CPL(), "CPL", 0x2F, 0));
 
         _instructions.Add(0x36, new Instruction(p => LD_aRR_n(RegisterPair.HL, p), "LD (HL), n", 0x36, 1));
+        
+        _instructions.Add(0x39, new Instruction(_ => ADD_RR_RR(RegisterPair.HL, RegisterPair.SP), "ADD HL, SP", 0x39, 1));
 
         _instructions.Add(0x3A, new Instruction(p => LD_R_ann(Register.A, p), "LD A, (nn)", 0x3A, 2));
 

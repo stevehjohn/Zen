@@ -200,6 +200,31 @@ public partial class Instructions
         _state.SetMCycles(4);
     }
 
+    public void ADD_RR_RR(RegisterPair target, RegisterPair source)
+    {
+        unchecked
+        {
+            var left = _state[target];
+
+            var right = _state[source];
+
+            var result = left + right;
+
+            _state[Flag.Carry] = result > 0xFFFF;
+            _state[Flag.AddSubtract] = false;
+            // ParityOverflow unaffected
+            _state[Flag.X1] = (result & 0x0800) > 0;
+            _state[Flag.HalfCarry] = (right & 0x0FFF) + (left & 0x0FFF) > 0x0FFF;
+            _state[Flag.X2] = (result & 0x2000) > 0;
+            // Zero unaffected
+            // Sign unaffected
+
+            _state.MemPtr = (ushort) (left + 1);
+        }
+
+        _state.SetMCycles(4, 3, 3);
+    }
+
     public void AND_R_aRR(Register target, RegisterPair source)
     {
         unchecked
