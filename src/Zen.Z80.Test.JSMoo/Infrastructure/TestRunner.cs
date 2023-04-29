@@ -146,6 +146,13 @@ public class TestRunner
 
             Console.WriteLine();
 
+            foreach (var name in nimpNames)
+            {
+                FormattedConsole.Write($"&Yellow;{name}\n");
+            }
+
+            Console.WriteLine();
+
             foreach (var name in failedNames)
             {
                 FormattedConsole.Write($"&Red;{name}\n");
