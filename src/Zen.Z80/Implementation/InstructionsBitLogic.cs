@@ -83,7 +83,7 @@ public partial class Instructions
         {
             var value = _state[Flag.Carry];
 
-            var x = (byte) (_state.Q ^ (_state[Register.F] | _state[Register.A]));
+            var x = (byte) ((_state.Q ^ _state[Register.F]) | _state[Register.A]);
 
             _state[Flag.Carry] = ! value;
             _state[Flag.AddSubtract] = false;

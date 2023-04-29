@@ -40,11 +40,15 @@ public partial class Instructions
     {
         _instructions.Add(0x06, new Instruction(p => LD_R_n(Register.B, p), "LD B, n", 0x06, 1));
 
+        _instructions.Add(0x08, new Instruction(_ => EX_RR_RR1(RegisterPair.AF, RegisterPair.AF_), "EX AF, AF'", 0x08, 0));
+
         _instructions.Add(0x0A, new Instruction(_ => LD_R_aRR(Register.A, RegisterPair.BC), "LD A, (BC)", 0x0A, 0));
 
         _instructions.Add(0x0E, new Instruction(p => LD_R_n(Register.C, p), "LD C, n", 0x0E, 1));
 
         _instructions.Add(0x0F, new Instruction(_ => RRCA(), "RRCA", 0x0F, 0));
+
+        _instructions.Add(0x10, new Instruction(DJNZ_e, "DJNZ p", 0x10, 1));
 
         _instructions.Add(0x1A, new Instruction(_ => LD_R_aRR(Register.A, RegisterPair.DE), "LD A, (DE)", 0x1A, 0));
 

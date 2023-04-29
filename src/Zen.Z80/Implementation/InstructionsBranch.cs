@@ -1,4 +1,5 @@
 ﻿// ReSharper disable InconsistentNaming
+// ReSharper disable IdentifierTypo
 
 using Zen.Common.Extensions;
 using Zen.Z80.Processor;
@@ -60,6 +61,29 @@ public partial class Instructions
         _state.Q = 0;
 
         _state.SetMCycles(4, 3, 3);
+    }
+
+    private void DJNZ_e(byte[] parameters)
+    {
+        unchecked
+        {
+            _state[Register.B]--;
+
+            if (_state[Register.B] > 0)
+            {
+                _state.ProgramCounter += (ushort) (sbyte) parameters[0];
+
+                _state.Q = 0;
+
+                _state.SetMCycles(5, 3, 5);
+
+                return;
+            }
+        }
+
+        _state.Q = 0;
+
+        _state.SetMCycles(5, 3);
     }
 
     private void JP_nn(byte[] parameters)

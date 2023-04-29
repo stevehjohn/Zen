@@ -1,5 +1,5 @@
 ﻿#define UNATTENDED
-#define UNDOCUMENTED
+// #define UNDOCUMENTED
 // #define EXACT
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
@@ -46,7 +46,7 @@ public class TestRunner
         
         foreach (var file in files)
         {
-            //if (Path.GetFileNameWithoutExtension(file).CompareTo("bf ") < 0)
+            //if (Path.GetFileNameWithoutExtension(file).CompareTo("3E ") < 0)
             //{
             //    continue;
             //}
@@ -81,7 +81,7 @@ public class TestRunner
                             warnNames.Add($"{test.Name}: {result.Mnemonic ?? "UNKNOWN"}    &Yellow;{_state.ClockCycles} != {test.Cycles.Length}");
                         }
 
-                        skipRemainder = true;
+                        //skipRemainder = true;
 
                         break;
 
