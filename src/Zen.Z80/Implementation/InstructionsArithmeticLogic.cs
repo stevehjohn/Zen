@@ -304,6 +304,27 @@ public partial class Instructions
         _state.SetMCycles(4, 4, 3, 5, 3);
     }
 
+    public void AND_R_n(Register register, byte[] parameters)
+    {
+        unchecked
+        {
+            var result = _state[register] & parameters[0];
+
+            _state[register] = (byte) result;
+
+            _state[Flag.Carry] = false;
+            _state[Flag.AddSubtract] = false;
+            _state[Flag.ParityOverflow] = ((byte) result).IsEvenParity();
+            _state[Flag.X1] = (result & 0x08) > 0;
+            _state[Flag.HalfCarry] = true;
+            _state[Flag.X2] = (result & 0x20) > 0;
+            _state[Flag.Zero] = (byte) result == 0;
+            _state[Flag.Sign] = (sbyte) result < 0;
+        }
+
+        _state.SetMCycles(4, 3);
+    }
+
     public void AND_R_R(Register target, Register source)
     {
         unchecked
@@ -775,6 +796,31 @@ public partial class Instructions
         _state.SetMCycles(4, 3);
     }
 
+    public void SUB_R_n(Register register, byte[] parameters)
+    {
+        unchecked
+        {
+            var left = _state[register];
+
+            var right = parameters[0];
+
+            var result = left - right;
+
+            _state[register] = (byte) result;
+
+            _state[Flag.Carry] = result < 0;
+            _state[Flag.AddSubtract] = true;
+            _state[Flag.ParityOverflow] = ((left ^ right) & 0x80) != 0 && ((right ^ result) & 0x80) == 0;
+            _state[Flag.X1] = (result & 0x08) > 0;
+            _state[Flag.HalfCarry] = (left & 0x0F) < (right & 0x0F);
+            _state[Flag.X2] = (result & 0x20) > 0;
+            _state[Flag.Zero] = (byte) result == 0;
+            _state[Flag.Sign] = (sbyte) result < 0;
+        }
+
+        _state.SetMCycles(4, 3);
+    }
+
     public void SUB_R_R(Register target, Register source)
     {
         unchecked
@@ -870,7 +916,7 @@ public partial class Instructions
             _state[Flag.Sign] = (sbyte) result < 0;
         }
 
-        _state.SetMCycles(4);
+        _state.SetMCycles(4, 3);
     }
 
     public void OR_R_R(Register target, Register source)
