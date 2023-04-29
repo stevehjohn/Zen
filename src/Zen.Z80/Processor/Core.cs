@@ -48,6 +48,8 @@ public class Core
                 parameters[p] = data;
             }
         }
+        
+        UpdateR(instruction);
 
         instruction.Execute(parameters);
 
@@ -56,6 +58,8 @@ public class Core
             opcode = _state.InstructionPrefix << 8 | parameters[1];
 
             instruction = _instructions[opcode];
+            
+            UpdateR(instruction);
 
             instruction.Execute(parameters[..1]);
 
@@ -63,8 +67,6 @@ public class Core
 
             _state.InstructionPrefix = 0;
         }
-
-        UpdateR(instruction);
     }
 
     private void UpdateR(Instruction instruction)

@@ -195,7 +195,14 @@ public partial class Instructions
             }
         }
 
-        _state.SetMCycles(4);
+        if (target == Register.I || target == Register.R)
+        {
+            _state.SetMCycles(4, 5);
+        }
+        else
+        {
+            _state.SetMCycles(4);
+        }
     }
 
     private void LD_RR_ann(RegisterPair target, byte[] parameters)
