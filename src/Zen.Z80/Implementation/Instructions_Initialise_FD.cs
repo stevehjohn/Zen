@@ -17,7 +17,52 @@ public partial class Instructions
 
         InitialiseFDIncDecInstructions();
 
+        InitialiseMiscFDInstructions();
+
         _instructions.Add(0xFDCB, new Instruction(_ => PREFIX(0xFDCB), "PREFIX 0xFDCB", 0xFDCB, 2));
+    }
+        
+    private void InitialiseMiscFDInstructions()
+    {
+        _instructions.Add(0xFD06, new Instruction(p => LD_R_n(Register.B, p), "LD B, n", 0xFD06, 1, 4));
+
+        _instructions.Add(0xFD09, new Instruction(_ => ADD_RR_RR(RegisterPair.IX, RegisterPair.BC), "ADD IX, BC", 0xFD09, 0, 4));
+
+        _instructions.Add(0xFD0E, new Instruction(p => LD_R_n(Register.C, p), "LD C, n", 0xFD0E, 1, 4));
+
+        _instructions.Add(0xFD16, new Instruction(p => LD_R_n(Register.D, p), "LD D, n", 0xFD16, 1, 4));
+
+        _instructions.Add(0xFD19, new Instruction(_ => ADD_RR_RR(RegisterPair.IX, RegisterPair.DE), "ADD IX, DE", 0xFD19, 0, 4));
+
+        _instructions.Add(0xFD1E, new Instruction(p => LD_R_n(Register.E, p), "LD E, n", 0xFD1E, 1, 4));
+
+        _instructions.Add(0xFD21, new Instruction(p => LD_RR_nn(RegisterPair.IX, p), "LD IX, nn", 0xFD21, 2, 4));
+
+        _instructions.Add(0xFD22, new Instruction(p => LD_ann_RR(p, RegisterPair.IX), "LD (nn), IX", 0xFD22, 2, 4));
+
+        _instructions.Add(0xFD26, new Instruction(p => LD_R_n(Register.IXh, p), "LD IXh, n", 0xFD26, 1, 4));
+
+        _instructions.Add(0xFD29, new Instruction(_ => ADD_RR_RR(RegisterPair.IX, RegisterPair.IX), "ADD IX, IX", 0xFD29, 0, 4));
+
+        _instructions.Add(0xFD2A, new Instruction(p => LD_RR_ann(RegisterPair.IX, p), "LD IX, (nn)", 0xFD2A, 2, 4));
+
+        _instructions.Add(0xFD2E, new Instruction(p => LD_R_n(Register.IXl, p), "LD IXl, n", 0xFD2E, 1, 4));
+
+        _instructions.Add(0xFD36, new Instruction(p => LD_aRRd_n(RegisterPair.IX, p), "LD (IX + d), n", 0xFD36, 2, 4));
+
+        _instructions.Add(0xFD39, new Instruction(_ => ADD_RR_RR(RegisterPair.IX, RegisterPair.SP), "ADD IX, SP", 0xFD39, 0, 4));
+
+        _instructions.Add(0xFD3E, new Instruction(p => LD_R_n(Register.A, p), "LD A, n", 0xFD3E, 1, 4));
+
+        _instructions.Add(0xFDE1, new Instruction(_ => POP(RegisterPair.IX), "POP IX", 0xFDE1, 0, 4));
+
+        _instructions.Add(0xFDE3, new Instruction(_ => EX_aSP_RR(RegisterPair.IX), "EX (SP), IX", 0xFDE3, 0, 4));
+
+        _instructions.Add(0xFDE5, new Instruction(_ => PUSH(RegisterPair.IX), "PUSH IX", 0xFDE5, 0, 4));
+
+        _instructions.Add(0xFDE9, new Instruction(_ => JP_RR(RegisterPair.IX), "JP IX", 0xFDE9, 0, 4));
+
+        _instructions.Add(0xFDF9, new Instruction(_ => LD_RR_RR(RegisterPair.SP, RegisterPair.IX), "LD SP, IX", 0xFDF9, 0, 4));
     }
 
     private void InitialiseFDIncDecInstructions()

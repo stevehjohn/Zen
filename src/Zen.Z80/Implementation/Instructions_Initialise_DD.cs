@@ -44,11 +44,25 @@ public partial class Instructions
 
         _instructions.Add(0xDD29, new Instruction(_ => ADD_RR_RR(RegisterPair.IX, RegisterPair.IX), "ADD IX, IX", 0xDD29, 0, 4));
 
+        _instructions.Add(0xDD2A, new Instruction(p => LD_RR_ann(RegisterPair.IX, p), "LD IX, (nn)", 0xDD2A, 2, 4));
+
         _instructions.Add(0xDD2E, new Instruction(p => LD_R_n(Register.IXl, p), "LD IXl, n", 0xDD2E, 1, 4));
+
+        _instructions.Add(0xDD36, new Instruction(p => LD_aRRd_n(RegisterPair.IX, p), "LD (IX + d), n", 0xDD36, 2, 4));
 
         _instructions.Add(0xDD39, new Instruction(_ => ADD_RR_RR(RegisterPair.IX, RegisterPair.SP), "ADD IX, SP", 0xDD39, 0, 4));
 
-        _instructions.Add(0xDD2A, new Instruction(p => LD_RR_ann(RegisterPair.IX, p), "LD IX, (nn)", 0xDD2A, 2, 4));
+        _instructions.Add(0xDD3E, new Instruction(p => LD_R_n(Register.A, p), "LD A, n", 0xDD3E, 1, 4));
+
+        _instructions.Add(0xDDE1, new Instruction(_ => POP(RegisterPair.IX), "POP IX", 0xDDE1, 0, 4));
+
+        _instructions.Add(0xDDE3, new Instruction(_ => EX_aSP_RR(RegisterPair.IX), "EX (SP), IX", 0xDDE3, 0, 4));
+
+        _instructions.Add(0xDDE5, new Instruction(_ => PUSH(RegisterPair.IX), "PUSH IX", 0xDDE5, 0, 4));
+
+        _instructions.Add(0xDDE9, new Instruction(_ => JP_RR(RegisterPair.IX), "JP IX", 0xDDE9, 0, 4));
+
+        _instructions.Add(0xDDF9, new Instruction(_ => LD_RR_RR(RegisterPair.SP, RegisterPair.IX), "LD SP, IX", 0xDDF9, 0, 4));
     }
 
     private void InitialiseDDIncDecInstructions()
