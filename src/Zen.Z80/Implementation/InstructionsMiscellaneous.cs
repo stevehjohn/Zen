@@ -8,6 +8,80 @@ namespace Zen.Z80.Implementation;
 
 public partial class Instructions
 {
+    private void CPD()
+    {
+        unchecked
+        {
+            var value = _interface.ReadFromMemory(_state[RegisterPair.HL]);
+
+            var difference = (sbyte) (_state[Register.A] - value);
+
+            _state[RegisterPair.HL]--;
+
+            _state[RegisterPair.BC]--;
+
+            var x = _state[Register.A] - (_state[Flag.Carry] ? 1 : 0);
+
+            // Carry unaffected
+            _state[Flag.AddSubtract] = true;
+            _state[Flag.ParityOverflow] = _state[RegisterPair.BC] != 0;
+            _state[Flag.X1] = (x & 0x08) > 0;
+            _state[Flag.HalfCarry] = (_state[Register.A] & 0x0F) < (value & 0x0F);
+            _state[Flag.X2] = (x & 0x20) > 0; // TODO: 0x02?
+            _state[Flag.Zero] = difference == 0;
+            _state[Flag.Sign] = (byte) difference > 0x7F;
+
+            _state.MemPtr++;
+        }
+
+        _state.SetMCycles(4, 4, 3, 5);
+    }
+
+    private void CPDR()
+    {
+        unchecked
+        {
+            var value = _interface.ReadFromMemory(_state[RegisterPair.HL]);
+
+            var difference = (sbyte) (_state[Register.A] - value);
+
+            _state[RegisterPair.HL]--;
+
+            _state[RegisterPair.BC]--;
+
+            var x = _state[Register.A] - (_state[Flag.Carry] ? 1 : 0);
+
+            // Carry unaffected
+            _state[Flag.AddSubtract] = true;
+            _state[Flag.ParityOverflow] = _state[RegisterPair.BC] != 0;
+            _state[Flag.X1] = (x & 0x08) > 0;
+            _state[Flag.HalfCarry] = (_state[Register.A] & 0x0F) < (value & 0x0F);
+            _state[Flag.X2] = (x & 0x20) > 0; // TODO: 0x02?
+            _state[Flag.Zero] = difference == 0;
+            _state[Flag.Sign] = (byte) difference > 0x7F;
+
+            if (_state[RegisterPair.BC] == 1 || difference == 0)
+            {
+                _state.MemPtr++;
+            }
+            else
+            {
+                _state.MemPtr = (ushort) (_state.ProgramCounter + 1);
+            }
+
+            if (_state[RegisterPair.BC] != 0 && difference != 0)
+            {
+                _state.ProgramCounter -= 2;
+
+                _state.SetMCycles(4, 4, 3, 5, 5);
+
+                return;
+            }
+        }
+
+        _state.SetMCycles(4, 4, 3, 5);
+    }
+    
     private void CPI()
     {
         unchecked
