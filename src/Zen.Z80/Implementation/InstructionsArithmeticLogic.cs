@@ -210,6 +210,8 @@ public partial class Instructions
 
             var result = left + right;
 
+            _state[target] = (ushort) result;
+
             _state[Flag.Carry] = result > 0xFFFF;
             _state[Flag.AddSubtract] = false;
             // ParityOverflow unaffected
@@ -222,7 +224,7 @@ public partial class Instructions
             _state.MemPtr = (ushort) (left + 1);
         }
 
-        _state.SetMCycles(4, 3, 3);
+        _state.SetMCycles(4, 4, 3);
     }
 
     public void AND_R_aRR(Register target, RegisterPair source)

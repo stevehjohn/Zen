@@ -81,7 +81,7 @@ public class TestRunner
                             warnNames.Add($"{test.Name}: {result.Mnemonic ?? "UNKNOWN"}    &Yellow;{_state.ClockCycles} != {test.Cycles.Length}");
                         }
 
-                        //skipRemainder = true;
+                        skipRemainder = true;
 
                         break;
 
