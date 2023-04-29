@@ -64,4 +64,17 @@ public class Interface
 
         return Data;
     }
+
+    public void WriteToPort(ushort port, byte data)
+    {
+        Mreq = false;
+
+        Iorq = true;
+
+        TransferType = TransferType.Write;
+
+        Data = data;
+
+        Address = port;
+    }
 }
