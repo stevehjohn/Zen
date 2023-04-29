@@ -58,6 +58,22 @@ public partial class Instructions
         _state.SetMCycles(4, 3, 3, 3, 3);
     }
 
+    private void LD_aRR_n(RegisterPair target, byte[] parameters)
+    {
+        unchecked
+        {
+            var address = _state[target];
+
+            _interface.WriteToMemory(address, parameters[0]);
+
+            _state.MemPtr = (ushort) (((_state[target] + 1) & 0xFF) | (parameters[0] << 8));
+
+            _state.Q = 0;
+        }
+
+        _state.SetMCycles(4, 3);
+    }
+
     private void LD_aRR_R(RegisterPair target, Register source)
     {
         unchecked
@@ -124,6 +140,18 @@ public partial class Instructions
         }
 
         _state.SetMCycles(4, 4, 3, 5, 3);
+    }
+
+    private void LD_R_n(Register target, byte[] parameters)
+    {
+        unchecked
+        {
+            _state[target] = parameters[0];
+
+            _state.Q = 0;
+        }
+
+        _state.SetMCycles(4, 3);
     }
 
     private void LD_R_R(Register target, Register source)

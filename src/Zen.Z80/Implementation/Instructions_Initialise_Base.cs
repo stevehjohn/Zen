@@ -36,6 +36,26 @@ public partial class Instructions
 
     private void InitialiseMiscInstructions()
     {
+        _instructions.Add(0x06, new Instruction(p => LD_R_n(Register.B, p), "LD B, n", 0x06, 1));
+
+        _instructions.Add(0x0A, new Instruction(_ => LD_R_aRR(Register.B, RegisterPair.BC), "LD A, (BC)", 0x0A, 0));
+
+        _instructions.Add(0x0E, new Instruction(p => LD_R_n(Register.C, p), "LD C, n", 0x0E, 1));
+
+        _instructions.Add(0x1A, new Instruction(_ => LD_R_aRR(Register.B, RegisterPair.DE), "LD A, (DE)", 0x1A, 0));
+
+        _instructions.Add(0x16, new Instruction(p => LD_R_n(Register.D, p), "LD D, n", 0x16, 1));
+
+        _instructions.Add(0x1E, new Instruction(p => LD_R_n(Register.E, p), "LD E, n", 0x1E, 1));
+
+        _instructions.Add(0x26, new Instruction(p => LD_R_n(Register.H, p), "LD H, n", 0x26, 1));
+
+        _instructions.Add(0x2E, new Instruction(p => LD_R_n(Register.L, p), "LD L, n", 0x2E, 1));
+
+        _instructions.Add(0x36, new Instruction(p => LD_aRR_n(RegisterPair.HL, p), "LD (HL), n", 0x36, 1));
+
+        _instructions.Add(0x3E, new Instruction(p => LD_R_n(Register.A, p), "LD A, n", 0x3E, 1));
+
         _instructions.Add(0xFE, new Instruction(p => CP_R_n(Register.A, p), "CP A, n", 0xFE, 1));
     }
 
