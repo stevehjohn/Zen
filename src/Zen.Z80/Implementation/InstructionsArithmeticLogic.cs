@@ -638,7 +638,7 @@ public partial class Instructions
             _state[Flag.Sign] = (sbyte) result < 0;
         }
 
-        _state.SetMCycles(4);
+        _state.SetMCycles(4, 3);
     }
 
     public void SBC_R_R(Register target, Register source)
@@ -858,6 +858,27 @@ public partial class Instructions
             var data = _interface.ReadFromMemory(address);
 
             var result = (byte) (data ^ _state[target]);
+
+            _state[target] = result;
+
+            _state[Flag.Carry] = false;
+            _state[Flag.AddSubtract] = false;
+            _state[Flag.ParityOverflow] = result.IsEvenParity();
+            _state[Flag.X1] = (result & 0x08) > 0;
+            _state[Flag.HalfCarry] = false;
+            _state[Flag.X2] = (result & 0x20) > 0;
+            _state[Flag.Zero] = result == 0;
+            _state[Flag.Sign] = (sbyte) result < 0;
+        }
+
+        _state.SetMCycles(4, 3);
+    }
+
+    public void XOR_R_n(Register target, byte[] parameters)
+    {
+        unchecked
+        {
+            var result = (byte) (parameters[0] ^ _state[target]);
 
             _state[target] = result;
 

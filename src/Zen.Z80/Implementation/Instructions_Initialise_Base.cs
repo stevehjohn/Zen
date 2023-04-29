@@ -64,6 +64,8 @@ public partial class Instructions
 
         _instructions.Add(0xDE, new Instruction(p => SBC_R_n(Register.A, p), "SBC A, n", 0xDE, 1));
 
+        _instructions.Add(0xEE, new Instruction(p => XOR_R_n(Register.A, p), "XOR A, n", 0xEE, 1));
+
         _instructions.Add(0xFE, new Instruction(p => CP_R_n(Register.A, p), "CP A, n", 0xFE, 1));
     }
 
