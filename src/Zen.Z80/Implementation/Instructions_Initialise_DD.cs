@@ -17,7 +17,14 @@ public partial class Instructions
         
         InitialiseDDIncDecInstructions();
 
+        InitialiseMiscDDInstructions();
+
         _instructions.Add(0xDDCB, new Instruction(_ => PREFIX(0xDDCB), "PREFIX 0xDDCB", 0xDDCB, 2));
+    }
+
+    private void InitialiseMiscDDInstructions()
+    {
+        _instructions.Add(0xDD2A, new Instruction(p => LD_RR_nn(RegisterPair.IX, p), "LD IX, (nn)", 0xDD2A, 2, 4));
     }
 
     private void InitialiseDDIncDecInstructions()

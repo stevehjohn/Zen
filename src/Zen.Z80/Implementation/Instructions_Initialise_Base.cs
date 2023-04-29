@@ -102,6 +102,8 @@ public partial class Instructions
 
         _instructions.Add(0xDE, new Instruction(p => SBC_R_n(Register.A, p), "SBC A, n", 0xDE, 1));
 
+        _instructions.Add(0xE3, new Instruction(_ => EX_aSP_RR(RegisterPair.HL), "EX (SP), HL", 0xE3, 0));
+
         _instructions.Add(0xE6, new Instruction(p => AND_R_n(Register.A, p), "AND A, n", 0xE6, 1));
 
         _instructions.Add(0xE9, new Instruction(_ => JP_RR(RegisterPair.HL), "JP (HL)", 0xE9, 0));
