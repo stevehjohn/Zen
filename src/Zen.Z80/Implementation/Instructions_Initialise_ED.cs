@@ -69,5 +69,9 @@ public partial class Instructions
         _instructions.Add(0xED7A, new Instruction(_ => ADC_RR_RR(RegisterPair.HL, RegisterPair.SP), "ADC HL, SP", 0xED7A, 0));
 
         _instructions.Add(0xED7B, new Instruction(p => LD_RR_ann(RegisterPair.SP, p), "LD SP, (nn)", 0xED7B, 2, 4));
+
+        _instructions.Add(0xEDA0, new Instruction(_ => LDI(), "LDI", 0xEDA0, 0));
+
+        _instructions.Add(0xEDB0, new Instruction(_ => LDIR(), "LDIR", 0xEDB0, 0));
     }
 }

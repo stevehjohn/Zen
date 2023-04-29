@@ -1,4 +1,5 @@
 ﻿// ReSharper disable InconsistentNaming
+// ReSharper disable IdentifierTypo
 
 using Zen.Common.Extensions;
 using Zen.Z80.Processor;
@@ -101,6 +102,69 @@ public partial class Instructions
         _state.SetMCycles(4, 4);
     }
 
+    private void LDI()
+    {
+        unchecked
+        {
+            var value = _interface.ReadFromMemory(_state[RegisterPair.HL]);
+
+            _interface.WriteToMemory(_state[RegisterPair.DE], value);
+
+            _state[RegisterPair.HL]++;
+
+            _state[RegisterPair.DE]++;
+
+            _state[RegisterPair.BC]--;
+
+            value += _state[Register.A];
+
+            // Carry unaffected
+            _state[Flag.AddSubtract] = false;
+            _state[Flag.ParityOverflow] = _state[RegisterPair.BC] != 0;
+            _state[Flag.X1] = (value & 0x08) > 0;
+            _state[Flag.HalfCarry] = false;
+            _state[Flag.X2] = (value & 0x20) > 0; // TODO: 0x02?
+            // Zero unaffected
+            // Sign unaffected
+        }
+
+        _state.SetMCycles(4, 4, 3, 5);
+    }
+
+    private void LDIR()
+    {
+        unchecked
+        {
+            var value = _interface.ReadFromMemory(_state[RegisterPair.HL]);
+
+            _interface.WriteToMemory(_state[RegisterPair.DE], value);
+
+            _state[RegisterPair.HL]++;
+
+            _state[RegisterPair.DE]++;
+
+            _state[RegisterPair.BC]--;
+
+            value += _state[Register.A];
+
+            // Carry unaffected
+            _state[Flag.AddSubtract] = false;
+            _state[Flag.ParityOverflow] = _state[RegisterPair.BC] != 0;
+            _state[Flag.X1] = (value & 0x08) > 0;
+            _state[Flag.HalfCarry] = false;
+            _state[Flag.X2] = (value & 0x20) > 0; // TODO: 0x02?
+            // Zero unaffected
+            // Sign unaffected
+
+            if (_state[RegisterPair.BC] != 0)
+            {
+                _state.ProgramCounter -= 2;
+            }
+        }
+
+        _state.SetMCycles(4, 4, 3, 5);
+    }
+
     private void NOP()
     {
         _state.Q = 0;
@@ -135,7 +199,6 @@ public partial class Instructions
 
             _interface.WriteToMemory(_state[RegisterPair.HL], value);
 
-            // Flags
             // Carry unaffected
             _state[Flag.AddSubtract] = false;
             _state[Flag.ParityOverflow] = _state[Register.A].IsEvenParity();
@@ -171,7 +234,6 @@ public partial class Instructions
 
             _interface.WriteToMemory(_state[RegisterPair.HL], value);
 
-            // Flags
             // Carry unaffected
             _state[Flag.AddSubtract] = false;
             _state[Flag.ParityOverflow] = _state[Register.A].IsEvenParity();
