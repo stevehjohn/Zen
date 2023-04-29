@@ -350,12 +350,12 @@ public partial class Instructions
 
             _state[Flag.Carry] = bottomBit == 1;
             _state[Flag.AddSubtract] = false;
-            _state[Flag.ParityOverflow] = result.IsEvenParity();
+            // ParityOverflow unaffected
             _state[Flag.X1] = (result & 0x08) > 0;
             _state[Flag.HalfCarry] = false;
             _state[Flag.X2] = (result & 0x20) > 0;
-            _state[Flag.Zero] = result == 0;
-            _state[Flag.Sign] = (sbyte) result < 0;
+            // Zero unaffected
+            // Sign unaffected
         }
 
         _state.SetMCycles(4);
@@ -400,12 +400,12 @@ public partial class Instructions
 
             _state[Flag.Carry] = bottomBit == 1;
             _state[Flag.AddSubtract] = false;
-            _state[Flag.ParityOverflow] = result.IsEvenParity();
+            // Parity unaffected
             _state[Flag.X1] = (result & 0x08) > 0;
             _state[Flag.HalfCarry] = false;
             _state[Flag.X2] = (result & 0x20) > 0;
-            _state[Flag.Zero] = result == 0;
-            _state[Flag.Sign] = (sbyte) result < 0;
+            // Zero unaffected
+            // Sign unaffected
         }
 
         _state.SetMCycles(4);
