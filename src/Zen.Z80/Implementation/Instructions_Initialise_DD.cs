@@ -24,7 +24,15 @@ public partial class Instructions
 
     private void InitialiseMiscDDInstructions()
     {
-        _instructions.Add(0xDD2A, new Instruction(p => LD_RR_nn(RegisterPair.IX, p), "LD IX, (nn)", 0xDD2A, 2, 4));
+        _instructions.Add(0xDD09, new Instruction(_ => ADD_RR_RR(RegisterPair.IX, RegisterPair.BC), "ADD IX, BC", 0xDD09, 0, 4));
+
+        _instructions.Add(0xDD19, new Instruction(_ => ADD_RR_RR(RegisterPair.IX, RegisterPair.DE), "ADD IX, DE", 0xDD19, 0, 4));
+
+        _instructions.Add(0xDD29, new Instruction(_ => ADD_RR_RR(RegisterPair.IX, RegisterPair.IX), "ADD IX, IX", 0xDD29, 0, 4));
+
+        _instructions.Add(0xDD39, new Instruction(_ => ADD_RR_RR(RegisterPair.IX, RegisterPair.SP), "ADD IX, SP", 0xDD39, 0, 4));
+
+        _instructions.Add(0xDD2A, new Instruction(p => LD_RR_ann(RegisterPair.IX, p), "LD IX, (nn)", 0xDD2A, 2, 4));
     }
 
     private void InitialiseDDIncDecInstructions()
