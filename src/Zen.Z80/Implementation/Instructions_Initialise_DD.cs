@@ -24,11 +24,27 @@ public partial class Instructions
 
     private void InitialiseMiscDDInstructions()
     {
+        _instructions.Add(0xDD06, new Instruction(p => LD_R_n(Register.B, p), "LD B, n", 0xDD06, 1, 4));
+
         _instructions.Add(0xDD09, new Instruction(_ => ADD_RR_RR(RegisterPair.IX, RegisterPair.BC), "ADD IX, BC", 0xDD09, 0, 4));
+
+        _instructions.Add(0xDD0E, new Instruction(p => LD_R_n(Register.C, p), "LD C, n", 0xDD0E, 1, 4));
+
+        _instructions.Add(0xDD16, new Instruction(p => LD_R_n(Register.D, p), "LD D, n", 0xDD16, 1, 4));
 
         _instructions.Add(0xDD19, new Instruction(_ => ADD_RR_RR(RegisterPair.IX, RegisterPair.DE), "ADD IX, DE", 0xDD19, 0, 4));
 
+        _instructions.Add(0xDD1E, new Instruction(p => LD_R_n(Register.E, p), "LD E, n", 0xDD1E, 1, 4));
+
+        _instructions.Add(0xDD21, new Instruction(p => LD_RR_nn(RegisterPair.IX, p), "LD IX, nn", 0xDD21, 2, 4));
+
+        _instructions.Add(0xDD22, new Instruction(p => LD_ann_RR(p, RegisterPair.IX), "LD (nn), IX", 0xDD22, 2, 4));
+
+        _instructions.Add(0xDD26, new Instruction(p => LD_R_n(Register.IXh, p), "LD IXh, n", 0xDD26, 1, 4));
+
         _instructions.Add(0xDD29, new Instruction(_ => ADD_RR_RR(RegisterPair.IX, RegisterPair.IX), "ADD IX, IX", 0xDD29, 0, 4));
+
+        _instructions.Add(0xDD2E, new Instruction(p => LD_R_n(Register.IXl, p), "LD IXl, n", 0xDD2E, 1, 4));
 
         _instructions.Add(0xDD39, new Instruction(_ => ADD_RR_RR(RegisterPair.IX, RegisterPair.SP), "ADD IX, SP", 0xDD39, 0, 4));
 
