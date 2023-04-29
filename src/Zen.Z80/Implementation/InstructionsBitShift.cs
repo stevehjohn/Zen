@@ -109,7 +109,7 @@ public partial class Instructions
 
             var topBit = (byte) ((data & 0x80) >> 7);
 
-            var result = (byte) ((data << 1) & 0xFE);
+            var result = (byte) (data << 1);
 
             _state[Register.A] = result;
 
@@ -123,7 +123,7 @@ public partial class Instructions
             // Sign unaffected
         }
 
-        _state.SetMCycles(4, 4);
+        _state.SetMCycles(4);
     }
 
     public void RL_R(Register register)
