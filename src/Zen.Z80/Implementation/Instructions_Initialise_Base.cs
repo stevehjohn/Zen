@@ -104,6 +104,8 @@ public partial class Instructions
 
         _instructions.Add(0xF3, new Instruction(_ => DI(), "DI", 0xF3, 0));
 
+        _instructions.Add(0xF9, new Instruction(_ => LD_RR_RR(RegisterPair.SP, RegisterPair.HL), "LD SP, HL", 0xF9, 0));
+
         _instructions.Add(0xFB, new Instruction(_ => EI(), "EI", 0xFB, 0));
 
         _instructions.Add(0xFE, new Instruction(p => CP_R_n(Register.A, p), "CP A, n", 0xFE, 1));
