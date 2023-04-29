@@ -42,6 +42,22 @@ public partial class Instructions
         _state.SetMCycles(4);
     }
 
+    private void EXX()
+    {
+        unchecked
+        {
+            (_state[RegisterPair.BC], _state[RegisterPair.BC_]) = (_state[RegisterPair.BC_], _state[RegisterPair.BC]);
+
+            (_state[RegisterPair.DE], _state[RegisterPair.DE_]) = (_state[RegisterPair.DE_], _state[RegisterPair.DE]);
+
+            (_state[RegisterPair.HL], _state[RegisterPair.HL_]) = (_state[RegisterPair.HL_], _state[RegisterPair.HL]);
+
+            _state.Q = 0;
+        }
+
+        _state.SetMCycles(4);
+    }
+
     private void HALT()
     {
         _state.ProgramCounter--;

@@ -98,9 +98,13 @@ public partial class Instructions
 
         _instructions.Add(0xD6, new Instruction(p => SUB_R_n(Register.A, p), "SUB A, n", 0xD6, 1));
 
+        _instructions.Add(0xD9, new Instruction(_ => EXX(), "EXX", 0xD9, 0));
+
         _instructions.Add(0xDE, new Instruction(p => SBC_R_n(Register.A, p), "SBC A, n", 0xDE, 1));
 
         _instructions.Add(0xE6, new Instruction(p => AND_R_n(Register.A, p), "AND A, n", 0xE6, 1));
+
+        _instructions.Add(0xE9, new Instruction(_ => JP_RR(RegisterPair.HL), "JP (HL)", 0xE9, 0));
 
         _instructions.Add(0xEB, new Instruction(_ => EX_RR_RR(RegisterPair.DE, RegisterPair.HL), "EX DE, HL", 0xEB, 0));
 

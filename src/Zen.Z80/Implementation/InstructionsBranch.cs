@@ -118,6 +118,20 @@ public partial class Instructions
 
         _state.SetMCycles(4, 3, 3);
     }
+    
+    private void JP_RR(RegisterPair registers)
+    {
+        unchecked
+        {
+            _state.ProgramCounter = _state[registers];
+
+            _state.MemPtr = _state.ProgramCounter;
+
+            _state.Q = 0;
+        }
+
+        _state.SetMCycles(4);
+    }
 
     private void JR_e(byte[] parameters)
     {
