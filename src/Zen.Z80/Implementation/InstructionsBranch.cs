@@ -157,6 +157,30 @@ public partial class Instructions
 
         _state.SetMCycles(4, 3);
     }
+    
+    private void RET()
+    {
+        unchecked
+        {
+            var data = _interface.ReadFromMemory(_state.StackPointer);
+
+            _state.ProgramCounter = data;
+
+            _state.StackPointer++;
+
+            data = _interface.ReadFromMemory(_state.StackPointer);
+
+            _state.ProgramCounter = (ushort) ((_state.ProgramCounter & 0x00FF) | data << 8);
+
+            _state.StackPointer++;
+
+            _state.MemPtr = _state.ProgramCounter;
+        }
+
+        _state.Q = 0;
+
+        _state.SetMCycles(4, 3, 3);
+    }
 
     private void RET_F(Flag flag, bool not = false)
     {

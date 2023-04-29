@@ -90,6 +90,8 @@ public partial class Instructions
 
         _instructions.Add(0x3F, new Instruction(_ => CCF(), "CCF", 0x3F, 0));
 
+        _instructions.Add(0xC9, new Instruction(_ => RET(), "RET", 0xC9, 1));
+
         _instructions.Add(0xCE, new Instruction(p => ADC_R_n(Register.A, p), "ADC A, n", 0xCE, 1));
 
         _instructions.Add(0xDE, new Instruction(p => SBC_R_n(Register.A, p), "SBC A, n", 0xDE, 1));
