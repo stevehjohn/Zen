@@ -135,7 +135,7 @@ public class TestRunner
 
         if (failedNames.Count > 0 || warnNames.Count > 0 || nimpNames.Count > 0)
         {
-            FormattedConsole.WriteLine("  &Cyan;Press any key to see warn/failed test names...\n");
+            FormattedConsole.WriteLine("  &Cyan;Press any key to see warn/failed/nimp test names...\n");
 
             Console.ReadKey();
 
@@ -225,20 +225,44 @@ public class TestRunner
 
         var ram = new Dictionary<int, byte>();
 
+        var ports = new Dictionary<int, byte>();
+
         foreach (var pair in test.Initial.Ram)
         {
             ram[pair[0]] = (byte) pair[1];
+        }
+
+        if (test.Ports != null)
+        {
+            foreach (var port in test.Ports)
+            {
+                ports.Add((ushort) ((JsonElement) port[0]).GetInt32(), ((JsonElement) port[1]).GetByte());
+            }
         }
 
         _interface.AddressChanged = i =>
         {
             if (i.TransferType == TransferType.Read)
             {
-                i.Data = ram[i.Address];
+                if (i.Iorq)
+                {
+                    i.Data = ports[i.Address];
+                }
+                else
+                {
+                    i.Data = ram[i.Address];
+                }
             }
             else
             {
-                ram[i.Address] = i.Data;
+                if (i.Iorq)
+                {
+                    ports[i.Address] = i.Data;
+                }
+                else
+                {
+                    ram[i.Address] = i.Data;
+                }
             }
         };
 
