@@ -13,11 +13,11 @@ public partial class Instructions
         {
             _state.StackPointer--;
 
-            _state.StackPointer = (byte) ((_state.ProgramCounter & 0xFF00) >> 8);
+            _interface.WriteToMemory(_state.StackPointer, (byte) ((_state.ProgramCounter & 0xFF00) >> 8));
 
             _state.StackPointer--;
 
-            _state.StackPointer = (byte) (_state.ProgramCounter & 0x00FF);
+            _interface.WriteToMemory(_state.StackPointer, (byte) (_state.ProgramCounter & 0x00FF));
 
             _state.ProgramCounter = (ushort) ((parameters[1] << 8) | parameters[0]);
 
