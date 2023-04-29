@@ -90,7 +90,7 @@ public partial class Instructions
 
         _instructions.Add(0x3F, new Instruction(_ => CCF(), "CCF", 0x3F, 0));
 
-        _instructions.Add(0xC9, new Instruction(_ => RET(), "RET", 0xC9, 1));
+        _instructions.Add(0xC9, new Instruction(_ => RET(), "RET", 0xC9, 0));
 
         _instructions.Add(0xC6, new Instruction(p => ADD_R_n(Register.A, p), "ADD A, n", 0xC6, 1));
 
