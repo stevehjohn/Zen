@@ -58,6 +58,8 @@ public partial class Instructions
 
         _instructions.Add(0x36, new Instruction(p => LD_aRR_n(RegisterPair.HL, p), "LD (HL), n", 0x36, 1));
 
+        _instructions.Add(0x3A, new Instruction(p => LD_R_ann(Register.A, p), "LD A, (nn)", 0x3A, 2));
+
         _instructions.Add(0x3E, new Instruction(p => LD_R_n(Register.A, p), "LD A, n", 0x3E, 1));
 
         _instructions.Add(0xCE, new Instruction(p => ADC_R_n(Register.A, p), "ADC A, n", 0xCE, 1));

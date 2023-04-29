@@ -89,6 +89,22 @@ public partial class Instructions
         _state.SetMCycles(4, 4, 3, 5, 3);
     }
 
+    private void LD_R_ann(Register target, byte[] parameters)
+    {
+        unchecked
+        {
+            var address = parameters.ReadLittleEndian();
+
+            _state[target] = _interface.ReadFromMemory(address);
+
+            _state.MemPtr = (ushort) (address + 1);
+
+            _state.Q = 0;
+        }
+
+        _state.SetMCycles(4, 3, 3, 3);
+    }
+
     private void LD_R_aRR(Register target, RegisterPair source)
     {
         unchecked
