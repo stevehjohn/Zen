@@ -54,6 +54,8 @@ public partial class Instructions
 
         _instructions.Add(0x10, new Instruction(DJNZ_e, "DJNZ p", 0x10, 1));
 
+        _instructions.Add(0x17, new Instruction(_ => RLCA(), "RLA", 0x17, 0));
+
         _instructions.Add(0x19, new Instruction(_ => ADD_RR_RR(RegisterPair.HL, RegisterPair.DE), "ADD HL, DE", 0x19, 0));
 
         _instructions.Add(0x1A, new Instruction(_ => LD_R_aRR(Register.A, RegisterPair.DE), "LD A, (DE)", 0x1A, 0));
