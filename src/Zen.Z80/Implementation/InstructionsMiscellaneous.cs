@@ -74,6 +74,8 @@ public partial class Instructions
                 _state.ProgramCounter -= 2;
 
                 _state.SetMCycles(4, 4, 3, 5, 5);
+
+                return;
             }
         }
 
