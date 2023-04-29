@@ -26,6 +26,8 @@ public partial class Instructions
 
         _instructions.Add(0xED47, new Instruction(_ => LD_R_R(Register.I, Register.A), "LD I, A", 0xED47, 0));
 
+        _instructions.Add(0xED4A, new Instruction(_ => ADC_RR_RR(RegisterPair.HL, RegisterPair.BC), "ADC HL, BC", 0xED4A, 0));
+
         _instructions.Add(0xED4B, new Instruction(p => LD_RR_ann(RegisterPair.BC, p), "LD BC, (nn)", 0xED4B, 2, 4));
         
         _instructions.Add(0xED4D, new Instruction(_ => RETI(), "RETI", 0xED4D, 0));
@@ -40,6 +42,8 @@ public partial class Instructions
 
         _instructions.Add(0xED57, new Instruction(_ => LD_R_R(Register.A, Register.I), "LD A, I", 0xED57, 0));
 
+        _instructions.Add(0xED5A, new Instruction(_ => ADC_RR_RR(RegisterPair.HL, RegisterPair.DE), "ADC HL, DE", 0xED5A, 0));
+
         _instructions.Add(0xED5B, new Instruction(p => LD_RR_ann(RegisterPair.DE, p), "LD DE, (nn)", 0xED5B, 2, 4));
 
         _instructions.Add(0xED5E, new Instruction(_ => IM(InterruptMode.IM2), "IM 1", 0xED5E, 0));
@@ -51,6 +55,8 @@ public partial class Instructions
         _instructions.Add(0xED63, new Instruction(p => LD_ann_RR(p, RegisterPair.HL), "LD (nn), HL", 0xED63, 2, 4));
 
         _instructions.Add(0xED67, new Instruction(_ => RRD(), "RRD", 0xED67, 0));
+        
+        _instructions.Add(0xED6A, new Instruction(_ => ADC_RR_RR(RegisterPair.HL, RegisterPair.HL), "ADC HL, HL", 0xED6A, 0));
 
         _instructions.Add(0xED6B, new Instruction(p => LD_RR_ann(RegisterPair.HL, p), "LD HL, (nn)", 0xED6B, 2, 4));
 
@@ -59,6 +65,8 @@ public partial class Instructions
         _instructions.Add(0xED72, new Instruction(_ => SBC_RR_RR(RegisterPair.HL, RegisterPair.SP), "SBC HL, SP", 0xED72, 0));
 
         _instructions.Add(0xED73, new Instruction(p => LD_ann_RR(p, RegisterPair.SP), "LD (nn), SP", 0xED73, 2, 4));
+        
+        _instructions.Add(0xED7A, new Instruction(_ => ADC_RR_RR(RegisterPair.HL, RegisterPair.SP), "ADC HL, SP", 0xED7A, 0));
 
         _instructions.Add(0xED7B, new Instruction(p => LD_RR_ann(RegisterPair.SP, p), "LD SP, (nn)", 0xED7B, 2, 4));
     }

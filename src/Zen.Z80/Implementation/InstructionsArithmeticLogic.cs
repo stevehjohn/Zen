@@ -119,6 +119,35 @@ public partial class Instructions
         _state.SetMCycles(4);
     }
 
+    public void ADC_RR_RR(RegisterPair target, RegisterPair source)
+    {
+        unchecked
+        {
+            var left = _state[target];
+
+            var right = _state[source];
+
+            var carry = (byte) (_state[Flag.Carry] ? 1 : 0);
+
+            var result = left + right + carry;
+
+            _state[target] = (ushort) result;
+
+            _state[Flag.Carry] = result > 0xFFFF;
+            _state[Flag.AddSubtract] = false;
+            _state[Flag.ParityOverflow] = ((left ^ ~right) & (left ^ result) & 0x8000) != 0;
+            _state[Flag.X1] = (result & 0x0800) > 0;
+            _state[Flag.HalfCarry] = ((left & 0x0FFF) + (right & 0x0FFF) + carry & 0x1000) != 0;
+            _state[Flag.X2] = (result & 0x2000) > 0;
+            _state[Flag.Zero] = result == 0;
+            _state[Flag.Sign] = (short) result < 0;
+
+            _state.MemPtr = (ushort) (_state[target] + 1);
+        }
+
+        _state.SetMCycles(4, 4, 4, 3);
+    }
+
     public void ADD_R_aRR(Register target, RegisterPair source)
     {
         unchecked
