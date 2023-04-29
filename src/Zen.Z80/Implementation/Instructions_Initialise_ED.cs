@@ -15,6 +15,8 @@ public partial class Instructions
     {
         _instructions.Add(0xED43, new Instruction(p => LD_ann_RR(p, RegisterPair.BC), "LD (nn), BC", 0xED43, 2, 4));
 
+        _instructions.Add(0xED44, new Instruction(_ => NEG(), "NEG A", 0xED44, 0));
+
         _instructions.Add(0xED46, new Instruction(_ => IM(InterruptMode.IM0), "IM 0", 0xED46, 0));
 
         _instructions.Add(0xED47, new Instruction(_ => LD_R_R(Register.I, Register.A), "LD I, A", 0xED47, 0));

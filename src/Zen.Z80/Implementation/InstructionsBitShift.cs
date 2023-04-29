@@ -8,7 +8,32 @@ namespace Zen.Z80.Implementation;
 
 public partial class Instructions
 {
-    public void RL_aRR(RegisterPair source)
+    private void NEG()
+    {
+        unchecked
+        {
+            var value = _state[Register.A];
+
+            var result = (byte) ~value;
+
+            result++;
+
+            _state[Register.A] = result;
+
+            _state[Flag.Carry] = value != 0;
+            _state[Flag.AddSubtract] = true;
+            _state[Flag.ParityOverflow] = value == 0x80;
+            _state[Flag.X1] = (result & 0x08) > 0;
+            _state[Flag.HalfCarry] = (value & 0x0F) + (result & 0x0F) > 0x0F;
+            _state[Flag.X2] = (result & 0x20) > 0;
+            _state[Flag.Zero] = result == 0;
+            _state[Flag.Sign] = (result & 0x80) > 0;
+        }
+
+        _state.SetMCycles(4, 4);
+    }
+
+    private void RL_aRR(RegisterPair source)
     {
         unchecked
         {
@@ -37,7 +62,7 @@ public partial class Instructions
         _state.SetMCycles(4, 4, 4, 3);
     }
 
-    public void RL_aRRd(RegisterPair source, byte[] parameters)
+    private void RL_aRRd(RegisterPair source, byte[] parameters)
     {
         unchecked
         {
@@ -68,7 +93,7 @@ public partial class Instructions
         _state.SetMCycles(4, 4, 3, 5, 4, 3);
     }
 
-    public void RL_aRRd_R(RegisterPair source, byte[] parameters, Register target)
+    private void RL_aRRd_R(RegisterPair source, byte[] parameters, Register target)
     {
         unchecked
         {
@@ -101,7 +126,7 @@ public partial class Instructions
         _state.SetMCycles(4, 4, 3, 5, 4, 3);
     }
 
-    public void RLA()
+    private void RLA()
     {
         unchecked
         {
@@ -126,7 +151,7 @@ public partial class Instructions
         _state.SetMCycles(4);
     }
 
-    public void RL_R(Register register)
+    private void RL_R(Register register)
     {
         unchecked
         {
@@ -151,7 +176,7 @@ public partial class Instructions
         _state.SetMCycles(4, 4);
     }
 
-    public void RLC_aRR(RegisterPair source)
+    private void RLC_aRR(RegisterPair source)
     {
         unchecked
         {
@@ -180,7 +205,7 @@ public partial class Instructions
         _state.SetMCycles(4, 4, 4, 3);
     }
 
-    public void RLC_aRRd(RegisterPair source, byte[] parameters)
+    private void RLC_aRRd(RegisterPair source, byte[] parameters)
     {
         unchecked
         {
@@ -211,7 +236,7 @@ public partial class Instructions
         _state.SetMCycles(4, 4, 3, 5, 4, 3);
     }
 
-    public void RLC_aRRd_R(RegisterPair source, byte[] parameters, Register target)
+    private void RLC_aRRd_R(RegisterPair source, byte[] parameters, Register target)
     {
         unchecked
         {
@@ -244,7 +269,7 @@ public partial class Instructions
         _state.SetMCycles(4, 4, 3, 5, 4, 3);
     }
     
-    public void RLCA()
+    private void RLCA()
     {
         unchecked
         {
@@ -269,7 +294,7 @@ public partial class Instructions
         _state.SetMCycles(4);
     }
     
-    public void RLC_R(Register register)
+    private void RLC_R(Register register)
     {
         unchecked
         {
@@ -294,7 +319,7 @@ public partial class Instructions
         _state.SetMCycles(4, 4);
     }
 
-    public void RR_aRRd_R(RegisterPair source, byte[] parameters, Register target)
+    private void RR_aRRd_R(RegisterPair source, byte[] parameters, Register target)
     {
         unchecked
         {
@@ -327,7 +352,7 @@ public partial class Instructions
         _state.SetMCycles(4, 4, 3, 5, 4, 3);
     }
 
-    public void RR_aRR(RegisterPair source)
+    private void RR_aRR(RegisterPair source)
     {
         unchecked
         {
@@ -356,7 +381,7 @@ public partial class Instructions
         _state.SetMCycles(4, 4, 4, 3);
     }
 
-    public void RR_aRRd(RegisterPair source, byte[] parameters)
+    private void RR_aRRd(RegisterPair source, byte[] parameters)
     {
         unchecked
         {
@@ -387,7 +412,7 @@ public partial class Instructions
         _state.SetMCycles(4, 4, 3, 5, 4, 3);
     }
     
-    public void RRA()
+    private void RRA()
     {
         unchecked
         {
@@ -412,7 +437,7 @@ public partial class Instructions
         _state.SetMCycles(4);
     }
     
-    public void RR_R(Register register)
+    private void RR_R(Register register)
     {
         unchecked
         {
@@ -437,7 +462,7 @@ public partial class Instructions
         _state.SetMCycles(4, 4);
     }
     
-    public void RRCA()
+    private void RRCA()
     {
         unchecked
         {
@@ -462,7 +487,7 @@ public partial class Instructions
         _state.SetMCycles(4);
     }
 
-    public void RRC_R(Register register)
+    private void RRC_R(Register register)
     {
         unchecked
         {
@@ -487,7 +512,7 @@ public partial class Instructions
         _state.SetMCycles(4, 4);
     }
     
-    public void RRC_aRR(RegisterPair source)
+    private void RRC_aRR(RegisterPair source)
     {
         unchecked
         {
@@ -516,7 +541,7 @@ public partial class Instructions
         _state.SetMCycles(4, 4, 4, 3);
     }
 
-    public void RRC_aRRd_R(RegisterPair source, byte[] parameters, Register target)
+    private void RRC_aRRd_R(RegisterPair source, byte[] parameters, Register target)
     {
         unchecked
         {
@@ -549,7 +574,7 @@ public partial class Instructions
         _state.SetMCycles(4, 4, 3, 5, 4, 3);
     }
 
-    public void RRC_aRRd(RegisterPair source, byte[] parameters)
+    private void RRC_aRRd(RegisterPair source, byte[] parameters)
     {
         unchecked
         {
@@ -580,7 +605,7 @@ public partial class Instructions
         _state.SetMCycles(4, 4, 3, 5, 4, 3);
     }
 
-    public void SLA_aRR(RegisterPair source)
+    private void SLA_aRR(RegisterPair source)
     {
         unchecked
         {
@@ -609,7 +634,7 @@ public partial class Instructions
         _state.SetMCycles(4, 4, 4, 3);
     }
 
-    public void SLA_aRRd(RegisterPair source, byte[] parameters)
+    private void SLA_aRRd(RegisterPair source, byte[] parameters)
     {
         unchecked
         {
@@ -640,7 +665,7 @@ public partial class Instructions
         _state.SetMCycles(4, 4, 3, 5, 4, 3);
     }
 
-    public void SLA_aRRd_R(RegisterPair source, byte[] parameters, Register target)
+    private void SLA_aRRd_R(RegisterPair source, byte[] parameters, Register target)
     {
         unchecked
         {
@@ -673,7 +698,7 @@ public partial class Instructions
         _state.SetMCycles(4, 4, 3, 5, 4, 3);
     }
     
-    public void SLA_R(Register register)
+    private void SLA_R(Register register)
     {
         unchecked
         {
@@ -698,7 +723,7 @@ public partial class Instructions
         _state.SetMCycles(4, 4);
     }
 
-    public void SLL_aRR(RegisterPair source)
+    private void SLL_aRR(RegisterPair source)
     {
         unchecked
         {
@@ -727,7 +752,7 @@ public partial class Instructions
         _state.SetMCycles(4, 4, 4, 3);
     }
 
-    public void SLL_aRRd(RegisterPair source, byte[] parameters)
+    private void SLL_aRRd(RegisterPair source, byte[] parameters)
     {
         unchecked
         {
@@ -758,7 +783,7 @@ public partial class Instructions
         _state.SetMCycles(4, 4, 3, 5, 4, 3);
     }
     
-    public void SLL_R(Register register)
+    private void SLL_R(Register register)
     {
         unchecked
         {
@@ -783,7 +808,7 @@ public partial class Instructions
         _state.SetMCycles(4, 4);
     }
 
-    public void SLL_aRRd_R(RegisterPair source, byte[] parameters, Register target)
+    private void SLL_aRRd_R(RegisterPair source, byte[] parameters, Register target)
     {
         unchecked
         {
@@ -816,7 +841,7 @@ public partial class Instructions
         _state.SetMCycles(4, 4, 3, 5, 4, 3);
     }
 
-    public void SRA_aRR(RegisterPair source)
+    private void SRA_aRR(RegisterPair source)
     {
         unchecked
         {
@@ -847,7 +872,7 @@ public partial class Instructions
         _state.SetMCycles(4, 4, 4, 3);
     }
 
-    public void SRA_aRRd(RegisterPair source, byte[] parameters)
+    private void SRA_aRRd(RegisterPair source, byte[] parameters)
     {
         unchecked
         {
@@ -880,7 +905,7 @@ public partial class Instructions
         _state.SetMCycles(4, 4, 3, 5, 4, 3);
     }
 
-    public void SRA_aRRd_R(RegisterPair source, byte[] parameters, Register target)
+    private void SRA_aRRd_R(RegisterPair source, byte[] parameters, Register target)
     {
         unchecked
         {
@@ -915,7 +940,7 @@ public partial class Instructions
         _state.SetMCycles(4, 4, 3, 5, 4, 3);
     }
     
-    public void SRA_R(Register register)
+    private void SRA_R(Register register)
     {
         unchecked
         {
@@ -942,7 +967,7 @@ public partial class Instructions
         _state.SetMCycles(4, 4);
     }
 
-    public void SRL_aRR(RegisterPair source)
+    private void SRL_aRR(RegisterPair source)
     {
         unchecked
         {
@@ -971,7 +996,7 @@ public partial class Instructions
         _state.SetMCycles(4, 4, 4, 3);
     }
 
-    public void SRL_aRRd(RegisterPair source, byte[] parameters)
+    private void SRL_aRRd(RegisterPair source, byte[] parameters)
     {
         unchecked
         {
@@ -1002,7 +1027,7 @@ public partial class Instructions
         _state.SetMCycles(4, 4, 3, 5, 4, 3);
     }
 
-    public void SRL_aRRd_R(RegisterPair source, byte[] parameters, Register target)
+    private void SRL_aRRd_R(RegisterPair source, byte[] parameters, Register target)
     {
         unchecked
         {
@@ -1035,7 +1060,7 @@ public partial class Instructions
         _state.SetMCycles(4, 4, 3, 5, 4, 3);
     }
 
-    public void SRL_R(Register register)
+    private void SRL_R(Register register)
     {
         unchecked
         {
