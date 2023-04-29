@@ -48,7 +48,7 @@ public partial class Instructions
 
         _instructions.Add(0xDD2E, new Instruction(p => LD_R_n(Register.IXl, p), "LD IXl, n", 0xDD2E, 1, 4));
 
-        _instructions.Add(0xDD36, new Instruction(p => LD_aRRd_n(RegisterPair.IX, p), "LD (IX + d), n", 0xDD36, 2, 4));
+        _instructions.Add(0xDD36, new Instruction(p => LD_aRRd_n(RegisterPair.IX, p), "LD (IX + d), n", 0xDD36, 2));
 
         _instructions.Add(0xDD39, new Instruction(_ => ADD_RR_RR(RegisterPair.IX, RegisterPair.SP), "ADD IX, SP", 0xDD39, 0, 4));
 
