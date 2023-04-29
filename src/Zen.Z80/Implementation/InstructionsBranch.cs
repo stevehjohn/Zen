@@ -7,6 +7,61 @@ namespace Zen.Z80.Implementation;
 
 public partial class Instructions
 {
+    private void CALL_nn(byte[] parameters)
+    {
+        unchecked
+        {
+            _state.StackPointer--;
+
+            _state.StackPointer = (byte) (((_state.ProgramCounter + 3) & 0xFF00) >> 8);
+
+            _state.StackPointer--;
+
+            _state.StackPointer = (byte) ((_state.ProgramCounter + 3) & 0x00FF);
+
+            _state.ProgramCounter = (ushort) ((parameters[1] << 8) | parameters[0]);
+
+            _state.MemPtr = (ushort) (parameters[1] << 8 | parameters[0]);
+        }
+
+        _state.SetMCycles(4, 3, 4, 3, 3);
+    }
+
+    private void CALL_F_nn(Flag flag, byte[] parameters, bool not = false)
+    {
+        unchecked
+        {
+            var condition = not ? ! _state[flag] : _state[flag];
+
+            if (condition)
+            {
+                _state.StackPointer--;
+
+                _state.StackPointer = (byte) (((_state.ProgramCounter + 3) & 0xFF00) >> 8);
+
+                _state.StackPointer--;
+
+                _state.StackPointer = (byte) ((_state.ProgramCounter + 3) & 0x00FF);
+
+                _state.ProgramCounter = (ushort) ((parameters[1] << 8) | parameters[0]);
+
+                _state.MemPtr = (ushort) (parameters[1] << 8 | parameters[0]);
+
+                _state.Q = 0;
+
+                _state.SetMCycles(4, 3, 4, 3, 3);
+
+                return;
+            }
+        }
+
+        _state.MemPtr = (ushort) (parameters[1] << 8 | parameters[0]);
+
+        _state.Q = 0;
+
+        _state.SetMCycles(4, 3, 3);
+    }
+
     private void JP_nn(byte[] parameters)
     {
         unchecked

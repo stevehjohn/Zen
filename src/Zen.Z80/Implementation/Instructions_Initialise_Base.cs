@@ -185,25 +185,43 @@ public partial class Instructions
 
         _instructions.Add(0xC3, new Instruction(JP_nn, "JP nn", 0xC3, 2));
 
+        _instructions.Add(0xC4, new Instruction(p => CALL_F_nn(Flag.Zero, p, true), "CALL NZ, nn", 0xC4, 2));
+
         _instructions.Add(0xC7, new Instruction(_ => RST(0x00), "RST 0x00", 0xC7, 0));
+
+        _instructions.Add(0xCC, new Instruction(p => CALL_F_nn(Flag.Zero, p), "CALL Z, nn", 0xCC, 2));
+
+        _instructions.Add(0xCD, new Instruction(CALL_nn, "CALL nn", 0xCD, 2));
 
         _instructions.Add(0xCF, new Instruction(_ => RST(0x08), "RST 0x08", 0xCF, 0));
 
         _instructions.Add(0xD2, new Instruction(p => JP_F_nn(Flag.Carry, p, true), "JP NC, nn", 0xD2, 2));
 
+        _instructions.Add(0xD4, new Instruction(p => CALL_F_nn(Flag.Carry, p, true), "CALL NC, nn", 0xD4, 2));
+
         _instructions.Add(0xD7, new Instruction(_ => RST(0x10), "RST 0x10", 0xD7, 0));
+        
+        _instructions.Add(0xDC, new Instruction(p => CALL_F_nn(Flag.Carry, p), "CALL C, nn", 0xDC, 2));
 
         _instructions.Add(0xDF, new Instruction(_ => RST(0x18), "RST 0x18", 0xDF, 0));
 
         _instructions.Add(0xE2, new Instruction(p => JP_F_nn(Flag.ParityOverflow, p, true), "JP PO, nn", 0xE2, 2));
 
+        _instructions.Add(0xE4, new Instruction(p => CALL_F_nn(Flag.ParityOverflow, p, true), "CALL PO, nn", 0xE4, 2));
+
         _instructions.Add(0xE7, new Instruction(_ => RST(0x20), "RST 0x20", 0xE7, 0));
+        
+        _instructions.Add(0xEC, new Instruction(p => CALL_F_nn(Flag.ParityOverflow, p), "CALL PE, nn", 0xEC, 2));
 
         _instructions.Add(0xEF, new Instruction(_ => RST(0x28), "RST 0x28", 0xEF, 0));
 
         _instructions.Add(0xF2, new Instruction(p => JP_F_nn(Flag.Sign, p, true), "JP NS, nn", 0xF2, 2));
 
+        _instructions.Add(0xF4, new Instruction(p => CALL_F_nn(Flag.Sign, p, true), "CALL NS, nn", 0xF4, 2));
+
         _instructions.Add(0xF7, new Instruction(_ => RST(0x30), "RST 0x30", 0xF7, 0));
+                
+        _instructions.Add(0xFC, new Instruction(p => CALL_F_nn(Flag.Sign, p), "CALL S, nn", 0xFC, 2));
 
         _instructions.Add(0xFF, new Instruction(_ => RST(0x38), "RST 0x38", 0xFF, 0));
 
