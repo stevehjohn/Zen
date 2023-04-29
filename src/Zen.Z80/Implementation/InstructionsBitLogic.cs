@@ -1,5 +1,6 @@
 ﻿// ReSharper disable InconsistentNaming
 
+using Zen.Common.Extensions;
 using Zen.Z80.Processor;
 
 namespace Zen.Z80.Implementation;
@@ -117,6 +118,65 @@ public partial class Instructions
         }
 
         _state.SetMCycles(4);
+    }
+
+    public void DAA()
+    {
+        var adjust = 0;
+
+        if (_state[Flag.HalfCarry] || (_state[Register.A] & 0x0F) > 0x09)
+        {
+            adjust++;
+        }
+
+        if (_state[Flag.Carry] || _state[Register.A] > 0x99)
+        {
+            adjust += 2;
+
+            _state[Flag.Carry] = true;
+        }
+
+        if (_state[Flag.AddSubtract] && ! _state[Flag.HalfCarry])
+        {
+            _state[Flag.HalfCarry] = false;
+        }
+        else
+        {
+            if (_state[Flag.AddSubtract] && _state[Flag.HalfCarry])
+            {
+                _state[Flag.HalfCarry] = (_state[Register.A] & 0x0F) < 0x06;
+            }
+            else
+            {
+                _state[Flag.HalfCarry] = (_state[Register.A] & 0x0F) >= 0x0A;
+            }
+        }
+
+        switch (adjust)
+        {
+            case 1:
+                _state[Register.A] += (byte) (_state[Flag.AddSubtract] ? 0xFA : 0x06);
+
+                break;
+            case 2:
+                _state[Register.A] += (byte) (_state[Flag.AddSubtract] ? 0xA0 : 0x60);
+
+                break;
+            case 3:
+                _state[Register.A] += (byte) (_state[Flag.AddSubtract] ? 0x9A : 0x66);
+
+                break;
+        }
+
+        // Flags
+        // Carry adjusted by operation
+        // AddSubtract adjusted by operation
+        _state[Flag.ParityOverflow] = _state[Register.A].IsEvenParity();
+        _state[Flag.X1] = (_state[Register.A] & 0x08) > 0;
+        // HalfCary adjusted by operation
+        _state[Flag.X2] = (_state[Register.A] & 0x20) > 0;
+        _state[Flag.Zero] = _state[Register.A] == 0;
+        _state[Flag.Sign] = (_state[Register.A] & 0x80) > 0;
     }
 
     public void RES_b_aRRd(byte bit, RegisterPair source, byte[] parameters)
