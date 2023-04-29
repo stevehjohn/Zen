@@ -28,7 +28,7 @@ public partial class Instructions
         InitialiseMiscInstructions();
 
         _instructions.Add(0xCB, new Instruction(_ => PREFIX(0xCB), "PREFIX 0xCB", 0xCB, 0));
-
+            
         _instructions.Add(0xDD, new Instruction(_ => PREFIX(0xDD), "PREFIX 0xDD", 0xDD, 0));
 
         _instructions.Add(0xFD, new Instruction(_ => PREFIX(0xFD), "PREFIX 0xFD", 0xFD, 0));
@@ -49,6 +49,8 @@ public partial class Instructions
         _instructions.Add(0x1E, new Instruction(p => LD_R_n(Register.E, p), "LD E, n", 0x1E, 1));
 
         _instructions.Add(0x26, new Instruction(p => LD_R_n(Register.H, p), "LD H, n", 0x26, 1));
+
+        _instructions.Add(0x2A, new Instruction(p => LD_RR_ann(RegisterPair.HL, p), "LD HL, (nn)", 0x2A, 2));
 
         _instructions.Add(0x2E, new Instruction(p => LD_R_n(Register.L, p), "LD L, n", 0x2E, 1));
 

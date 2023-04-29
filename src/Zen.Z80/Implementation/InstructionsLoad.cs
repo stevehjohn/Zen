@@ -66,8 +66,6 @@ public partial class Instructions
 
             _interface.WriteToMemory(address, parameters[0]);
 
-            _state.MemPtr = (ushort) (((_state[target] + 1) & 0xFF) | (parameters[0] << 8));
-
             _state.Q = 0;
         }
 
@@ -181,6 +179,26 @@ public partial class Instructions
         }
 
         _state.SetMCycles(4);
+    }
+
+    private void LD_RR_ann(RegisterPair target, byte[] parameters)
+    {
+        unchecked
+        {
+            var address = parameters.ReadLittleEndian();
+
+            var value = (ushort) _interface.ReadFromMemory(address);
+
+            value |= (ushort) (_interface.ReadFromMemory((ushort) (address + 1)) << 8);
+
+            _state[target] = value;
+
+            _state.MemPtr = (ushort) ((parameters[1] << 8 | parameters[0]) + 1);
+
+            _state.Q = 0;
+        }
+
+        _state.SetMCycles(4, 3, 3, 3, 3);
     }
 
     private void LD_RR_nn(RegisterPair target, byte[] parameters)
