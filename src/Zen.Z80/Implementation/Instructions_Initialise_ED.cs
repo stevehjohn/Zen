@@ -32,6 +32,8 @@ public partial class Instructions
 
         _instructions.Add(0xED4F, new Instruction(_ => LD_R_R(Register.R, Register.A), "LD R, A", 0xED4F, 0));
 
+        _instructions.Add(0xED52, new Instruction(_ => SBC_RR_RR(RegisterPair.HL, RegisterPair.DE), "SBC HL, DE", 0xED52, 0));
+
         _instructions.Add(0xED53, new Instruction(p => LD_ann_RR(p, RegisterPair.DE), "LD (nn), DE", 0xED53, 2, 4));
 
         _instructions.Add(0xED56, new Instruction(_ => IM(InterruptMode.IM1), "IM 1", 0xED56, 0));
@@ -43,6 +45,8 @@ public partial class Instructions
         _instructions.Add(0xED5E, new Instruction(_ => IM(InterruptMode.IM2), "IM 1", 0xED5E, 0));
 
         _instructions.Add(0xED5F, new Instruction(_ => LD_R_R(Register.A, Register.R), "LD A, R", 0xED5F, 0));
+        
+        _instructions.Add(0xED62, new Instruction(_ => SBC_RR_RR(RegisterPair.HL, RegisterPair.HL), "SBC HL, HL", 0xED62, 0));
 
         _instructions.Add(0xED63, new Instruction(p => LD_ann_RR(p, RegisterPair.HL), "LD (nn), HL", 0xED63, 2, 4));
 
@@ -51,6 +55,8 @@ public partial class Instructions
         _instructions.Add(0xED6B, new Instruction(p => LD_RR_ann(RegisterPair.HL, p), "LD HL, (nn)", 0xED6B, 2, 4));
 
         _instructions.Add(0xED6F, new Instruction(_ => RLD(), "RLD", 0xED6F, 0));
+
+        _instructions.Add(0xED72, new Instruction(_ => SBC_RR_RR(RegisterPair.HL, RegisterPair.SP), "SBC HL, SP", 0xED72, 0));
 
         _instructions.Add(0xED73, new Instruction(p => LD_ann_RR(p, RegisterPair.SP), "LD (nn), SP", 0xED73, 2, 4));
 
