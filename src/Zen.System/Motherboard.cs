@@ -40,6 +40,18 @@ public class Motherboard
 
         _ram = new();
 
+        byte[] data;
+
+        switch (model)
+        {
+            case Model.Spectrum48K:
+                data = File.ReadAllBytes("../../../../../ROM Images/ZX Spectrum 48K/image-0.rom");
+
+                _ram.LoadRom(data, 0);
+
+                break;
+        }
+
         _ports = new();
 
         _timer = new(4_000_000)
