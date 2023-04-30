@@ -30,6 +30,8 @@ public class State
 
     public bool IgnoreNextInterrupt { get; set; }
 
+    public bool Halted { get; set; }
+
     public ushort MemPtr { get; set; }
     
     public byte Q { get; set; }
@@ -39,6 +41,37 @@ public class State
     public ulong ClockCycles { get; set; }
 
     public Instruction? LastInstruction { get; set; }
+
+    public State()
+    {
+        this[Register.A] = this[Register.A_] = 0xFF;
+
+        this[Register.F] = this[Register.F_] = 0xFF;
+
+        this[Register.I] = this[Register.R] = 0;
+
+        this[Register.B] = this[Register.C] = this[Register.D] = this[Register.E] = this[Register.H] = this[Register.L] = 0x00;
+
+        this[Register.B_] = this[Register.C_] = this[Register.D_] = this[Register.E_] = this[Register.H_] = this[Register.L_] = 0x00;
+
+        ProgramCounter = 0x0000;
+
+        StackPointer = 0xFFFF;
+
+        InterruptMode = InterruptMode.IM0;
+
+        InterruptFlipFlop1 = false;
+
+        InterruptFlipFlop2 = false;
+
+        Halted = false;
+
+        InstructionPrefix = 0;
+
+        MemPtr = 0;
+
+        Q = 0;
+    }
 
     public bool this[Flag flag]
     {

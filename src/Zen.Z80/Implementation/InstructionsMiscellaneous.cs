@@ -234,6 +234,8 @@ public partial class Instructions
 
     private void HALT()
     {
+        _state.Halted = true;
+
         _state.ProgramCounter--;
 
         _state.Q = 0;

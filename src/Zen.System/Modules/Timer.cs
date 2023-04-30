@@ -31,7 +31,7 @@ public class Timer : IDisposable
     {
         Task.Run(TimerWorker, _cancellationToken);
 
-        Task.Run(InterruptWorker, _cancellationToken);
+        //Task.Run(InterruptWorker, _cancellationToken);
     }
 
     public void Pause()

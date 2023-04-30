@@ -2,7 +2,7 @@
 
 public class Ports
 {
-    private byte _data;
+    private byte _data = 0xFF;
 
     public byte this[ushort port]
     {
