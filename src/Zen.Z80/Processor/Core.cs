@@ -27,7 +27,10 @@ public class Core
 
         var instruction = _instructions[opcode];
 
-        _state.LastInstruction = instruction;
+        if (! instruction.Mnemonic.StartsWith("PREFIX"))
+        {
+            _state.LastInstruction = instruction;
+        }
 
         _state.InstructionPrefix = 0;
 
