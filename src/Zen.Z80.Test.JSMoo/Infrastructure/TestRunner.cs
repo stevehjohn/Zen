@@ -1,7 +1,7 @@
-﻿#define UNATTENDED
+﻿// #define UNATTENDED
 // #define UNDOCUMENTED
 // #define EXACT
-// n#define QUICK
+#define QUICK
 
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
