@@ -61,7 +61,7 @@ public class Core
             opcode = _state.InstructionPrefix << 8 | parameters[1];
 
             instruction = _instructions[opcode];
-            
+
             UpdateR(instruction);
 
             instruction.Execute(parameters[..1]);

@@ -1,7 +1,7 @@
 ﻿#define UNATTENDED
 // #define UNDOCUMENTED
 // #define EXACT
-// #define QUICK
+#define QUICK
 // #define IGNOREFLAGS
 
 using System.Diagnostics;
@@ -310,7 +310,7 @@ public class TestRunner
 
                 _processor.ExecuteCycle();
 
-                if (firstMnemonic == null && ! _state.LastInstruction!.Mnemonic.StartsWith("PREFIX"))
+                if (firstMnemonic == null && _state.LastInstruction != null)
                 {
                     firstMnemonic = _state.LastInstruction.Mnemonic;
                 }
