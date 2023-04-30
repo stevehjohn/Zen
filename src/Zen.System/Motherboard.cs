@@ -1,10 +1,13 @@
-﻿using Zen.System.Modules;
+﻿using Zen.System.Infrastructure;
+using Zen.System.Modules;
 using Zen.Z80.Processor;
 
 namespace Zen.System;
 
 public class Motherboard
 {
+    private readonly Model _model;
+
     private readonly Core _core;
 
     private readonly Interface _interface;
@@ -15,11 +18,14 @@ public class Motherboard
 
     private readonly Ports _ports;
 
-    public Motherboard()
+    public Motherboard(Model model)
     {
-        _interface = new();
+        _model = model;
 
-        _interface.AddressChanged = AddressChanged;
+        _interface = new()
+                     {
+                         AddressChanged = AddressChanged
+                     };
 
         _state = new();
 
