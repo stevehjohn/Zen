@@ -48,7 +48,9 @@ public partial class Instructions
 
             var right = _interface.ReadFromMemory(address);
 
-            var result = left + right;
+            var carry = (byte) (_state[Flag.Carry] ? 1 : 0);
+
+            var result = left + right + carry;
 
             _state[target] = (byte) result;
 
@@ -56,7 +58,7 @@ public partial class Instructions
             _state[Flag.AddSubtract] = false;
             _state[Flag.ParityOverflow] = ((left ^ right) & 0x80) == 0 && ((left ^ result) & 0x80) != 0;
             _state[Flag.X1] = (result & 0x08) > 0;
-            _state[Flag.HalfCarry] = (left & 0x0F) + (right & 0x0F) > 0xF;
+            _state[Flag.HalfCarry] = (left & 0x0F) + (right & 0x0F) + carry > 0xF;
             _state[Flag.X2] = (result & 0x20) > 0;
             _state[Flag.Zero] = (byte) result == 0;
             _state[Flag.Sign] = (sbyte) result < 0;

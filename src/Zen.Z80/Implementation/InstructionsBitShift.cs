@@ -134,7 +134,7 @@ public partial class Instructions
 
             var topBit = (byte) ((data & 0x80) >> 7);
 
-            var result = (byte) (data << 1);
+            var result = (byte) ((data << 1) | (byte) (_state[Flag.Carry] ? 0x01 : 0x00));
 
             _state[Register.A] = result;
 

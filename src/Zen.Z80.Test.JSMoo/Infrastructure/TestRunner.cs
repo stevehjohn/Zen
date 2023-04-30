@@ -1,4 +1,4 @@
-﻿#define UNATTENDED
+﻿// #define UNATTENDED
 // #define UNDOCUMENTED
 // #define EXACT
 // #define QUICK
@@ -50,7 +50,7 @@ public class TestRunner
 
         foreach (var file in files)
         {
-            //if (Path.GetFileNameWithoutExtension(file).CompareTo("3E ") < 0)
+            //if (Path.GetFileNameWithoutExtension(file).CompareTo("fd 8d ") < 0)
             //{
             //    continue;
             //}
