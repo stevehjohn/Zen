@@ -248,7 +248,9 @@ public partial class Instructions
 
             var data = _interface.ReadFromMemory(address);
 
-            _interface.WriteToPort(address, data);
+            var port = _state[RegisterPair.BC];
+
+            _interface.WriteToPort(port, data);
 
             _state[RegisterPair.HL]++;
 
@@ -313,7 +315,9 @@ public partial class Instructions
 
             var data = _interface.ReadFromMemory(address);
 
-            _interface.WriteToPort(address, data);
+            var port = _state[RegisterPair.BC];
+
+            _interface.WriteToPort(port, data);
 
             _state[RegisterPair.HL]++;
 
