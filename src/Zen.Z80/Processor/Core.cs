@@ -33,6 +33,8 @@ public class Core
         }
 
         _state.InstructionPrefix = 0;
+        
+        // File.AppendAllText("Zen.txt", $"{_state.ProgramCounter:X8} {instruction.OpCode:X8} {instruction.Mnemonic}\n");
 
         _state.ProgramCounter++;
 
@@ -54,8 +56,6 @@ public class Core
         
         UpdateR(instruction);
 
-        File.AppendAllText("Zen.txt", $"{instruction.Mnemonic}\n");
-
         instruction.Execute(parameters);
 
         if (_state.InstructionPrefix > 0xFF)
@@ -68,7 +68,7 @@ public class Core
 
             instruction.Execute(parameters[..1]);
 
-            File.AppendAllText("Zen.txt", $"{instruction.Mnemonic}\n");
+            // File.AppendAllText("Zen.txt", $"{_state.ProgramCounter:X8} {instruction.OpCode:X8}{instruction.Mnemonic}\n");
 
             _state.LastInstruction = instruction;
 
