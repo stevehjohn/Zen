@@ -112,6 +112,8 @@ public partial class Instructions
 
         _instructions.Add(0xEDA9, new Instruction(_ => CPD(), "CPD", 0xEDA9, 0));
 
+        _instructions.Add(0xEDAA, new Instruction(_ => IND(), "IND", 0xEDAA, 0));
+
         _instructions.Add(0xEDB0, new Instruction(_ => LDIR(), "LDIR", 0xEDB0, 0));
 
         _instructions.Add(0xEDB1, new Instruction(_ => CPIR(), "CPIR", 0xEDB1, 0));
