@@ -10,4 +10,8 @@
     <Folder Include="Modules\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Zen.Z80\Zen.Z80.csproj" />
+  </ItemGroup>
+
 </Project>

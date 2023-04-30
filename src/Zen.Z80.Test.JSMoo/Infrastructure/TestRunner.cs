@@ -2,7 +2,7 @@
 // #define UNDOCUMENTED
 // #define EXACT
 #define QUICK
-#define IGNOREFLAGS
+// #define IGNOREFLAGS
 
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
