@@ -106,6 +106,8 @@ public partial class Instructions
 
         _instructions.Add(0xEDA1, new Instruction(_ => CPI(), "CPI", 0xEDA1, 0));
 
+        _instructions.Add(0xEDA2, new Instruction(_ => INI(), "INI", 0xEDA2, 0));
+
         _instructions.Add(0xEDA8, new Instruction(_ => LDD(), "LDD", 0xEDA8, 0));
 
         _instructions.Add(0xEDA9, new Instruction(_ => CPD(), "CPD", 0xEDA9, 0));
@@ -113,6 +115,8 @@ public partial class Instructions
         _instructions.Add(0xEDB0, new Instruction(_ => LDIR(), "LDIR", 0xEDB0, 0));
 
         _instructions.Add(0xEDB1, new Instruction(_ => CPIR(), "CPIR", 0xEDB1, 0));
+
+        _instructions.Add(0xEDB2, new Instruction(_ => INIR(), "INIR", 0xEDB2, 0));
 
         _instructions.Add(0xEDB8, new Instruction(_ => LDDR(), "LDDR", 0xEDB8, 0));
 
