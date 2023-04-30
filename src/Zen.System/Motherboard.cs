@@ -19,8 +19,35 @@ public class Motherboard
 
         _interface = new();
 
+        _interface.AddressChanged = AddressChanged;
+
         _state = new();
 
         _core = new Core(_interface, _state);
+    }
+
+    private void AddressChanged()
+    {
+        if (_interface.Mreq)
+        {
+            MemoryRequest();
+        }
+
+        if (_interface.Iorq)
+        {
+            PortRequest();
+        }
+    }
+
+    private void MemoryRequest()
+    {
+        if (_interface.TransferType == TransferType.Read)
+        {
+            _interface.Data = _ram[_interface.Address];
+        }
+    }
+
+    private void PortRequest()
+    {
     }
 }

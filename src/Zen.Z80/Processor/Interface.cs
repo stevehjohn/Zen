@@ -12,7 +12,7 @@ public class Interface
         {
             _address = value;
 
-            AddressChanged?.Invoke(this);
+            AddressChanged?.Invoke();
         }
     }
 
@@ -24,7 +24,7 @@ public class Interface
 
     public TransferType TransferType { get; set; }
 
-    public Action<Interface>? AddressChanged { private get; set; }
+    public Action? AddressChanged { private get; set; }
 
     public void WriteToMemory(ushort address, byte data)
     {

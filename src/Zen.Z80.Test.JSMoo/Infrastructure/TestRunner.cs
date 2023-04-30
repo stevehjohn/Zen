@@ -241,28 +241,28 @@ public class TestRunner
             }
         }
 
-        _interface.AddressChanged = i =>
+        _interface.AddressChanged = () =>
         {
-            if (i.TransferType == TransferType.Read)
+            if (_interface.TransferType == TransferType.Read)
             {
-                if (i.Iorq)
+                if (_interface.Iorq)
                 {
-                    i.Data = ports[i.Address];
+                    _interface.Data = ports[_interface.Address];
                 }
                 else
                 {
-                    i.Data = ram[i.Address];
+                    _interface.Data = ram[_interface.Address];
                 }
             }
             else
             {
-                if (i.Iorq)
+                if (_interface.Iorq)
                 {
-                    ports[i.Address] = i.Data;
+                    ports[_interface.Address] = _interface.Data;
                 }
                 else
                 {
-                    ram[i.Address] = i.Data;
+                    ram[_interface.Address] = _interface.Data;
                 }
             }
         };

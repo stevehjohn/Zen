@@ -28,9 +28,9 @@ public class CoreTests
 
         _state.ProgramCounter = 0x0100;
 
-        _interface.AddressChanged = i =>
+        _interface.AddressChanged = () =>
         {
-            i.Data = i.Address switch
+            _interface.Data = _interface.Address switch
             {
                 0x0100 => 0x01,
                 0x0101 => 0x34,
@@ -66,9 +66,9 @@ public class CoreTests
 
         _state.ProgramCounter = 0x0100;
 
-        _interface.AddressChanged = i =>
+        _interface.AddressChanged = () =>
         {
-            i.Data = i.Address switch
+            _interface.Data = _interface.Address switch
             {
                 0x0100 => 0xDD,
                 0x0101 => 0xCB,
@@ -107,9 +107,9 @@ public class CoreTests
 
         _state.ProgramCounter = 0x0100;
 
-        _interface.AddressChanged = i =>
+        _interface.AddressChanged = () =>
         {
-            i.Data = i.Address switch
+            _interface.Data = _interface.Address switch
             {
                 0x0100 => 0x01,
                 0x0101 => 0x34,
