@@ -1,8 +1,9 @@
-﻿//#define UNATTENDED
+﻿#define UNATTENDED
 
 using System.Diagnostics;
 using Zen.Common.ConsoleHelpers;
 using Zen.Common.Extensions;
+using Zen.Z80.Exceptions;
 using Zen.Z80.Processor;
 using Zen.Z80.Tests.Fuse.Models;
 
@@ -104,9 +105,16 @@ public class TestRunner
 
         _interface.AddressChanged = () => 
         {
-            if (_interface.TransferType == TransferType.Read)
+            if (_interface.Mreq)
             {
-                _interface.Data = ram[_interface.Address];
+                if (_interface.TransferType == TransferType.Read)
+                {
+                    _interface.Data = ram[_interface.Address];
+                }
+                else
+                {
+                    ram[_interface.Address] = _interface.Data;
+                }
             }
         };
 
@@ -120,11 +128,22 @@ public class TestRunner
         //    ports.WriteByte((ushort) ((_state[Register.A] << 8) + ram[1]), _state[Register.A]);
         //}
 
-        while (tStates < expectedResult.ProcessorState.TStates)
+        try
         {
-            processor.ExecuteCycle();
+            while (tStates < expectedResult.ProcessorState.TStates)
+            {
+                processor.ExecuteCycle();
 
-            tStates += (int) _state.ClockCycles;
+                tStates += (int) _state.ClockCycles;
+            }
+        }
+        catch (OpCodeNotFoundException)
+        {
+            FormattedConsole.WriteLine("NOT IMPLEMENTED");
+        }
+        catch (Exception exception)
+        {
+            FormattedConsole.WriteLine(exception.Message);
         }
 
         return (OutputResult(expectedResult), _state.LastInstruction?.Mnemonic ?? "UNKNOWN");
@@ -206,6 +225,8 @@ public class TestRunner
         //{
         //    FormattedConsole.WriteLine($"      {line}");
         //}
+
+        FormattedConsole.WriteLine(string.Empty);
 
 #if ! UNATTENDED
         FormattedConsole.WriteLine("\n    &Cyan;Press any key to continue...\n");
