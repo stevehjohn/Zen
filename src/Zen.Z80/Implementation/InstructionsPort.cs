@@ -214,7 +214,7 @@ public partial class Instructions
 
             _interface.WriteToPort(address, data);
 
-            _state[RegisterPair.HL]++;
+            _state[RegisterPair.HL]--;
 
             _state[Register.B]--;
 
