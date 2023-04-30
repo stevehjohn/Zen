@@ -117,9 +117,7 @@ public class Motherboard
     {
         _core.ExecuteCycle();
 
-        Thread.Sleep(10);
-
-        return (int) _state.ClockCycles;
+        return (int)_state.ClockCycles;
     }
 
     private void HandleRefreshInterrupt()

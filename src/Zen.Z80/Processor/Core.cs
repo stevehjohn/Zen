@@ -34,8 +34,6 @@ public class Core
 
         _state.InstructionPrefix = 0;
         
-        // File.AppendAllText("Zen.txt", $"{_state.ProgramCounter:X8} {instruction.OpCode:X8} {instruction.Mnemonic}\n");
-
         _state.ProgramCounter++;
 
         var parameters = Array.Empty<byte>();
