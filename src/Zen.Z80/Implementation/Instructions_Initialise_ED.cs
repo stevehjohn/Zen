@@ -108,6 +108,8 @@ public partial class Instructions
 
         _instructions.Add(0xEDA2, new Instruction(_ => INI(), "INI", 0xEDA2, 0));
 
+        _instructions.Add(0xEDA3, new Instruction(_ => OUTI(), "OUTI", 0xEDA3, 0));
+
         _instructions.Add(0xEDA8, new Instruction(_ => LDD(), "LDD", 0xEDA8, 0));
 
         _instructions.Add(0xEDA9, new Instruction(_ => CPD(), "CPD", 0xEDA9, 0));
