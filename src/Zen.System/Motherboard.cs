@@ -18,6 +18,8 @@ public class Motherboard
 
     private readonly Ports _ports;
 
+    public Ram Ram => _ram;
+
     public Motherboard(Model model)
     {
         _model = model;
@@ -34,6 +36,18 @@ public class Motherboard
         _ram = new();
 
         _ports = new();
+    }
+
+    public void Start()
+    {
+    }
+
+    public void Pause()
+    {
+    }
+
+    public void Resume()
+    {
     }
 
     private void AddressChanged()

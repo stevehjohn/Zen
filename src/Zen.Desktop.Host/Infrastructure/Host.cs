@@ -1,4 +1,4 @@
-﻿//#define DELAY
+﻿// #define DELAY
 // Use the above to pause boot to allow for recording.
 
 using Microsoft.Xna.Framework;

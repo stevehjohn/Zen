@@ -24,6 +24,8 @@ public class Ram
 
     public byte RomNumber => _romNumber;
 
+    public byte[] ScreenRam => _banks[5];
+
     public Ram()
     {
         _banks = new byte[BankCount][];
