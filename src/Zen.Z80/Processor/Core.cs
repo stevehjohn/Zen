@@ -54,6 +54,8 @@ public class Core
         
         UpdateR(instruction);
 
+        File.AppendAllText("Zen.txt", $"{instruction.Mnemonic}\n");
+
         instruction.Execute(parameters);
 
         if (_state.InstructionPrefix > 0xFF)
@@ -65,6 +67,8 @@ public class Core
             UpdateR(instruction);
 
             instruction.Execute(parameters[..1]);
+
+            File.AppendAllText("Zen.txt", $"{instruction.Mnemonic}\n");
 
             _state.LastInstruction = instruction;
 

@@ -66,7 +66,7 @@ public class Host : Game
 
     protected override void Initialize()
     {
-        Window.Title = "ZXE";
+        Window.Title = "Zen";
 
         base.Initialize();
     }
