@@ -234,6 +234,8 @@ public partial class Instructions
                 _state.ProgramCounter -= 2;
 
                 _state.SetMCycles(4, 5, 3, 4, 5);
+
+                return;
             }
         }
 
@@ -272,6 +274,8 @@ public partial class Instructions
                 _state.ProgramCounter -= 2;
 
                 _state.SetMCycles(4, 5, 3, 4, 5);
+
+                return;
             }
         }
 
