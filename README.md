@@ -8,6 +8,10 @@ for display output.
 
 This project aims to take the lessons learned from ZXE and build upon them.
 
+## Solution Structure
+
+### Zen.Desktop.Host
+
 ## Useful References
 
 - https://clrhome.org/table/
