@@ -143,13 +143,13 @@ public partial class Instructions
             _state[Register.B]--;
 
             _state[Flag.Carry] = data > _state[Register.A];
-            _state[Flag.AddSubtract] = true;
+            _state[Flag.AddSubtract] = (data & 0x08) > 0;
             _state[Flag.ParityOverflow] = port != 0;
             _state[Flag.X1] = (data & 0x08) > 0;
             _state[Flag.HalfCarry] = (_state[Register.A] & 0x0F) < (data & 0x0F);
             _state[Flag.X2] = (data & 0x20) > 0;
             _state[Flag.Zero] = (port & 0xFF00) >> 8 == 0;
-            _state[Flag.Sign] = (sbyte) (port & 0xFF00) < 0;
+            _state[Flag.Sign] = (sbyte) ((port & 0xFF00) >> 8) < 0;
 
             _state.MemPtr = (ushort) (port + 1);
 
