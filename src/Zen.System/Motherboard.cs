@@ -13,10 +13,10 @@ public class Motherboard
 
     private readonly Ram _ram;
 
+    private readonly Ports _ports;
+
     public Motherboard()
     {
-        _ram = new();
-
         _interface = new();
 
         _interface.AddressChanged = AddressChanged;
@@ -24,6 +24,10 @@ public class Motherboard
         _state = new();
 
         _core = new Core(_interface, _state);
+
+        _ram = new();
+
+        _ports = new();
     }
 
     private void AddressChanged()
@@ -45,9 +49,21 @@ public class Motherboard
         {
             _interface.Data = _ram[_interface.Address];
         }
+        else
+        {
+            _ram[_interface.Address] = _interface.Data;
+        }
     }
 
     private void PortRequest()
     {
+        if (_interface.TransferType == TransferType.Read)
+        {
+            _interface.Data = _ports[_interface.Address];
+        }
+        else
+        {
+            _ports[_interface.Address] = _interface.Data;
+        }
     }
 }
