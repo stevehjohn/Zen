@@ -123,5 +123,7 @@ public partial class Instructions
         _instructions.Add(0xEDB8, new Instruction(_ => LDDR(), "LDDR", 0xEDB8, 0));
 
         _instructions.Add(0xEDB9, new Instruction(_ => CPDR(), "CPDR", 0xEDB9, 0));
+
+        _instructions.Add(0xEDBA, new Instruction(_ => INDR(), "INDR", 0xEDBA, 0));
     }
 }
