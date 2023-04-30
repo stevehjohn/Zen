@@ -1,6 +1,7 @@
 ﻿using Zen.System.Infrastructure;
 using Zen.System.Modules;
 using Zen.Z80.Processor;
+using Timer = Zen.System.Modules.Timer;
 
 namespace Zen.System;
 
@@ -18,7 +19,11 @@ public class Motherboard
 
     private readonly Ports _ports;
 
+    private readonly Timer _timer;
+
     public Ram Ram => _ram;
+
+    public Interface Interface => _interface;
 
     public Motherboard(Model model)
     {
@@ -36,18 +41,27 @@ public class Motherboard
         _ram = new();
 
         _ports = new();
+
+        _timer = new(4_000_000)
+                 {
+                     HandleRefreshInterrupt = HandleRefreshInterrupt,
+                     OnTick = OnTick
+                 };
     }
 
     public void Start()
     {
+        _timer.Start();
     }
 
     public void Pause()
     {
+        _timer.Pause();
     }
 
     public void Resume()
     {
+        _timer.Resume();
     }
 
     private void AddressChanged()
@@ -85,5 +99,15 @@ public class Motherboard
         {
             _ports[_interface.Address] = _interface.Data;
         }
+    }
+
+    private int OnTick()
+    {
+        throw new NotImplementedException();
+    }
+
+    private void HandleRefreshInterrupt()
+    {
+        throw new NotImplementedException();
     }
 }
