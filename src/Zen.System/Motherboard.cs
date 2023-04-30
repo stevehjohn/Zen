@@ -103,11 +103,13 @@ public class Motherboard
 
     private int OnTick()
     {
-        throw new NotImplementedException();
+        _core.ExecuteCycle();
+
+        return (int) _state.ClockCycles;
     }
 
     private void HandleRefreshInterrupt()
     {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
     }
 }

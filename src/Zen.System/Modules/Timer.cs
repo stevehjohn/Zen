@@ -2,8 +2,8 @@
 
 namespace Zen.System.Modules;
 
-public class Timer
-{    
+public class Timer : IDisposable
+{
     public required Func<int> OnTick { get; init; }
 
     public required Action HandleRefreshInterrupt { get; init; }
@@ -60,7 +60,7 @@ public class Timer
         // TODO: Get this working properly.
         while (true)
         {
-            if (!Fast)
+            if (! Fast)
             {
                 stopwatch.Restart();
 
