@@ -258,7 +258,7 @@ public class FileSelect : CharacterOverlayBase
 
     private void DrawStaticItems(Color[] data)
     {
-        DrawString(data, "ZXE - Load Z80/SNA", 0, 0, Color.White, true);
+        DrawString(data, "Zen - Load Z80/SNA", 0, 0, Color.White, true);
 
         DrawString(data, "[ESC] Close Menu", 0, 17, _cancelled ? Color.LightGreen : Color.FromNonPremultiplied(255, 64, 64, 255), true, _cancelled);
 

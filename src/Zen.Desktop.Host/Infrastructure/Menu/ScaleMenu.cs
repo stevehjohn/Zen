@@ -10,7 +10,7 @@ public class ScaleMenu : MenuBase
     {
         var items = new List<Label>
                     {
-                        new(0, true, "ZXE - Display Scale", Color.White, 0, 0, null),
+                        new(0, true, "Zen - Display Scale", Color.White, 0, 0, null),
                         new(1, false, "[1] 2x", Color.Yellow, 1, 3, Keys.D1, Color.LightGreen),
                         new(2, false, "[2] 4x", Color.Yellow, 1, 5, Keys.D2, Color.LightGreen),
                         new(3, false, "[3] 6x", Color.Yellow, 1, 7, Keys.D3, Color.LightGreen),

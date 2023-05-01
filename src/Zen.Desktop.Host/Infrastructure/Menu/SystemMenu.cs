@@ -11,7 +11,7 @@ public class SystemMenu : MenuBase
     {
         var items = new List<Label>
                     {
-                        new(0, true, "ZXE - Select System", Color.White, 0, 0, null),
+                        new(0, true, "Zen - Select System", Color.White, 0, 0, null),
                         new(1, false, "[1] Spectrum 48K", Color.Yellow, 1, 3, Keys.D1, Color.LightGreen),
                         new(2, false, "[2] Spectrum 128", Color.Yellow, 1, 5, Keys.D2, Color.LightGreen),
                         new(3, false, "[3] Spectrum +2", Color.Yellow, 1, 7, Keys.D3, Color.LightGreen),

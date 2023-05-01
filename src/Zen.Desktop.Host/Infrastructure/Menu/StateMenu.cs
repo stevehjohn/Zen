@@ -10,7 +10,7 @@ public class StateMenu : MenuBase
     {
         var items = new List<Label>
                     {
-                        new(0, true, "ZXE - State", Color.White, 0, 0, null),
+                        new(0, true, "Zen - State", Color.White, 0, 0, null),
                         new(1, false, "[1] Save System State", Color.Yellow, 1, 3, Keys.D1, Color.LightGreen),
                         new(2, false, "[2] Load System State", Color.Yellow, 1, 5, Keys.D2, Color.LightGreen),
                         new(99, true, "[ESC] Close Menu", Color.FromNonPremultiplied(255, 64, 64, 255), 0, 16, Keys.Escape, Color.LightGreen)
