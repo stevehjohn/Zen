@@ -60,14 +60,14 @@ public class Timer : IDisposable
         // TODO: Get this working properly.
         while (true)
         {
-            if (! Fast)
-            {
-                stopwatch.Restart();
+            //if (! Fast)
+            //{
+            //    stopwatch.Restart();
 
-                while (stopwatch.ElapsedTicks < cycles * _microsecondsPerCycle)
-                {
-                }
-            }
+            //    while (stopwatch.ElapsedTicks < cycles * _microsecondsPerCycle)
+            //    {
+            //    }
+            //}
 
             if (! _paused)
             {
