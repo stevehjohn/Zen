@@ -53,6 +53,8 @@ public class Host : Game
     {
         _motherboard = new Motherboard(model);
 
+        _imageName = $"Standard {model} ROM";
+
         AppSettings.Instance.SystemModel = model;
 
         AppSettings.Instance.Save();
