@@ -75,8 +75,6 @@ public class Core
 
             instruction.Execute(parameters[..1]);
 
-            // File.AppendAllText("Zen.txt", $"{_state.ProgramCounter:X8} {instruction.OpCode:X8}{instruction.Mnemonic}\n");
-
             _state.LastInstruction = instruction;
 
             _state.InstructionPrefix = 0;
