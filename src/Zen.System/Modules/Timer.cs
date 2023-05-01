@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-
-namespace Zen.System.Modules;
+﻿namespace Zen.System.Modules;
 
 public class Timer : IDisposable
 {

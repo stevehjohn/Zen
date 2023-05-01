@@ -60,7 +60,15 @@ public class Motherboard
 
                 break;
 
+            case Model.Spectrum128:
+                data = File.ReadAllBytes("../../../../../ROM Images/ZX Spectrum 128/image-0.rom");
+
+                _ram.LoadRom(data, 0);
+
+                break;
+
             default:
+                // TODO: Proper exception?
                 throw new Exception($"ROM not found for {model}");
         }
 
