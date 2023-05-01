@@ -1,5 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
+#pragma warning disable CS8618
+
 namespace Zen.Z80.Test.JSMoo.Models;
 
 [ExcludeFromCodeCoverage]
