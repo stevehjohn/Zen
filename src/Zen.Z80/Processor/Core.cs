@@ -80,7 +80,7 @@ public class Core
             _state.InstructionPrefix = 0;
         }
 
-        if (! instruction.Mnemonic.StartsWith("PREFIX"))
+        if (! instruction.Mnemonic.StartsWith("PREFIX") && _state.InstructionPrefix == 0)
         {
             HandleInterrupts();
         }
