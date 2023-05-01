@@ -143,6 +143,9 @@ public class Core
 
         switch (_state.InterruptMode)
         {
+            case InterruptMode.IM0:
+                throw new Exception("Not implemented - not used by Spectrum");
+
             case InterruptMode.IM1:
                 PushProgramCounter();
 
