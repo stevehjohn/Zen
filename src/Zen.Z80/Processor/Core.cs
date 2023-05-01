@@ -79,6 +79,11 @@ public class Core
 
             _state.InstructionPrefix = 0;
         }
+
+        if (! instruction.Mnemonic.StartsWith("PREFIX"))
+        {
+            HandleInterrupts();
+        }
     }
 
     private void UpdateR(Instruction instruction)
@@ -131,6 +136,8 @@ public class Core
         {
             return;
         }
+
+        _state.InterruptFlipFlop1 = _state.InterruptFlipFlop2 = false;
 
         switch (_state.InterruptMode)
         {
