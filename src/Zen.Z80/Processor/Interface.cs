@@ -1,9 +1,12 @@
 ﻿// ReSharper disable IdentifierTypo
+
 namespace Zen.Z80.Processor;
 
 public class Interface
 {
     private ushort _address;
+
+    private readonly Mutex _mutex = new();
 
     public ushort Address
     {
@@ -26,8 +29,29 @@ public class Interface
 
     public Action? AddressChanged { private get; set; }
 
+    public byte ReadFromMemory(ushort address)
+    {
+        _mutex.WaitOne();
+
+        Mreq = true;
+
+        Iorq = false;
+
+        TransferType = TransferType.Read;
+
+        Address = address;
+
+        var data = Data;
+
+        _mutex.ReleaseMutex();
+
+        return data;
+    }
+
     public void WriteToMemory(ushort address, byte data)
     {
+        _mutex.WaitOne();
+
         Mreq = true;
 
         Iorq = false;
@@ -37,23 +61,14 @@ public class Interface
         Data = data;
 
         Address = address;
-    }
 
-    public byte ReadFromMemory(ushort address)
-    {
-        Mreq = true;
-
-        Iorq = false;
-
-        TransferType = TransferType.Read;
-
-        Address = address;
-
-        return Data;
+        _mutex.ReleaseMutex();
     }
 
     public byte ReadFromPort(ushort port)
     {
+        _mutex.WaitOne();
+
         Mreq = false;
 
         Iorq = true;
@@ -62,11 +77,17 @@ public class Interface
 
         Address = port;
 
-        return Data;
+        var data = Data;
+
+        _mutex.ReleaseMutex();
+
+        return data;
     }
 
     public void WriteToPort(ushort port, byte data)
     {
+        _mutex.WaitOne();
+
         Mreq = false;
 
         Iorq = true;
@@ -74,6 +95,8 @@ public class Interface
         TransferType = TransferType.Write;
 
         Data = data;
+
+        _mutex.ReleaseMutex();
 
         Address = port;
     }
