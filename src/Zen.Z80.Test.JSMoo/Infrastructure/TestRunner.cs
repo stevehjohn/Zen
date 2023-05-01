@@ -241,31 +241,13 @@ public class TestRunner
             }
         }
 
-        _interface.AddressChanged = () =>
-        {
-            if (_interface.TransferType == TransferType.Read)
-            {
-                if (_interface.Iorq)
-                {
-                    _interface.Data = ports[_interface.Address];
-                }
-                else
-                {
-                    _interface.Data = ram[_interface.Address];
-                }
-            }
-            else
-            {
-                if (_interface.Iorq)
-                {
-                    ports[_interface.Address] = _interface.Data;
-                }
-                else
-                {
-                    ram[_interface.Address] = _interface.Data;
-                }
-            }
-        };
+        _interface.ReadRam = address => ram[address];
+
+        _interface.WriteRam = (address, data) => ram[address] = data;
+
+        _interface.ReadPort = port => ports[port];
+
+        _interface.WritePort = (port, data) => ports[port] = data;
 
         _state.ProgramCounter = (ushort) test.Initial.PC;
         _state.StackPointer = (ushort) test.Initial.SP;
