@@ -35,7 +35,10 @@ public class Motherboard
 
         _interface = new()
                      {
-                         AddressChanged = AddressChanged
+                         ReadRam = ReadRam,
+                         WriteRam = WriteRam,
+                         ReadPort = ReadPort,
+                         WritePort = WritePort
                      };
 
         _state = new();
@@ -68,6 +71,26 @@ public class Motherboard
                  };
     }
 
+    private byte ReadRam(ushort address)
+    {
+        return _ram[address];
+    }
+
+    private void WriteRam(ushort address, byte data)
+    {
+        _ram[address] = data;
+    }
+
+    private byte ReadPort(ushort port)
+    {
+        return _ports[port];
+    }
+
+    private void WritePort(ushort port, byte data)
+    {
+        _ports[port] = data;
+    }
+
     public void Start()
     {
         _timer.Start();
@@ -81,43 +104,6 @@ public class Motherboard
     public void Resume()
     {
         _timer.Resume();
-    }
-
-    private void AddressChanged()
-    {
-        if (_interface.Mreq)
-        {
-            MemoryRequest();
-        }
-
-        if (_interface.Iorq)
-        {
-            PortRequest();
-        }
-    }
-
-    private void MemoryRequest()
-    {
-        if (_interface.TransferType == TransferType.Read)
-        {
-            _interface.Data = _ram[_interface.Address];
-        }
-        else
-        {
-            _ram[_interface.Address] = _interface.Data;
-        }
-    }
-
-    private void PortRequest()
-    {
-        if (_interface.TransferType == TransferType.Read)
-        {
-            _interface.Data = _ports[_interface.Address];
-        }
-        else
-        {
-            _ports[_interface.Address] = _interface.Data;
-        }
     }
 
     private int OnTick()
