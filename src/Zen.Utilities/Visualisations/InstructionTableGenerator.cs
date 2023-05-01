@@ -53,7 +53,7 @@ public class InstructionTableGenerator
 
         if (offset != 0x00)
         {
-            title = $"{(offset >> 8):X}";
+            title = $"{offset >> 8:X}";
         }
 
         _output.AppendLine($"<div class=\"table-title\">{title} OpCodes</div>");
@@ -87,7 +87,7 @@ public class InstructionTableGenerator
                 }
                 catch
                 {
-                    _output.AppendLine($"    <td class=\"empty\"></td>");
+                    _output.AppendLine("    <td class=\"empty\"></td>");
                 }
             }
 
