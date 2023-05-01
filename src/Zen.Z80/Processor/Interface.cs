@@ -96,8 +96,8 @@ public class Interface
 
         Data = data;
 
-        _mutex.ReleaseMutex();
-
         Address = port;
+
+        _mutex.ReleaseMutex();
     }
 }
