@@ -149,6 +149,16 @@ public class Core
                 _state.ProgramCounter = 0x0038;
 
                 break;
+
+            case InterruptMode.IM2:
+                PushProgramCounter();
+
+                // TODO: Get 0xFF from bus.
+                var address = (_state[Register.I] << 8) | 0xFF;
+
+                _state.ProgramCounter = (ushort) (_interface.ReadFromMemory((ushort) address) | (_interface.ReadFromMemory((ushort) (address + 1)) << 8));
+
+                break;
         }
     }
 
