@@ -12,15 +12,15 @@ public class Timer : IDisposable
 
     private readonly CancellationToken _cancellationToken;
 
-    private readonly double _microsecondsPerCycle;
+    private readonly int _frameSleep;
 
     public bool Fast { get; set; }
 
     private bool _paused;
 
-    public Timer(double speedHz)
+    public Timer(int framesPerSecond)
     {
-        _microsecondsPerCycle = 1.0f / speedHz * Stopwatch.Frequency;
+        _frameSleep = 1_000 / framesPerSecond;
 
         _cancellationTokenSource = new CancellationTokenSource();
 
@@ -30,8 +30,6 @@ public class Timer : IDisposable
     public void Start()
     {
         Task.Run(TimerWorker, _cancellationToken);
-
-        Task.Run(InterruptWorker, _cancellationToken);
     }
 
     public void Pause()
@@ -53,45 +51,23 @@ public class Timer : IDisposable
 
     private void TimerWorker()
     {
-        var stopwatch = new Stopwatch();
-
-        var cycles = 0;
-
-        // TODO: Get this working properly.
         while (true)
         {
-            if (!Fast)
+            if (! _paused)
             {
-                stopwatch.Restart();
+                var frameCycles = 0;
 
-                while (stopwatch.ElapsedTicks < cycles * _microsecondsPerCycle)
+                while (frameCycles < 69_888)
                 {
+                    frameCycles += OnTick();
                 }
-            }
 
-            if (! _paused)
-            {
-                cycles = OnTick();
-            }
-        }
-        // ReSharper disable once FunctionNeverReturns
-    }
-
-    private void InterruptWorker()
-    {
-        var stopwatch = new Stopwatch();
-
-        while (true)
-        {
-            stopwatch.Restart();
-
-            while (stopwatch.ElapsedMilliseconds < 20)
-            {
-            }
-
-            if (! _paused)
-            {
                 HandleRefreshInterrupt();
+            }
+
+            if (! Fast)
+            {
+                Thread.Sleep(_frameSleep);
             }
         }
         // ReSharper disable once FunctionNeverReturns

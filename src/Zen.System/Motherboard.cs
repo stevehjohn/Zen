@@ -7,6 +7,8 @@ namespace Zen.System;
 
 public class Motherboard
 {
+    private const int FramesPerSecond = 60;
+
     private readonly Model _model;
 
     private readonly Core _core;
@@ -64,7 +66,7 @@ public class Motherboard
 
         _ports = new();
 
-        _timer = new(4_000_000)
+        _timer = new(FramesPerSecond)
                  {
                      HandleRefreshInterrupt = HandleRefreshInterrupt,
                      OnTick = OnTick
