@@ -1,4 +1,5 @@
-﻿using Zen.Z80.Implementation;
+﻿using System.Runtime.Intrinsics.Arm;
+using Zen.Z80.Implementation;
 
 namespace Zen.Z80.Processor;
 
@@ -115,5 +116,42 @@ public class Core
 
     private void HandleInterrupts()
     {
+        if (_interface.Interrupt)
+        {
+            HandleMaskableInterrupt();
+
+            _interface.Interrupt = false;
+        }
+    }
+
+    private void HandleMaskableInterrupt()
+    {
+        _state.Halted = false;
+
+        if (! _state.InterruptFlipFlop1)
+        {
+            return;
+        }
+
+        switch (_state.InterruptMode)
+        {
+            case InterruptMode.IM1:
+                PushProgramCounter();
+
+                _state.ProgramCounter = 0x0038;
+
+                break;
+        }
+    }
+
+    private void PushProgramCounter()
+    {
+        _state.StackPointer--;
+
+        _interface.WriteToMemory(_state.StackPointer, (byte) ((_state.ProgramCounter & 0xFF00) >> 8));
+
+        _state.StackPointer--;
+
+        _interface.WriteToMemory(_state.StackPointer, (byte) (_state.ProgramCounter & 0x00FFFF));
     }
 }
