@@ -2,20 +2,48 @@
 
 public class Ports
 {
-    private readonly Dictionary<int, byte> _data = new();
+    private readonly byte?[] _data = new byte?[65_536];
 
     public byte this[ushort port]
     {
-        get 
-        {
-            if (! _data.ContainsKey(port))
-            {
-                return 0xFF;
-            }
-
-            return _data[port];
-        }
+        get => GetPortData(port);
 
         set => _data[port] = value;
+    }
+
+    private byte GetPortData(ushort port)
+    {
+        // Kempston.
+        if ((port & 0xFF) is 0x1F or 0xDF)
+        {
+            return 0x00;
+        }
+
+        // Keyboard.
+        if ((port & 0xFF) == 0xFE)
+        {
+            var value = (byte) 0xFF;
+
+            var high = (port & 0xFF00) >> 8;
+
+            if ((high & 0b0000_0001) == 0) value &= _data[0b1111_1110_1111_1110] ?? 0xFF;
+            if ((high & 0b0000_0010) == 0) value &= _data[0b1111_1101_1111_1110] ?? 0xFF;
+            if ((high & 0b0000_0100) == 0) value &= _data[0b1111_1011_1111_1110] ?? 0xFF;
+            if ((high & 0b0000_1000) == 0) value &= _data[0b1111_0111_1111_1110] ?? 0xFF;
+            if ((high & 0b0001_0000) == 0) value &= _data[0b1110_1111_1111_1110] ?? 0xFF;
+            if ((high & 0b0010_0000) == 0) value &= _data[0b1101_1111_1111_1110] ?? 0xFF;
+            if ((high & 0b0100_0000) == 0) value &= _data[0b1011_1111_1111_1110] ?? 0xFF;
+            if ((high & 0b1000_0000) == 0) value &= _data[0b0111_1111_1111_1110] ?? 0xFF;
+
+            return value;
+        }
+
+        // Disk drive (+2A/3 only).
+        if (port == 0x2FFD)
+        {
+            return 0b10000000;
+        }
+
+        return _data[port] ?? 0xFF;
     }
 }
