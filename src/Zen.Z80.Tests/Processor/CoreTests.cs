@@ -28,9 +28,9 @@ public class CoreTests
 
         _state.ProgramCounter = 0x0100;
 
-        _interface.AddressChanged = () =>
+        _interface.ReadRam = address =>
         {
-            _interface.Data = _interface.Address switch
+            return address switch
             {
                 0x0100 => 0x01,
                 0x0101 => 0x34,
@@ -48,12 +48,19 @@ public class CoreTests
     {
         _state[Register.B] = 0x0001;
 
-        _interface.Data = 0xCB;
+        _state.ProgramCounter = 0x0100;
+
+        _interface.ReadRam = address =>
+        {
+            return address switch
+            {
+                0x0100 => 0xCB,
+                0x0101 => 0x40
+            };
+        };
 
         _core.ExecuteCycle();
 
-        _interface.Data = 0x40;
-        
         _core.ExecuteCycle();
 
         Assert.False(_state[Flag.Zero]);
@@ -66,9 +73,9 @@ public class CoreTests
 
         _state.ProgramCounter = 0x0100;
 
-        _interface.AddressChanged = () =>
+        _interface.ReadRam = address =>
         {
-            _interface.Data = _interface.Address switch
+            return address switch
             {
                 0x0100 => 0xDD,
                 0x0101 => 0xCB,
@@ -92,11 +99,22 @@ public class CoreTests
 
         _state.ProgramCounter = 0x0100;
 
-        _interface.Data = 0x00;
+        var requestedAddress = 0;
+
+        _interface.ReadRam = address =>
+        {
+            requestedAddress = address;
+
+            return address switch
+            {
+                0x0100 => 0x00
+            };
+        };
+
 
         core.ExecuteCycle();
 
-        Assert.Equal(0x0100, _interface.Address);
+        Assert.Equal(0x0100, requestedAddress);
     }
 
     [Fact]
@@ -106,10 +124,10 @@ public class CoreTests
         _state[RegisterPair.BC] = 0x0000;
 
         _state.ProgramCounter = 0x0100;
-
-        _interface.AddressChanged = () =>
+        
+        _interface.ReadRam = address =>
         {
-            _interface.Data = _interface.Address switch
+            return address switch
             {
                 0x0100 => 0x01,
                 0x0101 => 0x34,
@@ -128,8 +146,14 @@ public class CoreTests
         var core = new Core(_interface, _state);
 
         _state.ProgramCounter = 0x0100;
-
-        _interface.Data = 0x00;
+        
+        _interface.ReadRam = address =>
+        {
+            return address switch
+            {
+                0x0100 => 0x00
+            };
+        };
 
         core.ExecuteCycle();
 
