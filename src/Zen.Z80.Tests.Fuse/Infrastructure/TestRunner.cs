@@ -103,20 +103,9 @@ public class TestRunner
 
         PopulateRam(ram, input);
 
-        _interface.AddressChanged = () => 
-        {
-            if (_interface.Mreq)
-            {
-                if (_interface.TransferType == TransferType.Read)
-                {
-                    _interface.Data = ram[_interface.Address];
-                }
-                else
-                {
-                    ram[_interface.Address] = _interface.Data;
-                }
-            }
-        };
+        _interface.ReadRam = address => ram[address];
+
+        _interface.WriteRam = (address, data) => ram[address] = data;
 
         var tStates = 0;
 
