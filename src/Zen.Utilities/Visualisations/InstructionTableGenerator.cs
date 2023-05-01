@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using Zen.Z80.Implementation;
 using Zen.Z80.Processor;
@@ -27,7 +28,7 @@ public class InstructionTableGenerator
 
         File.WriteAllText("SupportedOpCodes.html", template);
 
-        System.Diagnostics.Process.Start("cmd.exe", "/c SupportedOpCodes.html");
+        Process.Start("cmd.exe", "/c SupportedOpCodes.html");
     }
 
     private void GenerateBaseInstructionTable()

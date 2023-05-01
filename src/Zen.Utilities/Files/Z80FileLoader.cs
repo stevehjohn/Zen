@@ -5,7 +5,7 @@ using Zen.Z80.Processor;
 
 namespace Zen.Utilities.Files;
 
-public class Z80FileAdapter : IFileLoader
+public class Z80FileLoader : IFileLoader
 {
     private readonly State _state;
 
@@ -13,7 +13,7 @@ public class Z80FileAdapter : IFileLoader
 
     private readonly Model _model;
 
-    public Z80FileAdapter(State state, Ram ram, Model model)
+    public Z80FileLoader(State state, Ram ram, Model model)
     {
         _state = state;
 
@@ -81,7 +81,7 @@ public class Z80FileAdapter : IFileLoader
         {
             _ram.SetBank(3, (byte) (data[35] & 0b0000_0111));
 
-            _ram.Screen = (data[35] & 0b0000_1000) > 0 ? 2 : 1;
+            _ram.ScreenBank = (byte) ((data[35] & 0b0000_1000) > 0 ? 2 : 1);
 
             var romNumber = (data[35] & 0b0001_0000) >> 4;
 

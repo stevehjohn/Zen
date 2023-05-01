@@ -20,11 +20,19 @@ public class Ram
 
     private byte _romNumber;
 
+    private byte _screenBank = 5;
+
     public bool ProtectRom { get; set; }
 
     public byte RomNumber => _romNumber;
 
-    public byte[] ScreenRam => _banks[5];
+    public byte[] ScreenRam => _banks[_screenBank];
+
+    public byte ScreenBank
+    {
+        get => _screenBank;
+        set => _screenBank = (byte) (value == 1 ? 5 : 7);
+    }
 
     public Ram()
     {
@@ -62,6 +70,14 @@ public class Ram
         _mappings[slotNumber] = _banks[bankNumber];
 
         _slots[slotNumber] = bankNumber;
+    }
+
+    public void Load(byte[] data, int destination)
+    {
+        for (var i = 0; i < data.Length; i++)
+        {
+            this[(ushort) (destination + i)] = data[i];
+        }
     }
 
     public void LoadRom(byte[] data, byte romNumber)

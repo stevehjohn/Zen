@@ -25,6 +25,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Zen.Common\Zen.Common.csproj" />
     <ProjectReference Include="..\Zen.System\Zen.System.csproj" />
+    <ProjectReference Include="..\Zen.Utilities\Zen.Utilities.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Update="app-settings.json">

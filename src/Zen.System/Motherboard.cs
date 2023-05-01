@@ -25,6 +25,10 @@ public class Motherboard
 
     public Interface Interface => _interface;
 
+    public Model Model => _model;
+
+    public State State => _state;
+
     public Motherboard(Model model)
     {
         _model = model;

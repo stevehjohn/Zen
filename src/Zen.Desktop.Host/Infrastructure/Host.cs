@@ -1,6 +1,8 @@
 ﻿// #define DELAY
 // Use the above to pause boot to allow for recording.
 
+using System;
+using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -8,6 +10,8 @@ using Zen.Desktop.Host.Display;
 using Zen.Desktop.Host.Infrastructure.Menu;
 using Zen.Desktop.Host.Infrastructure.Settings;
 using Zen.System;
+using Zen.Utilities.Files;
+using Zen.Utilities.Files.Interfaces;
 using Keys = Microsoft.Xna.Framework.Input.Keys;
 using Model = Zen.System.Infrastructure.Model;
 
@@ -212,28 +216,28 @@ public class Host : Game
     
     private void LoadZ80Sna(string filename)
     {
-        //IImageLoader loader;
+        IFileLoader loader;
 
-        //switch (Path.GetExtension(filename).ToLowerInvariant())
-        //{
-        //    case ".z80":
-        //        loader = new Z80FileLoader(_motherboard.Processor.State, _motherboard.Ram, _motherboard.Model);
+        switch (Path.GetExtension(filename).ToLowerInvariant())
+        {
+            case ".z80":
+                loader = new Z80FileLoader(_motherboard.State, _motherboard.Ram, _motherboard.Model);
 
-        //        break;
-        //    case ".sna":
-        //        loader = new SnaFileAdapter(_motherboard.Processor.State, _motherboard.Ram);
+                break;
+            //case ".sna":
+            //    loader = new SnaFileAdapter(_motherboard.State, _motherboard.Ram);
 
-        //        break;
-        //    default:
-        //        // TODO: Proper extension
-        //        throw new Exception("Unsupported file format");
-        //}
+            //    break;
+            default:
+                // TODO: Proper extension
+                throw new Exception("Unsupported file format");
+        }
 
-        //loader.Load(filename);
-        
-        //_imageName = filename.Split(Path.DirectorySeparatorChar)[^2];
+        loader.Load(filename);
 
-        //_motherboard.Resume();
+        _imageName = filename.Split(Path.DirectorySeparatorChar)[^2];
+
+        _motherboard.Resume();
     }
 
     protected override void Draw(GameTime gameTime)
