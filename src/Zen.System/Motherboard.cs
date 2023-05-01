@@ -122,6 +122,6 @@ public class Motherboard
 
     private void HandleRefreshInterrupt()
     {
-        //throw new NotImplementedException();
+        _interface.Interrupt = true;
     }
 }

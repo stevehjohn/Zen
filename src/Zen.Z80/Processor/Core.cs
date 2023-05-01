@@ -21,6 +21,15 @@ public class Core
 
     public void ExecuteCycle()
     {
+        if (_state.Halted)
+        {
+            HandleInterrupts();
+
+            _instructions[0x00].Execute(Array.Empty<byte>());
+
+            return;
+        }
+
         var data = _interface.ReadFromMemory(_state.ProgramCounter);
 
         var opcode = _state.InstructionPrefix << 8 | data;
@@ -104,5 +113,9 @@ public class Core
         {
             _state[Register.R] &= 0x7F;
         }
+    }
+
+    private void HandleInterrupts()
+    {
     }
 }

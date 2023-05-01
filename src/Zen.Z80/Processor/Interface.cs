@@ -25,6 +25,8 @@ public class Interface
 
     public bool Iorq { get; set; }
 
+    public bool Interrupt { get; set; }
+
     public TransferType TransferType { get; set; }
 
     public Action? AddressChanged { private get; set; }
