@@ -7,6 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zen.Z80", "Zen.Z80\Zen.Z80.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{262096F9-4FC4-4573-98D0-B9A59DDD122C}"
 	ProjectSection(SolutionItems) = preProject
+		..\Documentation\Screen Layout.txt = ..\Documentation\Screen Layout.txt
 		..\Documentation\Z80 Microprocessor Family.pdf = ..\Documentation\Z80 Microprocessor Family.pdf
 		..\Documentation\Z80 User Manual.pdf = ..\Documentation\Z80 User Manual.pdf
 	EndProjectSection
@@ -57,7 +58,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zen.Utilities", "Zen.Utilit
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zen.Desktop.Host", "Zen.Desktop.Host\Zen.Desktop.Host.csproj", "{5F224FF4-B320-4C9A-9C2C-8FC38997D73F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zen.Z80.Tests.Fuse", "Zen.Z80.Tests.Fuse\Zen.Z80.Tests.Fuse.csproj", "{322F3335-09DA-4B4E-AB57-E3886B15078A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zen.Z80.Tests.Fuse", "Zen.Z80.Tests.Fuse\Zen.Z80.Tests.Fuse.csproj", "{322F3335-09DA-4B4E-AB57-E3886B15078A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
