@@ -77,7 +77,8 @@ public class Motherboard
         _timer = new(FramesPerSecond)
                  {
                      HandleRefreshInterrupt = HandleRefreshInterrupt,
-                     OnTick = OnTick
+                     OnTick = OnTick,
+                     FrameFinished = FrameFinished
                  };
     }
 
@@ -126,5 +127,10 @@ public class Motherboard
     private void HandleRefreshInterrupt()
     {
         _interface.Interrupt = true;
+    }
+
+    private void FrameFinished()
+    {
+        _ram.FrameReady();
     }
 }
