@@ -65,6 +65,8 @@ public class Core
 
         instruction.Execute(parameters);
 
+        // File.AppendAllText("Zex.txt", $"{opcode:X8} {instruction.Mnemonic}\n");
+
         if (_state.InstructionPrefix > 0xFF)
         {
             opcode = _state.InstructionPrefix << 8 | parameters[1];

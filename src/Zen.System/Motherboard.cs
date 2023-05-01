@@ -50,6 +50,9 @@ public class Motherboard
                 _ram.LoadRom(data, 0);
 
                 break;
+
+            default:
+                throw new Exception($"ROM not found for {model}");
         }
 
         _ports = new();
