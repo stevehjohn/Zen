@@ -70,4 +70,9 @@ public class Ram
 
         Array.Copy(data, 0, _rom, 0, data.Length);
     }
+
+    public void LoadIntoBank(byte bankNumber, byte[] data)
+    {
+        Array.Copy(data, 0, _banks[bankNumber], 0, data.Length);
+    }
 }

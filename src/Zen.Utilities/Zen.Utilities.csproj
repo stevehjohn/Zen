@@ -8,6 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="NewFolder\**" />
+    <EmbeddedResource Remove="NewFolder\**" />
+    <None Remove="NewFolder\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Templates\InstructionTable.html" />
   </ItemGroup>
 
@@ -18,6 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Zen.System\Zen.System.csproj" />
     <ProjectReference Include="..\Zen.Z80\Zen.Z80.csproj" />
   </ItemGroup>
 
