@@ -75,7 +75,7 @@ public class CodeGenerator
         }
     }
 
-    private string GenerateMethodCall(Instruction instruction)
+    private static string GenerateMethodCall(Instruction instruction)
     {
         var parts = instruction.Mnemonic.Split(new[] { ' ', ',', '+' }, StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
 
@@ -97,13 +97,13 @@ public class CodeGenerator
 
         var lambda = "_ => ";
 
-        if (instruction.Mnemonic.StartsWith("SET 0, (IX +"))
-        {
-        }
+        var not = false;
 
         foreach (var part in parts[1..])
         {
             var components = GenerateComponents(parts[0], part);
+
+            not |= components.Not;
 
             method.Append(components.MethodSuffix);
 
@@ -125,6 +125,11 @@ public class CodeGenerator
             }
         }
 
+        if (not)
+        {
+            parameters.Append(", true");
+        }
+
         if (parameters.ToString() == "p")
         {
             return method.ToString();
@@ -133,26 +138,26 @@ public class CodeGenerator
         return $"{lambda}{method}({parameters})";
     }
 
-    private static (string MethodSuffix, string Parameter) GenerateComponents(string mnemonic, string part)
+    private static (string MethodSuffix, string Parameter, bool Not) GenerateComponents(string mnemonic, string part)
     {
         if (part.StartsWith("0x"))
         {
-            return (string.Empty, part);
+            return (string.Empty, part, false);
         }
 
         if (part == "d)")
         {
-            return ("d", "p");
+            return ("d", "p", false);
         }
 
         if (part.Length == 1 && char.IsNumber(part[0]))
         {
-            return ("_b", $"0x{1 << int.Parse(part):X2}");
+            return ("_b", $"0x{1 << int.Parse(part):X2}", false);
         }
 
         if (part == "(C)")
         {
-            return ("_C", string.Empty);
+            return ("_C", string.Empty, false);
         }
 
         var suffix = new StringBuilder();
@@ -214,7 +219,7 @@ public class CodeGenerator
                     throw new Exception($"Unrecognised flag {part}.");
             }
 
-            return ("_F", $"Flag.{flag}");
+            return ("_F", $"Flag.{flag}", part[0] == 'N' || part == "PO");
         }
 
         switch (argument)
@@ -236,7 +241,7 @@ public class CodeGenerator
             case "DE'":
             case "HL'":
                 suffix.Append("RR");
-                parameter = $"RegisterPair.{argument[..^1]}";
+                parameter = $"RegisterPair.{argument[..^1]}_";
                 break;
 
             case "A":
@@ -272,6 +277,6 @@ public class CodeGenerator
                 break;
         }
 
-        return (suffix.ToString(), parameter);
+        return (suffix.ToString(), parameter, false);
     }
 }
