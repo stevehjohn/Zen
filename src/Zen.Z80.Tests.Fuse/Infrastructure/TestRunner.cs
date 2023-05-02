@@ -294,7 +294,7 @@ public class TestRunner
 
         _state.InterruptMode = (InterruptMode) processorState.InterruptMode;
 
-        // _state.Halted = processorState.Halted;
+        _state.Halted = processorState.Halted;
     }
 
     private static void PopulateRam(Dictionary<int, byte> ram, TestInput input)

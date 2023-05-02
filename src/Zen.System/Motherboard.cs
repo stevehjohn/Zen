@@ -31,6 +31,12 @@ public class Motherboard
 
     public State State => _state;
 
+    public bool Fast
+    {
+        get => _timer.Fast;
+        set => _timer.Fast = value;
+    }
+
     public Motherboard(Model model)
     {
         _model = model;
