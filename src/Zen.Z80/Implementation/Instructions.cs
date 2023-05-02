@@ -32,7 +32,7 @@ public partial class Instructions
                 {
                     var instruction = _instructions[opCode & 0xFF];
 
-                    return new Instruction(instruction.Execute, instruction.Mnemonic, instruction.OpCode, instruction.ParameterLength, (byte) (instruction.ParameterLength + 4));
+                    return new Instruction(instruction.Execute, instruction.Mnemonic, instruction.OpCode, instruction.ParameterLength, (byte) (instruction.ExtraCycles + 4));
                 }
 
                 throw new OpCodeNotFoundException($"OpCode not found: {opCode:X8}");
