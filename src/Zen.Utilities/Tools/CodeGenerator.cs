@@ -84,6 +84,11 @@ public class CodeGenerator
             return $"_ => {parts[0]}()";
         }
 
+        if (parts[0] == "IM")
+        {
+            return $"_ => IM(InterruptMode.{(InterruptMode) int.Parse(parts[1])})";
+        }
+
         var method = new StringBuilder();
 
         method.Append(parts[0]);
@@ -98,7 +103,7 @@ public class CodeGenerator
 
             method.Append(components.MethodSuffix);
 
-            if (parameters.Length > 0)
+            if (parameters.Length > 0 && ! string.IsNullOrEmpty(components.Parameter))
             {
                 parameters.Append(", ");
             }
@@ -129,6 +134,11 @@ public class CodeGenerator
         if (part.Length == 1 && char.IsNumber(part[0]))
         {
             return ("_b", $"0x{1 << int.Parse(part):X2}");
+        }
+
+        if (part == "(C)")
+        {
+            return ("_C", string.Empty);
         }
 
         var suffix = new StringBuilder();
@@ -194,7 +204,7 @@ public class CodeGenerator
             case "HL":
             case "IX":
             case "IY":
-                case "SP":
+            case "SP":
                 suffix.Append("RR");
                 parameter = $"RegisterPair.{argument}";
 
@@ -216,27 +226,13 @@ public class CodeGenerator
             case "E":
             case "H":
             case "L":
+            case "I":
+            case "R":
                 suffix.Append("R");
                 parameter = $"Register.{argument}";
 
                 break;
 
-                //case "NZ":
-                //case "NC":
-                //case "PO":
-                //case "PE":
-                //case "NS":
-                //    suffix.Append("F");
-                //    parameter = $"Flag.{argument[^1]}";
-
-                //    break;
-
-                //case "Z":
-                //case "S":
-                //    suffix.Append("F");
-                //    parameter = $"Flag.{argument}";
-
-                break;
             case "n":
             case "nn":
             case "e":

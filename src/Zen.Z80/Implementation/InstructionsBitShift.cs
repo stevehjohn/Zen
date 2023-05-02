@@ -8,11 +8,11 @@ namespace Zen.Z80.Implementation;
 
 public partial class Instructions
 {
-    private void NEG()
+    private void NEG_R(Register register)
     {
         unchecked
         {
-            var value = _state[Register.A];
+            var value = _state[register];
 
             var result = (byte) ~value;
 
