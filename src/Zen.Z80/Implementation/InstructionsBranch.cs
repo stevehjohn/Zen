@@ -119,7 +119,7 @@ public partial class Instructions
         _state.SetMCycles(4, 3, 3);
     }
     
-    private void JP_RR(RegisterPair registers)
+    private void JP_aRR(RegisterPair registers)
     {
         unchecked
         {

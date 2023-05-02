@@ -6,7 +6,7 @@ namespace Zen.Z80.Implementation;
 
 public partial class Instructions
 {
-    public void PUSH(RegisterPair registers)
+    public void PUSH_RR(RegisterPair registers)
     {
         unchecked
         {
@@ -26,7 +26,7 @@ public partial class Instructions
         _state.SetMCycles(5, 3, 3);
     }
 
-    public void POP(RegisterPair registers)
+    public void POP_RR(RegisterPair registers)
     {
         unchecked
         {

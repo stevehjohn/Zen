@@ -342,7 +342,7 @@ public partial class Instructions
         _state.SetMCycles(4, 5, 3, 4);
     }
 
-    private void OUT_n_R(Register register, byte[] parameters)
+    private void OUT_an_R(byte[] parameters, Register register)
     {
         unchecked
         {

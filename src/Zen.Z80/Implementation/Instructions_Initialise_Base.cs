@@ -96,7 +96,7 @@ public partial class Instructions
 
         _instructions.Add(0xCE, new Instruction(p => ADC_R_n(Register.A, p), "ADC A, n", 0xCE, 1));
 
-        _instructions.Add(0xD3, new Instruction(p => OUT_n_R(Register.A, p), "OUT (n), A", 0xD3, 1));
+        _instructions.Add(0xD3, new Instruction(p => OUT_an_R(Register.A, p), "OUT (n), A", 0xD3, 1));
 
         _instructions.Add(0xD6, new Instruction(p => SUB_R_n(Register.A, p), "SUB A, n", 0xD6, 1));
 
@@ -110,7 +110,7 @@ public partial class Instructions
 
         _instructions.Add(0xE6, new Instruction(p => AND_R_n(Register.A, p), "AND A, n", 0xE6, 1));
 
-        _instructions.Add(0xE9, new Instruction(_ => JP_RR(RegisterPair.HL), "JP (HL)", 0xE9, 0));
+        _instructions.Add(0xE9, new Instruction(_ => JP_aRR(RegisterPair.HL), "JP (HL)", 0xE9, 0));
 
         _instructions.Add(0xEB, new Instruction(_ => EX_RR_RR(RegisterPair.DE, RegisterPair.HL), "EX DE, HL", 0xEB, 0));
 
@@ -167,21 +167,21 @@ public partial class Instructions
 
     private void InitialiseStackInstructions()
     {
-        _instructions.Add(0xC5, new Instruction(_ => PUSH(RegisterPair.BC), "PUSH BC", 0xC5, 0));
+        _instructions.Add(0xC5, new Instruction(_ => PUSH_RR(RegisterPair.BC), "PUSH BC", 0xC5, 0));
 
-        _instructions.Add(0xD5, new Instruction(_ => PUSH(RegisterPair.DE), "PUSH DE", 0xD5, 0));
+        _instructions.Add(0xD5, new Instruction(_ => PUSH_RR(RegisterPair.DE), "PUSH DE", 0xD5, 0));
 
-        _instructions.Add(0xE5, new Instruction(_ => PUSH(RegisterPair.HL), "PUSH HL", 0xE5, 0));
+        _instructions.Add(0xE5, new Instruction(_ => PUSH_RR(RegisterPair.HL), "PUSH HL", 0xE5, 0));
 
-        _instructions.Add(0xF5, new Instruction(_ => PUSH(RegisterPair.AF), "PUSH AF", 0xF5, 0));
+        _instructions.Add(0xF5, new Instruction(_ => PUSH_RR(RegisterPair.AF), "PUSH AF", 0xF5, 0));
 
-        _instructions.Add(0xC1, new Instruction(_ => POP(RegisterPair.BC), "POP BC", 0xC1, 0));
+        _instructions.Add(0xC1, new Instruction(_ => POP_RR(RegisterPair.BC), "POP BC", 0xC1, 0));
 
-        _instructions.Add(0xD1, new Instruction(_ => POP(RegisterPair.DE), "POP DE", 0xD1, 0));
+        _instructions.Add(0xD1, new Instruction(_ => POP_RR(RegisterPair.DE), "POP DE", 0xD1, 0));
 
-        _instructions.Add(0xE1, new Instruction(_ => POP(RegisterPair.HL), "POP HL", 0xE1, 0));
+        _instructions.Add(0xE1, new Instruction(_ => POP_RR(RegisterPair.HL), "POP HL", 0xE1, 0));
 
-        _instructions.Add(0xF1, new Instruction(_ => POP(RegisterPair.AF), "POP AF", 0xF1, 0));
+        _instructions.Add(0xF1, new Instruction(_ => POP_RR(RegisterPair.AF), "POP AF", 0xF1, 0));
     }
 
     private void InitialiseIncDecInstructions()
