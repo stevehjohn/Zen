@@ -111,6 +111,10 @@ public class CodeGenerator
             }
         }
 
+        if (parameters.ToString() == "p")
+        {
+            return method.ToString();
+        }
 
         return $"{lambda}{method}({parameters})";
     }
@@ -120,6 +124,11 @@ public class CodeGenerator
         if (part.StartsWith("0x"))
         {
             return (string.Empty, part);
+        }
+
+        if (part.Length == 1 && char.IsNumber(part[0]))
+        {
+            return ("_b", $"0x{1 << int.Parse(part):X2}");
         }
 
         var suffix = new StringBuilder();
@@ -185,7 +194,7 @@ public class CodeGenerator
             case "HL":
             case "IX":
             case "IY":
-            case "SP":
+                case "SP":
                 suffix.Append("RR");
                 parameter = $"RegisterPair.{argument}";
 

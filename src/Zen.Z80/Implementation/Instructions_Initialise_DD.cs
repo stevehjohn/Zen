@@ -56,7 +56,7 @@ public partial class Instructions
 
         _instructions.Add(0xDDE1, new Instruction(_ => POP_RR(RegisterPair.IX), "POP IX", 0xDDE1, 0, 4));
 
-        _instructions.Add(0xDDE3, new Instruction(_ => EX_aSP_RR(RegisterPair.IX), "EX (SP), IX", 0xDDE3, 0, 4));
+        _instructions.Add(0xDDE3, new Instruction(_ => EX_aRR_RR(RegisterPair.SP, RegisterPair.IX), "EX (SP), IX", 0xDDE3, 0, 4));
 
         _instructions.Add(0xDDE5, new Instruction(_ => PUSH_RR(RegisterPair.IX), "PUSH IX", 0xDDE5, 0, 4));
 
