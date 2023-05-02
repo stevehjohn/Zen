@@ -161,11 +161,11 @@ public partial class Instructions
 
         _instructions.Add(0x00ED4B, new Instruction(p => LD_RR_ann(RegisterPair.BC, p), "LD BC, (nn)", 0x00ED4B, 2, 4));
 
-        _instructions.Add(0x00ED4C, new Instruction(_ => LD_R_R(Register.C, Register.H), "LD C, H", 0x00ED4C, 0, 4));
+        _instructions.Add(0x00ED4C, new Instruction(_ => NEG_R(Register.A), "NEG A", 0x00ED4C, 0));
 
         _instructions.Add(0x00ED4D, new Instruction(_ => RETI(), "RETI", 0x00ED4D, 0));
 
-        _instructions.Add(0x00ED4E, new Instruction(_ => LD_R_aRR(Register.C, RegisterPair.HL), "LD C, (HL)", 0x00ED4E, 0, 4));
+        _instructions.Add(0x00ED4E, new Instruction(_ => IM(InterruptMode.IM0), "IM 0", 0x00ED4E, 0));
 
         _instructions.Add(0x00ED4F, new Instruction(_ => LD_R_R(Register.R, Register.A), "LD R, A", 0x00ED4F, 0));
 
@@ -177,9 +177,9 @@ public partial class Instructions
 
         _instructions.Add(0x00ED53, new Instruction(p => LD_ann_RR(p, RegisterPair.DE), "LD (nn), DE", 0x00ED53, 2, 4));
 
-        _instructions.Add(0x00ED54, new Instruction(_ => LD_R_R(Register.D, Register.H), "LD D, H", 0x00ED54, 0, 4));
+        _instructions.Add(0x00ED54, new Instruction(_ => NEG_R(Register.A), "NEG A", 0x00ED54, 0));
 
-        _instructions.Add(0x00ED55, new Instruction(_ => LD_R_R(Register.D, Register.L), "LD D, L", 0x00ED55, 0, 4));
+        _instructions.Add(0x00ED55, new Instruction(_ => RETN(), "RETN", 0x00ED55, 0));
 
         _instructions.Add(0x00ED56, new Instruction(_ => IM(InterruptMode.IM1), "IM 1", 0x00ED56, 0));
 
@@ -193,9 +193,9 @@ public partial class Instructions
 
         _instructions.Add(0x00ED5B, new Instruction(p => LD_RR_ann(RegisterPair.DE, p), "LD DE, (nn)", 0x00ED5B, 2, 4));
 
-        _instructions.Add(0x00ED5C, new Instruction(_ => LD_R_R(Register.E, Register.H), "LD E, H", 0x00ED5C, 0, 4));
+        _instructions.Add(0x00ED5C, new Instruction(_ => NEG_R(Register.A), "NEG A", 0x00ED5C, 0));
 
-        _instructions.Add(0x00ED5D, new Instruction(_ => LD_R_R(Register.E, Register.L), "LD E, L", 0x00ED5D, 0, 4));
+        _instructions.Add(0x00ED5D, new Instruction(_ => RETN(), "RETN", 0x00ED5D, 0));
 
         _instructions.Add(0x00ED5E, new Instruction(_ => IM(InterruptMode.IM1), "IM 1", 0x00ED5E, 0));
 
@@ -209,11 +209,11 @@ public partial class Instructions
 
         _instructions.Add(0x00ED63, new Instruction(p => LD_ann_RR(p, RegisterPair.HL), "LD (nn), HL", 0x00ED63, 2, 4));
 
-        _instructions.Add(0x00ED64, new Instruction(_ => LD_R_R(Register.H, Register.H), "LD H, H", 0x00ED64, 0, 4));
+        _instructions.Add(0x00ED64, new Instruction(_ => NEG_R(Register.A), "NEG A", 0x00ED64, 0));
 
-        _instructions.Add(0x00ED65, new Instruction(_ => LD_R_R(Register.H, Register.L), "LD H, L", 0x00ED65, 0, 4));
+        _instructions.Add(0x00ED65, new Instruction(_ => RETN(), "RETN", 0x00ED65, 0));
 
-        _instructions.Add(0x00ED66, new Instruction(_ => LD_R_aRR(Register.H, RegisterPair.HL), "LD H, (HL)", 0x00ED66, 0, 4));
+        _instructions.Add(0x00ED66, new Instruction(_ => IM(InterruptMode.IM0), "IM 0", 0x00ED66, 0));
 
         _instructions.Add(0x00ED67, new Instruction(_ => RRD(), "RRD", 0x00ED67, 0));
 
@@ -225,11 +225,11 @@ public partial class Instructions
 
         _instructions.Add(0x00ED6B, new Instruction(p => LD_RR_ann(RegisterPair.HL, p), "LD HL, (nn)", 0x00ED6B, 2, 4));
 
-        _instructions.Add(0x00ED6C, new Instruction(_ => LD_R_R(Register.L, Register.H), "LD L, H", 0x00ED6C, 0, 4));
+        _instructions.Add(0x00ED6C, new Instruction(_ => NEG_R(Register.A), "NEG A", 0x00ED6C, 0));
 
-        _instructions.Add(0x00ED6D, new Instruction(_ => LD_R_R(Register.L, Register.L), "LD L, L", 0x00ED6D, 0, 4));
+        _instructions.Add(0x00ED6D, new Instruction(_ => RETN(), "RETN", 0x00ED6D, 0));
 
-        _instructions.Add(0x00ED6E, new Instruction(_ => LD_R_aRR(Register.L, RegisterPair.HL), "LD L, (HL)", 0x00ED6E, 0, 4));
+        _instructions.Add(0x00ED6E, new Instruction(_ => IM(InterruptMode.IM0), "IM 0", 0x00ED6E, 0));
 
         _instructions.Add(0x00ED6F, new Instruction(_ => RLD(), "RLD", 0x00ED6F, 0));
 
@@ -241,13 +241,13 @@ public partial class Instructions
 
         _instructions.Add(0x00ED73, new Instruction(p => LD_ann_RR(p, RegisterPair.SP), "LD (nn), SP", 0x00ED73, 2, 4));
 
-        _instructions.Add(0x00ED74, new Instruction(_ => LD_aRR_R(RegisterPair.HL, Register.H), "LD (HL), H", 0x00ED74, 0, 4));
+        _instructions.Add(0x00ED74, new Instruction(_ => NEG_R(Register.A), "NEG A", 0x00ED74, 0));
 
-        _instructions.Add(0x00ED75, new Instruction(_ => LD_aRR_R(RegisterPair.HL, Register.L), "LD (HL), L", 0x00ED75, 0, 4));
+        _instructions.Add(0x00ED75, new Instruction(_ => RETN(), "RETN", 0x00ED75, 0));
 
         _instructions.Add(0x00ED76, new Instruction(_ => HALT(), "HALT", 0x00ED76, 0, 4));
 
-        _instructions.Add(0x00ED77, new Instruction(_ => LD_aRR_R(RegisterPair.HL, Register.A), "LD (HL), A", 0x00ED77, 0, 4));
+        _instructions.Add(0x00ED77, new Instruction(_ => LD_aRR_R(RegisterPair.HL, Register.A), "LD (HL), A", 0x00ED77, 0));
 
         _instructions.Add(0x00ED78, new Instruction(_ => IN_R_C(Register.A), "IN A, (C)", 0x00ED78, 0));
 
@@ -257,11 +257,11 @@ public partial class Instructions
 
         _instructions.Add(0x00ED7B, new Instruction(p => LD_RR_ann(RegisterPair.SP, p), "LD SP, (nn)", 0x00ED7B, 2, 4));
 
-        _instructions.Add(0x00ED7C, new Instruction(_ => LD_R_R(Register.A, Register.H), "LD A, H", 0x00ED7C, 0, 4));
+        _instructions.Add(0x00ED7C, new Instruction(_ => NEG_R(Register.A), "NEG A", 0x00ED7C, 0));
 
-        _instructions.Add(0x00ED7D, new Instruction(_ => LD_R_R(Register.A, Register.L), "LD A, L", 0x00ED7D, 0, 4));
+        _instructions.Add(0x00ED7D, new Instruction(_ => RETN(), "RETN", 0x00ED7D, 0));
 
-        _instructions.Add(0x00ED7E, new Instruction(_ => LD_R_aRR(Register.A, RegisterPair.HL), "LD A, (HL)", 0x00ED7E, 0, 4));
+        _instructions.Add(0x00ED7E, new Instruction(_ => IM(InterruptMode.IM2), "IM 2", 0x00ED7E, 0));
 
         _instructions.Add(0x00ED7F, new Instruction(_ => LD_R_R(Register.A, Register.A), "LD A, A", 0x00ED7F, 0, 4));
 

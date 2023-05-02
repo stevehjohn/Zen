@@ -28,13 +28,6 @@ public partial class Instructions
         {
             if (! _instructions.ContainsKey(opCode))
             {
-                if (opCode > 0xFF && _instructions.ContainsKey(opCode & 0xFF))
-                {
-                    var instruction = _instructions[opCode & 0xFF];
-
-                    return new Instruction(instruction.Execute, instruction.Mnemonic, instruction.OpCode, instruction.ParameterLength, (byte) (instruction.ExtraCycles + 4));
-                }
-
                 throw new OpCodeNotFoundException($"OpCode not found: {opCode:X8}");
             }
 
