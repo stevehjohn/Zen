@@ -52,8 +52,6 @@ public partial class Instructions
 
         _instructions.Add(0xDD39, new Instruction(_ => ADD_RR_RR(RegisterPair.IX, RegisterPair.SP), "ADD IX, SP", 0xDD39, 0, 4));
 
-        _instructions.Add(0xDDCD, new Instruction(CALL_nn, "CALL nn", 0xDDCD, 2, 4));
-
         _instructions.Add(0xDD3E, new Instruction(p => LD_R_n(Register.A, p), "LD A, n", 0xDD3E, 1, 4));
 
         _instructions.Add(0xDDE1, new Instruction(_ => POP(RegisterPair.IX), "POP IX", 0xDDE1, 0, 4));
