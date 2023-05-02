@@ -77,7 +77,7 @@ public class CodeGenerator
 
     private string GenerateMethodCall(Instruction instruction)
     {
-        var parts = instruction.Mnemonic.Split(new[] { ' ', ',' }, StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
+        var parts = instruction.Mnemonic.Split(new[] { ' ', ',', '+' }, StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
 
         if (parts.Length == 1)
         {
@@ -97,11 +97,20 @@ public class CodeGenerator
 
         var lambda = "_ => ";
 
+        if (instruction.Mnemonic.StartsWith("SET 0, (IX +"))
+        {
+        }
+
         foreach (var part in parts[1..])
         {
             var components = GenerateComponents(parts[0], part);
 
             method.Append(components.MethodSuffix);
+
+            if (components.Parameter == "p" && lambda == "p => ")
+            {
+                continue;
+            }
 
             if (parameters.Length > 0 && ! string.IsNullOrEmpty(components.Parameter))
             {
@@ -131,6 +140,11 @@ public class CodeGenerator
             return (string.Empty, part);
         }
 
+        if (part == "d)")
+        {
+            return ("d", "p");
+        }
+
         if (part.Length == 1 && char.IsNumber(part[0]))
         {
             return ("_b", $"0x{1 << int.Parse(part):X2}");
@@ -151,7 +165,14 @@ public class CodeGenerator
         {
             suffix.Append("a");
 
-            argument = part[1..^1];
+            if (part[^1] == ')')
+            {
+                argument = part[1..^1];
+            }
+            else
+            {
+                argument = part[1..];
+            }
         }
         else
         {
@@ -228,6 +249,10 @@ public class CodeGenerator
             case "L":
             case "I":
             case "R":
+            case "IXh":
+            case "IXl":
+            case "IYh":
+            case "IYl":
                 suffix.Append("R");
                 parameter = $"Register.{argument}";
 
