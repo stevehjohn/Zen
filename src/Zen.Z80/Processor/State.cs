@@ -202,9 +202,12 @@ public class State
 
     public void Reset()
     {
-        // TODO: The rest...
+        Halted = false;
+
         InstructionPrefix = 0;
 
         LastInstruction = null;
+
+        // TODO: The rest...
     }
 }

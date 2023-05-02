@@ -19,7 +19,7 @@ public class Core
     private readonly Instructions _instructions;
 
 #if LOG
-    private List<string> _log = new(LogBufferSize);
+    private readonly List<string> _log = new(LogBufferSize);
 #endif
 
     public Core(Interface @interface, State state)
@@ -201,7 +201,7 @@ public class Core
 #if LOG
     private void Log(Instruction instruction)
     {
-        _log.Add($"{_state.ProgramCounter} {instruction.OpCode:X8} {instruction.Mnemonic}");
+        _log.Add($"{_state.ProgramCounter:X8} {instruction.OpCode:X8} {instruction.Mnemonic}");
 
         if (_log.Count == LogBufferSize)
         {
