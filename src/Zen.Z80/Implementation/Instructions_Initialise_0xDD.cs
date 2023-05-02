@@ -11,7 +11,7 @@ public partial class Instructions
     {
         _instructions.Add(0x00DD00, new Instruction(_ => NOP(), "NOP", 0x00DD00, 0, 4));
 
-        _instructions.Add(0x00DD01, new Instruction(p => LD_RR_nn(RegisterPair.BC, p), "LD BC, nn", 0x00DD01, 2, 6));
+        _instructions.Add(0x00DD01, new Instruction(p => LD_RR_nn(RegisterPair.BC, p), "LD BC, nn", 0x00DD01, 2, 4));
 
         _instructions.Add(0x00DD02, new Instruction(_ => LD_aRR_R(RegisterPair.BC, Register.A), "LD (BC), A", 0x00DD02, 0, 4));
 
@@ -41,9 +41,9 @@ public partial class Instructions
 
         _instructions.Add(0x00DD0F, new Instruction(_ => RRCA(), "RRCA", 0x00DD0F, 0, 4));
 
-        _instructions.Add(0x00DD10, new Instruction(DJNZ_e, "DJNZ e", 0x00DD10, 1, 5));
+        _instructions.Add(0x00DD10, new Instruction(DJNZ_e, "DJNZ e", 0x00DD10, 1, 4));
 
-        _instructions.Add(0x00DD11, new Instruction(p => LD_RR_nn(RegisterPair.DE, p), "LD DE, nn", 0x00DD11, 2, 6));
+        _instructions.Add(0x00DD11, new Instruction(p => LD_RR_nn(RegisterPair.DE, p), "LD DE, nn", 0x00DD11, 2, 4));
 
         _instructions.Add(0x00DD12, new Instruction(_ => LD_aRR_R(RegisterPair.DE, Register.A), "LD (DE), A", 0x00DD12, 0, 4));
 
@@ -57,7 +57,7 @@ public partial class Instructions
 
         _instructions.Add(0x00DD17, new Instruction(_ => RLA(), "RLA", 0x00DD17, 0, 4));
 
-        _instructions.Add(0x00DD18, new Instruction(JR_e, "JR e", 0x00DD18, 1, 5));
+        _instructions.Add(0x00DD18, new Instruction(JR_e, "JR e", 0x00DD18, 1, 4));
 
         _instructions.Add(0x00DD19, new Instruction(_ => ADD_RR_RR(RegisterPair.IX, RegisterPair.DE), "ADD IX, DE", 0x00DD19, 0, 4));
 
@@ -73,7 +73,7 @@ public partial class Instructions
 
         _instructions.Add(0x00DD1F, new Instruction(_ => RRA(), "RRA", 0x00DD1F, 0, 4));
 
-        _instructions.Add(0x00DD20, new Instruction(p => JR_F_e(Flag.Zero, p, true), "JR NZ, e", 0x00DD20, 1, 5));
+        _instructions.Add(0x00DD20, new Instruction(p => JR_F_e(Flag.Zero, p, true), "JR NZ, e", 0x00DD20, 1, 4));
 
         _instructions.Add(0x00DD21, new Instruction(p => LD_RR_nn(RegisterPair.IX, p), "LD IX, nn", 0x00DD21, 2, 4));
 
@@ -89,7 +89,7 @@ public partial class Instructions
 
         _instructions.Add(0x00DD27, new Instruction(_ => DAA(), "DAA", 0x00DD27, 0, 4));
 
-        _instructions.Add(0x00DD28, new Instruction(p => JR_F_e(Flag.Zero, p), "JR Z, e", 0x00DD28, 1, 5));
+        _instructions.Add(0x00DD28, new Instruction(p => JR_F_e(Flag.Zero, p), "JR Z, e", 0x00DD28, 1, 4));
 
         _instructions.Add(0x00DD29, new Instruction(_ => ADD_RR_RR(RegisterPair.IX, RegisterPair.IX), "ADD IX, IX", 0x00DD29, 0, 4));
 
@@ -105,11 +105,11 @@ public partial class Instructions
 
         _instructions.Add(0x00DD2F, new Instruction(_ => CPL(), "CPL", 0x00DD2F, 0, 4));
 
-        _instructions.Add(0x00DD30, new Instruction(p => JR_F_e(Flag.Carry, p, true), "JR NC, e", 0x00DD30, 1, 5));
+        _instructions.Add(0x00DD30, new Instruction(p => JR_F_e(Flag.Carry, p, true), "JR NC, e", 0x00DD30, 1, 4));
 
-        _instructions.Add(0x00DD31, new Instruction(p => LD_RR_nn(RegisterPair.SP, p), "LD SP, nn", 0x00DD31, 2, 6));
+        _instructions.Add(0x00DD31, new Instruction(p => LD_RR_nn(RegisterPair.SP, p), "LD SP, nn", 0x00DD31, 2, 4));
 
-        _instructions.Add(0x00DD32, new Instruction(p => LD_ann_R(p, Register.A), "LD (nn), A", 0x00DD32, 2, 6));
+        _instructions.Add(0x00DD32, new Instruction(p => LD_ann_R(p, Register.A), "LD (nn), A", 0x00DD32, 2, 4));
 
         _instructions.Add(0x00DD33, new Instruction(_ => INC_RR(RegisterPair.SP), "INC SP", 0x00DD33, 0, 4));
 
@@ -121,11 +121,11 @@ public partial class Instructions
 
         _instructions.Add(0x00DD37, new Instruction(_ => SCF(), "SCF", 0x00DD37, 0, 4));
 
-        _instructions.Add(0x00DD38, new Instruction(p => JR_F_e(Flag.Carry, p), "JR C, e", 0x00DD38, 1, 5));
+        _instructions.Add(0x00DD38, new Instruction(p => JR_F_e(Flag.Carry, p), "JR C, e", 0x00DD38, 1, 4));
 
         _instructions.Add(0x00DD39, new Instruction(_ => ADD_RR_RR(RegisterPair.IX, RegisterPair.SP), "ADD IX, SP", 0x00DD39, 0, 4));
 
-        _instructions.Add(0x00DD3A, new Instruction(p => LD_R_ann(Register.A, p), "LD A, (nn)", 0x00DD3A, 2, 6));
+        _instructions.Add(0x00DD3A, new Instruction(p => LD_R_ann(Register.A, p), "LD A, (nn)", 0x00DD3A, 2, 4));
 
         _instructions.Add(0x00DD3B, new Instruction(_ => DEC_RR(RegisterPair.SP), "DEC SP", 0x00DD3B, 0, 4));
 
@@ -397,15 +397,15 @@ public partial class Instructions
 
         _instructions.Add(0x00DDC1, new Instruction(_ => POP_RR(RegisterPair.BC), "POP BC", 0x00DDC1, 0, 4));
 
-        _instructions.Add(0x00DDC2, new Instruction(p => JP_F_nn(Flag.Zero, p, true), "JP NZ, nn", 0x00DDC2, 2, 6));
+        _instructions.Add(0x00DDC2, new Instruction(p => JP_F_nn(Flag.Zero, p, true), "JP NZ, nn", 0x00DDC2, 2, 4));
 
-        _instructions.Add(0x00DDC3, new Instruction(JP_nn, "JP nn", 0x00DDC3, 2, 6));
+        _instructions.Add(0x00DDC3, new Instruction(JP_nn, "JP nn", 0x00DDC3, 2, 4));
 
-        _instructions.Add(0x00DDC4, new Instruction(p => CALL_F_nn(Flag.Zero, p, true), "CALL NZ, nn", 0x00DDC4, 2, 6));
+        _instructions.Add(0x00DDC4, new Instruction(p => CALL_F_nn(Flag.Zero, p, true), "CALL NZ, nn", 0x00DDC4, 2, 4));
 
         _instructions.Add(0x00DDC5, new Instruction(_ => PUSH_RR(RegisterPair.BC), "PUSH BC", 0x00DDC5, 0, 4));
 
-        _instructions.Add(0x00DDC6, new Instruction(p => ADD_R_n(Register.A, p), "ADD A, n", 0x00DDC6, 1, 5));
+        _instructions.Add(0x00DDC6, new Instruction(p => ADD_R_n(Register.A, p), "ADD A, n", 0x00DDC6, 1, 4));
 
         _instructions.Add(0x00DDC7, new Instruction(_ => RST(0x00), "RST 0x00", 0x00DDC7, 0, 4));
 
@@ -413,15 +413,15 @@ public partial class Instructions
 
         _instructions.Add(0x00DDC9, new Instruction(_ => RET(), "RET", 0x00DDC9, 0, 4));
 
-        _instructions.Add(0x00DDCA, new Instruction(p => JP_F_nn(Flag.Zero, p), "JP Z, nn", 0x00DDCA, 2, 6));
+        _instructions.Add(0x00DDCA, new Instruction(p => JP_F_nn(Flag.Zero, p), "JP Z, nn", 0x00DDCA, 2, 4));
 
         _instructions.Add(0x00DDCB, new Instruction(_ => PREFIX(0xDDCB), "PREFIX 0xDDCB", 0x00DDCB, 2));
 
-        _instructions.Add(0x00DDCC, new Instruction(p => CALL_F_nn(Flag.Zero, p), "CALL Z, nn", 0x00DDCC, 2, 6));
+        _instructions.Add(0x00DDCC, new Instruction(p => CALL_F_nn(Flag.Zero, p), "CALL Z, nn", 0x00DDCC, 2, 4));
 
-        _instructions.Add(0x00DDCD, new Instruction(CALL_nn, "CALL nn", 0x00DDCD, 2, 6));
+        _instructions.Add(0x00DDCD, new Instruction(CALL_nn, "CALL nn", 0x00DDCD, 2, 4));
 
-        _instructions.Add(0x00DDCE, new Instruction(p => ADC_R_n(Register.A, p), "ADC A, n", 0x00DDCE, 1, 5));
+        _instructions.Add(0x00DDCE, new Instruction(p => ADC_R_n(Register.A, p), "ADC A, n", 0x00DDCE, 1, 4));
 
         _instructions.Add(0x00DDCF, new Instruction(_ => RST(0x08), "RST 0x08", 0x00DDCF, 0, 4));
 
@@ -429,15 +429,15 @@ public partial class Instructions
 
         _instructions.Add(0x00DDD1, new Instruction(_ => POP_RR(RegisterPair.DE), "POP DE", 0x00DDD1, 0, 4));
 
-        _instructions.Add(0x00DDD2, new Instruction(p => JP_F_nn(Flag.Carry, p, true), "JP NC, nn", 0x00DDD2, 2, 6));
+        _instructions.Add(0x00DDD2, new Instruction(p => JP_F_nn(Flag.Carry, p, true), "JP NC, nn", 0x00DDD2, 2, 4));
 
-        _instructions.Add(0x00DDD3, new Instruction(p => OUT_an_R(p, Register.A), "OUT (n), A", 0x00DDD3, 1, 5));
+        _instructions.Add(0x00DDD3, new Instruction(p => OUT_an_R(p, Register.A), "OUT (n), A", 0x00DDD3, 1, 4));
 
-        _instructions.Add(0x00DDD4, new Instruction(p => CALL_F_nn(Flag.Carry, p, true), "CALL NC, nn", 0x00DDD4, 2, 6));
+        _instructions.Add(0x00DDD4, new Instruction(p => CALL_F_nn(Flag.Carry, p, true), "CALL NC, nn", 0x00DDD4, 2, 4));
 
         _instructions.Add(0x00DDD5, new Instruction(_ => PUSH_RR(RegisterPair.DE), "PUSH DE", 0x00DDD5, 0, 4));
 
-        _instructions.Add(0x00DDD6, new Instruction(p => SUB_R_n(Register.A, p), "SUB A, n", 0x00DDD6, 1, 5));
+        _instructions.Add(0x00DDD6, new Instruction(p => SUB_R_n(Register.A, p), "SUB A, n", 0x00DDD6, 1, 4));
 
         _instructions.Add(0x00DDD7, new Instruction(_ => RST(0x10), "RST 0x10", 0x00DDD7, 0, 4));
 
@@ -445,15 +445,15 @@ public partial class Instructions
 
         _instructions.Add(0x00DDD9, new Instruction(_ => EXX(), "EXX", 0x00DDD9, 0, 4));
 
-        _instructions.Add(0x00DDDA, new Instruction(p => JP_F_nn(Flag.Carry, p), "JP C, nn", 0x00DDDA, 2, 6));
+        _instructions.Add(0x00DDDA, new Instruction(p => JP_F_nn(Flag.Carry, p), "JP C, nn", 0x00DDDA, 2, 4));
 
-        _instructions.Add(0x00DDDB, new Instruction(p => IN_R_n(Register.A, p), "IN A, n", 0x00DDDB, 1, 5));
+        _instructions.Add(0x00DDDB, new Instruction(p => IN_R_n(Register.A, p), "IN A, n", 0x00DDDB, 1, 4));
 
-        _instructions.Add(0x00DDDC, new Instruction(p => CALL_F_nn(Flag.Carry, p), "CALL C, nn", 0x00DDDC, 2, 6));
+        _instructions.Add(0x00DDDC, new Instruction(p => CALL_F_nn(Flag.Carry, p), "CALL C, nn", 0x00DDDC, 2, 4));
 
         _instructions.Add(0x00DDDD, new Instruction(_ => PREFIX(0xDD), "PREFIX 0xDD", 0x00DDDD, 0, 4));
 
-        _instructions.Add(0x00DDDE, new Instruction(p => SBC_R_n(Register.A, p), "SBC A, n", 0x00DDDE, 1, 5));
+        _instructions.Add(0x00DDDE, new Instruction(p => SBC_R_n(Register.A, p), "SBC A, n", 0x00DDDE, 1, 4));
 
         _instructions.Add(0x00DDDF, new Instruction(_ => RST(0x18), "RST 0x18", 0x00DDDF, 0, 4));
 
@@ -461,15 +461,15 @@ public partial class Instructions
 
         _instructions.Add(0x00DDE1, new Instruction(_ => POP_RR(RegisterPair.IX), "POP IX", 0x00DDE1, 0, 4));
 
-        _instructions.Add(0x00DDE2, new Instruction(p => JP_F_nn(Flag.ParityOverflow, p, true), "JP PO, nn", 0x00DDE2, 2, 6));
+        _instructions.Add(0x00DDE2, new Instruction(p => JP_F_nn(Flag.ParityOverflow, p, true), "JP PO, nn", 0x00DDE2, 2, 4));
 
         _instructions.Add(0x00DDE3, new Instruction(_ => EX_aRR_RR(RegisterPair.SP, RegisterPair.IX), "EX (SP), IX", 0x00DDE3, 0, 4));
 
-        _instructions.Add(0x00DDE4, new Instruction(p => CALL_F_nn(Flag.ParityOverflow, p, true), "CALL PO, nn", 0x00DDE4, 2, 6));
+        _instructions.Add(0x00DDE4, new Instruction(p => CALL_F_nn(Flag.ParityOverflow, p, true), "CALL PO, nn", 0x00DDE4, 2, 4));
 
         _instructions.Add(0x00DDE5, new Instruction(_ => PUSH_RR(RegisterPair.IX), "PUSH IX", 0x00DDE5, 0, 4));
 
-        _instructions.Add(0x00DDE6, new Instruction(p => AND_R_n(Register.A, p), "AND A, n", 0x00DDE6, 1, 5));
+        _instructions.Add(0x00DDE6, new Instruction(p => AND_R_n(Register.A, p), "AND A, n", 0x00DDE6, 1, 4));
 
         _instructions.Add(0x00DDE7, new Instruction(_ => RST(0x20), "RST 0x20", 0x00DDE7, 0, 4));
 
@@ -477,15 +477,15 @@ public partial class Instructions
 
         _instructions.Add(0x00DDE9, new Instruction(_ => JP_aRR(RegisterPair.IX), "JP (IX)", 0x00DDE9, 0, 4));
 
-        _instructions.Add(0x00DDEA, new Instruction(p => JP_F_nn(Flag.ParityOverflow, p), "JP PE, nn", 0x00DDEA, 2, 6));
+        _instructions.Add(0x00DDEA, new Instruction(p => JP_F_nn(Flag.ParityOverflow, p), "JP PE, nn", 0x00DDEA, 2, 4));
 
         _instructions.Add(0x00DDEB, new Instruction(_ => EX_RR_RR(RegisterPair.DE, RegisterPair.HL), "EX DE, HL", 0x00DDEB, 0, 4));
 
-        _instructions.Add(0x00DDEC, new Instruction(p => CALL_F_nn(Flag.ParityOverflow, p), "CALL PE, nn", 0x00DDEC, 2, 6));
+        _instructions.Add(0x00DDEC, new Instruction(p => CALL_F_nn(Flag.ParityOverflow, p), "CALL PE, nn", 0x00DDEC, 2, 4));
 
         _instructions.Add(0x00DDED, new Instruction(_ => PREFIX(0xED), "PREFIX 0xED", 0x00DDED, 0, 4));
 
-        _instructions.Add(0x00DDEE, new Instruction(p => XOR_R_n(Register.A, p), "XOR A, n", 0x00DDEE, 1, 5));
+        _instructions.Add(0x00DDEE, new Instruction(p => XOR_R_n(Register.A, p), "XOR A, n", 0x00DDEE, 1, 4));
 
         _instructions.Add(0x00DDEF, new Instruction(_ => RST(0x28), "RST 0x28", 0x00DDEF, 0, 4));
 
@@ -493,15 +493,15 @@ public partial class Instructions
 
         _instructions.Add(0x00DDF1, new Instruction(_ => POP_RR(RegisterPair.AF), "POP AF", 0x00DDF1, 0, 4));
 
-        _instructions.Add(0x00DDF2, new Instruction(p => JP_F_nn(Flag.Sign, p, true), "JP NS, nn", 0x00DDF2, 2, 6));
+        _instructions.Add(0x00DDF2, new Instruction(p => JP_F_nn(Flag.Sign, p, true), "JP NS, nn", 0x00DDF2, 2, 4));
 
         _instructions.Add(0x00DDF3, new Instruction(_ => DI(), "DI", 0x00DDF3, 0, 4));
 
-        _instructions.Add(0x00DDF4, new Instruction(p => CALL_F_nn(Flag.Sign, p, true), "CALL NS, nn", 0x00DDF4, 2, 6));
+        _instructions.Add(0x00DDF4, new Instruction(p => CALL_F_nn(Flag.Sign, p, true), "CALL NS, nn", 0x00DDF4, 2, 4));
 
         _instructions.Add(0x00DDF5, new Instruction(_ => PUSH_RR(RegisterPair.AF), "PUSH AF", 0x00DDF5, 0, 4));
 
-        _instructions.Add(0x00DDF6, new Instruction(p => OR_R_n(Register.A, p), "OR A, n", 0x00DDF6, 1, 5));
+        _instructions.Add(0x00DDF6, new Instruction(p => OR_R_n(Register.A, p), "OR A, n", 0x00DDF6, 1, 4));
 
         _instructions.Add(0x00DDF7, new Instruction(_ => RST(0x30), "RST 0x30", 0x00DDF7, 0, 4));
 
@@ -509,15 +509,15 @@ public partial class Instructions
 
         _instructions.Add(0x00DDF9, new Instruction(_ => LD_RR_RR(RegisterPair.SP, RegisterPair.IX), "LD SP, IX", 0x00DDF9, 0, 4));
 
-        _instructions.Add(0x00DDFA, new Instruction(p => JP_F_nn(Flag.Sign, p), "JP S, nn", 0x00DDFA, 2, 6));
+        _instructions.Add(0x00DDFA, new Instruction(p => JP_F_nn(Flag.Sign, p), "JP S, nn", 0x00DDFA, 2, 4));
 
         _instructions.Add(0x00DDFB, new Instruction(_ => EI(), "EI", 0x00DDFB, 0, 4));
 
-        _instructions.Add(0x00DDFC, new Instruction(p => CALL_F_nn(Flag.Sign, p), "CALL S, nn", 0x00DDFC, 2, 6));
+        _instructions.Add(0x00DDFC, new Instruction(p => CALL_F_nn(Flag.Sign, p), "CALL S, nn", 0x00DDFC, 2, 4));
 
         _instructions.Add(0x00DDFD, new Instruction(_ => PREFIX(0xFD), "PREFIX 0xFD", 0x00DDFD, 0, 4));
 
-        _instructions.Add(0x00DDFE, new Instruction(p => CP_R_n(Register.A, p), "CP A, n", 0x00DDFE, 1, 5));
+        _instructions.Add(0x00DDFE, new Instruction(p => CP_R_n(Register.A, p), "CP A, n", 0x00DDFE, 1, 4));
 
         _instructions.Add(0x00DDFF, new Instruction(_ => RST(0x38), "RST 0x38", 0x00DDFF, 0, 4));
     }
