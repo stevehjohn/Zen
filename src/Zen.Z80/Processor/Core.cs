@@ -1,26 +1,14 @@
-﻿#define LOG
-
-using Zen.Z80.Implementation;
+﻿using Zen.Z80.Implementation;
 
 namespace Zen.Z80.Processor;
 
 public class Core
 {
-#if LOG
-    private const int LogBufferSize = 20_000;
-
-    private const string LogFile = "Zen.log";
-#endif
-
     private readonly Interface _interface;
 
     private readonly State _state;
 
     private readonly Instructions _instructions;
-
-#if LOG
-    private readonly List<string> _log = new(LogBufferSize);
-#endif
 
     public Core(Interface @interface, State state)
     {
@@ -29,10 +17,6 @@ public class Core
         _state = state;
 
         _instructions = new Instructions(_interface, _state);
-
-#if LOG
-        File.Delete(LogFile);
-#endif
     }
 
     public void ExecuteCycle()
@@ -51,10 +35,6 @@ public class Core
         var opcode = _state.InstructionPrefix << 8 | data;
 
         var instruction = _instructions[opcode];
-
-#if LOG
-        Log(instruction);
-#endif
 
         if (! instruction.Mnemonic.StartsWith("PREFIX"))
         {
@@ -90,10 +70,6 @@ public class Core
             opcode = _state.InstructionPrefix << 8 | parameters[1];
 
             instruction = _instructions[opcode];
-
-#if LOG
-            Log(instruction);
-#endif
 
             UpdateR(instruction);
 
@@ -197,18 +173,4 @@ public class Core
 
         _interface.WriteToMemory(_state.StackPointer, (byte) (_state.ProgramCounter & 0x00FFFF));
     }
-
-#if LOG
-    private void Log(Instruction instruction)
-    {
-        _log.Add($"{_state.ProgramCounter:X8} {instruction.OpCode:X8} {instruction.Mnemonic}");
-
-        if (_log.Count == LogBufferSize)
-        {
-            File.AppendAllLines(LogFile, _log);
-
-            _log.Clear();
-        }
-    }
-#endif
 }
