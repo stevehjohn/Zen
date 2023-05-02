@@ -54,13 +54,13 @@ public partial class Instructions
 
         _instructions.Add(0xFD3E, new Instruction(p => LD_R_n(Register.A, p), "LD A, n", 0xFD3E, 1, 4));
 
-        _instructions.Add(0xFDE1, new Instruction(_ => POP(RegisterPair.IY), "POP IY", 0xFDE1, 0, 4));
+        _instructions.Add(0xFDE1, new Instruction(_ => POP_RR(RegisterPair.IY), "POP IY", 0xFDE1, 0, 4));
 
         _instructions.Add(0xFDE3, new Instruction(_ => EX_aSP_RR(RegisterPair.IY), "EX (SP), IY", 0xFDE3, 0, 4));
 
-        _instructions.Add(0xFDE5, new Instruction(_ => PUSH(RegisterPair.IY), "PUSH IY", 0xFDE5, 0, 4));
+        _instructions.Add(0xFDE5, new Instruction(_ => PUSH_RR(RegisterPair.IY), "PUSH IY", 0xFDE5, 0, 4));
 
-        _instructions.Add(0xFDE9, new Instruction(_ => JP_RR(RegisterPair.IY), "JP IY", 0xFDE9, 0, 4));
+        _instructions.Add(0xFDE9, new Instruction(_ => JP_aRR(RegisterPair.IY), "JP (IY)", 0xFDE9, 0, 4));
 
         _instructions.Add(0xFDF9, new Instruction(_ => LD_RR_RR(RegisterPair.SP, RegisterPair.IY), "LD SP, IY", 0xFDF9, 0, 4));
     }
