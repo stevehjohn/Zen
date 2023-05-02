@@ -91,13 +91,13 @@ public class Core
 
             instruction = _instructions[opcode];
 
-            UpdateR(instruction);
-
-            instruction.Execute(parameters[..1]);
-
 #if LOG
             Log(instruction);
 #endif
+
+            UpdateR(instruction);
+
+            instruction.Execute(parameters[..1]);
 
             _state.LastInstruction = instruction;
 
