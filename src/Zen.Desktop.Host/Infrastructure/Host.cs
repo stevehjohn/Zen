@@ -137,15 +137,15 @@ public class Host : Game
 
                 break;
 
-            //case MenuResult.SpeedNormal:
-            //    _motherboard.Fast = false;
+            case MenuResult.SpeedNormal:
+                _motherboard.Fast = false;
 
-            //    break;
+                break;
 
-            //case MenuResult.SpeedFast:
-            //    _motherboard.Fast = true;
+            case MenuResult.SpeedFast:
+                _motherboard.Fast = true;
 
-            //    break;
+                break;
 
             case MenuResult.SaveState:
                 SaveState();
