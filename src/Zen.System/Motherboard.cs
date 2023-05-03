@@ -21,6 +21,8 @@ public class Motherboard
 
     private readonly Ports _ports;
 
+    private readonly VideoAdapter _videoAdapter;
+
     private readonly Worker _worker;
 
     private readonly Dictionary<int, byte[]> _romCache = new();
@@ -76,7 +78,9 @@ public class Motherboard
                      PortDataChanged = PortDataChanged
                  };
 
-        _worker = new(_interface, FramesPerSecond)
+        _videoAdapter = new VideoAdapter();
+
+        _worker = new(_interface, _videoAdapter, FramesPerSecond)
                  {
                      OnTick = OnTick,
                      FrameFinished = FrameFinished
