@@ -12,6 +12,8 @@ This project aims to take the lessons learned from ZXE and build upon them.
 
 ### Zen.Desktop.Host
 
+The fun bit most people are probably interested in. This is the UI that you can run to emulate a Speccy.
+
 ## Useful References
 
 - https://clrhome.org/table/
