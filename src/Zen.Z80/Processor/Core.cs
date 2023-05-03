@@ -17,14 +17,12 @@ public class Core
         _state = state;
 
         _instructions = new Instructions(_interface, _state);
-
-#if LOG
-        File.Delete(LogFile);
-#endif
     }
 
     public void ExecuteCycle()
     {
+        _state.IgnoreNextInterrupt = false;
+
         if (_state.Halted)
         {
             HandleInterrupts();
@@ -84,7 +82,7 @@ public class Core
             _state.InstructionPrefix = 0;
         }
 
-        if (! instruction.Mnemonic.StartsWith("PREFIX") && _state.InstructionPrefix == 0)
+        if (! instruction.Mnemonic.StartsWith("PREFIX") && _state.InstructionPrefix == 0 && ! _state.IgnoreNextInterrupt)
         {
             HandleInterrupts();
         }
