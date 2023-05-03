@@ -58,7 +58,6 @@ public class Motherboard
         _interface = new()
                      {
                          StateChanged = InterfaceStateChanged,
-                         ReadPort = ReadPort,
                          WritePort = WritePort
                      };
 
@@ -109,26 +108,17 @@ public class Motherboard
 
         if (_interface.IORQ)
         {
-            return;
-
-            //if (_interface.RD)
-            //{
-            //    _interface.Data = _ports[_interface.Address];
-
-            //    return;
-            //}
-
-            //if (_interface.WR)
-            //{
-            //    _ports[_interface.Address] = _interface.Data;
-            //}
+            if (_interface.RD)
+            {
+                _interface.Data = _ports[_interface.Address];
+            }
         }
     }
 
-    private byte ReadPort(ushort port)
-    {
-        return _ports[port];
-    }
+    //private byte ReadPort(ushort port)
+    //{
+    //    return _ports[port];
+    //}
 
     private void WritePort(ushort port, byte data)
     {
