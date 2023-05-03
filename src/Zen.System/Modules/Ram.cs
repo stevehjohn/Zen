@@ -32,6 +32,9 @@ public class Ram
         set => _screenBank = (byte) (value == 1 ? 5 : 7);
     }
 
+    // TODO: Return copy?
+    public byte[] Rom => _rom;
+
     public Ram()
     {
         _banks = new byte[BankCount][];
@@ -91,5 +94,16 @@ public class Ram
     public void LoadIntoBank(byte bankNumber, byte[] data)
     {
         Array.Copy(data, 0, _banks[bankNumber], 0, data.Length);
+    }
+
+    public byte[] GetBank(byte bankNumber)
+    {
+        // TODO: Return copy?
+        return _banks[bankNumber];
+    }
+
+    public byte GetBankMapping(byte slotNumber)
+    {
+        return _slots[slotNumber];
     }
 }

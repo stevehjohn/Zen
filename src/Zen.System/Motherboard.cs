@@ -28,10 +28,10 @@ public class Motherboard
     private bool _pagingDisabled;
 
     // ReSharper disable once InconsistentNaming
-    private byte _last7FFD;
+    public byte Last7FFD { get; set; }
 
     // ReSharper disable once InconsistentNaming
-    private byte _last1FFD;
+    public byte Last1FFD { get; set; }
 
     public Ram Ram => _ram;
 
@@ -120,6 +120,11 @@ public class Motherboard
         _timer.Resume();
     }
 
+    public void Reset()
+    {
+        // TODO.
+    }
+
     private int OnTick()
     {
         _core.ExecuteCycle();
@@ -195,15 +200,15 @@ public class Motherboard
 
         if (port == 0x7F)
         {
-            _last7FFD = data;
+            Last7FFD = data;
         }
 
         if (port == 0x1F)
         {
-            _last1FFD = data;
+            Last1FFD = data;
         }
 
-        var romNumber = (_last7FFD & 0b0001_0000) >> 4 | (_last1FFD & 0b0000_0100) >> 1;
+        var romNumber = (Last7FFD & 0b0001_0000) >> 4 | (Last1FFD & 0b0000_0100) >> 1;
 
         _ram.LoadRom(LoadRom(romNumber));
     }

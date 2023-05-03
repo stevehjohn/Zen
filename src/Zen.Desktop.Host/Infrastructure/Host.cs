@@ -3,6 +3,7 @@
 
 using System;
 using System.IO;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -184,37 +185,37 @@ public class Host : Game
 
     private void LoadState()
     {
-        //_motherboard.Pause();
+        _motherboard.Pause();
 
-        //_motherboard.Reset();
+        _motherboard.Reset();
 
-        //var adapter = new ZxeFileAdapter(_motherboard.Processor.State, _motherboard.Ram);
+        var adapter = new ZenFileAdapter(_motherboard);
 
-        //var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "ZXE Snapshots");
+        var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "ZXE Snapshots");
 
-        //var directoryInfo = new DirectoryInfo(path);
+        var directoryInfo = new DirectoryInfo(path);
 
-        //var file = directoryInfo.EnumerateFiles("*").MaxBy(f => f.CreationTimeUtc);
+        var file = directoryInfo.EnumerateFiles("*").MaxBy(f => f.CreationTimeUtc);
 
-        //if (file != null)
-        //{
-        //    _imageName = adapter.Load(file.FullName);
-        //}
+        if (file != null)
+        {
+            _imageName = adapter.Load(file.FullName);
+        }
 
-        //_motherboard.Resume();
+        _motherboard.Resume();
     }
 
     private void SaveState()
     {
-        //_motherboard.Pause();
+        _motherboard.Pause();
 
-        //var adapter = new ZxeFileAdapter(_motherboard.Processor.State, _motherboard.Ram);
+        var adapter = new ZenFileAdapter(_motherboard);
 
-        //var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "ZXE Snapshots", $"{_imageName} {DateTime.Now:yyyy-MM-dd HH-mm}.zxe.json");
+        var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "ZXE Snapshots", $"{_imageName} {DateTime.Now:yyyy-MM-dd HH-mm}.zxe.json");
 
-        //adapter.Save(path, _imageName, _motherboard.Model);
+        adapter.Save(path, _imageName, _motherboard.Model);
 
-        //_motherboard.Resume();
+        _motherboard.Resume();
     }
     
     private void LoadZ80Sna(string filename)
@@ -232,7 +233,7 @@ public class Host : Game
 
                 break;
             default:
-                // TODO: Proper extension
+                // TODO: Proper exception
                 throw new Exception("Unsupported file format");
         }
 
