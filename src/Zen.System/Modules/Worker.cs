@@ -14,15 +14,19 @@ public class Worker : IDisposable
 
     private readonly Interface _interface;
 
+    private readonly VideoAdapter _videoAdapter;
+
     private readonly int _frameSleep;
 
     public bool Fast { get; set; }
 
     private bool _paused;
 
-    public Worker(Interface @interface, int framesPerSecond)
+    public Worker(Interface @interface, VideoAdapter videoAdapter, int framesPerSecond)
     {
         _interface = @interface;
+
+        _videoAdapter = videoAdapter;
 
         _frameSleep = 1_000 / framesPerSecond;
 
@@ -65,18 +69,15 @@ public class Worker : IDisposable
                 {
                     if (frameCycles == 0)
                     {
-                        // Vertical blank
-                        // TODO
+                        _videoAdapter.Reset();
                     }
 
                     // "The INT line is asserted 24 T-states after the first VBI scan line starts, and it's kept low for 32 T-states"
                     _interface.INT = frameCycles is >= 24 and < 56;
 
-                    // Execute an instruction
                     frameCycles += OnTick();
 
-                    // Copy some pixels from V-RAM to a frame buffer. 
-                    // TODO
+                    _videoAdapter.MCycleComplete(frameCycles);
                 }
 
                 // Show the frame buffer.
