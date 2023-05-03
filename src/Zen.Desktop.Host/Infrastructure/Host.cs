@@ -227,10 +227,10 @@ public class Host : Game
                 loader = new Z80FileLoader(_motherboard.State, _motherboard.Ram, _motherboard.Model);
 
                 break;
-            //case ".sna":
-            //    loader = new SnaFileAdapter(_motherboard.State, _motherboard.Ram);
+            case ".sna":
+                loader = new SnaFileLoader(_motherboard.State, _motherboard.Ram);
 
-            //    break;
+                break;
             default:
                 // TODO: Proper extension
                 throw new Exception("Unsupported file format");
@@ -255,7 +255,6 @@ public class Host : Game
         }
         else
         {
-            // TODO: Call from motherboard at appropriate point.
             _vRamAdapter.RenderDisplay();
             
             screen = _vRamAdapter.Display;
