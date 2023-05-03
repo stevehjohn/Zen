@@ -66,12 +66,22 @@ public class Interface
         Address = address;
     }
 
-    // TODO: Same as for RAM... but currently causes crashes for some reason.
     public byte ReadFromPort(ushort port)
     {
-        return ReadPort!(port);
+        MREQ = false;
+
+        IORQ = true;
+
+        RD = true;
+
+        WR = false;
+
+        Address = port;
+
+        return Data;
     }
 
+    // TODO: Same as for RAM... but currently causes crashes for some reason.
     public void WriteToPort(ushort port, byte data)
     {
         WritePort!(port, data);
