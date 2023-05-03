@@ -1,6 +1,6 @@
 ﻿namespace Zen.System.Modules;
 
-public class Timer : IDisposable
+public class Worker : IDisposable
 {
     public required Func<int> OnTick { get; init; }
 
@@ -18,7 +18,7 @@ public class Timer : IDisposable
 
     private bool _paused;
 
-    public Timer(int framesPerSecond)
+    public Worker(int framesPerSecond)
     {
         _frameSleep = 1_000 / framesPerSecond;
 

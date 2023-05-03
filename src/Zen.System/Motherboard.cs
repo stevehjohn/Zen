@@ -1,7 +1,7 @@
 ﻿using Zen.System.Infrastructure;
 using Zen.System.Modules;
 using Zen.Z80.Processor;
-using Timer = Zen.System.Modules.Timer;
+using Worker = Zen.System.Modules.Worker;
 
 namespace Zen.System;
 
@@ -21,7 +21,7 @@ public class Motherboard
 
     private readonly Ports _ports;
 
-    private readonly Timer _timer;
+    private readonly Worker _worker;
 
     private readonly Dictionary<int, byte[]> _romCache = new();
 
@@ -43,8 +43,8 @@ public class Motherboard
 
     public bool Fast
     {
-        get => _timer.Fast;
-        set => _timer.Fast = value;
+        get => _worker.Fast;
+        set => _worker.Fast = value;
     }
 
     public Motherboard(Model model)
@@ -77,7 +77,7 @@ public class Motherboard
                      PortDataChanged = PortDataChanged
                  };
 
-        _timer = new(FramesPerSecond)
+        _worker = new(FramesPerSecond)
                  {
                      HandleRefreshInterrupt = HandleRefreshInterrupt,
                      OnTick = OnTick,
@@ -107,17 +107,17 @@ public class Motherboard
 
     public void Start()
     {
-        _timer.Start();
+        _worker.Start();
     }
 
     public void Pause()
     {
-        _timer.Pause();
+        _worker.Pause();
     }
 
     public void Resume()
     {
-        _timer.Resume();
+        _worker.Resume();
     }
 
     public void Reset()
