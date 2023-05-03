@@ -58,6 +58,7 @@ public class Motherboard
         _interface = new()
                      {
                          StateChanged = InterfaceStateChanged,
+                         ReadPort = ReadPort,
                          WritePort = WritePort
                      };
 
@@ -115,10 +116,10 @@ public class Motherboard
         }
     }
 
-    //private byte ReadPort(ushort port)
-    //{
-    //    return _ports[port];
-    //}
+    private byte ReadPort(ushort port)
+    {
+        return _ports[port];
+    }
 
     private void WritePort(ushort port, byte data)
     {
