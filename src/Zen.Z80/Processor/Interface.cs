@@ -65,34 +65,14 @@ public class Interface
 
         Address = address;
     }
-    
-    public byte ReadFromPort(ushort address)
+
+    public byte ReadFromPort(ushort port)
     {
-        MREQ = false;
-
-        IORQ = true;
-
-        RD = true;
-
-        WR = false;
-
-        Address = address;
-
-        return Data;
+        return ReadPort!(port);
     }
 
     public void WriteToPort(ushort port, byte data)
     {
-        MREQ = false;
-
-        IORQ = true;
-
-        RD = true;
-
-        WR = false;
-
-        Data = data;
-
-        Address = port;
+        WritePort!(port, data);
     }
 }
