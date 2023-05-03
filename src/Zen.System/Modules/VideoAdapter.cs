@@ -93,11 +93,9 @@ public class VideoAdapter
 
         var set = (_ram.WorkingScreenRam[address] & xO) > 0;
 
-        return (byte) (set ? 0x00 : 0xFF);
-
         var colourAddress = 0x1800;
 
-        var offset = x + y / 8 * 32;
+        var offset = xB + y / 8 * 32;
 
         colourAddress += offset;
 

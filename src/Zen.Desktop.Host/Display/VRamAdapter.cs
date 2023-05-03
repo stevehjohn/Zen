@@ -30,8 +30,8 @@ public class VRamAdapter
 
         for (var p = 0; p < 0xC000; p++)
         {
-            data[p] = _screenFrame[p] == 0xFF ? Color.White : Color.Black;
-           // data[p] = GetColor(_screenFrame[p]);
+            //data[p] = _screenFrame[p] == 0xFF ? Color.White : Color.Black;
+            data[p] = GetColor(_screenFrame[p]);
         }
 
         texture.SetData(data);
@@ -45,7 +45,7 @@ public class VRamAdapter
 
         if ((pixel & 0b1000_0000) > 0)
         {
-            color = ((pixel & 0b0000_0111) >> 3) switch
+            color = (pixel & 0b0000_0111) switch
             {
                 0 => Color.Black,
                 1 => Color.Blue,
@@ -60,7 +60,7 @@ public class VRamAdapter
         }
         else
         {
-            color = ((pixel & 0b0000_0111) >> 3) switch
+            color = (pixel & 0b0000_0111) switch
             {
                 0 => Color.Black,
                 1 => Color.DarkBlue,
