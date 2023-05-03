@@ -134,6 +134,8 @@ public class Host : Game
             case MenuResult.Restart:
                 SetMotherboard((Model) arguments);
 
+                _motherboard.Start();
+
                 return;
 
             case MenuResult.LoadZ80Sna:
