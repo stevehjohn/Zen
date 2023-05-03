@@ -405,7 +405,7 @@ public partial class Instructions
     {
         _state.InstructionPrefix = parameters;
 
-        _state.SetMCycles(0);
+        _state.ClearMCycles();
     }
 
     private void RLD()

@@ -66,8 +66,13 @@ public class Host : Game
         _vRamAdapter = new VRamAdapter(_motherboard.Ram, _graphicsDeviceManager);
 
 #if ! DELAY
-        _motherboard.Start();
+        //_motherboard.Start();
 #endif
+    }
+
+    protected override void OnActivated(object sender, EventArgs args)
+    {
+        _motherboard.Start();
     }
 
     protected override void Initialize()

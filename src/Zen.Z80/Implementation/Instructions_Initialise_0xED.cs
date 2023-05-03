@@ -197,7 +197,7 @@ public partial class Instructions
 
         _instructions.Add(0x00ED5D, new Instruction(_ => RETN(), "RETN", 0x00ED5D, 0));
 
-        _instructions.Add(0x00ED5E, new Instruction(_ => IM(InterruptMode.IM1), "IM 1", 0x00ED5E, 0));
+        _instructions.Add(0x00ED5E, new Instruction(_ => IM(InterruptMode.IM2), "IM 2", 0x00ED5E, 0));
 
         _instructions.Add(0x00ED5F, new Instruction(_ => LD_R_R(Register.A, Register.R), "LD A, R", 0x00ED5F, 0));
 

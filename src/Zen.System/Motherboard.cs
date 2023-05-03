@@ -1,5 +1,6 @@
 ﻿using Zen.System.Infrastructure;
 using Zen.System.Modules;
+using Zen.Utilities.Files;
 using Zen.Z80.Processor;
 using Timer = Zen.System.Modules.Timer;
 
@@ -110,6 +111,10 @@ public class Motherboard
 
     public void Start()
     {
+        var loader = new Z80FileLoaderTemp(_state, _ram, Model);
+
+        loader.Load("../../../../../../ZXE/Game Images/Treasure Island Dizzy/image-0.z80");
+
         _timer.Start();
     }
 
