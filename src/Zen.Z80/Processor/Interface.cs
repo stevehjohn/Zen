@@ -5,7 +5,7 @@ namespace Zen.Z80.Processor;
 
 public class Interface
 {
-    public required Action StateChanged { get; set; }
+    public Action? StateChanged { get; set; }
 
     public bool MREQ { get; set; }
 
@@ -24,7 +24,7 @@ public class Interface
         {
             _address = value;
 
-            StateChanged();
+            StateChanged?.Invoke();
         }
     }
 
