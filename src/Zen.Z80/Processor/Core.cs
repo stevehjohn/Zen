@@ -1,28 +1,14 @@
-﻿#define LOG
-
-using Zen.Z80.Implementation;
+﻿using Zen.Z80.Implementation;
 
 namespace Zen.Z80.Processor;
 
 public class Core
 {
-#if LOG
-    private const int LogBufferSize = 20_000;
-
-    private const string LogFile = "Zen.log";
-
-    private long _opcodesExecuted;
-#endif
-
     private readonly Interface _interface;
 
     private readonly State _state;
 
     private readonly Instructions _instructions;
-
-#if LOG
-    private readonly List<string> _log = new(LogBufferSize);
-#endif
 
     public Core(Interface @interface, State state)
     {
@@ -44,10 +30,6 @@ public class Core
             HandleInterrupts();
 
             _instructions[0x00].Execute(Array.Empty<byte>());
-
-            _opcodesExecuted++;
-
-            Log(_instructions[0x00]);
 
             return;
         }
@@ -86,12 +68,6 @@ public class Core
         UpdateR(instruction);
 
         instruction.Execute(parameters);
-        
-        _opcodesExecuted++;
-
-#if LOG
-        Log(instruction);
-#endif
 
         if (_state.InstructionPrefix > 0xFF)
         {
@@ -103,12 +79,6 @@ public class Core
 
             instruction.Execute(parameters[..1]);
             
-            _opcodesExecuted++;
-
-#if LOG
-            Log(instruction);
-#endif
-
             _state.LastInstruction = instruction;
 
             _state.InstructionPrefix = 0;
@@ -186,8 +156,6 @@ public class Core
                 break;
 
             case InterruptMode.IM2:
-                _log.Add("INT");
-
                 PushProgramCounter();
 
                 // TODO: Get 0xFF from bus.
@@ -209,23 +177,4 @@ public class Core
 
         _interface.WriteToMemory(_state.StackPointer, (byte) (_state.ProgramCounter & 0x00FFFF));
     }
-
-#if LOG
-    private void Log(Instruction instruction)
-    {
-        _log.Add($"OE: {_opcodesExecuted:X8}  TS: {_state.ClockCycles:X2}  PC: {_state.ProgramCounter:X8}  SP: {_state.StackPointer}  AF: {_state[Register.A]:X2}{_state[Register.F] & 0b1101_0111:X2}  BC: {_state[RegisterPair.BC]:X4}  DE: {_state[RegisterPair.DE]:X4}  HL: {_state[RegisterPair.HL]:X4}  OP: {instruction.OpCode:X8}  {instruction.Mnemonic}");
-
-        //if (instruction.Mnemonic == "IN A, (C)")
-        //{
-        //    _log.Add($"A: {_state[Register.A]:X2}  BC: {_state[RegisterPair.BC]}  (BC): {_interface.ReadPort(_state[RegisterPair.BC])}");
-        //}
-
-        if (_log.Count == LogBufferSize)
-        {
-            File.AppendAllLines(LogFile, _log);
-
-            _log.Clear();
-        }
-    }
-#endif
 }
