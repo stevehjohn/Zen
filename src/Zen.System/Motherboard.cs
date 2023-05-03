@@ -23,6 +23,16 @@ public class Motherboard
 
     private readonly Timer _timer;
 
+    private readonly Dictionary<int, byte[]> _romCache = new();
+
+    private bool _pagingDisabled;
+
+    // ReSharper disable once InconsistentNaming
+    private byte _last7FFD;
+
+    // ReSharper disable once InconsistentNaming
+    private byte _last1FFD;
+
     public Ram Ram => _ram;
 
     public Interface Interface => _interface;
@@ -57,28 +67,17 @@ public class Motherboard
 
         byte[] data;
 
-        switch (model)
+        if (model == Model.Spectrum48K)
         {
-            case Model.Spectrum48K:
-                data = File.ReadAllBytes("../../../../../ROM Images/ZX Spectrum 48K/image-0.rom");
-
-                _ram.LoadRom(data, 0);
-
-                break;
-
-            case Model.Spectrum128:
-                data = File.ReadAllBytes("../../../../../ROM Images/ZX Spectrum 128/image-0.rom");
-
-                _ram.LoadRom(data, 0);
-
-                break;
-
-            default:
-                // TODO: Proper exception?
-                throw new Exception($"ROM not found for {model}");
+            _pagingDisabled = true;
         }
 
-        _ports = new();
+        _ram.LoadRom(LoadRom(0));
+
+        _ports = new Ports
+                 {
+                     PortDataChanged = PortDataChanged
+                 };
 
         _timer = new(FramesPerSecond)
                  {
@@ -138,5 +137,134 @@ public class Motherboard
     private void FrameFinished()
     {
         _ram.FrameReady();
+    }
+
+    private void PortDataChanged(ushort port, byte data)
+    {
+        if (_pagingDisabled)
+        {
+            return;
+        }
+
+        if ((port & 0x01) != 0)
+        {
+            var paging = (port & 0b1000_0000_0000_0010) == 0;
+
+            if (_model == Model.SpectrumPlus3)
+            {
+                paging &= (port & 0b0100_0000_0000_0000) > 0;
+            }
+
+            if (paging)
+            {
+                if ((data & 0b00100000) > 0)
+                {
+                    _pagingDisabled = true;
+                }
+
+                PageCall(0x7F, data);
+            }
+
+            if (_model != Model.SpectrumPlus3)
+            {
+                return;
+            }
+            
+            paging = (port & 0b1110_0000_0000_0010) == 0;
+
+            paging &= (port & 0b0001_0000_0000_0000) > 0;
+
+            if (paging)
+            {
+                PageCall(0x1F, data);
+            }
+        }
+    }
+
+    private void PageCall(byte port, byte data)
+    {
+        if (port == 0x1F && (data & 0x01) > 0)
+        {
+            ConfigureSpecialPaging(data & 0b0110 >> 1);
+        }
+
+        if (port == 0x7F)
+        {
+            _ram.SetBank(3, (byte) (data & 0b0000_0111));
+
+            _ram.ScreenBank = (byte) ((data & 0b0000_1000) > 0 ? 2 : 1);
+        }
+
+        if (port == 0x7F)
+        {
+            _last7FFD = data;
+        }
+
+        if (port == 0x1F)
+        {
+            _last1FFD = data;
+        }
+
+        var romNumber = (_last7FFD & 0b0001_0000) >> 4 | (_last1FFD & 0b0000_0100) >> 1;
+
+        _ram.LoadRom(_romCache[romNumber]);
+    }
+
+    private void ConfigureSpecialPaging(int configurationId)
+    {
+        switch (configurationId)
+        {
+            case 0:
+                _ram.SetBank(3, 3);
+                _ram.SetBank(2, 2);
+                _ram.SetBank(1, 1);
+                _ram.SetBank(0, 0);
+
+                break;
+
+            case 1:
+                _ram.SetBank(3, 7);
+                _ram.SetBank(2, 6);
+                _ram.SetBank(1, 5);
+                _ram.SetBank(0, 4);
+
+                break;
+
+            case 2:
+                _ram.SetBank(3, 3);
+                _ram.SetBank(2, 6);
+                _ram.SetBank(1, 5);
+                _ram.SetBank(0, 4);
+                    
+                break;
+
+            case 3:
+                _ram.SetBank(3, 3);
+                _ram.SetBank(2, 6);
+                _ram.SetBank(1, 7);
+                _ram.SetBank(0, 4);
+
+                break;
+        }
+    }
+
+    private byte[] LoadRom(int romNumber)
+    {
+        var folder = Model switch 
+        {
+            Model.Spectrum48K => "ZX Spectrum 48K",
+            Model.Spectrum128 => "ZX Spectrum 128",
+            Model.SpectrumPlus2 => "ZX Spectrum +2",
+            Model.SpectrumPlus3 => "ZX Spectrum +3",
+            // TODO: Proper exception?
+            _ => throw new Exception("Invalid model")
+        };
+
+        if (! _romCache.ContainsKey(romNumber))
+        {
+            _romCache.Add(romNumber, File.ReadAllBytes($"../../../../../ROM Images/{folder}/image-{romNumber}.rom"));
+        }
+
+        return _romCache[romNumber];
     }
 }

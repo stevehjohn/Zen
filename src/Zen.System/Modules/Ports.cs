@@ -2,13 +2,15 @@
 
 public class Ports
 {
+    public required Action<ushort, byte> PortDataChanged { private get; set; }
+
     private readonly byte?[] _data = new byte?[65_536];
 
     public byte this[ushort port]
     {
         get => GetPortData(port);
 
-        set => _data[port] = value;
+        set => SetPortData(port, value);
     }
 
     private byte GetPortData(ushort port)
@@ -45,5 +47,12 @@ public class Ports
         }
 
         return _data[port] ?? 0xFF;
+    }
+
+    private void SetPortData(ushort port, byte data)
+    {
+        _data[port] = data;
+
+        PortDataChanged(port, data);
     }
 }

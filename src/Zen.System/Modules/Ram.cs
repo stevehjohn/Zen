@@ -20,13 +20,9 @@ public class Ram
 
     private readonly byte[] _frame = new byte[BankSize];
 
-    private byte _romNumber;
-
     private byte _screenBank = 5;
 
     public bool ProtectRom { get; set; }
-
-    public byte RomNumber => _romNumber;
 
     public byte[] ScreenRam => _frame;
 
@@ -87,10 +83,8 @@ public class Ram
         }
     }
 
-    public void LoadRom(byte[] data, byte romNumber)
+    public void LoadRom(byte[] data)
     {
-        _romNumber = romNumber;
-
         Array.Copy(data, 0, _rom, 0, data.Length);
     }
 
