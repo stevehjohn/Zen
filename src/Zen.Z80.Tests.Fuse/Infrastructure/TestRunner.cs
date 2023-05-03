@@ -107,6 +107,10 @@ public class TestRunner
 
         _interface.WriteRam = (address, data) => ram[address] = data;
 
+        _interface.ReadPort = _ => 0xFF;
+
+        _interface.WritePort = (_, _) => Thread.Sleep(0);
+
         var tStates = 0;
 
         var expectedResult = LoadExpectedResult(input.Name);

@@ -180,23 +180,23 @@ public partial class Instructions
         _state.SetMCycles(4);
     }
 
-    private void EX_aSP_RR(RegisterPair registers)
+    private void EX_aRR_RR(RegisterPair left, RegisterPair right)
     {
         unchecked
         {
-            var value = _state[registers];
+            var value = _state[right];
 
-            var data = (ushort) (_interface.ReadFromMemory((ushort) (_state.StackPointer + 1)) << 8);
+            var data = (ushort) (_interface.ReadFromMemory((ushort) (_state[left] + 1)) << 8);
 
-            data |= _interface.ReadFromMemory(_state.StackPointer);
+            data |= _interface.ReadFromMemory(_state[left]);
 
-            _state[registers] = data;
+            _state[right] = data;
 
-            _interface.WriteToMemory((ushort) (_state.StackPointer + 1), (byte) ((value & 0xFF00) >> 8));
+            _interface.WriteToMemory((ushort) (_state[left] + 1), (byte) ((value & 0xFF00) >> 8));
 
-            _interface.WriteToMemory(_state.StackPointer, (byte) (value & 0x00FF));
+            _interface.WriteToMemory(_state[left], (byte) (value & 0x00FF));
 
-            _state.MemPtr = _state[registers];
+            _state.MemPtr = _state[right];
 
             _state.Q = 0;
         }
@@ -405,7 +405,7 @@ public partial class Instructions
     {
         _state.InstructionPrefix = parameters;
 
-        _state.SetMCycles(0);
+        _state.ClearMCycles();
     }
 
     private void RLD()

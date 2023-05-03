@@ -17,6 +17,10 @@ public class Core
         _state = state;
 
         _instructions = new Instructions(_interface, _state);
+
+#if LOG
+        File.Delete(LogFile);
+#endif
     }
 
     public void ExecuteCycle()
@@ -74,7 +78,7 @@ public class Core
             UpdateR(instruction);
 
             instruction.Execute(parameters[..1]);
-
+            
             _state.LastInstruction = instruction;
 
             _state.InstructionPrefix = 0;
