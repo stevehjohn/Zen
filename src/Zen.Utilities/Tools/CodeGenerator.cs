@@ -14,7 +14,7 @@ public class CodeGenerator
 
     public CodeGenerator()
     {
-        _instructions = new(new Interface(), new State());
+        _instructions = new(new Interface { StateChanged = () => { } }, new State());
     }
 
     public void GenerateOpCodeInitialisers()
