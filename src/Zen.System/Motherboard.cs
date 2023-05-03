@@ -65,8 +65,6 @@ public class Motherboard
 
         _ram = new();
 
-        byte[] data;
-
         if (model == Model.Spectrum48K)
         {
             _pagingDisabled = true;
