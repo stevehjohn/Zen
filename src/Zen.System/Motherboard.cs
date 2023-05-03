@@ -77,9 +77,8 @@ public class Motherboard
                      PortDataChanged = PortDataChanged
                  };
 
-        _worker = new(FramesPerSecond)
+        _worker = new(_interface, FramesPerSecond)
                  {
-                     HandleRefreshInterrupt = HandleRefreshInterrupt,
                      OnTick = OnTick,
                      FrameFinished = FrameFinished
                  };
@@ -130,11 +129,6 @@ public class Motherboard
         _core.ExecuteCycle();
 
         return (int) _state.ClockCycles;
-    }
-
-    private void HandleRefreshInterrupt()
-    {
-        _interface.Interrupt = true;
     }
 
     private void FrameFinished()

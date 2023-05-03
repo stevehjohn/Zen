@@ -122,11 +122,9 @@ public class Core
 
     private void HandleInterrupts()
     {
-        if (_interface.Interrupt)
+        if (_interface.INT)
         {
             HandleMaskableInterrupt();
-
-            _interface.Interrupt = false;
         }
     }
 
