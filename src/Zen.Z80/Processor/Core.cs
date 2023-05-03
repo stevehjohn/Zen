@@ -76,7 +76,7 @@ public class Core
             UpdateR(instruction);
 
             instruction.Execute(parameters[..1]);
-            
+
             _state.LastInstruction = instruction;
 
             _state.InstructionPrefix = 0;
@@ -144,7 +144,14 @@ public class Core
         switch (_state.InterruptMode)
         {
             case InterruptMode.IM0:
-                throw new Exception("Not implemented - not used by Spectrum");
+                // TODO: Get instruction opcode from bus.
+                PushProgramCounter();
+
+                _state.ProgramCounter = 0x38;
+
+                _state.Q = 0;
+
+                break;
 
             case InterruptMode.IM1:
                 PushProgramCounter();
@@ -157,9 +164,9 @@ public class Core
                 PushProgramCounter();
 
                 // TODO: Get 0xFF from bus.
-                var address = (_state[Register.I] << 8) | 0xFF;
+                var address = (ushort) ((_state[Register.I] << 8) | 0xFF);
 
-                _state.ProgramCounter = (ushort) (_interface.ReadFromMemory((ushort) address) | (_interface.ReadFromMemory((ushort) (address + 1)) << 8));
+                _state.ProgramCounter = (ushort) (_interface.ReadFromMemory(address) | (_interface.ReadFromMemory((ushort) (address + 1)) << 8));
 
                 break;
         }
