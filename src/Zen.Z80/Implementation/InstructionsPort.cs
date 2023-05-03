@@ -358,7 +358,7 @@ public partial class Instructions
         _state.SetMCycles(4, 3, 4);
     }
 
-    private void OUT_C_r(Register register)
+    private void OUT_C_R(Register register)
     {
         unchecked
         {
@@ -372,11 +372,11 @@ public partial class Instructions
         _state.SetMCycles(4, 4, 4);
     }
 
-    private void OUT_C_0()
+    private void OUT_C_b(byte data)
     {
         unchecked
         {
-            _interface.WriteToPort(_state[RegisterPair.BC], 0);
+            _interface.WriteToPort(_state[RegisterPair.BC], data);
 
             _state.MemPtr = (ushort) (_state[RegisterPair.BC] + 1);
 

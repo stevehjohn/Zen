@@ -64,7 +64,10 @@ public class Host : Game
         AppSettings.Instance.Save();
 
         _vRamAdapter = new VRamAdapter(_motherboard.Ram, _graphicsDeviceManager);
+    }
 
+    protected override void OnActivated(object sender, EventArgs args)
+    {
 #if ! DELAY
         _motherboard.Start();
 #endif

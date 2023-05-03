@@ -75,13 +75,18 @@ public class CodeGenerator
         }
     }
 
-    private string GenerateMethodCall(Instruction instruction)
+    private static string GenerateMethodCall(Instruction instruction)
     {
-        var parts = instruction.Mnemonic.Split(new[] { ' ', ',' }, StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
+        var parts = instruction.Mnemonic.Split(new[] { ' ', ',', '+' }, StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
 
         if (parts.Length == 1)
         {
             return $"_ => {parts[0]}()";
+        }
+
+        if (parts[0] == "IM")
+        {
+            return $"_ => IM(InterruptMode.{(InterruptMode) int.Parse(parts[1])})";
         }
 
         var method = new StringBuilder();
@@ -92,13 +97,22 @@ public class CodeGenerator
 
         var lambda = "_ => ";
 
+        var not = false;
+
         foreach (var part in parts[1..])
         {
             var components = GenerateComponents(parts[0], part);
 
+            not |= components.Not;
+
             method.Append(components.MethodSuffix);
 
-            if (parameters.Length > 0)
+            if (components.Parameter == "p" && lambda == "p => ")
+            {
+                continue;
+            }
+
+            if (parameters.Length > 0 && ! string.IsNullOrEmpty(components.Parameter))
             {
                 parameters.Append(", ");
             }
@@ -111,15 +125,39 @@ public class CodeGenerator
             }
         }
 
+        if (not)
+        {
+            parameters.Append(", true");
+        }
+
+        if (parameters.ToString() == "p")
+        {
+            return method.ToString();
+        }
 
         return $"{lambda}{method}({parameters})";
     }
 
-    private static (string MethodSuffix, string Parameter) GenerateComponents(string mnemonic, string part)
+    private static (string MethodSuffix, string Parameter, bool Not) GenerateComponents(string mnemonic, string part)
     {
         if (part.StartsWith("0x"))
         {
-            return (string.Empty, part);
+            return (string.Empty, part, false);
+        }
+
+        if (part == "d)")
+        {
+            return ("d", "p", false);
+        }
+
+        if (part.Length == 1 && char.IsNumber(part[0]))
+        {
+            return ("_b", $"0x{1 << int.Parse(part):X2}", false);
+        }
+
+        if (part == "(C)")
+        {
+            return ("_C", string.Empty, false);
         }
 
         var suffix = new StringBuilder();
@@ -132,7 +170,14 @@ public class CodeGenerator
         {
             suffix.Append("a");
 
-            argument = part[1..^1];
+            if (part[^1] == ')')
+            {
+                argument = part[1..^1];
+            }
+            else
+            {
+                argument = part[1..];
+            }
         }
         else
         {
@@ -174,7 +219,7 @@ public class CodeGenerator
                     throw new Exception($"Unrecognised flag {part}.");
             }
 
-            return ("_F", $"Flag.{flag}");
+            return ("_F", $"Flag.{flag}", part[0] == 'N' || part == "PO");
         }
 
         switch (argument)
@@ -196,7 +241,7 @@ public class CodeGenerator
             case "DE'":
             case "HL'":
                 suffix.Append("RR");
-                parameter = $"RegisterPair.{argument[..^1]}";
+                parameter = $"RegisterPair.{argument[..^1]}_";
                 break;
 
             case "A":
@@ -207,27 +252,17 @@ public class CodeGenerator
             case "E":
             case "H":
             case "L":
+            case "I":
+            case "R":
+            case "IXh":
+            case "IXl":
+            case "IYh":
+            case "IYl":
                 suffix.Append("R");
                 parameter = $"Register.{argument}";
 
                 break;
 
-                //case "NZ":
-                //case "NC":
-                //case "PO":
-                //case "PE":
-                //case "NS":
-                //    suffix.Append("F");
-                //    parameter = $"Flag.{argument[^1]}";
-
-                //    break;
-
-                //case "Z":
-                //case "S":
-                //    suffix.Append("F");
-                //    parameter = $"Flag.{argument}";
-
-                break;
             case "n":
             case "nn":
             case "e":
@@ -242,6 +277,6 @@ public class CodeGenerator
                 break;
         }
 
-        return (suffix.ToString(), parameter);
+        return (suffix.ToString(), parameter, false);
     }
 }
