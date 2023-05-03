@@ -122,6 +122,19 @@ public class State
         _registers[positions & 0x00FF] = data[0];
     }
 
+    public void ClearMCycles()
+    {
+        _lastMCycles[0] = 0;
+        _lastMCycles[1] = 0;
+        _lastMCycles[2] = 0;
+        _lastMCycles[3] = 0;
+        _lastMCycles[4] = 0;
+        _lastMCycles[5] = 0;
+        _lastMCycles[6] = 0;
+
+        ClockCycles = 0;
+    }
+
     public void SetMCycles(byte m1)
     {
         _lastMCycles[0] = LastInstruction?.ExtraCycles ?? 0;
