@@ -83,10 +83,9 @@ public class Motherboard
         _videoAdapter = new VideoAdapter(_ram);
 
         _worker = new(_interface, _videoAdapter, FramesPerSecond)
-                 {
-                     OnTick = OnTick,
-                     FrameFinished = FrameFinished
-                 };
+                  {
+                      OnTick = OnTick
+                  };
     }
 
     private void InterfaceStateChanged()
@@ -163,11 +162,6 @@ public class Motherboard
         return (int) _state.ClockCycles;
     }
 
-    private void FrameFinished()
-    {
-        _ram.FrameReady();
-    }
-
     private void PortDataChanged(ushort port, byte data)
     {
         if (_pagingDisabled)
@@ -198,7 +192,7 @@ public class Motherboard
             {
                 return;
             }
-            
+
             paging = (port & 0b1110_0000_0000_0010) == 0;
 
             paging &= (port & 0b0001_0000_0000_0000) > 0;
@@ -264,7 +258,7 @@ public class Motherboard
                 _ram.SetBank(2, 6);
                 _ram.SetBank(1, 5);
                 _ram.SetBank(0, 4);
-                    
+
                 break;
 
             case 3:
@@ -279,7 +273,7 @@ public class Motherboard
 
     private byte[] LoadRom(int romNumber)
     {
-        var folder = Model switch 
+        var folder = Model switch
         {
             Model.Spectrum48K => "ZX Spectrum 48K",
             Model.Spectrum128 => "ZX Spectrum 128",

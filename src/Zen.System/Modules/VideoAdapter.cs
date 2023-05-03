@@ -16,11 +16,13 @@ public class VideoAdapter
 
     private readonly Ram _ram;
 
-    // F   B     C C C
+    // B         C C C
     // 7 6 5 4 3 2 1 0
     private readonly byte[] _screen = new byte[ScreenPixelCount];
 
-    public byte[] ScreenFrame => _screen;
+    private readonly byte[] _frame = new byte[ScreenPixelCount];
+
+    public byte[] ScreenFrame => _frame;
 
     public VideoAdapter(Ram ram)
     {
@@ -55,6 +57,8 @@ public class VideoAdapter
 
             if (_pixel == ScreenPixelCount)
             {
+                Array.Copy(_screen, 0, _frame, 0, ScreenPixelCount);
+
                 break;
             }
         }
@@ -90,5 +94,19 @@ public class VideoAdapter
         var set = (_ram.WorkingScreenRam[address] & xO) > 0;
 
         return (byte) (set ? 0x00 : 0xFF);
+
+        var colourAddress = 0x1800;
+
+        var offset = x + y / 8 * 32;
+
+        colourAddress += offset;
+
+        var attributes = _ram.WorkingScreenRam[colourAddress];
+
+        var result = (byte) (set ? attributes & 0b0000_0111 : (attributes & 0b0011_1000) >> 3);
+
+        result |= (byte) ((attributes & 0b0100_0000) << 1);
+
+        return result;
     }
 }

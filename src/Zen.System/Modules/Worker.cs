@@ -6,8 +6,6 @@ public class Worker : IDisposable
 {
     public required Func<int> OnTick { get; init; }
 
-    public required Action FrameFinished { get; set; }
-
     private readonly CancellationTokenSource _cancellationTokenSource;
 
     private readonly CancellationToken _cancellationToken;
@@ -79,9 +77,6 @@ public class Worker : IDisposable
 
                     _videoAdapter.MCycleComplete(frameCycles);
                 }
-
-                // Show the frame buffer.
-                FrameFinished();
             }
 
             if (! Fast)

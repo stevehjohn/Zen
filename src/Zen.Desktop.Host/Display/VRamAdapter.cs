@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System.Diagnostics;
 using Color = Microsoft.Xna.Framework.Color;
 using Constants = Zen.Common.Constants;
 
@@ -12,10 +11,6 @@ public class VRamAdapter
 
     private readonly GraphicsDeviceManager _graphicsDeviceManager;
 
-    private readonly Stopwatch _stopwatch;
-
-    private bool _alternate;
-
     private Texture2D _display;
 
     public Texture2D Display => _display;
@@ -25,8 +20,6 @@ public class VRamAdapter
         _screenFrame = screenFrame;
 
         _graphicsDeviceManager = graphicsDeviceManager;
-
-        _stopwatch = Stopwatch.StartNew();
     }
 
     public void RenderDisplay()
@@ -38,69 +31,21 @@ public class VRamAdapter
         for (var p = 0; p < 0xC000; p++)
         {
             data[p] = _screenFrame[p] == 0xFF ? Color.White : Color.Black;
+           // data[p] = GetColor(_screenFrame[p]);
         }
-
-        _alternate = _stopwatch.ElapsedMilliseconds > 500;
-
-        //for (var y = 0; y < Constants.ScreenHeightPixels; y++)
-        //{
-        //    for (var x = 0; x < Constants.ScreenWidthBytes; x++)
-        //    {
-        //        var address = 0;
-
-        //        address |= (y & 0b0000_0111) << 8;
-
-        //        address |= (y & 0b1100_0000) << 5;
-
-        //        address |= (y & 0b0011_1000) << 2;
-
-        //        address |= x;
-
-        //        var segment = screenRam[address];
-
-        //        var colours = GetColours(x, y, screenRam);
-
-        //        for (var b = 7; b >= 0; b--)
-        //        {
-        //            if ((segment & (0x01 << b)) > 0)
-        //            {
-        //                data[i] = colours.Foreground;
-        //            }
-        //            else
-        //            {
-        //                data[i] = colours.Background;
-        //            }
-
-        //            i++;
-        //        }
-        //    }
-        //}
 
         texture.SetData(data);
-
-        if (_stopwatch.ElapsedMilliseconds > 1_000)
-        {
-            _stopwatch.Restart();
-        }
 
         _display = texture;
     }
 
-    private (Color Foreground, Color Background) GetColours(int x, int y, byte[] screenRam)
+    private static Color GetColor(byte pixel)
     {
-        var colourAddress = 0x1800;
+        Color color;
 
-        var offset = x + y / 8 * 32;
-
-        colourAddress += offset;
-
-        var data = screenRam[colourAddress];
-
-        Color background;
-
-        if ((data & 0b0100_0000) > 0)
+        if ((pixel & 0b1000_0000) > 0)
         {
-            background = ((data & 0b00111000) >> 3) switch
+            color = ((pixel & 0b0000_0111) >> 3) switch
             {
                 0 => Color.Black,
                 1 => Color.Blue,
@@ -115,7 +60,7 @@ public class VRamAdapter
         }
         else
         {
-            background = ((data & 0b00111000) >> 3) switch
+            color = ((pixel & 0b0000_0111) >> 3) switch
             {
                 0 => Color.Black,
                 1 => Color.DarkBlue,
@@ -129,44 +74,6 @@ public class VRamAdapter
             };
         }
 
-        Color foreground;
-
-        if ((data & 0b0100_0000) > 0)
-        {
-            foreground = (data & 0b00000111) switch
-            {
-                0 => Color.Black,
-                1 => Color.Blue,
-                2 => Color.Red,
-                3 => Color.Magenta,
-                4 => Color.FromNonPremultiplied(0, 200, 0, 255),
-                5 => Color.Cyan,
-                6 => Color.Yellow,
-                7 => Color.White,
-                _ => Color.Black
-            };
-        }
-        else
-        {
-            foreground = (data & 0b00000111) switch
-            {
-                0 => Color.Black,
-                1 => Color.DarkBlue,
-                2 => Color.FromNonPremultiplied(192, 0, 0, 255),
-                3 => Color.DarkMagenta,
-                4 => Color.Green,
-                5 => Color.DarkCyan,
-                6 => Color.FromNonPremultiplied(204, 204, 0, 255),
-                7 => Color.LightGray,
-                _ => Color.Black
-            };
-        }
-
-        if ((data & 0x80) > 0 && _alternate)
-        {
-            return (background, foreground);
-        }
-
-        return (foreground, background);
+        return color;
     }
 }
