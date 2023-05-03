@@ -1,7 +1,7 @@
 ﻿#define UNATTENDED
 // #define UNDOCUMENTED
 // #define EXACT
-// #define QUICK
+#define QUICK
 // #define IGNOREFLAGS
 
 using System.Diagnostics;
@@ -241,9 +241,20 @@ public class TestRunner
             }
         }
 
-        _interface.ReadRam = address => ram[address];
-
-        _interface.WriteRam = (address, data) => ram[address] = data;
+        _interface.StateChanged = () =>
+        {
+            if (_interface.MREQ)
+            {
+                if (_interface.RD)
+                {
+                    _interface.Data = ram[_interface.Address];
+                }
+                else
+                {
+                    ram[_interface.Address] = _interface.Data;
+                }
+            }
+        };
 
         _interface.ReadPort = port => ports[port];
 

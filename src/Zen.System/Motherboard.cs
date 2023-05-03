@@ -1,7 +1,7 @@
 ﻿using Zen.System.Infrastructure;
 using Zen.System.Modules;
 using Zen.Z80.Processor;
-using Timer = Zen.System.Modules.Timer;
+using Worker = Zen.System.Modules.Worker;
 
 namespace Zen.System;
 
@@ -21,7 +21,9 @@ public class Motherboard
 
     private readonly Ports _ports;
 
-    private readonly Timer _timer;
+    private readonly VideoAdapter _videoAdapter;
+
+    private readonly Worker _worker;
 
     private readonly Dictionary<int, byte[]> _romCache = new();
 
@@ -41,10 +43,12 @@ public class Motherboard
 
     public State State => _state;
 
+    public VideoAdapter VideoAdapter => _videoAdapter;
+
     public bool Fast
     {
-        get => _timer.Fast;
-        set => _timer.Fast = value;
+        get => _worker.Fast;
+        set => _worker.Fast = value;
     }
 
     public Motherboard(Model model)
@@ -53,8 +57,7 @@ public class Motherboard
 
         _interface = new()
                      {
-                         ReadRam = ReadRam,
-                         WriteRam = WriteRam,
+                         StateChanged = InterfaceStateChanged,
                          ReadPort = ReadPort,
                          WritePort = WritePort
                      };
@@ -77,22 +80,49 @@ public class Motherboard
                      PortDataChanged = PortDataChanged
                  };
 
-        _timer = new(FramesPerSecond)
-                 {
-                     HandleRefreshInterrupt = HandleRefreshInterrupt,
-                     OnTick = OnTick,
-                     FrameFinished = FrameFinished
-                 };
+        _videoAdapter = new VideoAdapter(_ram);
+
+        _worker = new(_interface, _videoAdapter, FramesPerSecond)
+                  {
+                      OnTick = OnTick
+                  };
     }
 
-    private byte ReadRam(ushort address)
+    private void InterfaceStateChanged()
     {
-        return _ram[address];
-    }
+        if (_interface.MREQ)
+        {
+            if (_interface.RD)
+            {
+                _interface.Data = _ram[_interface.Address];
 
-    private void WriteRam(ushort address, byte data)
-    {
-        _ram[address] = data;
+                return;
+            }
+
+            if (_interface.WR)
+            {
+                _ram[_interface.Address] = _interface.Data;
+
+                return;
+            }
+        }
+
+        if (_interface.IORQ)
+        {
+            return;
+
+            //if (_interface.RD)
+            //{
+            //    _interface.Data = _ports[_interface.Address];
+
+            //    return;
+            //}
+
+            //if (_interface.WR)
+            //{
+            //    _ports[_interface.Address] = _interface.Data;
+            //}
+        }
     }
 
     private byte ReadPort(ushort port)
@@ -107,17 +137,17 @@ public class Motherboard
 
     public void Start()
     {
-        _timer.Start();
+        _worker.Start();
     }
 
     public void Pause()
     {
-        _timer.Pause();
+        _worker.Pause();
     }
 
     public void Resume()
     {
-        _timer.Resume();
+        _worker.Resume();
     }
 
     public void Reset()
@@ -130,16 +160,6 @@ public class Motherboard
         _core.ExecuteCycle();
 
         return (int) _state.ClockCycles;
-    }
-
-    private void HandleRefreshInterrupt()
-    {
-        _interface.Interrupt = true;
-    }
-
-    private void FrameFinished()
-    {
-        _ram.FrameReady();
     }
 
     private void PortDataChanged(ushort port, byte data)
@@ -172,7 +192,7 @@ public class Motherboard
             {
                 return;
             }
-            
+
             paging = (port & 0b1110_0000_0000_0010) == 0;
 
             paging &= (port & 0b0001_0000_0000_0000) > 0;
@@ -238,7 +258,7 @@ public class Motherboard
                 _ram.SetBank(2, 6);
                 _ram.SetBank(1, 5);
                 _ram.SetBank(0, 4);
-                    
+
                 break;
 
             case 3:
@@ -253,7 +273,7 @@ public class Motherboard
 
     private byte[] LoadRom(int romNumber)
     {
-        var folder = Model switch 
+        var folder = Model switch
         {
             Model.Spectrum48K => "ZX Spectrum 48K",
             Model.Spectrum128 => "ZX Spectrum 128",

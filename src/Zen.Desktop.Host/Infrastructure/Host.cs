@@ -1,7 +1,4 @@
-﻿// #define DELAY
-// Use the above to pause boot to allow for recording.
-
-using System;
+﻿using System;
 using System.IO;
 using System.Linq;
 using Microsoft.Xna.Framework;
@@ -33,9 +30,7 @@ public class Host : Game
 
     private string _imageName = "Standard ROM";
 
-#if DELAY
-    private int _count = 0;
-#endif
+    private bool _hostStarted;
 
     private MenuSystem _menuSystem;
 
@@ -64,14 +59,17 @@ public class Host : Game
 
         AppSettings.Instance.Save();
 
-        _vRamAdapter = new VRamAdapter(_motherboard.Ram, _graphicsDeviceManager);
+        _vRamAdapter = new VRamAdapter(_motherboard.VideoAdapter.ScreenFrame, _graphicsDeviceManager);
     }
 
     protected override void OnActivated(object sender, EventArgs args)
     {
-#if ! DELAY
-        _motherboard.Start();
-#endif
+        if (! _hostStarted)
+        {
+            _motherboard.Start();
+
+            _hostStarted = true;
+        }
     }
 
     protected override void Initialize()
@@ -88,15 +86,6 @@ public class Host : Game
 
     protected override void Update(GameTime gameTime)
     {
-#if DELAY
-        _count++;
-
-        if (_count == 400)
-        {
-            _motherboard.Start();
-        }
-#endif
-
         var keys = Keyboard.GetState().GetPressedKeys();
 
         var portData = KeyboardMapper.MapKeyState(keys);
@@ -133,6 +122,8 @@ public class Host : Game
         {
             case MenuResult.Restart:
                 SetMotherboard((Model) arguments);
+
+                _motherboard.Start();
 
                 return;
 

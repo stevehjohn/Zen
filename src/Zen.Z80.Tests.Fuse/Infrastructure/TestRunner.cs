@@ -102,10 +102,21 @@ public class TestRunner
         var ram = new Dictionary<int, byte>();
 
         PopulateRam(ram, input);
-
-        _interface.ReadRam = address => ram[address];
-
-        _interface.WriteRam = (address, data) => ram[address] = data;
+        
+        _interface.StateChanged = () =>
+        {
+            if (_interface.MREQ)
+            {
+                if (_interface.RD)
+                {
+                    _interface.Data = ram[_interface.Address];
+                }
+                else
+                {
+                    ram[_interface.Address] = _interface.Data;
+                }
+            }
+        };
 
         _interface.ReadPort = _ => 0xFF;
 
