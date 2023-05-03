@@ -85,6 +85,7 @@ public class Z80FileLoader : IFileLoader
 
             var romNumber = (data[35] & 0b0001_0000) >> 4;
 
+            // TODO: Do this on the motherboard
             var folder = _model switch 
             {
                 Model.Spectrum128 => "ZX Spectrum 128",
@@ -101,7 +102,7 @@ public class Z80FileLoader : IFileLoader
 
             var rom = File.ReadAllBytes($"../../../../../ROM Images/{folder}/image-{romNumber}.rom");
 
-            _ram.LoadRom(rom, (byte) romNumber);
+            _ram.LoadRom(rom);
         }
     }
 
