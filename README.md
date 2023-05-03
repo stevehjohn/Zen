@@ -19,3 +19,4 @@ This project aims to take the lessons learned from ZXE and build upon them.
 - https://github.com/Agaxia/Z80Plus/blob/master/sources/Z80Plus.cpp
 - https://github.com/raddad772/jsmoo/tree/main/misc/tests/GeneratedTests/z80
 - https://github.com/redcode/Z80/wiki/Technical-literature
+- https://github.com/redcode/ZXSpectrum/wiki

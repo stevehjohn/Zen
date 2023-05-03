@@ -1,10 +1,10 @@
-﻿namespace Zen.System.Modules;
+﻿using Zen.Z80.Processor;
+
+namespace Zen.System.Modules;
 
 public class Worker : IDisposable
 {
     public required Func<int> OnTick { get; init; }
-
-    public required Action HandleRefreshInterrupt { get; init; }
 
     public required Action FrameFinished { get; set; }
 
@@ -12,14 +12,18 @@ public class Worker : IDisposable
 
     private readonly CancellationToken _cancellationToken;
 
+    private readonly Interface _interface;
+
     private readonly int _frameSleep;
 
     public bool Fast { get; set; }
 
     private bool _paused;
 
-    public Worker(int framesPerSecond)
+    public Worker(Interface @interface, int framesPerSecond)
     {
+        _interface = @interface;
+
         _frameSleep = 1_000 / framesPerSecond;
 
         _cancellationTokenSource = new CancellationTokenSource();
@@ -59,11 +63,23 @@ public class Worker : IDisposable
 
                 while (frameCycles < 69_888)
                 {
+                    if (frameCycles == 0)
+                    {
+                        // Vertical blank
+                        // TODO
+                    }
+
+                    // "The INT line is asserted 24 T-states after the first VBI scan line starts, and it's kept low for 32 T-states"
+                    _interface.INT = frameCycles is >= 24 and < 56;
+
+                    // Execute an instruction
                     frameCycles += OnTick();
+
+                    // Copy some pixels from V-RAM to a frame buffer. 
+                    // TODO
                 }
 
-                HandleRefreshInterrupt();
-
+                // Show the frame buffer.
                 FrameFinished();
             }
 

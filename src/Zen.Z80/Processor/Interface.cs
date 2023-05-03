@@ -1,10 +1,11 @@
 ﻿// ReSharper disable IdentifierTypo
+// ReSharper disable InconsistentNaming
 
 namespace Zen.Z80.Processor;
 
 public class Interface
 {
-    public bool Interrupt { get; set; }
+    public bool INT { get; set; }
 
     public Func<ushort, byte>? ReadRam { get; set; }
 
