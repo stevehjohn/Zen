@@ -71,8 +71,6 @@ public class VideoAdapter
 
     private byte GetPixel()
     {
-        // packedValue = (uint) ((int) alpha << 24 | (int) b << 16 | (int) g << 8) | (uint) r;
-
         var y = _pixel / Constants.ScreenWidthPixels;
 
         var x = _pixel % Constants.ScreenWidthPixels;
