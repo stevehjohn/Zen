@@ -64,7 +64,7 @@ public class Host : Game
 
         AppSettings.Instance.Save();
 
-        _vRamAdapter = new VRamAdapter(_motherboard.Ram, _graphicsDeviceManager);
+        _vRamAdapter = new VRamAdapter(_motherboard.VideoAdapter.ScreenFrame, _graphicsDeviceManager);
     }
 
     protected override void OnActivated(object sender, EventArgs args)

@@ -16,14 +16,16 @@ public class VideoAdapter
 
     private readonly Ram _ram;
 
+    // F   B     C C C
+    // 7 6 5 4 3 2 1 0
+    private readonly byte[] _screen = new byte[ScreenPixelCount];
+
+    public byte[] ScreenFrame => _screen;
+
     public VideoAdapter(Ram ram)
     {
         _ram = ram;
     }
-
-    // F   B     C C C
-    // 7 6 5 4 3 2 1 0
-    private readonly byte[] _screen = new byte[ScreenPixelCount];
 
     public void MCycleComplete(int cycles)
     {

@@ -43,6 +43,8 @@ public class Motherboard
 
     public State State => _state;
 
+    public VideoAdapter VideoAdapter => _videoAdapter;
+
     public bool Fast
     {
         get => _worker.Fast;
