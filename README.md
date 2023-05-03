@@ -14,6 +14,17 @@ This project aims to take the lessons learned from ZXE and build upon them.
 
 The fun bit most people are probably interested in. This is the UI that you can run to emulate a Speccy.
 
+Compatible with Windows and macOS (and in theory, Linux, but I haven't tested that).
+
+Press <kbd>F10</kbd> for the menu once running.
+
+Open `ZXE.Desktop.sln` and build it with your favourite tool(s).
+
+I did have one issue building on macOS on an M1 processor. Solved by https://stackoverflow.com/a/74317078.
+
+- `brew install freeimage`
+- `sudo ln -s /opt/homebrew/Cellar/freeimage/3.18.0/lib/libfreeimage.dylib /usr/local/lib/libfreeimage`
+
 ## Useful References
 
 - https://clrhome.org/table/
