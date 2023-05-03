@@ -1,4 +1,5 @@
-﻿using Zen.Z80.Implementation;
+﻿using System.Text.Json.Serialization;
+using Zen.Z80.Implementation;
 
 namespace Zen.Z80.Processor;
 
@@ -40,6 +41,7 @@ public class State
 
     public ulong ClockCycles { get; set; }
 
+    [JsonIgnore]
     public Instruction? LastInstruction { get; set; }
 
     public State()
