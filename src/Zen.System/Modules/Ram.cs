@@ -18,13 +18,9 @@ public class Ram
 
     private readonly byte[] _rom = new byte[RomSize];
 
-    private readonly byte[] _frame = new byte[BankSize];
-
     private byte _screenBank = 5;
 
     public bool ProtectRom { get; set; }
-
-    public byte[] ScreenRam => _frame;
 
     public byte ScreenBank
     {
@@ -66,11 +62,6 @@ public class Ram
 
             _mappings[(address & 0b1100_0000_0000_0000) >> 14][address & 0b0011_1111_1111_1111] = value;
         }
-    }
-
-    public void FrameReady()
-    {
-        Array.Copy(_banks[5], 0, _frame, 0, BankSize);
     }
 
     public void SetBank(byte slotNumber, byte bankNumber)
