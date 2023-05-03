@@ -8,11 +8,17 @@ public class VideoAdapter
 
     private const int StatesPerPaperLine = 128;
 
+    private const int FlashFrames = 20;
+
     private const int ScreenPixelCount = Constants.ScreenWidthPixels * Constants.ScreenHeightPixels;
 
     private int _previousLinePosition;
 
     private int _pixel;
+
+    private long _frameCount;
+
+    private bool _flash;
 
     private readonly Ram _ram;
 
@@ -59,6 +65,13 @@ public class VideoAdapter
             {
                 Array.Copy(_screen, 0, _frame, 0, ScreenPixelCount);
 
+                _frameCount++;
+
+                if (_frameCount % FlashFrames == 0)
+                {
+                    _flash = ! _flash;
+                }
+
                 break;
             }
         }
@@ -99,7 +112,20 @@ public class VideoAdapter
 
         var attributes = _ram.WorkingScreenRam[colourAddress];
 
-        var result = (byte) (set ? attributes & 0b0000_0111 : (attributes & 0b0011_1000) >> 3);
+        var paper = (byte) ((attributes & 0b0011_1000) >> 3);
+
+        var ink = (byte) (attributes & 0b0000_0111);
+
+        byte result;
+
+        if ((attributes & 0b1000_0000) > 0 && _flash)
+        {
+            result = set ? paper : ink;
+        }
+        else
+        {
+            result = set ? ink : paper;
+        }
 
         result |= (byte) ((attributes & 0b0100_0000) << 1);
 
