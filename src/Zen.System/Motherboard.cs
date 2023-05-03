@@ -78,7 +78,7 @@ public class Motherboard
                      PortDataChanged = PortDataChanged
                  };
 
-        _videoAdapter = new VideoAdapter();
+        _videoAdapter = new VideoAdapter(_ram);
 
         _worker = new(_interface, _videoAdapter, FramesPerSecond)
                  {
