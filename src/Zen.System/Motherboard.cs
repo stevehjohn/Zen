@@ -207,7 +207,7 @@ public class Motherboard
 
         var romNumber = (_last7FFD & 0b0001_0000) >> 4 | (_last1FFD & 0b0000_0100) >> 1;
 
-        _ram.LoadRom(_romCache[romNumber]);
+        _ram.LoadRom(LoadRom(romNumber));
     }
 
     private void ConfigureSpecialPaging(int configurationId)
