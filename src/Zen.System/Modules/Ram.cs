@@ -32,6 +32,8 @@ public class Ram
         set => _screenBank = (byte) (value == 1 ? 5 : 7);
     }
 
+    public byte[] WorkingScreenRam => _banks[_screenBank];
+
     // TODO: Return copy?
     public byte[] Rom => _rom;
 

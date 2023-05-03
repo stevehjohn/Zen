@@ -14,6 +14,13 @@ public class VideoAdapter
 
     private int _pixel;
 
+    private readonly Ram _ram;
+
+    public VideoAdapter(Ram ram)
+    {
+        _ram = ram;
+    }
+
     // F   B     C C C
     // 7 6 5 4 3 2 1 0
     private readonly byte[] _screen = new byte[ScreenPixelCount];
@@ -29,6 +36,8 @@ public class VideoAdapter
 
         if (linePosition > StatesPerPaperLine)
         {
+            _previousLinePosition = 0;
+
             return;
         }
 
@@ -51,7 +60,7 @@ public class VideoAdapter
 
     public void Reset()
     {
-        _previousLinePosition = 0;
+        _pixel = 0;
     }
 
     private byte GetPixel()
@@ -64,6 +73,8 @@ public class VideoAdapter
 
         var xB = x / 8;
 
+        var xO = 1 << (7 - x % 8);
+
         var address = 0;
 
         address |= (y & 0b0000_0111) << 8;
@@ -74,6 +85,8 @@ public class VideoAdapter
 
         address |= xB;
 
-        return 0xFF;
+        var set = (_ram.WorkingScreenRam[address] & xO) > 0;
+
+        return (byte) (set ? 0x00 : 0xFF);
     }
 }
