@@ -65,12 +65,6 @@ public class Worker : IDisposable
 
                 while (frameCycles < 69_888)
                 {
-                    if (frameCycles == 0)
-                    {
-                        _videoAdapter.Reset();
-                    }
-
-                    // "The INT line is asserted 24 T-states after the first VBI scan line starts, and it's kept low for 32 T-states"
                     _interface.INT = frameCycles is >= 24 and < 56;
 
                     frameCycles += OnTick();
