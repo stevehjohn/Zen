@@ -57,7 +57,8 @@ public class Motherboard
 
         _interface = new()
                      {
-                         StateChanged = InterfaceStateChanged,
+                         ReadRam = ReadRam,
+                         WriteRam = WriteRam,
                          ReadPort = ReadPort,
                          WritePort = WritePort
                      };
@@ -88,39 +89,14 @@ public class Motherboard
                   };
     }
 
-    private void InterfaceStateChanged()
+    private byte ReadRam(ushort address)
     {
-        if (_interface.MREQ)
-        {
-            if (_interface.RD)
-            {
-                _interface.Data = _ram[_interface.Address];
+        return _ports[address];
+    }
 
-                return;
-            }
-
-            if (_interface.WR)
-            {
-                _ram[_interface.Address] = _interface.Data;
-
-                return;
-            }
-        }
-
-        //if (_interface.IORQ)
-        //{
-        //    if (_interface.RD)
-        //    {
-        //        _interface.Data = _ports[_interface.Address];
-
-        //        return;
-        //    }
-
-        //    if (_interface.WR)
-        //    {
-        //        _ports[_interface.Address] = _interface.Data;
-        //    }
-        //}
+    private void WriteRam(ushort address, byte data)
+    {
+        _ports[address] = data;
     }
 
     private byte ReadPort(ushort port)
