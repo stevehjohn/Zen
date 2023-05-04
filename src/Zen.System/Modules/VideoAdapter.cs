@@ -4,7 +4,7 @@ namespace Zen.System.Modules;
 
 public class VideoAdapter
 {
-    private const int PaperStart = 14_336 + 24;
+    private const int PaperStart = 14_336;
 
     private const int StatesPerPaperLine = 128;
 
