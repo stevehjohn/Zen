@@ -30,7 +30,6 @@ public class VRamAdapter
 
         for (var p = 0; p < 0xC000; p++)
         {
-            //data[p] = _screenFrame[p] == 0xFF ? Color.White : Color.Black;
             data[p] = GetColor(_screenFrame[p]);
         }
 
