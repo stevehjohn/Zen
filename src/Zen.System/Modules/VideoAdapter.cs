@@ -4,19 +4,19 @@ namespace Zen.System.Modules;
 
 public class VideoAdapter
 {
-    private const int PaperStart = 14_336;
+    private const int PaperStart = 14_336 + 48;
 
     private const int StatesPerPaperLine = 128;
+
+    private const int StatesPerScreenLine = 224;
 
     private const int FlashFrames = 20;
 
     private const int ScreenPixelCount = Constants.ScreenWidthPixels * Constants.ScreenHeightPixels;
 
-    private int _previousLinePosition;
+    private int _previousCycles;
 
-    private int _pixel;
-
-    private long _frameCount;
+    private ulong _frameCount;
 
     private bool _flash;
 
@@ -37,56 +37,67 @@ public class VideoAdapter
 
     public void MCycleComplete(int cycles)
     {
-        if (cycles < 14_336 || _pixel >= ScreenPixelCount)
+        if (cycles < PaperStart || cycles > PaperStart + StatesPerScreenLine * (Constants.ScreenHeightPixels + 1))
         {
-            return;
-        }
-
-        var linePosition = (cycles - PaperStart) % 224;
-
-        if (linePosition > StatesPerPaperLine)
-        {
-            _previousLinePosition = 0;
+            _previousCycles = PaperStart;
 
             return;
         }
 
-        var pixels = (linePosition - _previousLinePosition) * 2;
+        var start = _previousCycles - PaperStart;
 
-        _previousLinePosition = linePosition;
+        _previousCycles = cycles;
 
-        for (var p = 0; p < pixels; p++)
+        var end = cycles - PaperStart;
+
+        var y = 0;
+
+        while (start < end)
         {
-            _screen[_pixel] = GetPixel();
+            y = start / StatesPerScreenLine;
 
-            _pixel++;
-
-            if (_pixel == ScreenPixelCount)
+            if (y >= Constants.ScreenHeightPixels)
             {
-                Array.Copy(_screen, 0, _frame, 0, ScreenPixelCount);
-
-                _frameCount++;
-
-                if (_frameCount % FlashFrames == 0)
-                {
-                    _flash = ! _flash;
-                }
-
                 break;
+            }
+
+            var xS = start % StatesPerScreenLine;
+
+            start++;
+
+            if (xS >= StatesPerPaperLine)
+            {
+                continue;
+            }
+
+            var pixel = y * Constants.ScreenWidthPixels + xS * 2;
+
+            _screen[pixel] = GetPixel(pixel);
+
+            _screen[pixel + 1] = GetPixel(pixel + 1);
+        }
+
+        if (y >= Constants.ScreenHeightPixels)
+        {
+            Array.Copy(_screen, 0, _frame, 0, ScreenPixelCount);
+
+            unchecked
+            {
+                _frameCount++;
+            }
+
+            if (_frameCount % FlashFrames == 0)
+            {
+                _flash = ! _flash;
             }
         }
     }
 
-    public void Reset()
+    private byte GetPixel(int pixel)
     {
-        _pixel = 0;
-    }
+        var y = pixel / Constants.ScreenWidthPixels;
 
-    private byte GetPixel()
-    {
-        var y = _pixel / Constants.ScreenWidthPixels;
-
-        var x = _pixel % Constants.ScreenWidthPixels;
+        var x = pixel % Constants.ScreenWidthPixels;
 
         var xB = x / 8;
 
