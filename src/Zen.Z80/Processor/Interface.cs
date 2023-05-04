@@ -5,68 +5,26 @@ namespace Zen.Z80.Processor;
 
 public class Interface
 {
-    public Action? StateChanged { get; set; }
-
-    public bool MREQ { get; set; }
-
-    public bool IORQ { get; set; }
-
-    public bool RD { get; set; }
-
-    public bool WR { get; set; }
-
     public bool INT { get; set; }
 
-    public ushort Address
-    {
-        get => _address;
-        set 
-        {
-            _address = value;
+    public Func<ushort, byte>? ReadRam { get; set; }
 
-            StateChanged?.Invoke();
-        }
-    }
-
-    public byte Data { get; set; }
+    public Action<ushort, byte>? WriteRam { get; set; }
 
     public Func<ushort, byte>? ReadPort { get; set; }
 
     public Action<ushort, byte>? WritePort { get; set; }
 
-    private ushort _address;
-
     public byte ReadFromMemory(ushort address)
     {
-        MREQ = true;
-
-        IORQ = false;
-
-        RD = true;
-
-        WR = false;
-
-        Address = address;
-
-        return Data;
+        return ReadRam!(address);
     }
 
     public void WriteToMemory(ushort address, byte data)
     {
-        MREQ = true;
-
-        IORQ = false;
-
-        RD = false;
-
-        WR = true;
-
-        Data = data;
-
-        Address = address;
+        WriteRam!(address, data);
     }
 
-    // TODO: Same as for RAM... but currently causes crashes for some reason.
     public byte ReadFromPort(ushort port)
     {
         return ReadPort!(port);
@@ -75,35 +33,5 @@ public class Interface
     public void WriteToPort(ushort port, byte data)
     {
         WritePort!(port, data);
-    }
-
-    //public byte ReadFromPort(ushort port)
-    //{
-    //    MREQ = false;
-
-    //    IORQ = true;
-
-    //    RD = true;
-
-    //    WR = false;
-
-    //    Address = port;
-
-    //    return Data;
-    //}
-
-    //public void WriteToPort(ushort port, byte data)
-    //{
-    //    MREQ = false;
-
-    //    IORQ = true;
-
-    //    RD = false;
-
-    //    WR = true;
-
-    //    Data = data;
-
-    //    Address = port;
-    //}
+    } 
 }

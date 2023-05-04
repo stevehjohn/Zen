@@ -2,8 +2,6 @@
 using Zen.Z80.Implementation;
 using Zen.Z80.Processor;
 
-#pragma warning disable CS8509
-
 namespace Zen.Utilities.Tools;
 
 public class CodeGenerator
@@ -14,7 +12,7 @@ public class CodeGenerator
 
     public CodeGenerator()
     {
-        _instructions = new(new Interface { StateChanged = () => { } }, new State());
+        _instructions = new(new Interface(), new State());
     }
 
     public void GenerateOpCodeInitialisers()

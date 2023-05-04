@@ -1,5 +1,7 @@
 ﻿using Zen.Z80.Processor;
 
+#pragma warning disable CS8509
+
 namespace Zen.Z80.Tests.Processor;
 
 public class CoreTests
@@ -26,23 +28,14 @@ public class CoreTests
 
         _state.ProgramCounter = 0x0100;
 
-        _interface.StateChanged = () =>
+        _interface.ReadRam = address =>
         {
-            if (_interface.MREQ && _interface.RD)
+            return address switch
             {
-                switch (_interface.Address)
-                {
-                    case 0x0100:
-                        _interface.Data = 0x01;
-                        break;
-                    case 0x0101:
-                        _interface.Data = 0x34;
-                        break;
-                    case 0x102:
-                        _interface.Data = 0x12;
-                        break;
-                }
-            }
+                0x0100 => 0x01,
+                0x0101 => 0x34,
+                0x0102 => 0x12
+            };
         };
 
         _core.ExecuteCycle();
@@ -57,20 +50,13 @@ public class CoreTests
 
         _state.ProgramCounter = 0x0100;
 
-        _interface.StateChanged = () =>
+        _interface.ReadRam = address =>
         {
-            if (_interface.MREQ && _interface.RD)
+            return address switch
             {
-                switch (_interface.Address)
-                {
-                    case 0x0100:
-                        _interface.Data = 0xCB;
-                        break;
-                    case 0x0101:
-                        _interface.Data = 0x40;
-                        break;
-                }
-            }
+                0x0100 => 0xCB,
+                0x0101 => 0x40
+            };
         };
 
         _core.ExecuteCycle();
@@ -87,29 +73,16 @@ public class CoreTests
 
         _state.ProgramCounter = 0x0100;
         
-        _interface.StateChanged = () =>
+        _interface.ReadRam = address =>
         {
-            if (_interface.MREQ && _interface.RD)
+            return address switch
             {
-                switch (_interface.Address)
-                {
-                    case 0x0100:
-                        _interface.Data = 0xDD;
-                        break;
-                    case 0x0101:
-                        _interface.Data = 0xCB;
-                        break;
-                    case 0x0102:
-                        _interface.Data = 0x10;
-                        break;
-                    case 0x0103:
-                        _interface.Data = 0x40;
-                        break;
-                    case 0x0210:
-                        _interface.Data = 0x01;
-                        break;
-                }
-            }
+                0x0100 => 0xDD,
+                0x0101 => 0xCB,
+                0x0102 => 0x10,
+                0x0103 => 0x40,
+                0x0210 => 0x01
+            };
         };
 
         _core.ExecuteCycle();
@@ -128,18 +101,14 @@ public class CoreTests
 
         var requestedAddress = 0;
 
-        _interface.StateChanged = () =>
+        _interface.ReadRam = address =>
         {
-            if (_interface.MREQ && _interface.RD)
+            requestedAddress = address;
+
+            return address switch
             {
-                switch (_interface.Address)
-                {
-                    case 0x0100:
-                        requestedAddress = _interface.Address;
-                        _interface.Data = 0x00;
-                        break;
-                }
-            }
+                0x0100 => 0x00
+            };
         };
 
         core.ExecuteCycle();
@@ -155,23 +124,14 @@ public class CoreTests
 
         _state.ProgramCounter = 0x0100;
                 
-        _interface.StateChanged = () =>
+        _interface.ReadRam = address =>
         {
-            if (_interface.MREQ && _interface.RD)
+            return address switch
             {
-                switch (_interface.Address)
-                {
-                    case 0x0100:
-                        _interface.Data = 0x01;
-                        break;
-                    case 0x0101:
-                        _interface.Data = 0x34;
-                        break;
-                    case 0x0102:
-                        _interface.Data = 0x12;
-                        break;
-                }
-            }
+                0x0100 => 0x01,
+                0x0101 => 0x34,
+                0x0102 => 0x12
+            };
         };
 
         _core.ExecuteCycle();
@@ -186,17 +146,12 @@ public class CoreTests
 
         _state.ProgramCounter = 0x0100;
                         
-        _interface.StateChanged = () =>
+        _interface.ReadRam = address =>
         {
-            if (_interface.MREQ && _interface.RD)
+            return address switch
             {
-                switch (_interface.Address)
-                {
-                    case 0x0100:
-                        _interface.Data = 0x00;
-                        break;
-                }
-            }
+                0x0100 => 0x00
+            };
         };
 
         core.ExecuteCycle();

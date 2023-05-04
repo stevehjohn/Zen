@@ -241,21 +241,10 @@ public class TestRunner
             }
         }
 
-        _interface.StateChanged = () =>
-        {
-            if (_interface.MREQ)
-            {
-                if (_interface.RD)
-                {
-                    _interface.Data = ram[_interface.Address];
-                }
-                else
-                {
-                    ram[_interface.Address] = _interface.Data;
-                }
-            }
-        };
+        _interface.ReadRam = address => ram[address];
 
+        _interface.WriteRam = (address, data) => ram[address] = data;
+        
         _interface.ReadPort = port => ports[port];
 
         _interface.WritePort = (port, data) => ports[port] = data;

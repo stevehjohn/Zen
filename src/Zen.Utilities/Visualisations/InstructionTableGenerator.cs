@@ -15,7 +15,7 @@ public class InstructionTableGenerator
 
     public InstructionTableGenerator()
     {
-        _instructions = new Instructions(new Interface { StateChanged = () => { } }, new State());
+        _instructions = new Instructions(new Interface(), new State());
     }
 
     public void Generate()
