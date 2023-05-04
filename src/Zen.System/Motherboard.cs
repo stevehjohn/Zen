@@ -91,12 +91,12 @@ public class Motherboard
 
     private byte ReadRam(ushort address)
     {
-        return _ports[address];
+        return _ram[address];
     }
 
     private void WriteRam(ushort address, byte data)
     {
-        _ports[address] = data;
+        _ram[address] = data;
     }
 
     private byte ReadPort(ushort port)
