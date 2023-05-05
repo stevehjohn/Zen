@@ -89,7 +89,7 @@ public class Worker : IDisposable
                 {
                     _interface.INT = frameCycles is >= 24 and < 56;
 
-                    ClearFramRamBuffer();
+                    ClearFrameRamBuffer();
 
                     var cycles = OnTick();
 
@@ -120,7 +120,7 @@ public class Worker : IDisposable
         // ReSharper disable once FunctionNeverReturns
     }
 
-    private void ClearFramRamBuffer()
+    private void ClearFrameRamBuffer()
     {
         _vramChanges[0].Address = -1;
         _vramChanges[1].Address = -1;
