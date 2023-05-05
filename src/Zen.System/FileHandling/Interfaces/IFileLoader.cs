@@ -1,4 +1,4 @@
-﻿namespace Zen.Utilities.Files.Interfaces;
+﻿namespace Zen.System.FileHandling.Interfaces;
 
 public interface IFileLoader
 {

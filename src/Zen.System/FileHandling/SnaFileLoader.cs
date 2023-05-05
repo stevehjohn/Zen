@@ -1,8 +1,8 @@
-﻿using Zen.System.Modules;
-using Zen.Utilities.Files.Interfaces;
+﻿using Zen.System.FileHandling.Interfaces;
+using Zen.System.Modules;
 using Zen.Z80.Processor;
 
-namespace Zen.Utilities.Files;
+namespace Zen.System.FileHandling;
 
 public class SnaFileLoader : IFileLoader
 {

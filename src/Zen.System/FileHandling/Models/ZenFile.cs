@@ -1,7 +1,7 @@
 ﻿using Zen.System.Infrastructure;
 using Zen.Z80.Processor;
 
-namespace Zen.Utilities.Files.Models;
+namespace Zen.System.FileHandling.Models;
 
 public class ZenFile
 {
