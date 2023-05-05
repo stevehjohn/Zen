@@ -1,5 +1,4 @@
-﻿using Zen.System.Infrastructure;
-using Zen.Z80.Processor;
+﻿using Zen.Z80.Processor;
 
 namespace Zen.System.Modules;
 
@@ -87,6 +86,9 @@ public class Worker : IDisposable
                 while (frameCycles < 69_888)
                 {
                     _interface.INT = frameCycles is >= 24 and < 56;
+                    
+                    _vramChanges[0].Address = -1;
+                    _vramChanges[1].Address = -1;
 
                     var cycles = OnTick();
 
@@ -118,9 +120,6 @@ public class Worker : IDisposable
                             _videoAdapter.CycleComplete(frameCycles);
                         }
                     }
-
-                    _vramChanges[0].Address = -1;
-                    _vramChanges[1].Address = -1;
                 }
             }
 
