@@ -1,4 +1,5 @@
-﻿using Zen.Z80.Processor;
+﻿using Zen.System.Infrastructure;
+using Zen.Z80.Processor;
 
 namespace Zen.System.Modules;
 
@@ -16,17 +17,21 @@ public class Worker : IDisposable
 
     private readonly int _frameSleep;
 
-    public bool Fast { get; set; }
-
     private bool _paused;
 
     private readonly (int Address, byte Data)[] _vramChanges = new (int, byte)[2];
 
-    public Worker(Interface @interface, VideoAdapter videoAdapter, int framesPerSecond)
+    private readonly Model _model;
+
+    public bool Fast { get; set; }
+
+    public Worker(Interface @interface, VideoAdapter videoAdapter, Model model, int framesPerSecond)
     {
         _interface = @interface;
 
         _videoAdapter = videoAdapter;
+
+        _model = model;
 
         _frameSleep = 1_000 / framesPerSecond;
 
