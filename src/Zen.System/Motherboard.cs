@@ -129,11 +129,11 @@ public class Motherboard
         // TODO.
     }
 
-    private int OnTick()
+    private byte[] OnTick()
     {
         _core.ExecuteCycle();
 
-        return (int) _state.ClockCycles;
+        return _state.LastMCycles;
     }
 
     private void PortDataChanged(ushort port, byte data)

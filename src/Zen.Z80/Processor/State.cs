@@ -44,6 +44,8 @@ public class State
     [JsonIgnore]
     public Instruction? LastInstruction { get; set; }
 
+    public byte[] LastMCycles => _lastMCycles;
+
     public State()
     {
         this[Register.A] = this[Register.A_] = 0xFF;
