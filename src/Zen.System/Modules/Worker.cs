@@ -101,11 +101,15 @@ public class Worker : IDisposable
                         if (i < 6 && cycles[i + 1] == 0 && _vramChanges[1].Address != -1)
                         {
                             _videoAdapter.ApplyRamChange(_vramChanges[1].Address, _vramChanges[1].Data);
+
+                            frameCycles += GetContention(frameCycles);
                         }
 
                         if (i < 5 && cycles[i + 2] == 0 && _vramChanges[0].Address != -1)
                         {
                             _videoAdapter.ApplyRamChange(_vramChanges[0].Address, _vramChanges[0].Data);
+
+                            frameCycles += GetContention(frameCycles);
                         }
 
                         if (cycles[i] > 0)
@@ -125,5 +129,31 @@ public class Worker : IDisposable
             }
         }
         // ReSharper disable once FunctionNeverReturns
+    }
+
+    private static int GetContention(int cycle)
+    {
+        if (cycle < 14_335 || cycle > 57_343)
+        {
+            return 0;
+        }
+
+        var start = cycle - 14_335;
+
+        var linePosition = start % 224;
+
+        if (linePosition > 128)
+        {
+            return 0;
+        }
+
+        var delay = 6 - linePosition % 8;
+
+        if (delay < 0)
+        {
+            delay = 0;
+        }
+
+        return delay;
     }
 }
