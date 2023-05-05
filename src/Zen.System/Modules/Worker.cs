@@ -79,9 +79,12 @@ public class Worker : IDisposable
                         }
 
                         frameCycles += cycles[i];
-                    }
 
-                    _videoAdapter.MCycleComplete(frameCycles);
+                        if (cycles[i] > 0)
+                        {
+                            _videoAdapter.CycleComplete(frameCycles);
+                        }
+                    }
                 }
             }
 
