@@ -1,11 +1,10 @@
 ﻿using System.Text.Json;
-using Zen.System;
+using Zen.System.FileHandling.Models;
 using Zen.System.Infrastructure;
 using Zen.System.Modules;
-using Zen.Utilities.Files.Models;
 using Zen.Z80.Processor;
 
-namespace Zen.Utilities.Files;
+namespace Zen.System.FileHandling;
 
 public class ZenFileAdapter
 {
