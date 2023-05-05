@@ -28,11 +28,18 @@ public class VideoAdapter
 
     private readonly byte[] _frame = new byte[ScreenPixelCount];
 
+    private readonly byte[] _vram = new byte[0x4000];
+
     public byte[] ScreenFrame => _frame;
 
     public VideoAdapter(Ram ram)
     {
         _ram = ram;
+    }
+
+    public void StartFrame()
+    {
+        Array.Copy(_ram.WorkingScreenRam, 0, _vram, 0, 0x4000);
     }
 
     public void MCycleComplete(int cycles)
@@ -113,7 +120,7 @@ public class VideoAdapter
 
         address |= xB;
 
-        var set = (_ram.WorkingScreenRam[address] & xO) > 0;
+        var set = (_vram[address] & xO) > 0;
 
         var colourAddress = 0x1800;
 
@@ -121,7 +128,7 @@ public class VideoAdapter
 
         colourAddress += offset;
 
-        var attributes = _ram.WorkingScreenRam[colourAddress];
+        var attributes = _vram[colourAddress];
 
         var paper = (byte) ((attributes & 0b0011_1000) >> 3);
 
