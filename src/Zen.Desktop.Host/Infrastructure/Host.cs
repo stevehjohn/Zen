@@ -111,6 +111,13 @@ public class Host : Game
             _menuSystem.Update();
         }
 
+        if (Keyboard.GetState().IsKeyDown(Keys.F8))
+        {
+            var data = File.ReadAllBytes("../../../../../Other Images/zexdoc-spectrum.com");
+
+            _motherboard.Ram.Load(data, 0x8000);
+        }
+
         base.Update(gameTime);
     }
 
