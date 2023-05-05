@@ -20,6 +20,8 @@ public class Worker : IDisposable
 
     private bool _paused;
 
+    private readonly (int Address, byte Data)[] _vramChanges = new (int, byte)[2];
+
     public Worker(Interface @interface, VideoAdapter videoAdapter, int framesPerSecond)
     {
         _interface = @interface;
@@ -31,6 +33,9 @@ public class Worker : IDisposable
         _cancellationTokenSource = new CancellationTokenSource();
 
         _cancellationToken = _cancellationTokenSource.Token;
+
+        _vramChanges[0].Address = -1;
+        _vramChanges[1].Address = -1;
     }
 
     public void Start()
@@ -53,6 +58,19 @@ public class Worker : IDisposable
         _cancellationTokenSource.Cancel();
 
         _cancellationTokenSource.Dispose();
+    }
+
+    public void VRamUpdated(int address, byte data)
+    {
+        var i = 1;
+
+        if (_vramChanges[1].Address != -1)
+        {
+            i = 0;
+        }
+
+        _vramChanges[i].Address = address;
+        _vramChanges[i].Data = data;
     }
 
     private void TimerWorker()
@@ -80,11 +98,24 @@ public class Worker : IDisposable
 
                         frameCycles += cycles[i];
 
+                        if (i < 6 && cycles[i + 1] == 0 && _vramChanges[1].Address != -1)
+                        {
+                            _videoAdapter.ApplyRamChange(_vramChanges[1].Address, _vramChanges[1].Data);
+                        }
+
+                        if (i < 5 && cycles[i + 2] == 0 && _vramChanges[0].Address != -1)
+                        {
+                            _videoAdapter.ApplyRamChange(_vramChanges[0].Address, _vramChanges[0].Data);
+                        }
+
                         if (cycles[i] > 0)
                         {
                             _videoAdapter.CycleComplete(frameCycles);
                         }
                     }
+
+                    _vramChanges[0].Address = -1;
+                    _vramChanges[1].Address = -1;
                 }
             }
 
