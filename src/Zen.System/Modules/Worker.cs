@@ -4,7 +4,7 @@ namespace Zen.System.Modules;
 
 public class Worker : IDisposable
 {
-    public required Func<int> OnTick { get; init; }
+    public required Func<byte[]> OnTick { get; init; }
 
     private readonly CancellationTokenSource _cancellationTokenSource;
 
@@ -67,7 +67,17 @@ public class Worker : IDisposable
                 {
                     _interface.INT = frameCycles is >= 24 and < 56;
 
-                    frameCycles += OnTick();
+                    var cycles = OnTick();
+
+                    for (var i = 0; i < 7; i++)
+                    {
+                        if (i > 0 && cycles[i] == 0)
+                        {
+                            break;
+                        }
+
+                        frameCycles += cycles[i];
+                    }
 
                     _videoAdapter.MCycleComplete(frameCycles);
                 }
