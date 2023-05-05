@@ -1,5 +1,7 @@
 ﻿using Zen.Z80.Processor;
 
+// ReSharper disable IdentifierTypo
+
 namespace Zen.System.Modules;
 
 public class Worker : IDisposable
@@ -86,7 +88,7 @@ public class Worker : IDisposable
                 while (frameCycles < 69_888)
                 {
                     _interface.INT = frameCycles is >= 24 and < 56;
-                    
+
                     _vramChanges[0].Address = -1;
                     _vramChanges[1].Address = -1;
 
@@ -101,19 +103,7 @@ public class Worker : IDisposable
 
                         frameCycles += cycles[i];
 
-                        if (i < 6 && cycles[i + 1] == 0 && _vramChanges[1].Address != -1)
-                        {
-                            _videoAdapter.ApplyRamChange(_vramChanges[1].Address, _vramChanges[1].Data);
-
-                            frameCycles += GetContention(frameCycles);
-                        }
-
-                        if (i < 5 && cycles[i + 2] == 0 && _vramChanges[0].Address != -1)
-                        {
-                            _videoAdapter.ApplyRamChange(_vramChanges[0].Address, _vramChanges[0].Data);
-
-                            frameCycles += GetContention(frameCycles);
-                        }
+                        frameCycles += ApplyFrameRamChanges(i, frameCycles, cycles);
 
                         if (cycles[i] > 0)
                         {
@@ -129,6 +119,25 @@ public class Worker : IDisposable
             }
         }
         // ReSharper disable once FunctionNeverReturns
+    }
+
+    private int ApplyFrameRamChanges(int mcycle, int frameCycles, byte[] opCycles)
+    {
+        if (mcycle < 6 && opCycles[mcycle + 1] == 0 && _vramChanges[1].Address != -1)
+        {
+            _videoAdapter.ApplyRamChange(_vramChanges[1].Address, _vramChanges[1].Data);
+
+            return GetContention(frameCycles);
+        }
+
+        if (mcycle < 5 && opCycles[mcycle + 2] == 0 && _vramChanges[0].Address != -1)
+        {
+            _videoAdapter.ApplyRamChange(_vramChanges[0].Address, _vramChanges[0].Data);
+
+            return GetContention(frameCycles);
+        }
+
+        return 0;
     }
 
     private static int GetContention(int cycle)
