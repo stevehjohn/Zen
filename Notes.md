@@ -22,13 +22,15 @@ ED BA 0000: INDR
 ED BB 0002: OTDR
 FD 76 0000: HALT
 
-## JSMoo Not Implemented
-
-None.
-
 ## JSMoo Tests Failing - Including Undocumented
 
 TODO.
+
+## Woody Flags Tests Failing
+
+ADC16
+SBC16
+RLD/RRD
 
 ## Fuse Tests Failing
 
