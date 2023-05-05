@@ -42,6 +42,11 @@ public class VideoAdapter
         Array.Copy(_ram.WorkingScreenRam, 0, _vram, 0, 0x4000);
     }
 
+    public void ApplyRamChange(int address, byte data)
+    {
+        _vram[address & 0b0011_1111_1111_1111] = data;
+    }
+
     public void CycleComplete(int cycles)
     {
         if (cycles < PaperStart || cycles > PaperStart + StatesPerScreenLine * (Constants.ScreenHeightPixels + 1))
