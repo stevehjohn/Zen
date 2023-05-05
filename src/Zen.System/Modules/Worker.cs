@@ -63,6 +63,8 @@ public class Worker : IDisposable
             {
                 var frameCycles = 0;
 
+                _videoAdapter.StartFrame();
+
                 while (frameCycles < 69_888)
                 {
                     _interface.INT = frameCycles is >= 24 and < 56;
