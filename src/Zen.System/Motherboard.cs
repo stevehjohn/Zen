@@ -83,7 +83,7 @@ public class Motherboard
 
         _videoAdapter = new VideoAdapter(_ram);
 
-        _worker = new(_interface, _videoAdapter, _model, FramesPerSecond)
+        _worker = new(_interface, _videoAdapter, FramesPerSecond)
                   {
                       OnTick = OnTick
                   };
