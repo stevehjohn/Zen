@@ -21,17 +21,13 @@ public class Worker : IDisposable
 
     private readonly (int Address, byte Data)[] _vramChanges = new (int, byte)[2];
 
-    private readonly Model _model;
-
     public bool Fast { get; set; }
 
-    public Worker(Interface @interface, VideoAdapter videoAdapter, Model model, int framesPerSecond)
+    public Worker(Interface @interface, VideoAdapter videoAdapter, int framesPerSecond)
     {
         _interface = @interface;
 
         _videoAdapter = videoAdapter;
-
-        _model = model;
 
         _frameSleep = 1_000 / framesPerSecond;
 
