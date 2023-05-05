@@ -1,4 +1,5 @@
-﻿using Zen.System.FileHandling.Interfaces;
+﻿using Zen.Common.Extensions;
+using Zen.System.FileHandling.Interfaces;
 using Zen.System.Modules;
 using Zen.Z80.Processor;
 
@@ -23,7 +24,47 @@ public class SnaFileLoader : IFileLoader
 
         LoadRam(data);
 
-        LoadRegisters(data);
+        var is128 = data.Length > 49179;
+
+        LoadRegisters(data, ! is128);
+
+        if (is128)
+        {
+            Load128Specifics(data);
+        }
+    }
+
+    private void Load128Specifics(byte[] data)
+    {
+        _state.ProgramCounter = data[49179..49181].ReadLittleEndian();
+
+        var page = data[49181];
+
+        _ram.SetBank(3, (byte) (page & 0b0000_0111));
+
+        if ((page & 0x16) > 0)
+        {
+            var rom = File.ReadAllBytes("../../../../../ROM Images/ZX Spectrum 128/image-1.rom");
+
+            _ram.LoadRom(rom);
+        }
+
+        for (var p = 0; p < 8; p++)
+        {
+            if (p == 5 || p == 2 || p == page)
+            {
+                continue;
+            }
+
+            var start = 49183 + p * 16384;
+
+            if (start > data.Length)
+            {
+                break;
+            }
+
+            _ram.LoadIntoBank((byte) p, data[start..(start + 16384)]);
+        }
     }
 
     private void LoadRam(byte[] data)
@@ -33,7 +74,7 @@ public class SnaFileLoader : IFileLoader
         _ram.Load(dataToLoad, 0x4000);
     }
 
-    private void LoadRegisters(byte[] data)
+    private void LoadRegisters(byte[] data, bool ret)
     {
         _state[Register.I] = data[0];
 
@@ -68,13 +109,16 @@ public class SnaFileLoader : IFileLoader
         _state.InterruptMode = (InterruptMode) data[0x19];
 
         _state.InstructionPrefix = 0;
-        
-        var value = (ushort) _ram[_state.StackPointer];
-        _state.StackPointer++;
 
-        value |= (ushort) (_ram[_state.StackPointer] << 8);
-        _state.StackPointer++;
+        if (ret)
+        {
+            var value = (ushort) _ram[_state.StackPointer];
+            _state.StackPointer++;
 
-        _state.ProgramCounter = value;
+            value |= (ushort) (_ram[_state.StackPointer] << 8);
+            _state.StackPointer++;
+
+            _state.ProgramCounter = value;
+        }
     }
 }
