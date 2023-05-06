@@ -69,7 +69,7 @@ public class SnaFileLoader : IFileLoader
 
     private void LoadRam(byte[] data)
     {
-        var dataToLoad = data[0x1B..];
+        var dataToLoad = data[0x001B..0xC01C];
 
         _ram.Load(dataToLoad, 0x4000);
     }
