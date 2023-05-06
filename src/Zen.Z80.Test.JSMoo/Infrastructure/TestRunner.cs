@@ -1,7 +1,7 @@
-﻿//#define UNATTENDED
+﻿#define UNATTENDED
 // #define UNDOCUMENTED
 // #define EXACT
-#define QUICK
+// #define QUICK
 // #define IGNOREFLAGS
 
 using System.Diagnostics;
