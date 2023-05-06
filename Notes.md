@@ -8,16 +8,16 @@ ToDos, aide memoires, etc...
 
 ## JSMoo Tests Failing
 
-None.
-
 76 0000: HALT
 DD 76 0000: HALT
+ED A2 0157: INI
 ED A3 0000: OUTI
 ED AA 0000: IND
 ED AB 0000: OUTD
 ED B2 0000: INIR
 ED B3 0000: OTIR
 ED BA 0000: INDR
+ED BB 0002: OTDR
 FD 76 0000: HALT
 
 ## JSMoo Tests Failing - Including Undocumented
