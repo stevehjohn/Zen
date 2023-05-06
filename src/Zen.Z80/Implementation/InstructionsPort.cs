@@ -258,19 +258,22 @@ public partial class Instructions
 
             _state[Register.B]--;
 
-            _state[Flag.Carry] = data > _state[Register.A];
-            _state[Flag.AddSubtract] = (data & 0x80) > 0;
-            _state[Flag.ParityOverflow] = _state[Register.B].IsEvenParity();
-            _state[Flag.X1] = (_state[Register.B] & 0x08) > 0;
-            _state[Flag.HalfCarry] = (_state[Register.A] & 0x0F) < (data & 0x0F);
-            _state[Flag.X2] = (_state[Register.B] & 0x20) > 0;
-            _state[Flag.Zero] = _state[Register.B] == 0;
-            _state[Flag.Sign] = (sbyte) _state[Register.B] < 0;
+            _state[Flag.Carry] = data + _state[Register.L] > 0xFF;
+            // _state[Flag.AddSubtract] = (data & 0x80) > 0;
+            _state[Flag.ParityOverflow] = ((byte) ((data + _state[Register.L] & 0x07) ^ _state[Register.B])).IsEvenParity();
+            //_state[Flag.X1] = (_state[Register.B] & 0x08) > 0;
+            _state[Flag.HalfCarry] = data + _state[Register.L] > 0xFF;
+            //_state[Flag.X2] = (_state[Register.B] & 0x20) > 0;
+            // Zero unaffected
+            _state[Flag.Sign] = (sbyte) (data + _state[Register.L]) < 0;
 
             _state.MemPtr = (ushort) (_state[RegisterPair.BC] + 1);
 
             if (_state[Register.B] != 0)
             {
+                _state[Flag.X1] = (_state.ProgramCounter & 0x0800) > 0;
+                _state[Flag.X2] = (_state.ProgramCounter & 0x2000) > 0;
+
                 _state.ProgramCounter -= 2;
 
                 _state.SetMCycles(4, 5, 3, 4, 5);
