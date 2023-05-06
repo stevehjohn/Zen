@@ -20,6 +20,13 @@ ED BA 0000: INDR
 ED BB 0002: OTDR
 FD 76 0000: HALT
 
+## Raxoft Tests Failing
+
+ADC HL, RR
+LDIR->NOP'
+LDDR->NOP'
+
+
 ## JSMoo Tests Failing - Including Undocumented
 
 TODO.
