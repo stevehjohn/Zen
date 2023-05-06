@@ -71,6 +71,9 @@ public partial class Instructions
 
             if (_state[RegisterPair.BC] != 0 && difference != 0)
             {
+                _state[Flag.X1] = (_state.ProgramCounter & 0x0800) > 0;
+                _state[Flag.X2] = (_state.ProgramCounter & 0x2000) > 0;
+
                 _state.ProgramCounter -= 2;
 
                 _state.SetMCycles(4, 4, 3, 5, 5);
@@ -94,14 +97,14 @@ public partial class Instructions
 
             _state[RegisterPair.BC]--;
 
-            var x = _state[Register.A] - value - (_state[Flag.Carry] ? 1 : 0);
+            var x = _state[Register.A] - value - (_state[Flag.HalfCarry] ? 1 : 0);
 
             // Carry unaffected
             _state[Flag.AddSubtract] = true;
             _state[Flag.ParityOverflow] = _state[RegisterPair.BC] != 0;
             _state[Flag.X1] = (x & 0x08) > 0;
             _state[Flag.HalfCarry] = (_state[Register.A] & 0x0F) < (value & 0x0F);
-            _state[Flag.X2] = (x & 0x20) > 0; // TODO: 0x02?
+            _state[Flag.X2] = (x & 0x02) > 0;
             _state[Flag.Zero] = difference == 0;
             _state[Flag.Sign] = (byte) difference > 0x7F;
 
@@ -123,14 +126,14 @@ public partial class Instructions
 
             _state[RegisterPair.BC]--;
 
-            var x = _state[Register.A] - value - (_state[Flag.Carry] ? 1 : 0);
+            var x = difference - (_state[Flag.HalfCarry] ? 1 : 0);
 
             // Carry unaffected
             _state[Flag.AddSubtract] = true;
             _state[Flag.ParityOverflow] = _state[RegisterPair.BC] != 0;
             _state[Flag.X1] = (x & 0x08) > 0;
             _state[Flag.HalfCarry] = (_state[Register.A] & 0x0F) < (value & 0x0F);
-            _state[Flag.X2] = (x & 0x20) > 0; // TODO: 0x02?
+            _state[Flag.X2] = (x & 0x02) > 0;
             _state[Flag.Zero] = difference == 0;
             _state[Flag.Sign] = (byte) difference > 0x7F;
 
@@ -145,6 +148,9 @@ public partial class Instructions
 
             if (_state[RegisterPair.BC] != 0 && difference != 0)
             {
+                _state[Flag.X1] = (_state.ProgramCounter & 0x0800) > 0;
+                _state[Flag.X2] = (_state.ProgramCounter & 0x2000) > 0;
+
                 _state.ProgramCounter -= 2;
 
                 _state.SetMCycles(4, 4, 3, 5, 5);
