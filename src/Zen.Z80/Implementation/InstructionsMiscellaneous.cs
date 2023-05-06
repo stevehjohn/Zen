@@ -370,9 +370,9 @@ public partial class Instructions
             // Carry unaffected
             _state[Flag.AddSubtract] = false;
             _state[Flag.ParityOverflow] = _state[RegisterPair.BC] != 0;
-            _state[Flag.X1] = (_state.ProgramCounter & 0x0800) > 0;
+            _state[Flag.X1] = ((value + _state[Register.A]) & 0x08) > 0;
             _state[Flag.HalfCarry] = false;
-            _state[Flag.X2] = (_state.ProgramCounter & 0x2000) > 0;
+            _state[Flag.X2] = ((value + _state[Register.A]) & 0x20) > 0;
             // Zero unaffected
             // Sign unaffected
 
@@ -384,6 +384,9 @@ public partial class Instructions
             if (_state[RegisterPair.BC] != 0)
             {
                 _state.ProgramCounter -= 2;
+
+                _state[Flag.X1] = (_state.ProgramCounter & 0x0800) > 0;
+                _state[Flag.X2] = (_state.ProgramCounter & 0x2000) > 0;
 
                 _state.SetMCycles(4, 4, 3, 5, 5);
 
