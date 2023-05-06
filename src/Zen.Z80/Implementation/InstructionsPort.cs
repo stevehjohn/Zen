@@ -271,10 +271,15 @@ public partial class Instructions
 
             if (_state[Register.B] != 0)
             {
+                _state.ProgramCounter -= 2;
+
                 _state[Flag.X1] = (_state.ProgramCounter & 0x0800) > 0;
                 _state[Flag.X2] = (_state.ProgramCounter & 0x2000) > 0;
 
-                _state.ProgramCounter -= 2;
+                if (_state[Flag.Carry])
+                {
+                    _state[Flag.HalfCarry] = (((_state[Flag.Sign] ? -1 : 1) ^ _state[Register.B]) & 0x16) > 0;
+                }
 
                 _state.SetMCycles(4, 5, 3, 4, 5);
 

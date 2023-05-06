@@ -247,7 +247,7 @@ public partial class Instructions
 
         _instructions.Add(0x00ED76, new Instruction(_ => HALT(), "HALT", 0x00ED76, 0, 4));
 
-        _instructions.Add(0x00ED77, new Instruction(_ => NOP(), "NOP", 0x00ED77, 0));
+        _instructions.Add(0x00ED77, new Instruction(_ => NOP(), "NOP", 0x00ED77, 0, 4));
 
         _instructions.Add(0x00ED78, new Instruction(_ => IN_R_C(Register.A), "IN A, (C)", 0x00ED78, 0));
 
