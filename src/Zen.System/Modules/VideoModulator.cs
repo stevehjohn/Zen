@@ -4,7 +4,7 @@ namespace Zen.System.Modules;
 
 public class VideoModulator
 {
-    private const int PaperStart = 14_335;
+    private const int PaperStart = 14_360;
 
     private const int StatesPerPaperLine = 128;
 
