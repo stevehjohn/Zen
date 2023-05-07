@@ -7,15 +7,21 @@ namespace Zen.Desktop.Host.Display;
 
 public class VideoRenderer
 {
-    private readonly byte[] _screenFrame;
+    private const int FlashFrames = 20;
+
+    private readonly ushort[] _screenFrame;
 
     private readonly GraphicsDeviceManager _graphicsDeviceManager;
 
     private Texture2D _display;
 
+    private ulong _frameCount;
+
+    private bool _flash;
+
     public Texture2D Display => _display;
 
-    public VideoRenderer(byte[] screenFrame, GraphicsDeviceManager graphicsDeviceManager)
+    public VideoRenderer(ushort[] screenFrame, GraphicsDeviceManager graphicsDeviceManager)
     {
         _screenFrame = screenFrame;
 
@@ -36,15 +42,27 @@ public class VideoRenderer
         texture.SetData(data);
 
         _display = texture;
+
+        unchecked
+        {
+            _frameCount++;
+        }
+
+        if (_frameCount % FlashFrames == 0)
+        {
+            _flash = ! _flash;
+        }
     }
 
-    private static Color GetColor(byte pixel)
+    private static Color GetColor(ushort pixel)
     {
-        Color color;
+        var color = (pixel & 01000_0000_0000_0000) > 0
+                        ? pixel & 0b0000_0111
+                        : (pixel & 0b0011_1000) >> 3;
 
-        if ((pixel & 0b1000_0000) > 0)
+        if ((pixel & 0b0000_0001_0000_0000) > 0)
         {
-            color = (pixel & 0b0000_0111) switch
+            return color switch
             {
                 0 => Color.Black,
                 1 => Color.Blue,
@@ -59,7 +77,7 @@ public class VideoRenderer
         }
         else
         {
-            color = (pixel & 0b0000_0111) switch
+            return color switch
             {
                 0 => Color.Black,
                 1 => Color.DarkBlue,
@@ -72,7 +90,5 @@ public class VideoRenderer
                 _ => Color.Black
             };
         }
-
-        return color;
     }
 }
