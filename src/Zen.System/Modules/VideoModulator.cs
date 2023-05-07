@@ -2,7 +2,7 @@
 
 namespace Zen.System.Modules;
 
-public class VideoAdapter
+public class VideoModulator
 {
     private const int PaperStart = 14_335;
 
@@ -32,7 +32,7 @@ public class VideoAdapter
 
     public byte[] ScreenFrame => _frame;
 
-    public VideoAdapter(Ram ram)
+    public VideoModulator(Ram ram)
     {
         _ram = ram;
     }

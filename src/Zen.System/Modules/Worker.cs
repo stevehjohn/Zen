@@ -14,7 +14,7 @@ public class Worker : IDisposable
 
     private readonly Interface _interface;
 
-    private readonly VideoAdapter _videoAdapter;
+    private readonly VideoModulator _videoAdapter;
 
     private readonly int _frameSleep;
 
@@ -24,7 +24,7 @@ public class Worker : IDisposable
 
     public bool Fast { get; set; }
 
-    public Worker(Interface @interface, VideoAdapter videoAdapter, int framesPerSecond)
+    public Worker(Interface @interface, VideoModulator videoAdapter, int framesPerSecond)
     {
         _interface = @interface;
 

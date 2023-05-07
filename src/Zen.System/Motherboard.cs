@@ -21,7 +21,7 @@ public class Motherboard
 
     private readonly Ports _ports;
 
-    private readonly VideoAdapter _videoAdapter;
+    private readonly VideoModulator _videoAdapter;
 
     private readonly Worker _worker;
 
@@ -43,7 +43,7 @@ public class Motherboard
 
     public State State => _state;
 
-    public VideoAdapter VideoAdapter => _videoAdapter;
+    public VideoModulator VideoAdapter => _videoAdapter;
 
     public bool Fast
     {
@@ -81,7 +81,7 @@ public class Motherboard
                      PortDataChanged = PortDataChanged
                  };
 
-        _videoAdapter = new VideoAdapter(_ram);
+        _videoAdapter = new VideoModulator(_ram);
 
         _worker = new(_interface, _videoAdapter, FramesPerSecond)
                   {
