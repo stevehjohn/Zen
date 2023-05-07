@@ -66,10 +66,6 @@ public class Host : Game
     {
         if (! _hostStarted)
         {
-            var loader = new SnaFileLoader(_motherboard.State, _motherboard.Ram);
-
-            loader.Load("../../../../../Other Images/z80-bl-test.sna");
-
             _motherboard.Start();
 
             _hostStarted = true;
