@@ -10,27 +10,22 @@ public class VideoModulator
 
     private const int StatesPerScreenLine = 224;
 
-    private const int FlashFrames = 20;
-
     private const int ScreenPixelCount = Constants.ScreenWidthPixels * Constants.ScreenHeightPixels;
 
     private int _previousCycles;
 
-    private ulong _frameCount;
-
-    private bool _flash;
-
     private readonly Ram _ram;
 
-    // B         C C C
-    // 7 6 5 4 3 2 1 0
-    private readonly byte[] _screen = new byte[ScreenPixelCount];
+    // .. S           F B     P P P I I I
+    // .. 7 6 5 4 3 2 1 0 7 6 5 4 3 2 1 0
+    // S == Whether pixel is set.
+    private readonly ushort[] _screen = new ushort[ScreenPixelCount];
 
-    private readonly byte[] _frame = new byte[ScreenPixelCount];
+    private readonly ushort[] _frame = new ushort[ScreenPixelCount];
 
     private readonly byte[] _vram = new byte[0x4000];
 
-    public byte[] ScreenFrame => _frame;
+    public ushort[] ScreenFrame => _frame;
 
     public VideoModulator(Ram ram)
     {
@@ -92,20 +87,10 @@ public class VideoModulator
         if (y >= Constants.ScreenHeightPixels)
         {
             Array.Copy(_screen, 0, _frame, 0, ScreenPixelCount);
-
-            unchecked
-            {
-                _frameCount++;
-            }
-
-            if (_frameCount % FlashFrames == 0)
-            {
-                _flash = ! _flash;
-            }
         }
     }
 
-    private byte GetPixel(int pixel)
+    private ushort GetPixel(int pixel)
     {
         var y = pixel / Constants.ScreenWidthPixels;
 
@@ -135,22 +120,14 @@ public class VideoModulator
 
         var attributes = _vram[colourAddress];
 
-        var paper = (byte) ((attributes & 0b0011_1000) >> 3);
+        var result = (ushort) (attributes & 0b0011_1111);
 
-        var ink = (byte) (attributes & 0b0000_0111);
+        result |= (ushort) ((attributes & 0b1100_0000) << 2);
 
-        byte result;
-
-        if ((attributes & 0b1000_0000) > 0 && _flash)
+        if (set)
         {
-            result = set ? paper : ink;
+            result |= 0b1000_0000_0000_0000;
         }
-        else
-        {
-            result = set ? ink : paper;
-        }
-
-        result |= (byte) ((attributes & 0b0100_0000) << 1);
 
         return result;
     }
