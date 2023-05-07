@@ -191,7 +191,7 @@ public partial class Instructions
 
             _state.MemPtr = (ushort) (port + 1);
 
-            if (_state[RegisterPair.BC] != 0)
+            if (_state[Register.B] != 0)
             {
                 _state.ProgramCounter -= 2;
 

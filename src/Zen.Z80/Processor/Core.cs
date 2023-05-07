@@ -23,11 +23,15 @@ public class Core
     {
         _state.IgnoreNextInterrupt = false;
 
+        Instruction? instruction;
+
         if (_state.Halted)
         {
             HandleInterrupts();
 
-            _instructions[0x00].Execute(Array.Empty<byte>());
+            instruction = _instructions[0x00];
+
+            instruction.Execute(Array.Empty<byte>());
 
             return;
         }
@@ -36,7 +40,7 @@ public class Core
 
         var opcode = _state.InstructionPrefix << 8 | data;
 
-        var instruction = _instructions[opcode];
+        instruction = _instructions[opcode];
 
         if (! instruction.Mnemonic.StartsWith("PREFIX"))
         {
