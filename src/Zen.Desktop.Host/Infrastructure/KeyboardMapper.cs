@@ -18,12 +18,12 @@ public static class KeyboardMapper
         {
             if (keyboardState.Length == 0)
             {
-                portData.Add((port, 0b11111111));
+                portData.Add((port, 0b1011_1111));
 
                 continue;
             }
 
-            var data = (byte) 0xFF;
+            var data = (byte) 0b1011_1111;
 
             foreach (var key in keyboardState)
             {

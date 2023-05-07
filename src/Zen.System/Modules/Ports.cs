@@ -24,7 +24,7 @@ public class Ports
         // Keyboard.
         if ((port & 0xFF) == 0xFE)
         {
-            var value = (byte) 0xFF;
+            var value = (byte) 0b1011_1111;
 
             var high = (port & 0xFF00) >> 8;
 
