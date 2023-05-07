@@ -22,7 +22,7 @@ public class Host : Game
 
     private int _scaleFactor = AppSettings.Instance.ScaleFactor;
 
-    private VRamAdapter _vRamAdapter;
+    private VideoRenderer _vRamAdapter;
 
     private Motherboard _motherboard;
 
@@ -59,7 +59,7 @@ public class Host : Game
 
         AppSettings.Instance.Save();
 
-        _vRamAdapter = new VRamAdapter(_motherboard.VideoAdapter.ScreenFrame, _graphicsDeviceManager);
+        _vRamAdapter = new VideoRenderer(_motherboard.VideoAdapter.ScreenFrame, _graphicsDeviceManager);
     }
 
     protected override void OnActivated(object sender, EventArgs args)

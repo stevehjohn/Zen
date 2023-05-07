@@ -5,7 +5,7 @@ using Constants = Zen.Common.Constants;
 
 namespace Zen.Desktop.Host.Display;
 
-public class VRamAdapter
+public class VideoRenderer
 {
     private readonly byte[] _screenFrame;
 
@@ -15,7 +15,7 @@ public class VRamAdapter
 
     public Texture2D Display => _display;
 
-    public VRamAdapter(byte[] screenFrame, GraphicsDeviceManager graphicsDeviceManager)
+    public VideoRenderer(byte[] screenFrame, GraphicsDeviceManager graphicsDeviceManager)
     {
         _screenFrame = screenFrame;
 
