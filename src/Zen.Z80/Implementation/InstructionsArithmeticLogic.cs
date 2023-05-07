@@ -139,7 +139,7 @@ public partial class Instructions
             _state[Flag.AddSubtract] = false;
             _state[Flag.ParityOverflow] = ((left ^ ~right) & (left ^ result) & 0x8000) != 0;
             _state[Flag.X1] = (result & 0x0800) > 0;
-            _state[Flag.HalfCarry] = ((left & 0x0FFF) + (right & 0x0FFF) + carry & 0x1000) != 0;
+            _state[Flag.HalfCarry] = ((left ^ right ^ result) & 0x1000) > 0;
             _state[Flag.X2] = (result & 0x2000) > 0;
             _state[Flag.Zero] = result == 0;
             _state[Flag.Sign] = (short) result < 0;
