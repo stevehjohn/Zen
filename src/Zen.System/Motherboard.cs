@@ -21,7 +21,7 @@ public class Motherboard
 
     private readonly Ports _ports;
 
-    private readonly VideoModulator _videoAdapter;
+    private readonly VideoModulator _videoModulator;
 
     private readonly Worker _worker;
 
@@ -43,7 +43,7 @@ public class Motherboard
 
     public State State => _state;
 
-    public VideoModulator VideoAdapter => _videoAdapter;
+    public VideoModulator VideoAdapter => _videoModulator;
 
     public bool Fast
     {
@@ -81,9 +81,9 @@ public class Motherboard
                      PortDataChanged = PortDataChanged
                  };
 
-        _videoAdapter = new VideoModulator(_ram);
+        _videoModulator = new VideoModulator(_ram);
 
-        _worker = new(_interface, _videoAdapter, FramesPerSecond)
+        _worker = new(_interface, _videoModulator, FramesPerSecond)
                   {
                       OnTick = OnTick
                   };
@@ -146,6 +146,11 @@ public class Motherboard
         if (_pagingDisabled)
         {
             return;
+        }
+
+        if ((port & 0xFE) > 0)
+        {
+            _videoModulator.Border = (byte) (data & 0b0000_0111);
         }
 
         if ((port & 0x01) != 0)
