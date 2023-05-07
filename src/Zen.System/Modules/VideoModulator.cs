@@ -27,6 +27,8 @@ public class VideoModulator
 
     public ushort[] ScreenFrame => _frame;
 
+    public byte Border { get; set; }
+
     public VideoModulator(Ram ram)
     {
         _ram = ram;
