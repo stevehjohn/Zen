@@ -31,7 +31,7 @@ public class VideoRenderer
     public void RenderDisplay()
     {
         var texture = new Texture2D(_graphicsDeviceManager.GraphicsDevice, Constants.ScreenWidthPixels, Constants.ScreenHeightPixels);
-       
+
         var data = new Color[Constants.ScreenWidthPixels * Constants.ScreenHeightPixels];
 
         for (var p = 0; p < 0xC000; p++)
@@ -54,9 +54,11 @@ public class VideoRenderer
         }
     }
 
-    private static Color GetColor(ushort pixel)
+    private Color GetColor(ushort pixel)
     {
-        var color = (pixel & 01000_0000_0000_0000) > 0
+        var flash = (pixel & 0b0000_0010_0000_0000) > 0;
+
+        var color = (flash && _flash) ^ ((pixel & 01000_0000_0000_0000) > 0)
                         ? pixel & 0b0000_0111
                         : (pixel & 0b0011_1000) >> 3;
 
@@ -75,20 +77,18 @@ public class VideoRenderer
                 _ => Color.Black
             };
         }
-        else
+
+        return color switch
         {
-            return color switch
-            {
-                0 => Color.Black,
-                1 => Color.DarkBlue,
-                2 => Color.FromNonPremultiplied(192, 0, 0, 255),
-                3 => Color.DarkMagenta,
-                4 => Color.Green,
-                5 => Color.DarkCyan,
-                6 => Color.FromNonPremultiplied(204, 204, 0, 255),
-                7 => Color.LightGray,
-                _ => Color.Black
-            };
-        }
+            0 => Color.Black,
+            1 => Color.DarkBlue,
+            2 => Color.FromNonPremultiplied(192, 0, 0, 255),
+            3 => Color.DarkMagenta,
+            4 => Color.Green,
+            5 => Color.DarkCyan,
+            6 => Color.FromNonPremultiplied(204, 204, 0, 255),
+            7 => Color.LightGray,
+            _ => Color.Black
+        };
     }
 }
