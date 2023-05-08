@@ -143,14 +143,14 @@ public class Motherboard
 
     private void PortDataChanged(ushort port, byte data)
     {
-        if (_pagingDisabled)
-        {
-            return;
-        }
-
         if (port % 2 == 0)
         {
             _videoModulator.Border = (byte) (data & 0b0000_0111);
+        }
+
+        if (_pagingDisabled)
+        {
+            return;
         }
 
         if ((port & 0x01) != 0)
