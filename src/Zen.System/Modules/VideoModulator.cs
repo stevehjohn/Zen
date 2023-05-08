@@ -9,7 +9,7 @@ public class VideoModulator
     private const int ScreenStart = PaperRegionStart - StatesPerScreenLine * Constants.BorderPixels;
 
     private const int ScreenEnd = ScreenStart + StatesPerScreenLine * Constants.ScreenHeightPixels;
-        
+
     private const int StatesPerPaperLine = 128;
 
     private const int StatesPerScreenLine = 224;
@@ -84,9 +84,9 @@ public class VideoModulator
                                            || xS < StatesPerHBorder
                                            || xS >= StatesPerPaperLine + StatesPerHBorder)
             {
-                _screen[pixel] = 0b0000_0000_0011_1000;
+                _screen[pixel] = (byte) (Border << 3);
 
-                _screen[pixel + 1] = 0b0000_0000_0011_1000;
+                _screen[pixel + 1] = (byte) (Border << 3);
 
                 continue;
             }
