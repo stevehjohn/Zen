@@ -260,7 +260,7 @@ public class FileSelect : CharacterOverlayBase
     {
         DrawString(data, "Zen - Load Z80/SNA", 0, 0, Color.White, true);
 
-        DrawString(data, "[ESC] Close Menu", 0, 17, _cancelled ? Color.LightGreen : Color.FromNonPremultiplied(255, 64, 64, 255), true, _cancelled);
+        DrawString(data, "[ESC] Close Menu", 0, 21, _cancelled ? Color.LightGreen : Color.FromNonPremultiplied(255, 64, 64, 255), true, _cancelled);
 
         for (var y = 38; y < 40; y++)
         {
@@ -268,7 +268,7 @@ public class FileSelect : CharacterOverlayBase
             {
                 data[y * Constants.ScreenWidthPixels + x] = Color.White;
 
-                data[(y + 114) * Constants.ScreenWidthPixels + x] = Color.White;
+                data[(y + 146) * Constants.ScreenWidthPixels + x] = Color.White;
             }
         }
     }
