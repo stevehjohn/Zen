@@ -67,6 +67,10 @@ public class Host : Game
     {
         if (! _hostStarted)
         {
+            var loader = new ZenFileAdapter(_motherboard);
+
+            loader.Load("C:\\Users\\steve\\OneDrive\\Documents\\ZXE Snapshots\\Other Images 2023-05-08 20-26.zxe.json");
+
             _motherboard.Start();
 
             _hostStarted = true;
