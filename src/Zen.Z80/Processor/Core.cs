@@ -10,7 +10,9 @@ public class Core
 
     private readonly Instructions _instructions;
 
+#if LOG
     private readonly List<string> _log = new(21_000);
+#endif
 
     public Core(Interface @interface, State state)
     {
@@ -75,7 +77,9 @@ public class Core
 
         instruction.Execute(parameters);
 
+#if LOG
         _log.Add($"PC: {_state.ProgramCounter + (_state.InstructionPrefix > 0xFF ? 2 : 0):X8}  SP: {_state.StackPointer:X4}  AF: {_state[Register.A]:X2}{_state[Register.F]:X2}  F: {_state[Register.F] & 0b1101_0111:X2}  BC: {_state[RegisterPair.BC]:X4}  DE: {_state[RegisterPair.DE]:X4}  HL: {_state[RegisterPair.HL]:X4}  OP: {instruction.OpCode:X8}  {instruction.Mnemonic}");
+#endif
 
         if (_state.InstructionPrefix > 0xFF)
         {
@@ -86,8 +90,10 @@ public class Core
             UpdateR(instruction);
 
             instruction.Execute(parameters[..1]);
-            
+
+#if LOG
             _log.Add($"PC: {_state.ProgramCounter:X8}  SP: {_state.StackPointer:X4}  AF: {_state[Register.A]:X2}{_state[Register.F]:X2}  F: {_state[Register.F] & 0b1101_0111:X2}  BC: {_state[RegisterPair.BC]:X4}  DE: {_state[RegisterPair.DE]:X4}  HL: {_state[RegisterPair.HL]:X4}  OP: {instruction.OpCode:X8}  {instruction.Mnemonic}");
+#endif
 
             _state.LastInstruction = instruction;
 
@@ -99,12 +105,14 @@ public class Core
             HandleInterrupts();
         }
 
+#if LOG
         if (_log.Count >= 1_000)
         {
             File.AppendAllLines("Zen.log", _log);
 
             _log.Clear();
         }
+#endif
     }
 
     private void UpdateR(Instruction instruction)
@@ -158,7 +166,9 @@ public class Core
 
         _state.InterruptFlipFlop1 = _state.InterruptFlipFlop2 = false;
 
+#if LOG
         _log.Add("INT");
+#endif
 
         switch (_state.InterruptMode)
         {
