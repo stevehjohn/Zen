@@ -6,3 +6,4 @@ ToDos, aide memoires, etc...
 
 ## ZexDoc
 
+All pass.
