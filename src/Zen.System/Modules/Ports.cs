@@ -15,13 +15,6 @@ public class Ports
 
     private byte GetPortData(ushort port)
     {
-        if (port == 0xF7FE)
-        {
-            return 0b1011_1101;
-        }
-
-        return 0xFF;
-
         // Kempston.
         if ((port & 0xFF) is 0x1F or 0xDF)
         {

@@ -67,7 +67,7 @@ public class Motherboard
 
         _core = new Core(_interface, _state);
 
-        _ram = new();
+        _ram = new() { ProtectRom = true };
 
         if (model == Model.Spectrum48K)
         {
