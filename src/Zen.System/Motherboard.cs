@@ -148,7 +148,7 @@ public class Motherboard
             return;
         }
 
-        if ((port & 0xFE) > 0)
+        if (port % 2 == 0)
         {
             _videoModulator.Border = (byte) (data & 0b0000_0111);
         }
