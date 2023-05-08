@@ -109,7 +109,7 @@ public class TestRunner
 
         _interface.ReadPort = _ => 0xFF;
 
-        _interface.WritePort = (_, _) => Thread.Sleep(0);
+        _interface.WritePort = (_, _, _) => Thread.Sleep(0);
 
         var tStates = 0;
 

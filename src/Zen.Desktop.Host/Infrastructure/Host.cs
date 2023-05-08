@@ -93,7 +93,7 @@ public class Host : Game
 
         foreach (var port in portData)
         {
-            _motherboard.Interface.WriteToPort(port.Port, port.data);
+            _motherboard.Interface.WriteToPort(port.Port, port.data, true);
         }
 
         if (Keyboard.GetState().IsKeyDown(Keys.F10) && _menuSystem == null)

@@ -6,11 +6,11 @@ public class Ports
 
     private readonly byte?[] _data = new byte?[65_536];
 
-    public byte this[ushort port]
+    public byte this[ushort port, bool suppressEvent = false]
     {
         get => GetPortData(port);
 
-        set => SetPortData(port, value);
+        set => SetPortData(port, value, suppressEvent);
     }
 
     private byte GetPortData(ushort port)
@@ -49,10 +49,15 @@ public class Ports
         return _data[port] ?? 0xFF;
     }
 
-    private void SetPortData(ushort port, byte data)
+    // TODO: suppressEvent is a hack.
+    // Have motherboard expose a property that "peripherals" can attach to and be polled for state.
+    private void SetPortData(ushort port, byte data, bool suppressEvent = false)
     {
         _data[port] = data;
 
-        PortDataChanged(port, data);
+        if (! suppressEvent)
+        {
+            PortDataChanged(port, data);
+        }
     }
 }

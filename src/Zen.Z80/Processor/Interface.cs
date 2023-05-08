@@ -13,7 +13,7 @@ public class Interface
 
     public Func<ushort, byte>? ReadPort { get; set; }
 
-    public Action<ushort, byte>? WritePort { get; set; }
+    public Action<ushort, byte, bool>? WritePort { get; set; }
 
     public byte ReadFromMemory(ushort address)
     {
@@ -30,8 +30,8 @@ public class Interface
         return ReadPort!(port);
     }
 
-    public void WriteToPort(ushort port, byte data)
+    public void WriteToPort(ushort port, byte data, bool suppressEvent = false)
     {
-        WritePort!(port, data);
-    } 
+        WritePort!(port, data, suppressEvent);
+    }
 }

@@ -245,7 +245,7 @@ public class TestRunner
         
         _interface.ReadPort = port => ports[port];
 
-        _interface.WritePort = (port, data) => ports[port] = data;
+        _interface.WritePort = (port, data, _) => ports[port] = data;
 
         _state.ProgramCounter = (ushort) test.Initial.PC;
         _state.StackPointer = (ushort) test.Initial.SP;
