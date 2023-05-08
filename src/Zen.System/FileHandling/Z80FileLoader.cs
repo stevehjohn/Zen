@@ -67,7 +67,20 @@ public class Z80FileLoader : IFileLoader
                 pageData = DecompressV2(data[(offset + 3)..(offset + 3 + pageLength)]);
             }
 
-            _ram.LoadIntoBank((byte) (data[offset + 2] - 3), pageData);
+            if (data[34] is 0 or 1)
+            {
+                var bank = data[offset + 2] switch
+                {
+                    4 => 2,
+                    5 => 0,
+                    8 => 5
+                };
+                _ram.LoadIntoBank((byte) bank, pageData);
+            }
+            else
+            {
+                _ram.LoadIntoBank((byte) (data[offset + 2] - 3), pageData);
+            }
 
             offset += pageLength + 3;
         }
@@ -86,7 +99,7 @@ public class Z80FileLoader : IFileLoader
             var romNumber = (data[35] & 0b0001_0000) >> 4;
 
             // TODO: Do this on the motherboard
-            var folder = _model switch 
+            var folder = _model switch
             {
                 Model.Spectrum128 => "ZX Spectrum 128",
                 Model.SpectrumPlus2 => "ZX Spectrum +2",
