@@ -217,6 +217,7 @@ public class Motherboard
         _ram.LoadRom(LoadRom(romNumber));
     }
 
+    // TODO: This should go on the RAM class.
     private void ConfigureSpecialPaging(int configurationId)
     {
         switch (configurationId)
