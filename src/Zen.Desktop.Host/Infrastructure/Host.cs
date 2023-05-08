@@ -173,8 +173,8 @@ public class Host : Game
     {
         _scaleFactor = scale;
 
-        _graphicsDeviceManager.PreferredBackBufferWidth = 256 * _scaleFactor;
-        _graphicsDeviceManager.PreferredBackBufferHeight = 192 * _scaleFactor;
+        _graphicsDeviceManager.PreferredBackBufferWidth = Constants.ScreenWidthPixels * _scaleFactor;
+        _graphicsDeviceManager.PreferredBackBufferHeight = Constants.ScreenHeightPixels * _scaleFactor;
 
         _graphicsDeviceManager.ApplyChanges();
 
