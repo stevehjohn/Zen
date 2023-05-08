@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using System;
 using System.IO;
 using System.Linq;
+using Zen.Common;
 using Zen.Desktop.Host.Display;
 using Zen.Desktop.Host.Infrastructure.Menu;
 using Zen.Desktop.Host.Infrastructure.Settings;
@@ -38,8 +39,8 @@ public class Host : Game
     {
         _graphicsDeviceManager = new GraphicsDeviceManager(this)
         {
-            PreferredBackBufferWidth = 256 * _scaleFactor,
-            PreferredBackBufferHeight = 192 * _scaleFactor
+            PreferredBackBufferWidth = Constants.ScreenWidthPixels * _scaleFactor,
+            PreferredBackBufferHeight = Constants.ScreenHeightPixels * _scaleFactor
         };
 
         Content.RootDirectory = "_Content";
@@ -172,8 +173,8 @@ public class Host : Game
     {
         _scaleFactor = scale;
 
-        _graphicsDeviceManager.PreferredBackBufferWidth = 256 * _scaleFactor;
-        _graphicsDeviceManager.PreferredBackBufferHeight = 192 * _scaleFactor;
+        _graphicsDeviceManager.PreferredBackBufferWidth = Constants.ScreenWidthPixels * _scaleFactor;
+        _graphicsDeviceManager.PreferredBackBufferHeight = Constants.ScreenHeightPixels * _scaleFactor;
 
         _graphicsDeviceManager.ApplyChanges();
 
@@ -261,7 +262,7 @@ public class Host : Game
 
         _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp);
 
-        _spriteBatch.Draw(screen, new Rectangle(0, 0, 256 * _scaleFactor, 192 * _scaleFactor), new Rectangle(0, 0, 256, 192), Color.White);
+        _spriteBatch.Draw(screen, new Rectangle(0, 0, Constants.ScreenWidthPixels * _scaleFactor, Constants.ScreenHeightPixels * _scaleFactor), new Rectangle(0, 0, Constants.ScreenWidthPixels, Constants.ScreenHeightPixels), Color.White);
 
         _spriteBatch.End();
 

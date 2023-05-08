@@ -34,7 +34,7 @@ public class VideoRenderer
 
         var data = new Color[Constants.ScreenWidthPixels * Constants.ScreenHeightPixels];
 
-        for (var p = 0; p < 0xC000; p++)
+        for (var p = 0; p < Constants.ScreenWidthPixels * Constants.ScreenHeightPixels; p++)
         {
             data[p] = GetColor(_screenFrame[p]);
         }

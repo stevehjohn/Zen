@@ -19,7 +19,7 @@ public class FileSelect : CharacterOverlayBase
 
     private const int SelectDelayFramesVerySlow = 24;
 
-    private const int FileRows = 12;
+    private const int FileRows = 16;
 
     private string _path;
 
@@ -260,15 +260,15 @@ public class FileSelect : CharacterOverlayBase
     {
         DrawString(data, "Zen - Load Z80/SNA", 0, 0, Color.White, true);
 
-        DrawString(data, "[ESC] Close Menu", 0, 17, _cancelled ? Color.LightGreen : Color.FromNonPremultiplied(255, 64, 64, 255), true, _cancelled);
+        DrawString(data, "[ESC] Close Menu", 0, 21, _cancelled ? Color.LightGreen : Color.FromNonPremultiplied(255, 64, 64, 255), true, _cancelled);
 
         for (var y = 38; y < 40; y++)
         {
-            for (var x = 24; x < 232; x++)
+            for (var x = 24; x < 264; x++)
             {
                 data[y * Constants.ScreenWidthPixels + x] = Color.White;
 
-                data[(y + 114) * Constants.ScreenWidthPixels + x] = Color.White;
+                data[(y + 146) * Constants.ScreenWidthPixels + x] = Color.White;
             }
         }
     }
