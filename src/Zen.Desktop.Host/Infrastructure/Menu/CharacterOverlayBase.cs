@@ -158,7 +158,7 @@ public class CharacterOverlayBase
                     continue;
                 }
 
-                data[(3 + y) * 2048 + (x + 4) * 8 + ix + iy * 256 + xOffset] = textColor;
+                data[(3 + y) * 2304 + (x + 4) * 8 + ix + iy * 288 + xOffset] = textColor;
             }
         }
     }
