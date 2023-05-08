@@ -109,9 +109,9 @@ public class Motherboard
         return _ports[port];
     }
 
-    private void WritePort(ushort port, byte data)
+    private void WritePort(ushort port, byte data, bool suppressEvent = false)
     {
-        _ports[port] = data;
+        _ports[port, suppressEvent] = data;
     }
 
     public void Start()
