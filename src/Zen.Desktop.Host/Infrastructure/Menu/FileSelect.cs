@@ -19,7 +19,7 @@ public class FileSelect : CharacterOverlayBase
 
     private const int SelectDelayFramesVerySlow = 24;
 
-    private const int FileRows = 12;
+    private const int FileRows = 16;
 
     private string _path;
 
