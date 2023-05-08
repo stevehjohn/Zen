@@ -47,15 +47,15 @@ public class CharacterOverlayBase
     
     protected static void DrawWindow(Color[] data)
     {
-        for (var y = 16; y < 176; y++)
+        for (var y = 16; y < 208; y++)
         {
-            for (var x = 24; x < 232; x++)
+            for (var x = 24; x < 264; x++)
             {
                 var i = y * Constants.ScreenWidthPixels + x;
 
                 var color = data[i];
 
-                color = y < 18 || y > 173 || x < 26 || x > 229 ? Color.White : Color.FromNonPremultiplied(color.R / 5, color.G / 5, color.B / 5, color.A);
+                color = y < 18 || y > 205 || x < 26 || x > 261 ? Color.White : Color.FromNonPremultiplied(color.R / 5, color.G / 5, color.B / 5, color.A);
 
                 data[i] = color;
             }
