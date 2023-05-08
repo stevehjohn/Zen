@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using Zen.Common;
+﻿using Zen.Common;
 
 namespace Zen.System.Modules;
 
@@ -85,9 +84,9 @@ public class VideoModulator
                                            || xS < StatesPerHBorder
                                            || xS >= StatesPerPaperLine + StatesPerHBorder)
             {
-                _screen[pixel] = 0b0000_0010_0011_1000;
+                _screen[pixel] = 0b0000_0000_0011_1000;
 
-                _screen[pixel + 1] = 0b0000_0010_0011_1000;
+                _screen[pixel + 1] = 0b0000_0000_0011_1000;
 
                 continue;
             }
