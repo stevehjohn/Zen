@@ -264,7 +264,7 @@ public class FileSelect : CharacterOverlayBase
 
         for (var y = 38; y < 40; y++)
         {
-            for (var x = 24; x < 232; x++)
+            for (var x = 24; x < 264; x++)
             {
                 data[y * Constants.ScreenWidthPixels + x] = Color.White;
 

@@ -68,7 +68,7 @@ public class CharacterOverlayBase
 
         if (centered)
         {
-            x = 12 - text.Length / 2;
+            x = 14 - text.Length / 2;
 
             if (text.Length % 2 == 1)
             {
@@ -100,12 +100,12 @@ public class CharacterOverlayBase
 
                 for (var ix = 26; ix < (x + 4) * 8; ix++)
                 {
-                    data[(3 + y) * 2048 + ix + iy * 256 + xOffset] = lineColor;
+                    data[(3 + y) * 2304 + ix + iy * 288 + xOffset] = lineColor;
                 }
 
                 for (var ix = (4 + x + text.Length) * 8; ix < 230; ix++)
                 {
-                    data[(3 + y) * 2048 + ix + iy * 256 + xOffset] = lineColor;
+                    data[(3 + y) * 2304 + ix + iy * 288 + xOffset] = lineColor;
                 }
             }
         }
