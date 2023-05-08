@@ -103,7 +103,7 @@ public class CharacterOverlayBase
                     data[(3 + y) * 2304 + ix + iy * 288 + xOffset] = lineColor;
                 }
 
-                for (var ix = (4 + x + text.Length) * 8; ix < 230; ix++)
+                for (var ix = (4 + x + text.Length) * 8; ix < 262; ix++)
                 {
                     data[(3 + y) * 2304 + ix + iy * 288 + xOffset] = lineColor;
                 }
