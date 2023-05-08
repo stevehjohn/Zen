@@ -48,6 +48,11 @@ public class Ram
         _mappings[1] = _banks[5];
         _mappings[2] = _banks[2];
         _mappings[3] = _banks[0];
+
+        _slots[0] = 8;
+        _slots[1] = 5;
+        _slots[2] = 2;
+        _slots[3] = 0;
     }
 
     public byte this[ushort address]
@@ -66,7 +71,14 @@ public class Ram
 
     public void SetBank(byte slotNumber, byte bankNumber)
     {
-        _mappings[slotNumber] = _banks[bankNumber];
+        if (bankNumber < 8)
+        {
+            _mappings[slotNumber] = _banks[bankNumber];
+        }
+        else
+        {
+            _mappings[slotNumber] = _rom;
+        }
 
         _slots[slotNumber] = bankNumber;
     }

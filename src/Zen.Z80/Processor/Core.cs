@@ -10,6 +10,8 @@ public class Core
 
     private readonly Instructions _instructions;
 
+    private readonly List<string> _log = new(21_000);
+
     public Core(Interface @interface, State state)
     {
         _interface = @interface;
@@ -17,6 +19,8 @@ public class Core
         _state = state;
 
         _instructions = new Instructions(_interface, _state);
+
+        File.Delete("Zen.log");
     }
 
     public void ExecuteCycle()
@@ -71,6 +75,8 @@ public class Core
 
         instruction.Execute(parameters);
 
+        _log.Add($"PC: {_state.ProgramCounter + (_state.InstructionPrefix > 0xFF ? 2 : 0):X8}  SP: {_state.StackPointer:X4}  AF: {_state[Register.A]:X2}{_state[Register.F]:X2}  F: {_state[Register.F] & 0b1101_0111:X2}  BC: {_state[RegisterPair.BC]:X4}  DE: {_state[RegisterPair.DE]:X4}  HL: {_state[RegisterPair.HL]:X4}  OP: {instruction.OpCode:X8}  {instruction.Mnemonic}");
+
         if (_state.InstructionPrefix > 0xFF)
         {
             opcode = _state.InstructionPrefix << 8 | parameters[1];
@@ -80,6 +86,8 @@ public class Core
             UpdateR(instruction);
 
             instruction.Execute(parameters[..1]);
+            
+            _log.Add($"PC: {_state.ProgramCounter:X8}  SP: {_state.StackPointer:X4}  AF: {_state[Register.A]:X2}{_state[Register.F]:X2}  F: {_state[Register.F] & 0b1101_0111:X2}  BC: {_state[RegisterPair.BC]:X4}  DE: {_state[RegisterPair.DE]:X4}  HL: {_state[RegisterPair.HL]:X4}  OP: {instruction.OpCode:X8}  {instruction.Mnemonic}");
 
             _state.LastInstruction = instruction;
 
@@ -89,6 +97,13 @@ public class Core
         if (! instruction.Mnemonic.StartsWith("PREFIX") && _state.InstructionPrefix == 0 && ! _state.IgnoreNextInterrupt)
         {
             HandleInterrupts();
+        }
+
+        if (_log.Count >= 1_000)
+        {
+            File.AppendAllLines("Zen.log", _log);
+
+            _log.Clear();
         }
     }
 
@@ -142,6 +157,8 @@ public class Core
         }
 
         _state.InterruptFlipFlop1 = _state.InterruptFlipFlop2 = false;
+
+        _log.Add("INT");
 
         switch (_state.InterruptMode)
         {
