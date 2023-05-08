@@ -78,7 +78,7 @@ public class VideoModulator
 
             if (pixel >= ScreenPixelCount)
             {
-                continue;
+                break;
             }
 
             if (y < Constants.BorderPixels || y >= Constants.PaperHeightPixels + Constants.BorderPixels
