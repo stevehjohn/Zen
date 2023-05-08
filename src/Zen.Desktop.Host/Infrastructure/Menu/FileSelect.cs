@@ -248,12 +248,17 @@ public class FileSelect : CharacterOverlayBase
 
     private static string TruncateFileName(string filename)
     {
-        if (filename.Length < 25)
+        if (filename.Length < 29)
         {
             return filename;
         }
 
-        return $"{filename[..17]}..{Path.GetExtension(filename)}";
+        if (string.IsNullOrWhiteSpace(Path.GetExtension(filename)))
+        {
+            return $"{filename[..25]}...";
+        }
+
+        return $"{filename[..21]}..{Path.GetExtension(filename)}";
     }
 
     private void DrawStaticItems(Color[] data)
