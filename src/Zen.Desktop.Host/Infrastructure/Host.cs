@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using System;
 using System.IO;
 using System.Linq;
+using Zen.Common;
 using Zen.Desktop.Host.Display;
 using Zen.Desktop.Host.Infrastructure.Menu;
 using Zen.Desktop.Host.Infrastructure.Settings;
@@ -38,8 +39,8 @@ public class Host : Game
     {
         _graphicsDeviceManager = new GraphicsDeviceManager(this)
         {
-            PreferredBackBufferWidth = 256 * _scaleFactor,
-            PreferredBackBufferHeight = 192 * _scaleFactor
+            PreferredBackBufferWidth = Constants.ScreenWidthPixels * _scaleFactor,
+            PreferredBackBufferHeight = Constants.ScreenHeightPixels * _scaleFactor
         };
 
         Content.RootDirectory = "_Content";
