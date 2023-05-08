@@ -1,4 +1,5 @@
-﻿using Zen.Z80.Implementation;
+﻿// #define LOG
+using Zen.Z80.Implementation;
 
 namespace Zen.Z80.Processor;
 
@@ -106,7 +107,7 @@ public class Core
         }
 
 #if LOG
-        if (_log.Count >= 1_000)
+        if (_log.Count >= 20_000)
         {
             File.AppendAllLines("Zen.log", _log);
 
