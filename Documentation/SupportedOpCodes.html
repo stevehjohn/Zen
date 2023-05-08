@@ -1,0 +1,2335 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+    <title>Currently Implemented Instructions</title>
+    <style type="text/css">
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200&display=swap');
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        table {
+            width: 100%;
+            table-layout: fixed;
+        }
+
+        tr {
+            height: 3em;
+        }
+
+        th {
+            background-color: cadetblue;
+        }
+
+        td {
+            text-align: center;
+        }
+
+        .empty {
+            background-color: lightgrey;
+        }
+
+        .done {
+            background-color: limegreen;
+            font-weight: bolder;
+            color: black;
+        }
+
+        .table-title {
+            width: 100%;
+            text-align: center;
+            font-weight: bolder;
+            font-size: x-large;
+            margin-top: 2em;
+            margin-bottom: 1em;
+        }
+    </style>
+</head>
+<body>
+<div class="table-title">Base OpCodes</div>
+<table>
+  <tr>
+    <td></td>
+    <th>0</th>
+    <th>1</th>
+    <th>2</th>
+    <th>3</th>
+    <th>4</th>
+    <th>5</th>
+    <th>6</th>
+    <th>7</th>
+    <th>8</th>
+    <th>9</th>
+    <th>A</th>
+    <th>B</th>
+    <th>C</th>
+    <th>D</th>
+    <th>E</th>
+    <th>F</th>
+  </tr>
+  <tr>
+    <th>0</th>
+    <td class="done">NOP</td>
+    <td class="done">LD BC, nn</td>
+    <td class="done">LD (BC), A</td>
+    <td class="done">INC BC</td>
+    <td class="done">INC B</td>
+    <td class="done">DEC B</td>
+    <td class="done">LD B, n</td>
+    <td class="done">RLCA</td>
+    <td class="done">EX AF, AF'</td>
+    <td class="done">ADD HL, BC</td>
+    <td class="done">LD A, (BC)</td>
+    <td class="done">DEC BC</td>
+    <td class="done">INC C</td>
+    <td class="done">DEC C</td>
+    <td class="done">LD C, n</td>
+    <td class="done">RRCA</td>
+  </tr>
+  <tr>
+    <th>1</th>
+    <td class="done">DJNZ e</td>
+    <td class="done">LD DE, nn</td>
+    <td class="done">LD (DE), A</td>
+    <td class="done">INC DE</td>
+    <td class="done">INC D</td>
+    <td class="done">DEC D</td>
+    <td class="done">LD D, n</td>
+    <td class="done">RLA</td>
+    <td class="done">JR e</td>
+    <td class="done">ADD HL, DE</td>
+    <td class="done">LD A, (DE)</td>
+    <td class="done">DEC DE</td>
+    <td class="done">INC E</td>
+    <td class="done">DEC E</td>
+    <td class="done">LD E, n</td>
+    <td class="done">RRA</td>
+  </tr>
+  <tr>
+    <th>2</th>
+    <td class="done">JR NZ, e</td>
+    <td class="done">LD HL, nn</td>
+    <td class="done">LD (nn), HL</td>
+    <td class="done">INC HL</td>
+    <td class="done">INC H</td>
+    <td class="done">DEC H</td>
+    <td class="done">LD H, n</td>
+    <td class="done">DAA</td>
+    <td class="done">JR Z, e</td>
+    <td class="done">ADD HL, HL</td>
+    <td class="done">LD HL, (nn)</td>
+    <td class="done">DEC HL</td>
+    <td class="done">INC L</td>
+    <td class="done">DEC L</td>
+    <td class="done">LD L, n</td>
+    <td class="done">CPL</td>
+  </tr>
+  <tr>
+    <th>3</th>
+    <td class="done">JR NC, e</td>
+    <td class="done">LD SP, nn</td>
+    <td class="done">LD (nn), A</td>
+    <td class="done">INC SP</td>
+    <td class="done">INC (HL)</td>
+    <td class="done">DEC (HL)</td>
+    <td class="done">LD (HL), n</td>
+    <td class="done">SCF</td>
+    <td class="done">JR C, e</td>
+    <td class="done">ADD HL, SP</td>
+    <td class="done">LD A, (nn)</td>
+    <td class="done">DEC SP</td>
+    <td class="done">INC A</td>
+    <td class="done">DEC A</td>
+    <td class="done">LD A, n</td>
+    <td class="done">CCF</td>
+  </tr>
+  <tr>
+    <th>4</th>
+    <td class="done">LD B, B</td>
+    <td class="done">LD B, C</td>
+    <td class="done">LD B, D</td>
+    <td class="done">LD B, E</td>
+    <td class="done">LD B, H</td>
+    <td class="done">LD B, L</td>
+    <td class="done">LD B, (HL)</td>
+    <td class="done">LD B, A</td>
+    <td class="done">LD C, B</td>
+    <td class="done">LD C, C</td>
+    <td class="done">LD C, D</td>
+    <td class="done">LD C, E</td>
+    <td class="done">LD C, H</td>
+    <td class="done">LD C, L</td>
+    <td class="done">LD C, (HL)</td>
+    <td class="done">LD C, A</td>
+  </tr>
+  <tr>
+    <th>5</th>
+    <td class="done">LD D, B</td>
+    <td class="done">LD D, C</td>
+    <td class="done">LD D, D</td>
+    <td class="done">LD D, E</td>
+    <td class="done">LD D, H</td>
+    <td class="done">LD D, L</td>
+    <td class="done">LD D, (HL)</td>
+    <td class="done">LD D, A</td>
+    <td class="done">LD E, B</td>
+    <td class="done">LD E, C</td>
+    <td class="done">LD E, D</td>
+    <td class="done">LD E, E</td>
+    <td class="done">LD E, H</td>
+    <td class="done">LD E, L</td>
+    <td class="done">LD E, (HL)</td>
+    <td class="done">LD E, A</td>
+  </tr>
+  <tr>
+    <th>6</th>
+    <td class="done">LD H, B</td>
+    <td class="done">LD H, C</td>
+    <td class="done">LD H, D</td>
+    <td class="done">LD H, E</td>
+    <td class="done">LD H, H</td>
+    <td class="done">LD H, L</td>
+    <td class="done">LD H, (HL)</td>
+    <td class="done">LD H, A</td>
+    <td class="done">LD L, B</td>
+    <td class="done">LD L, C</td>
+    <td class="done">LD L, D</td>
+    <td class="done">LD L, E</td>
+    <td class="done">LD L, H</td>
+    <td class="done">LD L, L</td>
+    <td class="done">LD L, (HL)</td>
+    <td class="done">LD L, A</td>
+  </tr>
+  <tr>
+    <th>7</th>
+    <td class="done">LD (HL), B</td>
+    <td class="done">LD (HL), C</td>
+    <td class="done">LD (HL), D</td>
+    <td class="done">LD (HL), E</td>
+    <td class="done">LD (HL), H</td>
+    <td class="done">LD (HL), L</td>
+    <td class="done">HALT</td>
+    <td class="done">LD (HL), A</td>
+    <td class="done">LD A, B</td>
+    <td class="done">LD A, C</td>
+    <td class="done">LD A, D</td>
+    <td class="done">LD A, E</td>
+    <td class="done">LD A, H</td>
+    <td class="done">LD A, L</td>
+    <td class="done">LD A, (HL)</td>
+    <td class="done">LD A, A</td>
+  </tr>
+  <tr>
+    <th>8</th>
+    <td class="done">ADD A, B</td>
+    <td class="done">ADD A, C</td>
+    <td class="done">ADD A, D</td>
+    <td class="done">ADD A, E</td>
+    <td class="done">ADD A, H</td>
+    <td class="done">ADD A, L</td>
+    <td class="done">ADD A, (HL)</td>
+    <td class="done">ADD A, A</td>
+    <td class="done">ADC A, B</td>
+    <td class="done">ADC A, C</td>
+    <td class="done">ADC A, D</td>
+    <td class="done">ADC A, E</td>
+    <td class="done">ADC A, H</td>
+    <td class="done">ADC A, L</td>
+    <td class="done">ADC A, (HL)</td>
+    <td class="done">ADC A, A</td>
+  </tr>
+  <tr>
+    <th>9</th>
+    <td class="done">SUB A, B</td>
+    <td class="done">SUB A, C</td>
+    <td class="done">SUB A, D</td>
+    <td class="done">SUB A, E</td>
+    <td class="done">SUB A, H</td>
+    <td class="done">SUB A, L</td>
+    <td class="done">SUB A, (HL)</td>
+    <td class="done">SUB A, A</td>
+    <td class="done">SBC A, B</td>
+    <td class="done">SBC A, C</td>
+    <td class="done">SBC A, D</td>
+    <td class="done">SBC A, E</td>
+    <td class="done">SBC A, H</td>
+    <td class="done">SBC A, L</td>
+    <td class="done">SBC A, (HL)</td>
+    <td class="done">SBC A, A</td>
+  </tr>
+  <tr>
+    <th>A</th>
+    <td class="done">AND A, B</td>
+    <td class="done">AND A, C</td>
+    <td class="done">AND A, D</td>
+    <td class="done">AND A, E</td>
+    <td class="done">AND A, H</td>
+    <td class="done">AND A, L</td>
+    <td class="done">AND A, (HL)</td>
+    <td class="done">AND A, A</td>
+    <td class="done">XOR A, B</td>
+    <td class="done">XOR A, C</td>
+    <td class="done">XOR A, D</td>
+    <td class="done">XOR A, E</td>
+    <td class="done">XOR A, H</td>
+    <td class="done">XOR A, L</td>
+    <td class="done">XOR A, (HL)</td>
+    <td class="done">XOR A, A</td>
+  </tr>
+  <tr>
+    <th>B</th>
+    <td class="done">OR A, B</td>
+    <td class="done">OR A, C</td>
+    <td class="done">OR A, D</td>
+    <td class="done">OR A, E</td>
+    <td class="done">OR A, H</td>
+    <td class="done">OR A, L</td>
+    <td class="done">OR A, (HL)</td>
+    <td class="done">OR A, A</td>
+    <td class="done">CP A, B</td>
+    <td class="done">CP A, C</td>
+    <td class="done">CP A, D</td>
+    <td class="done">CP A, E</td>
+    <td class="done">CP A, H</td>
+    <td class="done">CP A, L</td>
+    <td class="done">CP A, (HL)</td>
+    <td class="done">CP A, A</td>
+  </tr>
+  <tr>
+    <th>C</th>
+    <td class="done">RET NZ</td>
+    <td class="done">POP BC</td>
+    <td class="done">JP NZ, nn</td>
+    <td class="done">JP nn</td>
+    <td class="done">CALL NZ, nn</td>
+    <td class="done">PUSH BC</td>
+    <td class="done">ADD A, n</td>
+    <td class="done">RST 0x00</td>
+    <td class="done">RET Z</td>
+    <td class="done">RET</td>
+    <td class="done">JP Z, nn</td>
+    <td class="done">PREFIX 0xCB</td>
+    <td class="done">CALL Z, nn</td>
+    <td class="done">CALL nn</td>
+    <td class="done">ADC A, n</td>
+    <td class="done">RST 0x08</td>
+  </tr>
+  <tr>
+    <th>D</th>
+    <td class="done">RET NC</td>
+    <td class="done">POP DE</td>
+    <td class="done">JP NC, nn</td>
+    <td class="done">OUT (n), A</td>
+    <td class="done">CALL NC, nn</td>
+    <td class="done">PUSH DE</td>
+    <td class="done">SUB A, n</td>
+    <td class="done">RST 0x10</td>
+    <td class="done">RET C</td>
+    <td class="done">EXX</td>
+    <td class="done">JP C, nn</td>
+    <td class="done">IN A, n</td>
+    <td class="done">CALL C, nn</td>
+    <td class="done">PREFIX 0xDD</td>
+    <td class="done">SBC A, n</td>
+    <td class="done">RST 0x18</td>
+  </tr>
+  <tr>
+    <th>E</th>
+    <td class="done">RET PO</td>
+    <td class="done">POP HL</td>
+    <td class="done">JP PO, nn</td>
+    <td class="done">EX (SP), HL</td>
+    <td class="done">CALL PO, nn</td>
+    <td class="done">PUSH HL</td>
+    <td class="done">AND A, n</td>
+    <td class="done">RST 0x20</td>
+    <td class="done">RET PE</td>
+    <td class="done">JP (HL)</td>
+    <td class="done">JP PE, nn</td>
+    <td class="done">EX DE, HL</td>
+    <td class="done">CALL PE, nn</td>
+    <td class="done">PREFIX 0xED</td>
+    <td class="done">XOR A, n</td>
+    <td class="done">RST 0x28</td>
+  </tr>
+  <tr>
+    <th>F</th>
+    <td class="done">RET NS</td>
+    <td class="done">POP AF</td>
+    <td class="done">JP NS, nn</td>
+    <td class="done">DI</td>
+    <td class="done">CALL NS, nn</td>
+    <td class="done">PUSH AF</td>
+    <td class="done">OR A, n</td>
+    <td class="done">RST 0x30</td>
+    <td class="done">RET S</td>
+    <td class="done">LD SP, HL</td>
+    <td class="done">JP S, nn</td>
+    <td class="done">EI</td>
+    <td class="done">CALL S, nn</td>
+    <td class="done">PREFIX 0xFD</td>
+    <td class="done">CP A, n</td>
+    <td class="done">RST 0x38</td>
+  </tr>
+</table>
+<div class="table-title">CB OpCodes</div>
+<table>
+  <tr>
+    <td></td>
+    <th>0</th>
+    <th>1</th>
+    <th>2</th>
+    <th>3</th>
+    <th>4</th>
+    <th>5</th>
+    <th>6</th>
+    <th>7</th>
+    <th>8</th>
+    <th>9</th>
+    <th>A</th>
+    <th>B</th>
+    <th>C</th>
+    <th>D</th>
+    <th>E</th>
+    <th>F</th>
+  </tr>
+  <tr>
+    <th>0</th>
+    <td class="done">RLC B</td>
+    <td class="done">RLC C</td>
+    <td class="done">RLC D</td>
+    <td class="done">RLC E</td>
+    <td class="done">RLC H</td>
+    <td class="done">RLC L</td>
+    <td class="done">RLC (HL)</td>
+    <td class="done">RLC A</td>
+    <td class="done">RRC B</td>
+    <td class="done">RRC C</td>
+    <td class="done">RRC D</td>
+    <td class="done">RRC E</td>
+    <td class="done">RRC H</td>
+    <td class="done">RRC L</td>
+    <td class="done">RRC (HL)</td>
+    <td class="done">RRC A</td>
+  </tr>
+  <tr>
+    <th>1</th>
+    <td class="done">RL B</td>
+    <td class="done">RL C</td>
+    <td class="done">RL D</td>
+    <td class="done">RL E</td>
+    <td class="done">RL H</td>
+    <td class="done">RL L</td>
+    <td class="done">RL (HL)</td>
+    <td class="done">RL A</td>
+    <td class="done">RR B</td>
+    <td class="done">RR C</td>
+    <td class="done">RR D</td>
+    <td class="done">RR E</td>
+    <td class="done">RR H</td>
+    <td class="done">RR L</td>
+    <td class="done">RR (HL)</td>
+    <td class="done">RR A</td>
+  </tr>
+  <tr>
+    <th>2</th>
+    <td class="done">SLA B</td>
+    <td class="done">SLA C</td>
+    <td class="done">SLA D</td>
+    <td class="done">SLA E</td>
+    <td class="done">SLA H</td>
+    <td class="done">SLA L</td>
+    <td class="done">SLA (HL)</td>
+    <td class="done">SLA A</td>
+    <td class="done">SRA B</td>
+    <td class="done">SRA C</td>
+    <td class="done">SRA D</td>
+    <td class="done">SRA E</td>
+    <td class="done">SRA H</td>
+    <td class="done">SRA L</td>
+    <td class="done">SRA (HL)</td>
+    <td class="done">SRA A</td>
+  </tr>
+  <tr>
+    <th>3</th>
+    <td class="done">SLL B</td>
+    <td class="done">SLL C</td>
+    <td class="done">SLL D</td>
+    <td class="done">SLL E</td>
+    <td class="done">SLL H</td>
+    <td class="done">SLL L</td>
+    <td class="done">SLL (HL)</td>
+    <td class="done">SLL A</td>
+    <td class="done">SRL B</td>
+    <td class="done">SRL C</td>
+    <td class="done">SRL D</td>
+    <td class="done">SRL E</td>
+    <td class="done">SRL H</td>
+    <td class="done">SRL L</td>
+    <td class="done">SRL (HL)</td>
+    <td class="done">SRL A</td>
+  </tr>
+  <tr>
+    <th>4</th>
+    <td class="done">BIT 0, B</td>
+    <td class="done">BIT 0, C</td>
+    <td class="done">BIT 0, D</td>
+    <td class="done">BIT 0, E</td>
+    <td class="done">BIT 0, H</td>
+    <td class="done">BIT 0, L</td>
+    <td class="done">BIT 0, (HL)</td>
+    <td class="done">BIT 0, A</td>
+    <td class="done">BIT 1, B</td>
+    <td class="done">BIT 1, C</td>
+    <td class="done">BIT 1, D</td>
+    <td class="done">BIT 1, E</td>
+    <td class="done">BIT 1, H</td>
+    <td class="done">BIT 1, L</td>
+    <td class="done">BIT 1, (HL)</td>
+    <td class="done">BIT 1, A</td>
+  </tr>
+  <tr>
+    <th>5</th>
+    <td class="done">BIT 2, B</td>
+    <td class="done">BIT 2, C</td>
+    <td class="done">BIT 2, D</td>
+    <td class="done">BIT 2, E</td>
+    <td class="done">BIT 2, H</td>
+    <td class="done">BIT 2, L</td>
+    <td class="done">BIT 2, (HL)</td>
+    <td class="done">BIT 2, A</td>
+    <td class="done">BIT 3, B</td>
+    <td class="done">BIT 3, C</td>
+    <td class="done">BIT 3, D</td>
+    <td class="done">BIT 3, E</td>
+    <td class="done">BIT 3, H</td>
+    <td class="done">BIT 3, L</td>
+    <td class="done">BIT 3, (HL)</td>
+    <td class="done">BIT 3, A</td>
+  </tr>
+  <tr>
+    <th>6</th>
+    <td class="done">BIT 4, B</td>
+    <td class="done">BIT 4, C</td>
+    <td class="done">BIT 4, D</td>
+    <td class="done">BIT 4, E</td>
+    <td class="done">BIT 4, H</td>
+    <td class="done">BIT 4, L</td>
+    <td class="done">BIT 4, (HL)</td>
+    <td class="done">BIT 4, A</td>
+    <td class="done">BIT 5, B</td>
+    <td class="done">BIT 5, C</td>
+    <td class="done">BIT 5, D</td>
+    <td class="done">BIT 5, E</td>
+    <td class="done">BIT 5, H</td>
+    <td class="done">BIT 5, L</td>
+    <td class="done">BIT 5, (HL)</td>
+    <td class="done">BIT 5, A</td>
+  </tr>
+  <tr>
+    <th>7</th>
+    <td class="done">BIT 6, B</td>
+    <td class="done">BIT 6, C</td>
+    <td class="done">BIT 6, D</td>
+    <td class="done">BIT 6, E</td>
+    <td class="done">BIT 6, H</td>
+    <td class="done">BIT 6, L</td>
+    <td class="done">BIT 6, (HL)</td>
+    <td class="done">BIT 6, A</td>
+    <td class="done">BIT 7, B</td>
+    <td class="done">BIT 7, C</td>
+    <td class="done">BIT 7, D</td>
+    <td class="done">BIT 7, E</td>
+    <td class="done">BIT 7, H</td>
+    <td class="done">BIT 7, L</td>
+    <td class="done">BIT 7, (HL)</td>
+    <td class="done">BIT 7, A</td>
+  </tr>
+  <tr>
+    <th>8</th>
+    <td class="done">RES 0, B</td>
+    <td class="done">RES 0, C</td>
+    <td class="done">RES 0, D</td>
+    <td class="done">RES 0, E</td>
+    <td class="done">RES 0, H</td>
+    <td class="done">RES 0, L</td>
+    <td class="done">RES 0, (HL)</td>
+    <td class="done">RES 0, A</td>
+    <td class="done">RES 1, B</td>
+    <td class="done">RES 1, C</td>
+    <td class="done">RES 1, D</td>
+    <td class="done">RES 1, E</td>
+    <td class="done">RES 1, H</td>
+    <td class="done">RES 1, L</td>
+    <td class="done">RES 1, (HL)</td>
+    <td class="done">RES 1, A</td>
+  </tr>
+  <tr>
+    <th>9</th>
+    <td class="done">RES 2, B</td>
+    <td class="done">RES 2, C</td>
+    <td class="done">RES 2, D</td>
+    <td class="done">RES 2, E</td>
+    <td class="done">RES 2, H</td>
+    <td class="done">RES 2, L</td>
+    <td class="done">RES 2, (HL)</td>
+    <td class="done">RES 2, A</td>
+    <td class="done">RES 3, B</td>
+    <td class="done">RES 3, C</td>
+    <td class="done">RES 3, D</td>
+    <td class="done">RES 3, E</td>
+    <td class="done">RES 3, H</td>
+    <td class="done">RES 3, L</td>
+    <td class="done">RES 3, (HL)</td>
+    <td class="done">RES 3, A</td>
+  </tr>
+  <tr>
+    <th>A</th>
+    <td class="done">RES 4, B</td>
+    <td class="done">RES 4, C</td>
+    <td class="done">RES 4, D</td>
+    <td class="done">RES 4, E</td>
+    <td class="done">RES 4, H</td>
+    <td class="done">RES 4, L</td>
+    <td class="done">RES 4, (HL)</td>
+    <td class="done">RES 4, A</td>
+    <td class="done">RES 5, B</td>
+    <td class="done">RES 5, C</td>
+    <td class="done">RES 5, D</td>
+    <td class="done">RES 5, E</td>
+    <td class="done">RES 5, H</td>
+    <td class="done">RES 5, L</td>
+    <td class="done">RES 5, (HL)</td>
+    <td class="done">RES 5, A</td>
+  </tr>
+  <tr>
+    <th>B</th>
+    <td class="done">RES 6, B</td>
+    <td class="done">RES 6, C</td>
+    <td class="done">RES 6, D</td>
+    <td class="done">RES 6, E</td>
+    <td class="done">RES 6, H</td>
+    <td class="done">RES 6, L</td>
+    <td class="done">RES 6, (HL)</td>
+    <td class="done">RES 6, A</td>
+    <td class="done">RES 7, B</td>
+    <td class="done">RES 7, C</td>
+    <td class="done">RES 7, D</td>
+    <td class="done">RES 7, E</td>
+    <td class="done">RES 7, H</td>
+    <td class="done">RES 7, L</td>
+    <td class="done">RES 7, (HL)</td>
+    <td class="done">RES 7, A</td>
+  </tr>
+  <tr>
+    <th>C</th>
+    <td class="done">SET 0, B</td>
+    <td class="done">SET 0, C</td>
+    <td class="done">SET 0, D</td>
+    <td class="done">SET 0, E</td>
+    <td class="done">SET 0, H</td>
+    <td class="done">SET 0, L</td>
+    <td class="done">SET 0, (HL)</td>
+    <td class="done">SET 0, A</td>
+    <td class="done">SET 1, B</td>
+    <td class="done">SET 1, C</td>
+    <td class="done">SET 1, D</td>
+    <td class="done">SET 1, E</td>
+    <td class="done">SET 1, H</td>
+    <td class="done">SET 1, L</td>
+    <td class="done">SET 1, (HL)</td>
+    <td class="done">SET 1, A</td>
+  </tr>
+  <tr>
+    <th>D</th>
+    <td class="done">SET 2, B</td>
+    <td class="done">SET 2, C</td>
+    <td class="done">SET 2, D</td>
+    <td class="done">SET 2, E</td>
+    <td class="done">SET 2, H</td>
+    <td class="done">SET 2, L</td>
+    <td class="done">SET 2, (HL)</td>
+    <td class="done">SET 2, A</td>
+    <td class="done">SET 3, B</td>
+    <td class="done">SET 3, C</td>
+    <td class="done">SET 3, D</td>
+    <td class="done">SET 3, E</td>
+    <td class="done">SET 3, H</td>
+    <td class="done">SET 3, L</td>
+    <td class="done">SET 3, (HL)</td>
+    <td class="done">SET 3, A</td>
+  </tr>
+  <tr>
+    <th>E</th>
+    <td class="done">SET 4, B</td>
+    <td class="done">SET 4, C</td>
+    <td class="done">SET 4, D</td>
+    <td class="done">SET 4, E</td>
+    <td class="done">SET 4, H</td>
+    <td class="done">SET 4, L</td>
+    <td class="done">SET 4, (HL)</td>
+    <td class="done">SET 4, A</td>
+    <td class="done">SET 5, B</td>
+    <td class="done">SET 5, C</td>
+    <td class="done">SET 5, D</td>
+    <td class="done">SET 5, E</td>
+    <td class="done">SET 5, H</td>
+    <td class="done">SET 5, L</td>
+    <td class="done">SET 5, (HL)</td>
+    <td class="done">SET 5, A</td>
+  </tr>
+  <tr>
+    <th>F</th>
+    <td class="done">SET 6, B</td>
+    <td class="done">SET 6, C</td>
+    <td class="done">SET 6, D</td>
+    <td class="done">SET 6, E</td>
+    <td class="done">SET 6, H</td>
+    <td class="done">SET 6, L</td>
+    <td class="done">SET 6, (HL)</td>
+    <td class="done">SET 6, A</td>
+    <td class="done">SET 7, B</td>
+    <td class="done">SET 7, C</td>
+    <td class="done">SET 7, D</td>
+    <td class="done">SET 7, E</td>
+    <td class="done">SET 7, H</td>
+    <td class="done">SET 7, L</td>
+    <td class="done">SET 7, (HL)</td>
+    <td class="done">SET 7, A</td>
+  </tr>
+</table>
+<div class="table-title">DD OpCodes</div>
+<table>
+  <tr>
+    <td></td>
+    <th>0</th>
+    <th>1</th>
+    <th>2</th>
+    <th>3</th>
+    <th>4</th>
+    <th>5</th>
+    <th>6</th>
+    <th>7</th>
+    <th>8</th>
+    <th>9</th>
+    <th>A</th>
+    <th>B</th>
+    <th>C</th>
+    <th>D</th>
+    <th>E</th>
+    <th>F</th>
+  </tr>
+  <tr>
+    <th>0</th>
+    <td class="done">NOP</td>
+    <td class="done">LD BC, nn</td>
+    <td class="done">LD (BC), A</td>
+    <td class="done">INC BC</td>
+    <td class="done">INC B</td>
+    <td class="done">DEC B</td>
+    <td class="done">LD B, n</td>
+    <td class="done">RLCA</td>
+    <td class="done">EX AF, AF'</td>
+    <td class="done">ADD IX, BC</td>
+    <td class="done">LD A, (BC)</td>
+    <td class="done">DEC BC</td>
+    <td class="done">INC C</td>
+    <td class="done">DEC C</td>
+    <td class="done">LD C, n</td>
+    <td class="done">RRCA</td>
+  </tr>
+  <tr>
+    <th>1</th>
+    <td class="done">DJNZ e</td>
+    <td class="done">LD DE, nn</td>
+    <td class="done">LD (DE), A</td>
+    <td class="done">INC DE</td>
+    <td class="done">INC D</td>
+    <td class="done">DEC D</td>
+    <td class="done">LD D, n</td>
+    <td class="done">RLA</td>
+    <td class="done">JR e</td>
+    <td class="done">ADD IX, DE</td>
+    <td class="done">LD A, (DE)</td>
+    <td class="done">DEC DE</td>
+    <td class="done">INC E</td>
+    <td class="done">DEC E</td>
+    <td class="done">LD E, n</td>
+    <td class="done">RRA</td>
+  </tr>
+  <tr>
+    <th>2</th>
+    <td class="done">JR NZ, e</td>
+    <td class="done">LD IX, nn</td>
+    <td class="done">LD (nn), IX</td>
+    <td class="done">INC IX</td>
+    <td class="done">INC IXh</td>
+    <td class="done">DEC IXh</td>
+    <td class="done">LD IXh, n</td>
+    <td class="done">DAA</td>
+    <td class="done">JR Z, e</td>
+    <td class="done">ADD IX, IX</td>
+    <td class="done">LD IX, (nn)</td>
+    <td class="done">DEC IX</td>
+    <td class="done">INC IXl</td>
+    <td class="done">DEC IXl</td>
+    <td class="done">LD IXl, n</td>
+    <td class="done">CPL</td>
+  </tr>
+  <tr>
+    <th>3</th>
+    <td class="done">JR NC, e</td>
+    <td class="done">LD SP, nn</td>
+    <td class="done">LD (nn), A</td>
+    <td class="done">INC SP</td>
+    <td class="done">INC (IX + d)</td>
+    <td class="done">DEC (IX + d)</td>
+    <td class="done">LD (IX + d), n</td>
+    <td class="done">SCF</td>
+    <td class="done">JR C, e</td>
+    <td class="done">ADD IX, SP</td>
+    <td class="done">LD A, (nn)</td>
+    <td class="done">DEC SP</td>
+    <td class="done">INC A</td>
+    <td class="done">DEC A</td>
+    <td class="done">LD A, n</td>
+    <td class="done">CCF</td>
+  </tr>
+  <tr>
+    <th>4</th>
+    <td class="done">LD B, B</td>
+    <td class="done">LD B, C</td>
+    <td class="done">LD B, D</td>
+    <td class="done">LD B, E</td>
+    <td class="done">LD B, IXh</td>
+    <td class="done">LD B, IXl</td>
+    <td class="done">LD B, (IX + d)</td>
+    <td class="done">LD B, A</td>
+    <td class="done">LD C, B</td>
+    <td class="done">LD C, C</td>
+    <td class="done">LD C, D</td>
+    <td class="done">LD C, E</td>
+    <td class="done">LD C, IXh</td>
+    <td class="done">LD C, IXl</td>
+    <td class="done">LD C, (IX + d)</td>
+    <td class="done">LD C, A</td>
+  </tr>
+  <tr>
+    <th>5</th>
+    <td class="done">LD D, B</td>
+    <td class="done">LD D, C</td>
+    <td class="done">LD D, D</td>
+    <td class="done">LD D, E</td>
+    <td class="done">LD D, IXh</td>
+    <td class="done">LD D, IXl</td>
+    <td class="done">LD D, (IX + d)</td>
+    <td class="done">LD D, A</td>
+    <td class="done">LD E, B</td>
+    <td class="done">LD E, C</td>
+    <td class="done">LD E, D</td>
+    <td class="done">LD E, E</td>
+    <td class="done">LD E, IXh</td>
+    <td class="done">LD E, IXl</td>
+    <td class="done">LD E, (IX + d)</td>
+    <td class="done">LD E, A</td>
+  </tr>
+  <tr>
+    <th>6</th>
+    <td class="done">LD IXh, B</td>
+    <td class="done">LD IXh, C</td>
+    <td class="done">LD IXh, D</td>
+    <td class="done">LD IXh, E</td>
+    <td class="done">LD IXh, IXh</td>
+    <td class="done">LD IXh, IXl</td>
+    <td class="done">LD H, (IX + d)</td>
+    <td class="done">LD IXh, A</td>
+    <td class="done">LD IXl, B</td>
+    <td class="done">LD IXl, C</td>
+    <td class="done">LD IXl, D</td>
+    <td class="done">LD IXl, E</td>
+    <td class="done">LD IXl, IXh</td>
+    <td class="done">LD IXl, IXl</td>
+    <td class="done">LD L, (IX + d)</td>
+    <td class="done">LD IXl, A</td>
+  </tr>
+  <tr>
+    <th>7</th>
+    <td class="done">LD (IX + d), B</td>
+    <td class="done">LD (IX + d), C</td>
+    <td class="done">LD (IX + d), D</td>
+    <td class="done">LD (IX + d), E</td>
+    <td class="done">LD (IX + d), H</td>
+    <td class="done">LD (IX + d), L</td>
+    <td class="done">HALT</td>
+    <td class="done">LD (IX + d), A</td>
+    <td class="done">LD A, B</td>
+    <td class="done">LD A, C</td>
+    <td class="done">LD A, D</td>
+    <td class="done">LD A, E</td>
+    <td class="done">LD A, IXh</td>
+    <td class="done">LD A, IXl</td>
+    <td class="done">LD A, (IX + d)</td>
+    <td class="done">LD A, A</td>
+  </tr>
+  <tr>
+    <th>8</th>
+    <td class="done">ADD A, B</td>
+    <td class="done">ADD A, C</td>
+    <td class="done">ADD A, D</td>
+    <td class="done">ADD A, E</td>
+    <td class="done">ADD A, IXh</td>
+    <td class="done">ADD A, IXl</td>
+    <td class="done">ADD A, (IX + d)</td>
+    <td class="done">ADD A, A</td>
+    <td class="done">ADC A, B</td>
+    <td class="done">ADC A, C</td>
+    <td class="done">ADC A, D</td>
+    <td class="done">ADC A, E</td>
+    <td class="done">ADC A, IXh</td>
+    <td class="done">ADC A, IXl</td>
+    <td class="done">ADC A, (IX + d)</td>
+    <td class="done">ADC A, A</td>
+  </tr>
+  <tr>
+    <th>9</th>
+    <td class="done">SUB A, B</td>
+    <td class="done">SUB A, C</td>
+    <td class="done">SUB A, D</td>
+    <td class="done">SUB A, E</td>
+    <td class="done">SUB A, IXh</td>
+    <td class="done">SUB A, IXl</td>
+    <td class="done">SUB A, (IX + d)</td>
+    <td class="done">SUB A, A</td>
+    <td class="done">SBC A, B</td>
+    <td class="done">SBC A, C</td>
+    <td class="done">SBC A, D</td>
+    <td class="done">SBC A, E</td>
+    <td class="done">SBC A, IXh</td>
+    <td class="done">SBC A, IXl</td>
+    <td class="done">SBC A, (IX + d)</td>
+    <td class="done">SBC A, A</td>
+  </tr>
+  <tr>
+    <th>A</th>
+    <td class="done">AND A, B</td>
+    <td class="done">AND A, C</td>
+    <td class="done">AND A, D</td>
+    <td class="done">AND A, E</td>
+    <td class="done">AND A, IXh</td>
+    <td class="done">AND A, IXl</td>
+    <td class="done">AND A, (IX + d)</td>
+    <td class="done">AND A, A</td>
+    <td class="done">XOR A, B</td>
+    <td class="done">XOR A, C</td>
+    <td class="done">XOR A, D</td>
+    <td class="done">XOR A, E</td>
+    <td class="done">XOR A, IXh</td>
+    <td class="done">XOR A, IXl</td>
+    <td class="done">XOR A, (IX + d)</td>
+    <td class="done">XOR A, A</td>
+  </tr>
+  <tr>
+    <th>B</th>
+    <td class="done">OR A, B</td>
+    <td class="done">OR A, C</td>
+    <td class="done">OR A, D</td>
+    <td class="done">OR A, E</td>
+    <td class="done">OR A, IXh</td>
+    <td class="done">OR A, IXl</td>
+    <td class="done">OR A, (IX + d)</td>
+    <td class="done">OR A, A</td>
+    <td class="done">CP A, B</td>
+    <td class="done">CP A, C</td>
+    <td class="done">CP A, D</td>
+    <td class="done">CP A, E</td>
+    <td class="done">CP A, IXh</td>
+    <td class="done">CP A, IXl</td>
+    <td class="done">CP A, (IX + d)</td>
+    <td class="done">CP A, A</td>
+  </tr>
+  <tr>
+    <th>C</th>
+    <td class="done">RET NZ</td>
+    <td class="done">POP BC</td>
+    <td class="done">JP NZ, nn</td>
+    <td class="done">JP nn</td>
+    <td class="done">CALL NZ, nn</td>
+    <td class="done">PUSH BC</td>
+    <td class="done">ADD A, n</td>
+    <td class="done">RST 0x00</td>
+    <td class="done">RET Z</td>
+    <td class="done">RET</td>
+    <td class="done">JP Z, nn</td>
+    <td class="done">PREFIX 0xDDCB</td>
+    <td class="done">CALL Z, nn</td>
+    <td class="done">CALL nn</td>
+    <td class="done">ADC A, n</td>
+    <td class="done">RST 0x08</td>
+  </tr>
+  <tr>
+    <th>D</th>
+    <td class="done">RET NC</td>
+    <td class="done">POP DE</td>
+    <td class="done">JP NC, nn</td>
+    <td class="done">OUT (n), A</td>
+    <td class="done">CALL NC, nn</td>
+    <td class="done">PUSH DE</td>
+    <td class="done">SUB A, n</td>
+    <td class="done">RST 0x10</td>
+    <td class="done">RET C</td>
+    <td class="done">EXX</td>
+    <td class="done">JP C, nn</td>
+    <td class="done">IN A, n</td>
+    <td class="done">CALL C, nn</td>
+    <td class="done">PREFIX 0xDD</td>
+    <td class="done">SBC A, n</td>
+    <td class="done">RST 0x18</td>
+  </tr>
+  <tr>
+    <th>E</th>
+    <td class="done">RET PO</td>
+    <td class="done">POP IX</td>
+    <td class="done">JP PO, nn</td>
+    <td class="done">EX (SP), IX</td>
+    <td class="done">CALL PO, nn</td>
+    <td class="done">PUSH IX</td>
+    <td class="done">AND A, n</td>
+    <td class="done">RST 0x20</td>
+    <td class="done">RET PE</td>
+    <td class="done">JP (IX)</td>
+    <td class="done">JP PE, nn</td>
+    <td class="done">EX DE, HL</td>
+    <td class="done">CALL PE, nn</td>
+    <td class="done">PREFIX 0xED</td>
+    <td class="done">XOR A, n</td>
+    <td class="done">RST 0x28</td>
+  </tr>
+  <tr>
+    <th>F</th>
+    <td class="done">RET NS</td>
+    <td class="done">POP AF</td>
+    <td class="done">JP NS, nn</td>
+    <td class="done">DI</td>
+    <td class="done">CALL NS, nn</td>
+    <td class="done">PUSH AF</td>
+    <td class="done">OR A, n</td>
+    <td class="done">RST 0x30</td>
+    <td class="done">RET S</td>
+    <td class="done">LD SP, IX</td>
+    <td class="done">JP S, nn</td>
+    <td class="done">EI</td>
+    <td class="done">CALL S, nn</td>
+    <td class="done">PREFIX 0xFD</td>
+    <td class="done">CP A, n</td>
+    <td class="done">RST 0x38</td>
+  </tr>
+</table>
+<div class="table-title">DDCB OpCodes</div>
+<table>
+  <tr>
+    <td></td>
+    <th>0</th>
+    <th>1</th>
+    <th>2</th>
+    <th>3</th>
+    <th>4</th>
+    <th>5</th>
+    <th>6</th>
+    <th>7</th>
+    <th>8</th>
+    <th>9</th>
+    <th>A</th>
+    <th>B</th>
+    <th>C</th>
+    <th>D</th>
+    <th>E</th>
+    <th>F</th>
+  </tr>
+  <tr>
+    <th>0</th>
+    <td class="done">RLC (IX + d), B</td>
+    <td class="done">RLC (IX + d), C</td>
+    <td class="done">RLC (IX + d), D</td>
+    <td class="done">RLC (IX + d), E</td>
+    <td class="done">RLC (IX + d), H</td>
+    <td class="done">RLC (IX + d), L</td>
+    <td class="done">RLC (IX + d)</td>
+    <td class="done">RLC (IX + d), A</td>
+    <td class="done">RRC (IX + d), B</td>
+    <td class="done">RRC (IX + d), C</td>
+    <td class="done">RRC (IX + d), D</td>
+    <td class="done">RRC (IX + d), E</td>
+    <td class="done">RRC (IX + d), H</td>
+    <td class="done">RRC (IX + d), L</td>
+    <td class="done">RRC (IX + d)</td>
+    <td class="done">RRC (IX + d), A</td>
+  </tr>
+  <tr>
+    <th>1</th>
+    <td class="done">RL (IX + d), B</td>
+    <td class="done">RL (IX + d), C</td>
+    <td class="done">RL (IX + d), D</td>
+    <td class="done">RL (IX + d), E</td>
+    <td class="done">RL (IX + d), H</td>
+    <td class="done">RL (IX + d), L</td>
+    <td class="done">RL (IX + d)</td>
+    <td class="done">RL (IX + d), A</td>
+    <td class="done">RR (IX + d), B</td>
+    <td class="done">RR (IX + d), C</td>
+    <td class="done">RR (IX + d), D</td>
+    <td class="done">RR (IX + d), E</td>
+    <td class="done">RR (IX + d), H</td>
+    <td class="done">RR (IX + d), L</td>
+    <td class="done">RR (IX + d)</td>
+    <td class="done">RR (IX + d), A</td>
+  </tr>
+  <tr>
+    <th>2</th>
+    <td class="done">SLA (IX + d), B</td>
+    <td class="done">SLA (IX + d), C</td>
+    <td class="done">SLA (IX + d), D</td>
+    <td class="done">SLA (IX + d), E</td>
+    <td class="done">SLA (IX + d), H</td>
+    <td class="done">SLA (IX + d), L</td>
+    <td class="done">SLA (IX + d)</td>
+    <td class="done">SLA (IX + d), A</td>
+    <td class="done">SRA (IX + d), B</td>
+    <td class="done">SRA (IX + d), C</td>
+    <td class="done">SRA (IX + d), D</td>
+    <td class="done">SRA (IX + d), E</td>
+    <td class="done">SRA (IX + d), H</td>
+    <td class="done">SRA (IX + d), L</td>
+    <td class="done">SRA (IX + d)</td>
+    <td class="done">SRA (IX + d), A</td>
+  </tr>
+  <tr>
+    <th>3</th>
+    <td class="done">SLL (IX + d), B</td>
+    <td class="done">SLL (IX + d), C</td>
+    <td class="done">SLL (IX + d), D</td>
+    <td class="done">SLL (IX + d), E</td>
+    <td class="done">SLL (IX + d), H</td>
+    <td class="done">SLL (IX + d), L</td>
+    <td class="done">SLL (IX + d)</td>
+    <td class="done">SLL (IX + d), A</td>
+    <td class="done">SRL (IX + d), B</td>
+    <td class="done">SRL (IX + d), C</td>
+    <td class="done">SRL (IX + d), D</td>
+    <td class="done">SRL (IX + d), E</td>
+    <td class="done">SRL (IX + d), H</td>
+    <td class="done">SRL (IX + d), L</td>
+    <td class="done">SRL (IX + d)</td>
+    <td class="done">SRL (IX + d), A</td>
+  </tr>
+  <tr>
+    <th>4</th>
+    <td class="done">BIT 0, (IX + d)</td>
+    <td class="done">BIT 0, (IX + d)</td>
+    <td class="done">BIT 0, (IX + d)</td>
+    <td class="done">BIT 0, (IX + d)</td>
+    <td class="done">BIT 0, (IX + d)</td>
+    <td class="done">BIT 0, (IX + d)</td>
+    <td class="done">BIT 0, (IX + d)</td>
+    <td class="done">BIT 0, (IX + d)</td>
+    <td class="done">BIT 1, (IX + d)</td>
+    <td class="done">BIT 1, (IX + d)</td>
+    <td class="done">BIT 1, (IX + d)</td>
+    <td class="done">BIT 1, (IX + d)</td>
+    <td class="done">BIT 1, (IX + d)</td>
+    <td class="done">BIT 1, (IX + d)</td>
+    <td class="done">BIT 1, (IX + d)</td>
+    <td class="done">BIT 1, (IX + d)</td>
+  </tr>
+  <tr>
+    <th>5</th>
+    <td class="done">BIT 2, (IX + d)</td>
+    <td class="done">BIT 2, (IX + d)</td>
+    <td class="done">BIT 2, (IX + d)</td>
+    <td class="done">BIT 2, (IX + d)</td>
+    <td class="done">BIT 2, (IX + d)</td>
+    <td class="done">BIT 2, (IX + d)</td>
+    <td class="done">BIT 2, (IX + d)</td>
+    <td class="done">BIT 2, (IX + d)</td>
+    <td class="done">BIT 3, (IX + d)</td>
+    <td class="done">BIT 3, (IX + d)</td>
+    <td class="done">BIT 3, (IX + d)</td>
+    <td class="done">BIT 3, (IX + d)</td>
+    <td class="done">BIT 3, (IX + d)</td>
+    <td class="done">BIT 3, (IX + d)</td>
+    <td class="done">BIT 3, (IX + d)</td>
+    <td class="done">BIT 3, (IX + d)</td>
+  </tr>
+  <tr>
+    <th>6</th>
+    <td class="done">BIT 4, (IX + d)</td>
+    <td class="done">BIT 4, (IX + d)</td>
+    <td class="done">BIT 4, (IX + d)</td>
+    <td class="done">BIT 4, (IX + d)</td>
+    <td class="done">BIT 4, (IX + d)</td>
+    <td class="done">BIT 4, (IX + d)</td>
+    <td class="done">BIT 4, (IX + d)</td>
+    <td class="done">BIT 4, (IX + d)</td>
+    <td class="done">BIT 5, (IX + d)</td>
+    <td class="done">BIT 5, (IX + d)</td>
+    <td class="done">BIT 5, (IX + d)</td>
+    <td class="done">BIT 5, (IX + d)</td>
+    <td class="done">BIT 5, (IX + d)</td>
+    <td class="done">BIT 5, (IX + d)</td>
+    <td class="done">BIT 5, (IX + d)</td>
+    <td class="done">BIT 5, (IX + d)</td>
+  </tr>
+  <tr>
+    <th>7</th>
+    <td class="done">BIT 6, (IX + d)</td>
+    <td class="done">BIT 6, (IX + d)</td>
+    <td class="done">BIT 6, (IX + d)</td>
+    <td class="done">BIT 6, (IX + d)</td>
+    <td class="done">BIT 6, (IX + d)</td>
+    <td class="done">BIT 6, (IX + d)</td>
+    <td class="done">BIT 6, (IX + d)</td>
+    <td class="done">BIT 6, (IX + d)</td>
+    <td class="done">BIT 7, (IX + d)</td>
+    <td class="done">BIT 7, (IX + d)</td>
+    <td class="done">BIT 7, (IX + d)</td>
+    <td class="done">BIT 7, (IX + d)</td>
+    <td class="done">BIT 7, (IX + d)</td>
+    <td class="done">BIT 7, (IX + d)</td>
+    <td class="done">BIT 7, (IX + d)</td>
+    <td class="done">BIT 7, (IX + d)</td>
+  </tr>
+  <tr>
+    <th>8</th>
+    <td class="done">RES 0, (IX + d), B</td>
+    <td class="done">RES 0, (IX + d), C</td>
+    <td class="done">RES 0, (IX + d), D</td>
+    <td class="done">RES 0, (IX + d), E</td>
+    <td class="done">RES 0, (IX + d), H</td>
+    <td class="done">RES 0, (IX + d), L</td>
+    <td class="done">RES 0, (IX + d)</td>
+    <td class="done">RES 0, (IX + d), A</td>
+    <td class="done">RES 1, (IX + d), B</td>
+    <td class="done">RES 1, (IX + d), C</td>
+    <td class="done">RES 1, (IX + d), D</td>
+    <td class="done">RES 1, (IX + d), E</td>
+    <td class="done">RES 1, (IX + d), H</td>
+    <td class="done">RES 1, (IX + d), L</td>
+    <td class="done">RES 1, (IX + d)</td>
+    <td class="done">RES 1, (IX + d), A</td>
+  </tr>
+  <tr>
+    <th>9</th>
+    <td class="done">RES 2, (IX + d), B</td>
+    <td class="done">RES 2, (IX + d), C</td>
+    <td class="done">RES 2, (IX + d), D</td>
+    <td class="done">RES 2, (IX + d), E</td>
+    <td class="done">RES 2, (IX + d), H</td>
+    <td class="done">RES 2, (IX + d), L</td>
+    <td class="done">RES 2, (IX + d)</td>
+    <td class="done">RES 2, (IX + d), A</td>
+    <td class="done">RES 3, (IX + d), B</td>
+    <td class="done">RES 3, (IX + d), C</td>
+    <td class="done">RES 3, (IX + d), D</td>
+    <td class="done">RES 3, (IX + d), E</td>
+    <td class="done">RES 3, (IX + d), H</td>
+    <td class="done">RES 3, (IX + d), L</td>
+    <td class="done">RES 3, (IX + d)</td>
+    <td class="done">RES 3, (IX + d), A</td>
+  </tr>
+  <tr>
+    <th>A</th>
+    <td class="done">RES 4, (IX + d), B</td>
+    <td class="done">RES 4, (IX + d), C</td>
+    <td class="done">RES 4, (IX + d), D</td>
+    <td class="done">RES 4, (IX + d), E</td>
+    <td class="done">RES 4, (IX + d), H</td>
+    <td class="done">RES 4, (IX + d), L</td>
+    <td class="done">RES 4, (IX + d)</td>
+    <td class="done">RES 4, (IX + d), A</td>
+    <td class="done">RES 5, (IX + d), B</td>
+    <td class="done">RES 5, (IX + d), C</td>
+    <td class="done">RES 5, (IX + d), D</td>
+    <td class="done">RES 5, (IX + d), E</td>
+    <td class="done">RES 5, (IX + d), H</td>
+    <td class="done">RES 5, (IX + d), L</td>
+    <td class="done">RES 5, (IX + d)</td>
+    <td class="done">RES 5, (IX + d), A</td>
+  </tr>
+  <tr>
+    <th>B</th>
+    <td class="done">RES 6, (IX + d), B</td>
+    <td class="done">RES 6, (IX + d), C</td>
+    <td class="done">RES 6, (IX + d), D</td>
+    <td class="done">RES 6, (IX + d), E</td>
+    <td class="done">RES 6, (IX + d), H</td>
+    <td class="done">RES 6, (IX + d), L</td>
+    <td class="done">RES 6, (IX + d)</td>
+    <td class="done">RES 6, (IX + d), A</td>
+    <td class="done">RES 7, (IX + d), B</td>
+    <td class="done">RES 7, (IX + d), C</td>
+    <td class="done">RES 7, (IX + d), D</td>
+    <td class="done">RES 7, (IX + d), E</td>
+    <td class="done">RES 7, (IX + d), H</td>
+    <td class="done">RES 7, (IX + d), L</td>
+    <td class="done">RES 7, (IX + d)</td>
+    <td class="done">RES 7, (IX + d), A</td>
+  </tr>
+  <tr>
+    <th>C</th>
+    <td class="done">SET 0, (IX + d), B</td>
+    <td class="done">SET 0, (IX + d), C</td>
+    <td class="done">SET 0, (IX + d), D</td>
+    <td class="done">SET 0, (IX + d), E</td>
+    <td class="done">SET 0, (IX + d), H</td>
+    <td class="done">SET 0, (IX + d), L</td>
+    <td class="done">SET 0, (IX + d)</td>
+    <td class="done">SET 0, (IX + d), A</td>
+    <td class="done">SET 1, (IX + d), B</td>
+    <td class="done">SET 1, (IX + d), C</td>
+    <td class="done">SET 1, (IX + d), D</td>
+    <td class="done">SET 1, (IX + d), E</td>
+    <td class="done">SET 1, (IX + d), H</td>
+    <td class="done">SET 1, (IX + d), L</td>
+    <td class="done">SET 1, (IX + d)</td>
+    <td class="done">SET 1, (IX + d), A</td>
+  </tr>
+  <tr>
+    <th>D</th>
+    <td class="done">SET 2, (IX + d), B</td>
+    <td class="done">SET 2, (IX + d), C</td>
+    <td class="done">SET 2, (IX + d), D</td>
+    <td class="done">SET 2, (IX + d), E</td>
+    <td class="done">SET 2, (IX + d), H</td>
+    <td class="done">SET 2, (IX + d), L</td>
+    <td class="done">SET 2, (IX + d)</td>
+    <td class="done">SET 2, (IX + d), A</td>
+    <td class="done">SET 3, (IX + d), B</td>
+    <td class="done">SET 3, (IX + d), C</td>
+    <td class="done">SET 3, (IX + d), D</td>
+    <td class="done">SET 3, (IX + d), E</td>
+    <td class="done">SET 3, (IX + d), H</td>
+    <td class="done">SET 3, (IX + d), L</td>
+    <td class="done">SET 3, (IX + d)</td>
+    <td class="done">SET 3, (IX + d), A</td>
+  </tr>
+  <tr>
+    <th>E</th>
+    <td class="done">SET 4, (IX + d), B</td>
+    <td class="done">SET 4, (IX + d), C</td>
+    <td class="done">SET 4, (IX + d), D</td>
+    <td class="done">SET 4, (IX + d), E</td>
+    <td class="done">SET 4, (IX + d), H</td>
+    <td class="done">SET 4, (IX + d), L</td>
+    <td class="done">SET 4, (IX + d)</td>
+    <td class="done">SET 4, (IX + d), A</td>
+    <td class="done">SET 5, (IX + d), B</td>
+    <td class="done">SET 5, (IX + d), C</td>
+    <td class="done">SET 5, (IX + d), D</td>
+    <td class="done">SET 5, (IX + d), E</td>
+    <td class="done">SET 5, (IX + d), H</td>
+    <td class="done">SET 5, (IX + d), L</td>
+    <td class="done">SET 5, (IX + d)</td>
+    <td class="done">SET 5, (IX + d), A</td>
+  </tr>
+  <tr>
+    <th>F</th>
+    <td class="done">SET 6, (IX + d), B</td>
+    <td class="done">SET 6, (IX + d), C</td>
+    <td class="done">SET 6, (IX + d), D</td>
+    <td class="done">SET 6, (IX + d), E</td>
+    <td class="done">SET 6, (IX + d), H</td>
+    <td class="done">SET 6, (IX + d), L</td>
+    <td class="done">SET 6, (IX + d)</td>
+    <td class="done">SET 6, (IX + d), A</td>
+    <td class="done">SET 7, (IX + d), B</td>
+    <td class="done">SET 7, (IX + d), C</td>
+    <td class="done">SET 7, (IX + d), D</td>
+    <td class="done">SET 7, (IX + d), E</td>
+    <td class="done">SET 7, (IX + d), H</td>
+    <td class="done">SET 7, (IX + d), L</td>
+    <td class="done">SET 7, (IX + d)</td>
+    <td class="done">SET 7, (IX + d), A</td>
+  </tr>
+</table>
+<div class="table-title">ED OpCodes</div>
+<table>
+  <tr>
+    <td></td>
+    <th>0</th>
+    <th>1</th>
+    <th>2</th>
+    <th>3</th>
+    <th>4</th>
+    <th>5</th>
+    <th>6</th>
+    <th>7</th>
+    <th>8</th>
+    <th>9</th>
+    <th>A</th>
+    <th>B</th>
+    <th>C</th>
+    <th>D</th>
+    <th>E</th>
+    <th>F</th>
+  </tr>
+  <tr>
+    <th>0</th>
+    <td class="done">NOP</td>
+    <td class="done">LD BC, nn</td>
+    <td class="done">LD (BC), A</td>
+    <td class="done">INC BC</td>
+    <td class="done">INC B</td>
+    <td class="done">DEC B</td>
+    <td class="done">LD B, n</td>
+    <td class="done">RLCA</td>
+    <td class="done">EX AF, AF'</td>
+    <td class="done">ADD HL, BC</td>
+    <td class="done">LD A, (BC)</td>
+    <td class="done">DEC BC</td>
+    <td class="done">INC C</td>
+    <td class="done">DEC C</td>
+    <td class="done">LD C, n</td>
+    <td class="done">RRCA</td>
+  </tr>
+  <tr>
+    <th>1</th>
+    <td class="done">DJNZ e</td>
+    <td class="done">LD DE, nn</td>
+    <td class="done">LD (DE), A</td>
+    <td class="done">INC DE</td>
+    <td class="done">INC D</td>
+    <td class="done">DEC D</td>
+    <td class="done">LD D, n</td>
+    <td class="done">RLA</td>
+    <td class="done">JR e</td>
+    <td class="done">ADD HL, DE</td>
+    <td class="done">LD A, (DE)</td>
+    <td class="done">DEC DE</td>
+    <td class="done">INC E</td>
+    <td class="done">DEC E</td>
+    <td class="done">LD E, n</td>
+    <td class="done">RRA</td>
+  </tr>
+  <tr>
+    <th>2</th>
+    <td class="done">JR NZ, e</td>
+    <td class="done">LD HL, nn</td>
+    <td class="done">LD (nn), HL</td>
+    <td class="done">INC HL</td>
+    <td class="done">INC H</td>
+    <td class="done">DEC H</td>
+    <td class="done">LD H, n</td>
+    <td class="done">DAA</td>
+    <td class="done">JR Z, e</td>
+    <td class="done">ADD HL, HL</td>
+    <td class="done">LD HL, (nn)</td>
+    <td class="done">DEC HL</td>
+    <td class="done">INC L</td>
+    <td class="done">DEC L</td>
+    <td class="done">LD L, n</td>
+    <td class="done">CPL</td>
+  </tr>
+  <tr>
+    <th>3</th>
+    <td class="done">JR NC, e</td>
+    <td class="done">LD SP, nn</td>
+    <td class="done">LD (nn), A</td>
+    <td class="done">INC SP</td>
+    <td class="done">INC (HL)</td>
+    <td class="done">DEC (HL)</td>
+    <td class="done">LD (HL), n</td>
+    <td class="done">SCF</td>
+    <td class="done">JR C, e</td>
+    <td class="done">ADD HL, SP</td>
+    <td class="done">LD A, (nn)</td>
+    <td class="done">DEC SP</td>
+    <td class="done">INC A</td>
+    <td class="done">DEC A</td>
+    <td class="done">LD A, n</td>
+    <td class="done">CCF</td>
+  </tr>
+  <tr>
+    <th>4</th>
+    <td class="done">IN B, (C)</td>
+    <td class="done">OUT (C), B</td>
+    <td class="done">SBC HL, BC</td>
+    <td class="done">LD (nn), BC</td>
+    <td class="done">NEG A</td>
+    <td class="done">RETN</td>
+    <td class="done">IM 0</td>
+    <td class="done">LD I, A</td>
+    <td class="done">IN C, (C)</td>
+    <td class="done">OUT (C), C</td>
+    <td class="done">ADC HL, BC</td>
+    <td class="done">LD BC, (nn)</td>
+    <td class="done">NEG A</td>
+    <td class="done">RETI</td>
+    <td class="done">IM 0</td>
+    <td class="done">LD R, A</td>
+  </tr>
+  <tr>
+    <th>5</th>
+    <td class="done">IN D, (C)</td>
+    <td class="done">OUT (C), D</td>
+    <td class="done">SBC HL, DE</td>
+    <td class="done">LD (nn), DE</td>
+    <td class="done">NEG A</td>
+    <td class="done">RETN</td>
+    <td class="done">IM 1</td>
+    <td class="done">LD A, I</td>
+    <td class="done">IN E, (C)</td>
+    <td class="done">OUT (C), E</td>
+    <td class="done">ADC HL, DE</td>
+    <td class="done">LD DE, (nn)</td>
+    <td class="done">NEG A</td>
+    <td class="done">RETN</td>
+    <td class="done">IM 2</td>
+    <td class="done">LD A, R</td>
+  </tr>
+  <tr>
+    <th>6</th>
+    <td class="done">IN H, (C)</td>
+    <td class="done">OUT (C), H</td>
+    <td class="done">SBC HL, HL</td>
+    <td class="done">LD (nn), HL</td>
+    <td class="done">NEG A</td>
+    <td class="done">RETN</td>
+    <td class="done">IM 0</td>
+    <td class="done">RRD</td>
+    <td class="done">IN L, (C)</td>
+    <td class="done">OUT (C), L</td>
+    <td class="done">ADC HL, HL</td>
+    <td class="done">LD HL, (nn)</td>
+    <td class="done">NEG A</td>
+    <td class="done">RETN</td>
+    <td class="done">IM 0</td>
+    <td class="done">RLD</td>
+  </tr>
+  <tr>
+    <th>7</th>
+    <td class="done">IN (C)</td>
+    <td class="done">OUT (C), 0</td>
+    <td class="done">SBC HL, SP</td>
+    <td class="done">LD (nn), SP</td>
+    <td class="done">NEG A</td>
+    <td class="done">RETN</td>
+    <td class="done">HALT</td>
+    <td class="done">NOP</td>
+    <td class="done">IN A, (C)</td>
+    <td class="done">OUT (C), A</td>
+    <td class="done">ADC HL, SP</td>
+    <td class="done">LD SP, (nn)</td>
+    <td class="done">NEG A</td>
+    <td class="done">RETN</td>
+    <td class="done">IM 2</td>
+    <td class="done">LD A, A</td>
+  </tr>
+  <tr>
+    <th>8</th>
+    <td class="done">ADD A, B</td>
+    <td class="done">ADD A, C</td>
+    <td class="done">ADD A, D</td>
+    <td class="done">ADD A, E</td>
+    <td class="done">ADD A, H</td>
+    <td class="done">ADD A, L</td>
+    <td class="done">ADD A, (HL)</td>
+    <td class="done">ADD A, A</td>
+    <td class="done">ADC A, B</td>
+    <td class="done">ADC A, C</td>
+    <td class="done">ADC A, D</td>
+    <td class="done">ADC A, E</td>
+    <td class="done">ADC A, H</td>
+    <td class="done">ADC A, L</td>
+    <td class="done">ADC A, (HL)</td>
+    <td class="done">ADC A, A</td>
+  </tr>
+  <tr>
+    <th>9</th>
+    <td class="done">SUB A, B</td>
+    <td class="done">SUB A, C</td>
+    <td class="done">SUB A, D</td>
+    <td class="done">SUB A, E</td>
+    <td class="done">SUB A, H</td>
+    <td class="done">SUB A, L</td>
+    <td class="done">SUB A, (HL)</td>
+    <td class="done">SUB A, A</td>
+    <td class="done">SBC A, B</td>
+    <td class="done">SBC A, C</td>
+    <td class="done">SBC A, D</td>
+    <td class="done">SBC A, E</td>
+    <td class="done">SBC A, H</td>
+    <td class="done">SBC A, L</td>
+    <td class="done">SBC A, (HL)</td>
+    <td class="done">SBC A, A</td>
+  </tr>
+  <tr>
+    <th>A</th>
+    <td class="done">LDI</td>
+    <td class="done">CPI</td>
+    <td class="done">INI</td>
+    <td class="done">OUTI</td>
+    <td class="done">AND A, H</td>
+    <td class="done">AND A, L</td>
+    <td class="done">AND A, (HL)</td>
+    <td class="done">AND A, A</td>
+    <td class="done">LDD</td>
+    <td class="done">CPD</td>
+    <td class="done">IND</td>
+    <td class="done">OUTD</td>
+    <td class="done">XOR A, H</td>
+    <td class="done">XOR A, L</td>
+    <td class="done">XOR A, (HL)</td>
+    <td class="done">XOR A, A</td>
+  </tr>
+  <tr>
+    <th>B</th>
+    <td class="done">LDIR</td>
+    <td class="done">CPIR</td>
+    <td class="done">INIR</td>
+    <td class="done">OTIR</td>
+    <td class="done">OR A, H</td>
+    <td class="done">OR A, L</td>
+    <td class="done">OR A, (HL)</td>
+    <td class="done">OR A, A</td>
+    <td class="done">LDDR</td>
+    <td class="done">CPDR</td>
+    <td class="done">INDR</td>
+    <td class="done">OTDR</td>
+    <td class="done">CP A, H</td>
+    <td class="done">CP A, L</td>
+    <td class="done">CP A, (HL)</td>
+    <td class="done">CP A, A</td>
+  </tr>
+  <tr>
+    <th>C</th>
+    <td class="done">RET NZ</td>
+    <td class="done">POP BC</td>
+    <td class="done">JP NZ, nn</td>
+    <td class="done">JP nn</td>
+    <td class="done">CALL NZ, nn</td>
+    <td class="done">PUSH BC</td>
+    <td class="done">ADD A, n</td>
+    <td class="done">RST 0x00</td>
+    <td class="done">RET Z</td>
+    <td class="done">RET</td>
+    <td class="done">JP Z, nn</td>
+    <td class="done">PREFIX 0xCB</td>
+    <td class="done">CALL Z, nn</td>
+    <td class="done">CALL nn</td>
+    <td class="done">ADC A, n</td>
+    <td class="done">RST 0x08</td>
+  </tr>
+  <tr>
+    <th>D</th>
+    <td class="done">RET NC</td>
+    <td class="done">POP DE</td>
+    <td class="done">JP NC, nn</td>
+    <td class="done">OUT (n), A</td>
+    <td class="done">CALL NC, nn</td>
+    <td class="done">PUSH DE</td>
+    <td class="done">SUB A, n</td>
+    <td class="done">RST 0x10</td>
+    <td class="done">RET C</td>
+    <td class="done">EXX</td>
+    <td class="done">JP C, nn</td>
+    <td class="done">IN A, n</td>
+    <td class="done">CALL C, nn</td>
+    <td class="done">PREFIX 0xDD</td>
+    <td class="done">SBC A, n</td>
+    <td class="done">RST 0x18</td>
+  </tr>
+  <tr>
+    <th>E</th>
+    <td class="done">RET PO</td>
+    <td class="done">POP HL</td>
+    <td class="done">JP PO, nn</td>
+    <td class="done">EX (SP), HL</td>
+    <td class="done">CALL PO, nn</td>
+    <td class="done">PUSH HL</td>
+    <td class="done">AND A, n</td>
+    <td class="done">RST 0x20</td>
+    <td class="done">RET PE</td>
+    <td class="done">JP (HL)</td>
+    <td class="done">JP PE, nn</td>
+    <td class="done">EX DE, HL</td>
+    <td class="done">CALL PE, nn</td>
+    <td class="done">PREFIX 0xED</td>
+    <td class="done">XOR A, n</td>
+    <td class="done">RST 0x28</td>
+  </tr>
+  <tr>
+    <th>F</th>
+    <td class="done">RET NS</td>
+    <td class="done">POP AF</td>
+    <td class="done">JP NS, nn</td>
+    <td class="done">DI</td>
+    <td class="done">CALL NS, nn</td>
+    <td class="done">PUSH AF</td>
+    <td class="done">OR A, n</td>
+    <td class="done">RST 0x30</td>
+    <td class="done">RET S</td>
+    <td class="done">LD SP, HL</td>
+    <td class="done">JP S, nn</td>
+    <td class="done">EI</td>
+    <td class="done">CALL S, nn</td>
+    <td class="done">PREFIX 0xFD</td>
+    <td class="done">CP A, n</td>
+    <td class="done">RST 0x38</td>
+  </tr>
+</table>
+<div class="table-title">FD OpCodes</div>
+<table>
+  <tr>
+    <td></td>
+    <th>0</th>
+    <th>1</th>
+    <th>2</th>
+    <th>3</th>
+    <th>4</th>
+    <th>5</th>
+    <th>6</th>
+    <th>7</th>
+    <th>8</th>
+    <th>9</th>
+    <th>A</th>
+    <th>B</th>
+    <th>C</th>
+    <th>D</th>
+    <th>E</th>
+    <th>F</th>
+  </tr>
+  <tr>
+    <th>0</th>
+    <td class="done">NOP</td>
+    <td class="done">LD BC, nn</td>
+    <td class="done">LD (BC), A</td>
+    <td class="done">INC BC</td>
+    <td class="done">INC B</td>
+    <td class="done">DEC B</td>
+    <td class="done">LD B, n</td>
+    <td class="done">RLCA</td>
+    <td class="done">EX AF, AF'</td>
+    <td class="done">ADD IY, BC</td>
+    <td class="done">LD A, (BC)</td>
+    <td class="done">DEC BC</td>
+    <td class="done">INC C</td>
+    <td class="done">DEC C</td>
+    <td class="done">LD C, n</td>
+    <td class="done">RRCA</td>
+  </tr>
+  <tr>
+    <th>1</th>
+    <td class="done">DJNZ e</td>
+    <td class="done">LD DE, nn</td>
+    <td class="done">LD (DE), A</td>
+    <td class="done">INC DE</td>
+    <td class="done">INC D</td>
+    <td class="done">DEC D</td>
+    <td class="done">LD D, n</td>
+    <td class="done">RLA</td>
+    <td class="done">JR e</td>
+    <td class="done">ADD IY, DE</td>
+    <td class="done">LD A, (DE)</td>
+    <td class="done">DEC DE</td>
+    <td class="done">INC E</td>
+    <td class="done">DEC E</td>
+    <td class="done">LD E, n</td>
+    <td class="done">RRA</td>
+  </tr>
+  <tr>
+    <th>2</th>
+    <td class="done">JR NZ, e</td>
+    <td class="done">LD IY, nn</td>
+    <td class="done">LD (nn), IY</td>
+    <td class="done">INC IY</td>
+    <td class="done">INC IYh</td>
+    <td class="done">DEC IYh</td>
+    <td class="done">LD IYh, n</td>
+    <td class="done">DAA</td>
+    <td class="done">JR Z, e</td>
+    <td class="done">ADD IY, IY</td>
+    <td class="done">LD IY, (nn)</td>
+    <td class="done">DEC IY</td>
+    <td class="done">INC IYl</td>
+    <td class="done">DEC IYl</td>
+    <td class="done">LD IYl, n</td>
+    <td class="done">CPL</td>
+  </tr>
+  <tr>
+    <th>3</th>
+    <td class="done">JR NC, e</td>
+    <td class="done">LD SP, nn</td>
+    <td class="done">LD (nn), A</td>
+    <td class="done">INC SP</td>
+    <td class="done">INC (IY + d)</td>
+    <td class="done">DEC (IY + d)</td>
+    <td class="done">LD (IY + d), n</td>
+    <td class="done">SCF</td>
+    <td class="done">JR C, e</td>
+    <td class="done">ADD IY, SP</td>
+    <td class="done">LD A, (nn)</td>
+    <td class="done">DEC SP</td>
+    <td class="done">INC A</td>
+    <td class="done">DEC A</td>
+    <td class="done">LD A, n</td>
+    <td class="done">CCF</td>
+  </tr>
+  <tr>
+    <th>4</th>
+    <td class="done">LD B, B</td>
+    <td class="done">LD B, C</td>
+    <td class="done">LD B, D</td>
+    <td class="done">LD B, E</td>
+    <td class="done">LD B, IYh</td>
+    <td class="done">LD B, IYl</td>
+    <td class="done">LD B, (IY + d)</td>
+    <td class="done">LD B, A</td>
+    <td class="done">LD C, B</td>
+    <td class="done">LD C, C</td>
+    <td class="done">LD C, D</td>
+    <td class="done">LD C, E</td>
+    <td class="done">LD C, IYh</td>
+    <td class="done">LD C, IYl</td>
+    <td class="done">LD C, (IY + d)</td>
+    <td class="done">LD C, A</td>
+  </tr>
+  <tr>
+    <th>5</th>
+    <td class="done">LD D, B</td>
+    <td class="done">LD D, C</td>
+    <td class="done">LD D, D</td>
+    <td class="done">LD D, E</td>
+    <td class="done">LD D, IYh</td>
+    <td class="done">LD D, IYl</td>
+    <td class="done">LD D, (IY + d)</td>
+    <td class="done">LD D, A</td>
+    <td class="done">LD E, B</td>
+    <td class="done">LD E, C</td>
+    <td class="done">LD E, D</td>
+    <td class="done">LD E, E</td>
+    <td class="done">LD E, IYh</td>
+    <td class="done">LD E, IYl</td>
+    <td class="done">LD E, (IY + d)</td>
+    <td class="done">LD E, A</td>
+  </tr>
+  <tr>
+    <th>6</th>
+    <td class="done">LD IYh, B</td>
+    <td class="done">LD IYh, C</td>
+    <td class="done">LD IYh, D</td>
+    <td class="done">LD IYh, E</td>
+    <td class="done">LD IYh, IYh</td>
+    <td class="done">LD IYh, IYl</td>
+    <td class="done">LD H, (IY + d)</td>
+    <td class="done">LD IYh, A</td>
+    <td class="done">LD IYl, B</td>
+    <td class="done">LD IYl, C</td>
+    <td class="done">LD IYl, D</td>
+    <td class="done">LD IYl, E</td>
+    <td class="done">LD IYl, IYh</td>
+    <td class="done">LD IYl, IYl</td>
+    <td class="done">LD L, (IY + d)</td>
+    <td class="done">LD IYl, A</td>
+  </tr>
+  <tr>
+    <th>7</th>
+    <td class="done">LD (IY + d), B</td>
+    <td class="done">LD (IY + d), C</td>
+    <td class="done">LD (IY + d), D</td>
+    <td class="done">LD (IY + d), E</td>
+    <td class="done">LD (IY + d), H</td>
+    <td class="done">LD (IY + d), L</td>
+    <td class="done">HALT</td>
+    <td class="done">LD (IY + d), A</td>
+    <td class="done">LD A, B</td>
+    <td class="done">LD A, C</td>
+    <td class="done">LD A, D</td>
+    <td class="done">LD A, E</td>
+    <td class="done">LD A, IYh</td>
+    <td class="done">LD A, IYl</td>
+    <td class="done">LD A, (IY + d)</td>
+    <td class="done">LD A, A</td>
+  </tr>
+  <tr>
+    <th>8</th>
+    <td class="done">ADD A, B</td>
+    <td class="done">ADD A, C</td>
+    <td class="done">ADD A, D</td>
+    <td class="done">ADD A, E</td>
+    <td class="done">ADD A, IYh</td>
+    <td class="done">ADD A, IYl</td>
+    <td class="done">ADD A, (IY + d)</td>
+    <td class="done">ADD A, A</td>
+    <td class="done">ADC A, B</td>
+    <td class="done">ADC A, C</td>
+    <td class="done">ADC A, D</td>
+    <td class="done">ADC A, E</td>
+    <td class="done">ADC A, IYh</td>
+    <td class="done">ADC A, IYl</td>
+    <td class="done">ADC A, (IY + d)</td>
+    <td class="done">ADC A, A</td>
+  </tr>
+  <tr>
+    <th>9</th>
+    <td class="done">SUB A, B</td>
+    <td class="done">SUB A, C</td>
+    <td class="done">SUB A, D</td>
+    <td class="done">SUB A, E</td>
+    <td class="done">SUB A, IYh</td>
+    <td class="done">SUB A, IYl</td>
+    <td class="done">SUB A, (IY + d)</td>
+    <td class="done">SUB A, A</td>
+    <td class="done">SBC A, B</td>
+    <td class="done">SBC A, C</td>
+    <td class="done">SBC A, D</td>
+    <td class="done">SBC A, E</td>
+    <td class="done">SBC A, IYh</td>
+    <td class="done">SBC A, IYl</td>
+    <td class="done">SBC A, (IY + d)</td>
+    <td class="done">SBC A, A</td>
+  </tr>
+  <tr>
+    <th>A</th>
+    <td class="done">AND A, B</td>
+    <td class="done">AND A, C</td>
+    <td class="done">AND A, D</td>
+    <td class="done">AND A, E</td>
+    <td class="done">AND A, IYh</td>
+    <td class="done">AND A, IYl</td>
+    <td class="done">AND A, (IY + d)</td>
+    <td class="done">AND A, A</td>
+    <td class="done">XOR A, B</td>
+    <td class="done">XOR A, C</td>
+    <td class="done">XOR A, D</td>
+    <td class="done">XOR A, E</td>
+    <td class="done">XOR A, IYh</td>
+    <td class="done">XOR A, IYl</td>
+    <td class="done">XOR A, (IY + d)</td>
+    <td class="done">XOR A, A</td>
+  </tr>
+  <tr>
+    <th>B</th>
+    <td class="done">OR A, B</td>
+    <td class="done">OR A, C</td>
+    <td class="done">OR A, D</td>
+    <td class="done">OR A, E</td>
+    <td class="done">OR A, IYh</td>
+    <td class="done">OR A, IYl</td>
+    <td class="done">OR A, (IY + d)</td>
+    <td class="done">OR A, A</td>
+    <td class="done">CP A, B</td>
+    <td class="done">CP A, C</td>
+    <td class="done">CP A, D</td>
+    <td class="done">CP A, E</td>
+    <td class="done">CP A, IYh</td>
+    <td class="done">CP A, IYl</td>
+    <td class="done">CP A, (IY + d)</td>
+    <td class="done">CP A, A</td>
+  </tr>
+  <tr>
+    <th>C</th>
+    <td class="done">RET NZ</td>
+    <td class="done">POP BC</td>
+    <td class="done">JP NZ, nn</td>
+    <td class="done">JP nn</td>
+    <td class="done">CALL NZ, nn</td>
+    <td class="done">PUSH BC</td>
+    <td class="done">ADD A, n</td>
+    <td class="done">RST 0x00</td>
+    <td class="done">RET Z</td>
+    <td class="done">RET</td>
+    <td class="done">JP Z, nn</td>
+    <td class="done">PREFIX 0xFDCB</td>
+    <td class="done">CALL Z, nn</td>
+    <td class="done">CALL nn</td>
+    <td class="done">ADC A, n</td>
+    <td class="done">RST 0x08</td>
+  </tr>
+  <tr>
+    <th>D</th>
+    <td class="done">RET NC</td>
+    <td class="done">POP DE</td>
+    <td class="done">JP NC, nn</td>
+    <td class="done">OUT (n), A</td>
+    <td class="done">CALL NC, nn</td>
+    <td class="done">PUSH DE</td>
+    <td class="done">SUB A, n</td>
+    <td class="done">RST 0x10</td>
+    <td class="done">RET C</td>
+    <td class="done">EXX</td>
+    <td class="done">JP C, nn</td>
+    <td class="done">IN A, n</td>
+    <td class="done">CALL C, nn</td>
+    <td class="done">PREFIX 0xDD</td>
+    <td class="done">SBC A, n</td>
+    <td class="done">RST 0x18</td>
+  </tr>
+  <tr>
+    <th>E</th>
+    <td class="done">RET PO</td>
+    <td class="done">POP IY</td>
+    <td class="done">JP PO, nn</td>
+    <td class="done">EX (SP), IY</td>
+    <td class="done">CALL PO, nn</td>
+    <td class="done">PUSH IY</td>
+    <td class="done">AND A, n</td>
+    <td class="done">RST 0x20</td>
+    <td class="done">RET PE</td>
+    <td class="done">JP (IY)</td>
+    <td class="done">JP PE, nn</td>
+    <td class="done">EX DE, HL</td>
+    <td class="done">CALL PE, nn</td>
+    <td class="done">PREFIX 0xED</td>
+    <td class="done">XOR A, n</td>
+    <td class="done">RST 0x28</td>
+  </tr>
+  <tr>
+    <th>F</th>
+    <td class="done">RET NS</td>
+    <td class="done">POP AF</td>
+    <td class="done">JP NS, nn</td>
+    <td class="done">DI</td>
+    <td class="done">CALL NS, nn</td>
+    <td class="done">PUSH AF</td>
+    <td class="done">OR A, n</td>
+    <td class="done">RST 0x30</td>
+    <td class="done">RET S</td>
+    <td class="done">LD SP, IY</td>
+    <td class="done">JP S, nn</td>
+    <td class="done">EI</td>
+    <td class="done">CALL S, nn</td>
+    <td class="done">PREFIX 0xFD</td>
+    <td class="done">CP A, n</td>
+    <td class="done">RST 0x38</td>
+  </tr>
+</table>
+<div class="table-title">FDCB OpCodes</div>
+<table>
+  <tr>
+    <td></td>
+    <th>0</th>
+    <th>1</th>
+    <th>2</th>
+    <th>3</th>
+    <th>4</th>
+    <th>5</th>
+    <th>6</th>
+    <th>7</th>
+    <th>8</th>
+    <th>9</th>
+    <th>A</th>
+    <th>B</th>
+    <th>C</th>
+    <th>D</th>
+    <th>E</th>
+    <th>F</th>
+  </tr>
+  <tr>
+    <th>0</th>
+    <td class="done">RLC (IY + d), B</td>
+    <td class="done">RLC (IY + d), C</td>
+    <td class="done">RLC (IY + d), D</td>
+    <td class="done">RLC (IY + d), E</td>
+    <td class="done">RLC (IY + d), H</td>
+    <td class="done">RLC (IY + d), L</td>
+    <td class="done">RLC (IY + d)</td>
+    <td class="done">RLC (IY + d), A</td>
+    <td class="done">RRC (IY + d), B</td>
+    <td class="done">RRC (IY + d), C</td>
+    <td class="done">RRC (IY + d), D</td>
+    <td class="done">RRC (IY + d), E</td>
+    <td class="done">RRC (IY + d), H</td>
+    <td class="done">RRC (IY + d), L</td>
+    <td class="done">RRC (IY + d)</td>
+    <td class="done">RRC (IY + d), A</td>
+  </tr>
+  <tr>
+    <th>1</th>
+    <td class="done">RL (IY + d), B</td>
+    <td class="done">RL (IY + d), C</td>
+    <td class="done">RL (IY + d), D</td>
+    <td class="done">RL (IY + d), E</td>
+    <td class="done">RL (IY + d), H</td>
+    <td class="done">RL (IY + d), L</td>
+    <td class="done">RL (IY + d)</td>
+    <td class="done">RL (IY + d), A</td>
+    <td class="done">RR (IY + d), B</td>
+    <td class="done">RR (IY + d), C</td>
+    <td class="done">RR (IY + d), D</td>
+    <td class="done">RR (IY + d), E</td>
+    <td class="done">RR (IY + d), H</td>
+    <td class="done">RR (IY + d), L</td>
+    <td class="done">RR (IY + d)</td>
+    <td class="done">RR (IY + d), A</td>
+  </tr>
+  <tr>
+    <th>2</th>
+    <td class="done">SLA (IY + d), B</td>
+    <td class="done">SLA (IY + d), C</td>
+    <td class="done">SLA (IY + d), D</td>
+    <td class="done">SLA (IY + d), E</td>
+    <td class="done">SLA (IY + d), H</td>
+    <td class="done">SLA (IY + d), L</td>
+    <td class="done">SLA (IY + d)</td>
+    <td class="done">SLA (IY + d), A</td>
+    <td class="done">SRA (IY + d), B</td>
+    <td class="done">SRA (IY + d), C</td>
+    <td class="done">SRA (IY + d), D</td>
+    <td class="done">SRA (IY + d), E</td>
+    <td class="done">SRA (IY + d), H</td>
+    <td class="done">SRA (IY + d), L</td>
+    <td class="done">SRA (IY + d)</td>
+    <td class="done">SRA (IY + d), A</td>
+  </tr>
+  <tr>
+    <th>3</th>
+    <td class="done">SLL (IY + d), B</td>
+    <td class="done">SLL (IY + d), C</td>
+    <td class="done">SLL (IY + d), D</td>
+    <td class="done">SLL (IY + d), E</td>
+    <td class="done">SLL (IY + d), H</td>
+    <td class="done">SLL (IY + d), L</td>
+    <td class="done">SLL (IY + d)</td>
+    <td class="done">SLL (IY + d), A</td>
+    <td class="done">SRL (IY + d), B</td>
+    <td class="done">SRL (IY + d), C</td>
+    <td class="done">SRL (IY + d), D</td>
+    <td class="done">SRL (IY + d), E</td>
+    <td class="done">SRL (IY + d), H</td>
+    <td class="done">SRL (IY + d), L</td>
+    <td class="done">SRL (IY + d)</td>
+    <td class="done">SRL (IY + d), A</td>
+  </tr>
+  <tr>
+    <th>4</th>
+    <td class="done">BIT 0, (IY + d)</td>
+    <td class="done">BIT 0, (IY + d)</td>
+    <td class="done">BIT 0, (IY + d)</td>
+    <td class="done">BIT 0, (IY + d)</td>
+    <td class="done">BIT 0, (IY + d)</td>
+    <td class="done">BIT 0, (IY + d)</td>
+    <td class="done">BIT 0, (IY + d)</td>
+    <td class="done">BIT 0, (IY + d)</td>
+    <td class="done">BIT 1, (IY + d)</td>
+    <td class="done">BIT 1, (IY + d)</td>
+    <td class="done">BIT 1, (IY + d)</td>
+    <td class="done">BIT 1, (IY + d)</td>
+    <td class="done">BIT 1, (IY + d)</td>
+    <td class="done">BIT 1, (IY + d)</td>
+    <td class="done">BIT 1, (IY + d)</td>
+    <td class="done">BIT 1, (IY + d)</td>
+  </tr>
+  <tr>
+    <th>5</th>
+    <td class="done">BIT 2, (IY + d)</td>
+    <td class="done">BIT 2, (IY + d)</td>
+    <td class="done">BIT 2, (IY + d)</td>
+    <td class="done">BIT 2, (IY + d)</td>
+    <td class="done">BIT 2, (IY + d)</td>
+    <td class="done">BIT 2, (IY + d)</td>
+    <td class="done">BIT 2, (IY + d)</td>
+    <td class="done">BIT 2, (IY + d)</td>
+    <td class="done">BIT 3, (IY + d)</td>
+    <td class="done">BIT 3, (IY + d)</td>
+    <td class="done">BIT 3, (IY + d)</td>
+    <td class="done">BIT 3, (IY + d)</td>
+    <td class="done">BIT 3, (IY + d)</td>
+    <td class="done">BIT 3, (IY + d)</td>
+    <td class="done">BIT 3, (IY + d)</td>
+    <td class="done">BIT 3, (IY + d)</td>
+  </tr>
+  <tr>
+    <th>6</th>
+    <td class="done">BIT 4, (IY + d)</td>
+    <td class="done">BIT 4, (IY + d)</td>
+    <td class="done">BIT 4, (IY + d)</td>
+    <td class="done">BIT 4, (IY + d)</td>
+    <td class="done">BIT 4, (IY + d)</td>
+    <td class="done">BIT 4, (IY + d)</td>
+    <td class="done">BIT 4, (IY + d)</td>
+    <td class="done">BIT 4, (IY + d)</td>
+    <td class="done">BIT 5, (IY + d)</td>
+    <td class="done">BIT 5, (IY + d)</td>
+    <td class="done">BIT 5, (IY + d)</td>
+    <td class="done">BIT 5, (IY + d)</td>
+    <td class="done">BIT 5, (IY + d)</td>
+    <td class="done">BIT 5, (IY + d)</td>
+    <td class="done">BIT 5, (IY + d)</td>
+    <td class="done">BIT 5, (IY + d)</td>
+  </tr>
+  <tr>
+    <th>7</th>
+    <td class="done">BIT 6, (IY + d)</td>
+    <td class="done">BIT 6, (IY + d)</td>
+    <td class="done">BIT 6, (IY + d)</td>
+    <td class="done">BIT 6, (IY + d)</td>
+    <td class="done">BIT 6, (IY + d)</td>
+    <td class="done">BIT 6, (IY + d)</td>
+    <td class="done">BIT 6, (IY + d)</td>
+    <td class="done">BIT 6, (IY + d)</td>
+    <td class="done">BIT 7, (IY + d)</td>
+    <td class="done">BIT 7, (IY + d)</td>
+    <td class="done">BIT 7, (IY + d)</td>
+    <td class="done">BIT 7, (IY + d)</td>
+    <td class="done">BIT 7, (IY + d)</td>
+    <td class="done">BIT 7, (IY + d)</td>
+    <td class="done">BIT 7, (IY + d)</td>
+    <td class="done">BIT 7, (IY + d)</td>
+  </tr>
+  <tr>
+    <th>8</th>
+    <td class="done">RES 0, (IY + d), B</td>
+    <td class="done">RES 0, (IY + d), C</td>
+    <td class="done">RES 0, (IY + d), D</td>
+    <td class="done">RES 0, (IY + d), E</td>
+    <td class="done">RES 0, (IY + d), H</td>
+    <td class="done">RES 0, (IY + d), L</td>
+    <td class="done">RES 0, (IY + d)</td>
+    <td class="done">RES 0, (IY + d), A</td>
+    <td class="done">RES 1, (IY + d), B</td>
+    <td class="done">RES 1, (IY + d), C</td>
+    <td class="done">RES 1, (IY + d), D</td>
+    <td class="done">RES 1, (IY + d), E</td>
+    <td class="done">RES 1, (IY + d), H</td>
+    <td class="done">RES 1, (IY + d), L</td>
+    <td class="done">RES 1, (IY + d)</td>
+    <td class="done">RES 1, (IY + d), A</td>
+  </tr>
+  <tr>
+    <th>9</th>
+    <td class="done">RES 2, (IY + d), B</td>
+    <td class="done">RES 2, (IY + d), C</td>
+    <td class="done">RES 2, (IY + d), D</td>
+    <td class="done">RES 2, (IY + d), E</td>
+    <td class="done">RES 2, (IY + d), H</td>
+    <td class="done">RES 2, (IY + d), L</td>
+    <td class="done">RES 2, (IY + d)</td>
+    <td class="done">RES 2, (IY + d), A</td>
+    <td class="done">RES 3, (IY + d), B</td>
+    <td class="done">RES 3, (IY + d), C</td>
+    <td class="done">RES 3, (IY + d), D</td>
+    <td class="done">RES 3, (IY + d), E</td>
+    <td class="done">RES 3, (IY + d), H</td>
+    <td class="done">RES 3, (IY + d), L</td>
+    <td class="done">RES 3, (IY + d)</td>
+    <td class="done">RES 3, (IY + d), A</td>
+  </tr>
+  <tr>
+    <th>A</th>
+    <td class="done">RES 4, (IY + d), B</td>
+    <td class="done">RES 4, (IY + d), C</td>
+    <td class="done">RES 4, (IY + d), D</td>
+    <td class="done">RES 4, (IY + d), E</td>
+    <td class="done">RES 4, (IY + d), H</td>
+    <td class="done">RES 4, (IY + d), L</td>
+    <td class="done">RES 4, (IY + d)</td>
+    <td class="done">RES 4, (IY + d), A</td>
+    <td class="done">RES 5, (IY + d), B</td>
+    <td class="done">RES 5, (IY + d), C</td>
+    <td class="done">RES 5, (IY + d), D</td>
+    <td class="done">RES 5, (IY + d), E</td>
+    <td class="done">RES 5, (IY + d), H</td>
+    <td class="done">RES 5, (IY + d), L</td>
+    <td class="done">RES 5, (IY + d)</td>
+    <td class="done">RES 5, (IY + d), A</td>
+  </tr>
+  <tr>
+    <th>B</th>
+    <td class="done">RES 6, (IY + d), B</td>
+    <td class="done">RES 6, (IY + d), C</td>
+    <td class="done">RES 6, (IY + d), D</td>
+    <td class="done">RES 6, (IY + d), E</td>
+    <td class="done">RES 6, (IY + d), H</td>
+    <td class="done">RES 6, (IY + d), L</td>
+    <td class="done">RES 6, (IY + d)</td>
+    <td class="done">RES 6, (IY + d), A</td>
+    <td class="done">RES 7, (IY + d), B</td>
+    <td class="done">RES 7, (IY + d), C</td>
+    <td class="done">RES 7, (IY + d), D</td>
+    <td class="done">RES 7, (IY + d), E</td>
+    <td class="done">RES 7, (IY + d), H</td>
+    <td class="done">RES 7, (IY + d), L</td>
+    <td class="done">RES 7, (IY + d)</td>
+    <td class="done">RES 7, (IY + d), A</td>
+  </tr>
+  <tr>
+    <th>C</th>
+    <td class="done">SET 0, (IY + d), B</td>
+    <td class="done">SET 0, (IY + d), C</td>
+    <td class="done">SET 0, (IY + d), D</td>
+    <td class="done">SET 0, (IY + d), E</td>
+    <td class="done">SET 0, (IY + d), H</td>
+    <td class="done">SET 0, (IY + d), L</td>
+    <td class="done">SET 0, (IY + d)</td>
+    <td class="done">SET 0, (IY + d), A</td>
+    <td class="done">SET 1, (IY + d), B</td>
+    <td class="done">SET 1, (IY + d), C</td>
+    <td class="done">SET 1, (IY + d), D</td>
+    <td class="done">SET 1, (IY + d), E</td>
+    <td class="done">SET 1, (IY + d), H</td>
+    <td class="done">SET 1, (IY + d), L</td>
+    <td class="done">SET 1, (IY + d)</td>
+    <td class="done">SET 1, (IY + d), A</td>
+  </tr>
+  <tr>
+    <th>D</th>
+    <td class="done">SET 2, (IY + d), B</td>
+    <td class="done">SET 2, (IY + d), C</td>
+    <td class="done">SET 2, (IY + d), D</td>
+    <td class="done">SET 2, (IY + d), E</td>
+    <td class="done">SET 2, (IY + d), H</td>
+    <td class="done">SET 2, (IY + d), L</td>
+    <td class="done">SET 2, (IY + d)</td>
+    <td class="done">SET 2, (IY + d), A</td>
+    <td class="done">SET 3, (IY + d), B</td>
+    <td class="done">SET 3, (IY + d), C</td>
+    <td class="done">SET 3, (IY + d), D</td>
+    <td class="done">SET 3, (IY + d), E</td>
+    <td class="done">SET 3, (IY + d), H</td>
+    <td class="done">SET 3, (IY + d), L</td>
+    <td class="done">SET 3, (IY + d)</td>
+    <td class="done">SET 3, (IY + d), A</td>
+  </tr>
+  <tr>
+    <th>E</th>
+    <td class="done">SET 4, (IY + d), B</td>
+    <td class="done">SET 4, (IY + d), C</td>
+    <td class="done">SET 4, (IY + d), D</td>
+    <td class="done">SET 4, (IY + d), E</td>
+    <td class="done">SET 4, (IY + d), H</td>
+    <td class="done">SET 4, (IY + d), L</td>
+    <td class="done">SET 4, (IY + d)</td>
+    <td class="done">SET 4, (IY + d), A</td>
+    <td class="done">SET 5, (IY + d), B</td>
+    <td class="done">SET 5, (IY + d), C</td>
+    <td class="done">SET 5, (IY + d), D</td>
+    <td class="done">SET 5, (IY + d), E</td>
+    <td class="done">SET 5, (IY + d), H</td>
+    <td class="done">SET 5, (IY + d), L</td>
+    <td class="done">SET 5, (IY + d)</td>
+    <td class="done">SET 5, (IY + d), A</td>
+  </tr>
+  <tr>
+    <th>F</th>
+    <td class="done">SET 6, (IY + d), B</td>
+    <td class="done">SET 6, (IY + d), C</td>
+    <td class="done">SET 6, (IY + d), D</td>
+    <td class="done">SET 6, (IY + d), E</td>
+    <td class="done">SET 6, (IY + d), H</td>
+    <td class="done">SET 6, (IY + d), L</td>
+    <td class="done">SET 6, (IY + d)</td>
+    <td class="done">SET 6, (IY + d), A</td>
+    <td class="done">SET 7, (IY + d), B</td>
+    <td class="done">SET 7, (IY + d), C</td>
+    <td class="done">SET 7, (IY + d), D</td>
+    <td class="done">SET 7, (IY + d), E</td>
+    <td class="done">SET 7, (IY + d), H</td>
+    <td class="done">SET 7, (IY + d), L</td>
+    <td class="done">SET 7, (IY + d)</td>
+    <td class="done">SET 7, (IY + d), A</td>
+  </tr>
+</table>
+
+</body>
+</html>
