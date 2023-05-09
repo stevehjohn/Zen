@@ -8,7 +8,7 @@ public class VideoModulator
 
     private const int ScreenStart = PaperRegionStart - StatesPerScreenLine * Constants.BorderPixels;
 
-    private const int ScreenEnd = ScreenStart + StatesPerScreenLine * Constants.ScreenHeightPixels;
+    private const int ScreenEnd = ScreenStart + StatesPerScreenLine * (Constants.ScreenHeightPixels + 1);
 
     private const int StatesPerPaperLine = 128;
 
@@ -52,7 +52,7 @@ public class VideoModulator
 
     public void CycleComplete(int cycles)
     {
-        if (cycles < ScreenStart) // || cycles > ScreenEnd)
+        if (cycles < ScreenStart || cycles > ScreenEnd)
         {
             _previousCycles = ScreenStart;
 
@@ -65,9 +65,11 @@ public class VideoModulator
 
         var end = cycles - ScreenStart;
 
+        var y = 0;
+
         while (start < end)
         {
-            var y = start / StatesPerScreenLine;
+            y = start / StatesPerScreenLine;
 
             var xS = start % StatesPerScreenLine;
 
@@ -98,7 +100,7 @@ public class VideoModulator
             _screen[pixel + 1] = GetPixel(ramPixel + 1);
         }
 
-        if (start >= ScreenEnd - ScreenStart)
+        if (y >= Constants.ScreenHeightPixels)
         {
             Array.Copy(_screen, 0, _frame, 0, ScreenPixelCount);
         }
