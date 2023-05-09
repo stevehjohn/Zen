@@ -22,7 +22,7 @@ public class Ports
         }
 
         // Keyboard.
-        if ((port & 0xFF) == 0xFE)
+        if ((port & 0x01) == 0)
         {
             var value = (byte) 0b1011_1111;
 
