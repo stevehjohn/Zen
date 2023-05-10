@@ -3,6 +3,8 @@ using Zen.System.Infrastructure;
 using Zen.System.Modules;
 using Zen.Z80.Processor;
 
+#pragma warning disable CS8509
+
 namespace Zen.System.FileHandling;
 
 public class Z80FileLoader : IFileLoader
