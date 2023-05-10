@@ -1,5 +1,5 @@
-﻿using System.Text;
-using Moq;
+﻿using Moq;
+using System.Text;
 using Zen.Z80.Implementation;
 using Zen.Z80.Interfaces;
 using Zen.Z80.Processor;
@@ -14,7 +14,7 @@ public class CodeGenerator
 
     public CodeGenerator()
     {
-        _instructions = new(new Interface(new Mock<IPortConnector>().Object), new State());
+        _instructions = new(new Interface(new Mock<IPortConnector>().Object, new Mock<IRamConnector>().Object), new State());
     }
 
     public void GenerateOpCodeInitialisers()
