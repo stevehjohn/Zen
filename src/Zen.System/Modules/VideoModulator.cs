@@ -4,7 +4,7 @@ namespace Zen.System.Modules;
 
 public class VideoModulator
 {
-    private const int PaperRegionStart = 14_336;
+    private const int PaperRegionStart = 14_336 - 40; // Dunno why, but 40 fixes El Stompo.
 
     private const int ScreenStart = PaperRegionStart - StatesPerScreenLine * Constants.BorderPixels;
 
