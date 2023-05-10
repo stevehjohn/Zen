@@ -1,11 +1,13 @@
 ﻿using Zen.System.Infrastructure;
+using Zen.System.Interfaces;
 using Zen.System.Modules;
+using Zen.Z80.Interfaces;
 using Zen.Z80.Processor;
 using Worker = Zen.System.Modules.Worker;
 
 namespace Zen.System;
 
-public class Motherboard
+public class Motherboard : IPortConnector
 {
     private const int FramesPerSecond = 60;
 
@@ -19,7 +21,7 @@ public class Motherboard
 
     private readonly Ram _ram;
 
-    private readonly Ports _ports;
+    private readonly List<IPeripheral> _peripherals = new();
 
     private readonly VideoModulator _videoModulator;
 
@@ -55,12 +57,10 @@ public class Motherboard
     {
         _model = model;
 
-        _interface = new()
+        _interface = new(this)
                      {
                          ReadRam = ReadRam,
-                         WriteRam = WriteRam,
-                         ReadPort = ReadPort,
-                         WritePort = WritePort
+                         WriteRam = WriteRam
                      };
 
         _state = new();
@@ -76,17 +76,37 @@ public class Motherboard
 
         _ram.LoadRom(LoadRom(0));
 
-        _ports = new Ports
-                 {
-                     PortDataChanged = PortDataChanged
-                 };
-
         _videoModulator = new VideoModulator(_ram);
 
         _worker = new(_interface, _videoModulator, FramesPerSecond)
                   {
                       OnTick = OnTick
                   };
+    }
+
+    public void AddPeripheral(IPeripheral peripheral)
+    {
+        _peripherals.Add(peripheral);
+    }
+
+    public byte CpuRead(ushort port)
+    {
+        foreach (var peripheral in _peripherals)
+        {
+            var result = peripheral.GetPortState(port);
+
+            if (result != null)
+            {
+                return (byte) result;
+            }
+        }
+
+        return 0xFF;
+    }
+
+    public void CpuWrite(ushort port, byte data)
+    {
+        PortDataChanged(port, data);
     }
 
     private byte ReadRam(ushort address)
@@ -102,16 +122,6 @@ public class Motherboard
         }
 
         _ram[address] = data;
-    }
-
-    private byte ReadPort(ushort port)
-    {
-        return _ports[port];
-    }
-
-    private void WritePort(ushort port, byte data, bool suppressEvent = false)
-    {
-        _ports[port, suppressEvent] = data;
     }
 
     public void Start()
@@ -217,7 +227,6 @@ public class Motherboard
         _ram.LoadRom(LoadRom(romNumber));
     }
 
-    // TODO: This should go on the RAM class.
     private void ConfigureSpecialPaging(int configurationId)
     {
         switch (configurationId)

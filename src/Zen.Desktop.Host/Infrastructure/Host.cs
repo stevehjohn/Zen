@@ -54,6 +54,8 @@ public class Host : Game
     {
         _motherboard = new Motherboard(model);
 
+        _motherboard.AddPeripheral(new Peripherals.Keyboard());
+
         _imageName = $"Standard {model} ROM";
 
         AppSettings.Instance.SystemModel = model;
@@ -91,15 +93,6 @@ public class Host : Game
 
     protected override void Update(GameTime gameTime)
     {
-        var keys = Keyboard.GetState().GetPressedKeys();
-
-        var portData = KeyboardMapper.MapKeyState(keys);
-
-        foreach (var port in portData)
-        {
-            _motherboard.Interface.WriteToPort(port.Port, port.data, true);
-        }
-
         if (Keyboard.GetState().IsKeyDown(Keys.F10) && _menuSystem == null)
         {
             _motherboard.Pause();
