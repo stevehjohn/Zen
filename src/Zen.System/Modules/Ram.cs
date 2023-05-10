@@ -1,4 +1,6 @@
-﻿namespace Zen.System.Modules;
+﻿using Zen.Common;
+
+namespace Zen.System.Modules;
 
 public class Ram
 {
@@ -6,17 +8,13 @@ public class Ram
 
     private const int BankSlots = 4;
 
-    private const int BankSize = 0x4000;
-
-    private const int RomSize = 0x4000;
-
     private readonly byte[][] _banks;
 
     private readonly byte[][] _mappings;
 
     private readonly byte[] _slots = new byte[BankSlots];
 
-    private readonly byte[] _rom = new byte[RomSize];
+    private readonly byte[] _rom = new byte[Constants.RomSize];
 
     private byte _screenBank = 5;
 
@@ -39,7 +37,7 @@ public class Ram
 
         for (var bank = 0; bank < BankCount; bank++)
         {
-            _banks[bank] = new byte[BankSize];
+            _banks[bank] = new byte[Constants.RamBankSize];
         }
 
         _mappings = new byte[BankSlots][];
@@ -53,6 +51,8 @@ public class Ram
         _slots[1] = 5;
         _slots[2] = 2;
         _slots[3] = 0;
+
+        CreateVRamNoise();
     }
 
     public byte this[ushort address]
@@ -110,5 +110,15 @@ public class Ram
     public byte GetBankMapping(byte slotNumber)
     {
         return _slots[slotNumber];
+    }
+
+    private void CreateVRamNoise()
+    {
+        var random = new Random();
+
+        for (var i = 0; i < Constants.ScreenRamSize; i++)
+        {
+            _banks[_screenBank][i] = (byte) random.Next(256);
+        }
     }
 }
