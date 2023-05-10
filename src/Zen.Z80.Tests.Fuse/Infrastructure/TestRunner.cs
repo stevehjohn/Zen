@@ -1,9 +1,11 @@
 ﻿#define UNATTENDED
 
+using Moq;
 using System.Diagnostics;
 using Zen.Common.ConsoleHelpers;
 using Zen.Common.Extensions;
 using Zen.Z80.Exceptions;
+using Zen.Z80.Interfaces;
 using Zen.Z80.Processor;
 using Zen.Z80.Tests.Fuse.Models;
 
@@ -11,13 +13,21 @@ namespace Zen.Z80.Tests.Fuse.Infrastructure;
 
 public class TestRunner
 {
+    private readonly Mock<IPortConnector> _portConnector;
+
+    private readonly Mock<IRamConnector> _ramConnector;
+
     private readonly Interface _interface;
 
     private readonly State _state;
 
     public TestRunner()
     {
-        _interface = new();
+        _portConnector = new Mock<IPortConnector>();
+
+        _ramConnector = new Mock<IRamConnector>();
+
+        _interface = new Interface(_portConnector.Object, _ramConnector.Object);
 
         _state = new();
     }
@@ -103,13 +113,11 @@ public class TestRunner
 
         PopulateRam(ram, input);
         
-        _interface.ReadRam = address => ram[address];
+        _ramConnector.Setup(c => c.ReadRam(It.IsAny<ushort>())).Returns<ushort>(address => ram[address]);
 
-        _interface.WriteRam = (address, data) => ram[address] = data;
+        _ramConnector.Setup(c => c.WriteRam(It.IsAny<ushort>(), It.IsAny<byte>())).Callback<ushort, byte>((a, b) => ram[a] = b);
 
-        _interface.ReadPort = _ => 0xFF;
-
-        _interface.WritePort = (_, _, _) => Thread.Sleep(0);
+        _portConnector.Setup(c => c.CpuPortRead(It.IsAny<ushort>())).Returns(0xFF);
 
         var tStates = 0;
 
