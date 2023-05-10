@@ -39,8 +39,6 @@ public class Motherboard : IPortConnector
 
     public Ram Ram => _ram;
 
-    public Interface Interface => _interface;
-
     public Model Model => _model;
 
     public State State => _state;

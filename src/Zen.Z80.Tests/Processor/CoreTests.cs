@@ -1,5 +1,6 @@
-﻿using Zen.Z80.Processor;
-using Zen.Z80.Tests.Infrastructure;
+﻿using Moq;
+using Zen.Z80.Interfaces;
+using Zen.Z80.Processor;
 
 #pragma warning disable CS8509
 
@@ -15,7 +16,9 @@ public class CoreTests
 
     public CoreTests()
     {
-        _interface = new(new NullConnector());
+        var connector = new Mock<IPortConnector>();
+
+        _interface = new(connector.Object);
 
         _state = new();
 
