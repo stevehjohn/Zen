@@ -1,73 +1,56 @@
 ﻿using Microsoft.Xna.Framework.Input;
-using System.Collections.Generic;
+using Zen.System.Interfaces;
 
-// ReSharper disable InconsistentNaming
-// ReSharper disable IdentifierTypo
+namespace Zen.Desktop.Host.Peripherals;
 
-namespace Zen.Desktop.Host.Infrastructure;
-
-public static class KeyboardMapper
+public class Keyboard : IPeripheral
 {
-    private static readonly ushort[] Ports = { 0xFEFE, 0xFDFE, 0xFBFE, 0xF7FE, 0xEFFE, 0xDFFE, 0xBFFE, 0x7FFE };
-
-    public static List<(ushort Port, byte data)> MapKeyState(Keys[] keyboardState)
+    public byte? GetPortState(ushort port)
     {
-        var portData = new List<(ushort Port, byte data)>();
-
-        foreach (var port in Ports)
+        if ((port & 0x01) == 0)
         {
-            if (keyboardState.Length == 0)
+            var high = (port & 0xFF00) >> 8;
+
+            return high switch
             {
-                portData.Add((port, 0b1011_1111));
-
-                continue;
-            }
-
-            var data = (byte) 0b1011_1111;
-
-            foreach (var key in keyboardState)
-            {
-                data &= GetPortData(port, key);
-            }
-
-            portData.Add((port, data));
+                _ when (high & 0b0000_0001) == 0 => GetKeyState(0xFE),
+                _ when (high & 0b0000_0010) == 0 => GetKeyState(0xFD),
+                _ when (high & 0b0000_0100) == 0 => GetKeyState(0xFB),
+                _ when (high & 0b0000_1000) == 0 => GetKeyState(0xF7),
+                _ when (high & 0b0001_0000) == 0 => GetKeyState(0xEF),
+                _ when (high & 0b0010_0000) == 0 => GetKeyState(0xDF),
+                _ when (high & 0b0100_0000) == 0 => GetKeyState(0xBF),
+                _ when (high & 0b1000_0000) == 0 => GetKeyState(0x7F),
+                _ => null
+            };
         }
 
-        return portData;
+        return null;
     }
 
-    private static byte GetPortData(int port, Keys keys)
+    private static byte GetKeyState(byte high)
     {
-        switch (port)
+        var state = (byte) 0b1011_1111;
+
+        var keys = Microsoft.Xna.Framework.Input.Keyboard.GetState().GetPressedKeys();
+
+        foreach (var key in keys)
         {
-            case 0xFEFE:
-                return ScanForFEFEKeys(keys);
-
-            case 0xFDFE:
-                return ScanForFDFEKeys(keys);
-
-            case 0xFBFE:
-                return ScanForFBFEKeys(keys);
-
-            case 0xF7FE:
-                return ScanForF7FEKeys(keys);
-
-            case 0xEFFE:
-                return ScanForEFFEKeys(keys);
-
-            case 0xDFFE:
-                return ScanForDFFEKeys(keys);
-
-            case 0xBFFE:
-                return ScanForBFFEKeys(keys);
-
-            case 0x7FFE:
-                return ScanFor7FFEKeys(keys);
-
-            default:
-                // TODO: Should probably throw an exception.
-                return 0b11111111;
+            state &= high switch
+            {
+                0xFE => ScanForFEFEKeys(key),
+                0xFD => ScanForFDFEKeys(key),
+                0xFB => ScanForFBFEKeys(key),
+                0xF7 => ScanForF7FEKeys(key),
+                0xEF => ScanForEFFEKeys(key),
+                0xDF => ScanForDFFEKeys(key),
+                0xBF => ScanForBFFEKeys(key),
+                0x7F => ScanFor7FFEKeys(key),
+                _ => 0xFF
+            };
         }
+
+        return state;
     }
 
     private static byte ScanForFEFEKeys(Keys keys)
