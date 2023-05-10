@@ -1,4 +1,5 @@
 ﻿using Zen.Z80.Processor;
+using Zen.Z80.Tests.Infrastructure;
 
 #pragma warning disable CS8509
 
@@ -14,7 +15,7 @@ public class CoreTests
 
     public CoreTests()
     {
-        _interface = new();
+        _interface = new(new NullConnector());
 
         _state = new();
 

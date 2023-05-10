@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Input;
 using Zen.System.Interfaces;
 
+// ReSharper disable InconsistentNaming
 // ReSharper disable IdentifierTypo
 
 namespace Zen.Desktop.Host.Peripherals;
