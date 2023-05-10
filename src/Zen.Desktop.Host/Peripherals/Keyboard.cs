@@ -14,18 +14,18 @@ public class Keyboard : IPeripheral
         {
             var high = (port & 0xFF00) >> 8;
 
-            return high switch
-            {
-                _ when (high & 0b0000_0001) == 0 => GetKeyState(0xFE),
-                _ when (high & 0b0000_0010) == 0 => GetKeyState(0xFD),
-                _ when (high & 0b0000_0100) == 0 => GetKeyState(0xFB),
-                _ when (high & 0b0000_1000) == 0 => GetKeyState(0xF7),
-                _ when (high & 0b0001_0000) == 0 => GetKeyState(0xEF),
-                _ when (high & 0b0010_0000) == 0 => GetKeyState(0xDF),
-                _ when (high & 0b0100_0000) == 0 => GetKeyState(0xBF),
-                _ when (high & 0b1000_0000) == 0 => GetKeyState(0x7F),
-                _ => null
-            };
+            var result = 0xFF;
+
+            if ((high & 0b0000_0001) == 0) result &= GetKeyState(0xFE);
+            if ((high & 0b0000_0010) == 0) result &= GetKeyState(0xFD);
+            if ((high & 0b0000_0100) == 0) result &= GetKeyState(0xFB);
+            if ((high & 0b0000_1000) == 0) result &= GetKeyState(0xF7);
+            if ((high & 0b0001_0000) == 0) result &= GetKeyState(0xEF);
+            if ((high & 0b0010_0000) == 0) result &= GetKeyState(0xDF);
+            if ((high & 0b0100_0000) == 0) result &= GetKeyState(0xBF);
+            if ((high & 0b1000_0000) == 0) result &= GetKeyState(0x7F);
+
+            return (byte) result;
         }
 
         return null;
