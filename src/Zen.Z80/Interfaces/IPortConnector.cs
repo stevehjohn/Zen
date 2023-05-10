@@ -2,7 +2,7 @@
 
 public interface IPortConnector
 {
-    byte CpuRead(ushort port);
+    byte CpuPortRead(ushort port);
 
-    void CpuWrite(ushort port, byte data);
+    void CpuPortWrite(ushort port, byte data);
 }

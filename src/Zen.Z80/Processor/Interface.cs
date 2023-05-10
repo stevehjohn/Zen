@@ -9,34 +9,34 @@ public class Interface
 {
     private readonly IPortConnector _portConnector;
 
-    public Interface(IPortConnector portConnector)
+    private readonly IRamConnector _ramConnector;
+
+    public Interface(IPortConnector portConnector, IRamConnector ramConnector)
     {
         _portConnector = portConnector;
+
+        _ramConnector = ramConnector;
     }
 
     public bool INT { get; set; }
 
-    public Func<ushort, byte>? ReadRam { get; set; }
-
-    public Action<ushort, byte>? WriteRam { get; set; }
-
     public byte ReadFromMemory(ushort address)
     {
-        return ReadRam!(address);
+        return _ramConnector.ReadRam(address);
     }
 
     public void WriteToMemory(ushort address, byte data)
     {
-        WriteRam!(address, data);
+        _ramConnector.WriteRam(address, data);
     }
 
     public byte ReadFromPort(ushort port)
     {
-        return _portConnector.CpuRead(port);
+        return _portConnector.CpuPortRead(port);
     }
 
     public void WriteToPort(ushort port, byte data)
     {
-        _portConnector.CpuWrite(port, data);
+        _portConnector.CpuPortWrite(port, data);
     }
 }

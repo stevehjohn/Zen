@@ -8,6 +8,8 @@ namespace Zen.Z80.Tests.Processor;
 
 public class CoreTests
 {
+    private readonly Mock<IRamConnector> _ramConnector;
+
     private readonly Interface _interface;
 
     private readonly State _state;
@@ -18,7 +20,9 @@ public class CoreTests
     {
         var connector = new Mock<IPortConnector>();
 
-        _interface = new(connector.Object);
+        _ramConnector = new Mock<IRamConnector>();
+
+        _interface = new(connector.Object, _ramConnector.Object);
 
         _state = new();
 
@@ -32,7 +36,7 @@ public class CoreTests
 
         _state.ProgramCounter = 0x0100;
 
-        _interface.ReadRam = address =>
+        _ramConnector.Setup(c => c.ReadRam(It.IsAny<ushort>())).Returns<ushort>(address =>
         {
             return address switch
             {
@@ -40,7 +44,7 @@ public class CoreTests
                 0x0101 => 0x34,
                 0x0102 => 0x12
             };
-        };
+        });
 
         _core.ExecuteCycle();
 
@@ -54,14 +58,14 @@ public class CoreTests
 
         _state.ProgramCounter = 0x0100;
 
-        _interface.ReadRam = address =>
+        _ramConnector.Setup(c => c.ReadRam(It.IsAny<ushort>())).Returns<ushort>(address =>
         {
             return address switch
             {
                 0x0100 => 0xCB,
                 0x0101 => 0x40
             };
-        };
+        });
 
         _core.ExecuteCycle();
 
@@ -77,7 +81,7 @@ public class CoreTests
 
         _state.ProgramCounter = 0x0100;
         
-        _interface.ReadRam = address =>
+        _ramConnector.Setup(c => c.ReadRam(It.IsAny<ushort>())).Returns<ushort>(address =>
         {
             return address switch
             {
@@ -87,7 +91,7 @@ public class CoreTests
                 0x0103 => 0x40,
                 0x0210 => 0x01
             };
-        };
+        });
 
         _core.ExecuteCycle();
 
@@ -105,7 +109,7 @@ public class CoreTests
 
         var requestedAddress = 0;
 
-        _interface.ReadRam = address =>
+        _ramConnector.Setup(c => c.ReadRam(It.IsAny<ushort>())).Returns<ushort>(address =>
         {
             requestedAddress = address;
 
@@ -113,7 +117,7 @@ public class CoreTests
             {
                 0x0100 => 0x00
             };
-        };
+        });
 
         core.ExecuteCycle();
 
@@ -128,7 +132,7 @@ public class CoreTests
 
         _state.ProgramCounter = 0x0100;
                 
-        _interface.ReadRam = address =>
+        _ramConnector.Setup(c => c.ReadRam(It.IsAny<ushort>())).Returns<ushort>(address =>
         {
             return address switch
             {
@@ -136,7 +140,7 @@ public class CoreTests
                 0x0101 => 0x34,
                 0x0102 => 0x12
             };
-        };
+        });
 
         _core.ExecuteCycle();
 
@@ -150,13 +154,13 @@ public class CoreTests
 
         _state.ProgramCounter = 0x0100;
                         
-        _interface.ReadRam = address =>
+        _ramConnector.Setup(c => c.ReadRam(It.IsAny<ushort>())).Returns<ushort>(address =>
         {
             return address switch
             {
                 0x0100 => 0x00
             };
-        };
+        });
 
         core.ExecuteCycle();
 

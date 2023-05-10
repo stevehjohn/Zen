@@ -7,7 +7,7 @@ using Worker = Zen.System.Modules.Worker;
 
 namespace Zen.System;
 
-public class Motherboard : IPortConnector
+public class Motherboard : IPortConnector, IRamConnector
 {
     private const int FramesPerSecond = 60;
 
@@ -15,6 +15,7 @@ public class Motherboard : IPortConnector
 
     private readonly Core _core;
 
+    // ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
     private readonly Interface _interface;
 
     private readonly State _state;
@@ -55,11 +56,7 @@ public class Motherboard : IPortConnector
     {
         _model = model;
 
-        _interface = new(this)
-                     {
-                         ReadRam = ReadRam,
-                         WriteRam = WriteRam
-                     };
+        _interface = new(this, this);
 
         _state = new();
 
@@ -87,7 +84,7 @@ public class Motherboard : IPortConnector
         _peripherals.Add(peripheral);
     }
 
-    public byte CpuRead(ushort port)
+    public byte CpuPortRead(ushort port)
     {
         foreach (var peripheral in _peripherals)
         {
@@ -101,18 +98,13 @@ public class Motherboard : IPortConnector
 
         return 0xFF;
     }
-
-    public void CpuWrite(ushort port, byte data)
-    {
-        PortDataChanged(port, data);
-    }
-
-    private byte ReadRam(ushort address)
+    
+    public byte ReadRam(ushort address)
     {
         return _ram[address];
     }
 
-    private void WriteRam(ushort address, byte data)
+    public void WriteRam(ushort address, byte data)
     {
         if (address >= 0x4000 && address < 0x5B00)
         {
@@ -120,6 +112,11 @@ public class Motherboard : IPortConnector
         }
 
         _ram[address] = data;
+    }
+
+    public void CpuPortWrite(ushort port, byte data)
+    {
+        PortDataChanged(port, data);
     }
 
     public void Start()

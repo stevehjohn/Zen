@@ -20,8 +20,11 @@ namespace Zen.Z80.Test.JSMoo.Infrastructure;
 [ExcludeFromCodeCoverage]
 public class TestRunner
 {
-    private readonly Mock<IPortConnector> _connector;
+    private readonly Mock<IPortConnector> _portConnector;
 
+    private readonly Mock<IRamConnector> _ramConnector;
+
+    // ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
     private readonly Interface _interface;
 
     private readonly State _state = new();
@@ -30,9 +33,11 @@ public class TestRunner
 
     public TestRunner()
     {
-        _connector = new Mock<IPortConnector>();
+        _portConnector = new Mock<IPortConnector>();
 
-        _interface = new Interface(_connector.Object);
+        _ramConnector = new Mock<IRamConnector>();
+
+        _interface = new Interface(_portConnector.Object, _ramConnector.Object);
 
         _processor = new Core(_interface, _state);
     }
@@ -247,13 +252,13 @@ public class TestRunner
             }
         }
 
-        _interface.ReadRam = address => ram[address];
+        _ramConnector.Setup(c => c.ReadRam(It.IsAny<ushort>())).Returns<ushort>(address => ram[address]);
 
-        _interface.WriteRam = (address, data) => ram[address] = data;
+        _ramConnector.Setup(c => c.WriteRam(It.IsAny<ushort>(), It.IsAny<byte>())).Callback<ushort, byte>((a, b) => ram[a] = b);
 
-        _connector.Setup(c => c.CpuRead(It.IsAny<ushort>())).Returns<byte>(p => ports[p]);
+        _portConnector.Setup(c => c.CpuPortRead(It.IsAny<ushort>())).Returns<byte>(p => ports[p]);
 
-        _connector.Setup(c => c.CpuWrite(It.IsAny<ushort>(), It.IsAny<byte>())).Callback<ushort, byte>((p, b) => ports[p] = b);
+        _portConnector.Setup(c => c.CpuPortWrite(It.IsAny<ushort>(), It.IsAny<byte>())).Callback<ushort, byte>((p, b) => ports[p] = b);
 
         _state.ProgramCounter = (ushort) test.Initial.PC;
         _state.StackPointer = (ushort) test.Initial.SP;

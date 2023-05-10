@@ -17,7 +17,7 @@ public class InstructionTableGenerator
 
     public InstructionTableGenerator()
     {
-        _instructions = new Instructions(new Interface(new Mock<IPortConnector>().Object), new State());
+        _instructions = new Instructions(new Interface(new Mock<IPortConnector>().Object, new Mock<IRamConnector>().Object), new State());
     }
 
     public void Generate()
