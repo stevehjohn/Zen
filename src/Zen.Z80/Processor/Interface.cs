@@ -1,37 +1,42 @@
 ﻿// ReSharper disable IdentifierTypo
 // ReSharper disable InconsistentNaming
 
+using Zen.Z80.Interfaces;
+
 namespace Zen.Z80.Processor;
 
 public class Interface
 {
+    private readonly IPortConnector _portConnector;
+
+    private readonly IRamConnector _ramConnector;
+
+    public Interface(IPortConnector portConnector, IRamConnector ramConnector)
+    {
+        _portConnector = portConnector;
+
+        _ramConnector = ramConnector;
+    }
+
     public bool INT { get; set; }
-
-    public Func<ushort, byte>? ReadRam { get; set; }
-
-    public Action<ushort, byte>? WriteRam { get; set; }
-
-    public Func<ushort, byte>? ReadPort { get; set; }
-
-    public Action<ushort, byte, bool>? WritePort { get; set; }
 
     public byte ReadFromMemory(ushort address)
     {
-        return ReadRam!(address);
+        return _ramConnector.ReadRam(address);
     }
 
     public void WriteToMemory(ushort address, byte data)
     {
-        WriteRam!(address, data);
+        _ramConnector.WriteRam(address, data);
     }
 
     public byte ReadFromPort(ushort port)
     {
-        return ReadPort!(port);
+        return _portConnector.CpuPortRead(port);
     }
 
-    public void WriteToPort(ushort port, byte data, bool suppressEvent = false)
+    public void WriteToPort(ushort port, byte data)
     {
-        WritePort!(port, data, suppressEvent);
+        _portConnector.CpuPortWrite(port, data);
     }
 }

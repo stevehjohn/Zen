@@ -1,15 +1,17 @@
 ﻿#define UNATTENDED
 // #define UNDOCUMENTED
 // #define EXACT
-// #define QUICK
+#define QUICK
 // #define IGNOREFLAGS
 
+using Moq;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
 using Zen.Common.ConsoleHelpers;
 using Zen.Common.Extensions;
 using Zen.Z80.Exceptions;
+using Zen.Z80.Interfaces;
 using Zen.Z80.Processor;
 using Zen.Z80.Test.JSMoo.Models;
 
@@ -18,7 +20,12 @@ namespace Zen.Z80.Test.JSMoo.Infrastructure;
 [ExcludeFromCodeCoverage]
 public class TestRunner
 {
-    private readonly Interface _interface = new();
+    private readonly Mock<IPortConnector> _portConnector;
+
+    private readonly Mock<IRamConnector> _ramConnector;
+
+    // ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
+    private readonly Interface _interface;
 
     private readonly State _state = new();
 
@@ -26,6 +33,12 @@ public class TestRunner
 
     public TestRunner()
     {
+        _portConnector = new Mock<IPortConnector>();
+
+        _ramConnector = new Mock<IRamConnector>();
+
+        _interface = new Interface(_portConnector.Object, _ramConnector.Object);
+
         _processor = new Core(_interface, _state);
     }
 
@@ -239,13 +252,13 @@ public class TestRunner
             }
         }
 
-        _interface.ReadRam = address => ram[address];
+        _ramConnector.Setup(c => c.ReadRam(It.IsAny<ushort>())).Returns<ushort>(address => ram[address]);
 
-        _interface.WriteRam = (address, data) => ram[address] = data;
-        
-        _interface.ReadPort = port => ports[port];
+        _ramConnector.Setup(c => c.WriteRam(It.IsAny<ushort>(), It.IsAny<byte>())).Callback<ushort, byte>((a, b) => ram[a] = b);
 
-        _interface.WritePort = (port, data, _) => ports[port] = data;
+        _portConnector.Setup(c => c.CpuPortRead(It.IsAny<ushort>())).Returns<byte>(p => ports[p]);
+
+        _portConnector.Setup(c => c.CpuPortWrite(It.IsAny<ushort>(), It.IsAny<byte>())).Callback<ushort, byte>((p, b) => ports[p] = b);
 
         _state.ProgramCounter = (ushort) test.Initial.PC;
         _state.StackPointer = (ushort) test.Initial.SP;
