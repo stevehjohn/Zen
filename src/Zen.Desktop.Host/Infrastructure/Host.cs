@@ -55,6 +55,8 @@ public class Host : Game
         _motherboard = new Motherboard(model);
 
         _motherboard.AddPeripheral(new Peripherals.Keyboard());
+        _motherboard.AddPeripheral(new Peripherals.Kempston());
+        _motherboard.AddPeripheral(new Peripherals.DiskDrive());
 
         _imageName = $"Standard {model} ROM";
 

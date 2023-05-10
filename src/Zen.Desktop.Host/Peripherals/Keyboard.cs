@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework.Input;
 using Zen.System.Interfaces;
 
+// ReSharper disable IdentifierTypo
+
 namespace Zen.Desktop.Host.Peripherals;
 
 public class Keyboard : IPeripheral
