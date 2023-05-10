@@ -1,9 +1,11 @@
 ﻿#define UNATTENDED
 
+using Moq;
 using System.Diagnostics;
 using Zen.Common.ConsoleHelpers;
 using Zen.Common.Extensions;
 using Zen.Z80.Exceptions;
+using Zen.Z80.Interfaces;
 using Zen.Z80.Processor;
 using Zen.Z80.Tests.Fuse.Models;
 
@@ -11,13 +13,17 @@ namespace Zen.Z80.Tests.Fuse.Infrastructure;
 
 public class TestRunner
 {
+    private readonly Mock<IPortConnector> _connector;
+
     private readonly Interface _interface;
 
     private readonly State _state;
 
     public TestRunner()
     {
-        _interface = new();
+        _connector = new Mock<IPortConnector>();
+
+        _interface = new Interface(_connector.Object);
 
         _state = new();
     }
@@ -105,11 +111,9 @@ public class TestRunner
         
         _interface.ReadRam = address => ram[address];
 
-        _interface.WriteRam = (address, data) => ram[address] = data;
+        _interface.WriteRam = (address, data) => ram[address] = data; 
 
-        _interface.ReadPort = _ => 0xFF;
-
-        _interface.WritePort = (_, _, _) => Thread.Sleep(0);
+        _connector.Setup(c => c.CpuRead(It.IsAny<ushort>())).Returns(0xFF);
 
         var tStates = 0;
 

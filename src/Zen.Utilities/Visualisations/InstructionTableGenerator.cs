@@ -1,7 +1,9 @@
-﻿using System.Diagnostics;
+﻿using Moq;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using Zen.Z80.Implementation;
+using Zen.Z80.Interfaces;
 using Zen.Z80.Processor;
 
 namespace Zen.Utilities.Visualisations;
@@ -15,7 +17,7 @@ public class InstructionTableGenerator
 
     public InstructionTableGenerator()
     {
-        _instructions = new Instructions(new Interface(), new State());
+        _instructions = new Instructions(new Interface(new Mock<IPortConnector>().Object), new State());
     }
 
     public void Generate()
