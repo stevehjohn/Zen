@@ -1,15 +1,17 @@
 ﻿#define UNATTENDED
 // #define UNDOCUMENTED
 // #define EXACT
-// #define QUICK
+#define QUICK
 // #define IGNOREFLAGS
 
+using Moq;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
 using Zen.Common.ConsoleHelpers;
 using Zen.Common.Extensions;
 using Zen.Z80.Exceptions;
+using Zen.Z80.Interfaces;
 using Zen.Z80.Processor;
 using Zen.Z80.Test.JSMoo.Models;
 
@@ -18,7 +20,9 @@ namespace Zen.Z80.Test.JSMoo.Infrastructure;
 [ExcludeFromCodeCoverage]
 public class TestRunner
 {
-    private readonly Interface _interface = new();
+    private readonly Mock<IPortConnector> _connector;
+
+    private readonly Interface _interface;
 
     private readonly State _state = new();
 
@@ -26,6 +30,10 @@ public class TestRunner
 
     public TestRunner()
     {
+        _connector = new Mock<IPortConnector>();
+
+        _interface = new Interface(_connector.Object);
+
         _processor = new Core(_interface, _state);
     }
 
@@ -242,10 +250,10 @@ public class TestRunner
         _interface.ReadRam = address => ram[address];
 
         _interface.WriteRam = (address, data) => ram[address] = data;
-        
-        _interface.ReadPort = port => ports[port];
 
-        _interface.WritePort = (port, data, _) => ports[port] = data;
+        _connector.Setup(c => c.CpuRead(It.IsAny<ushort>())).Returns<byte>(p => ports[p]);
+
+        _connector.Setup(c => c.CpuWrite(It.IsAny<ushort>(), It.IsAny<byte>())).Callback<ushort, byte>((p, b) => ports[p] = b);
 
         _state.ProgramCounter = (ushort) test.Initial.PC;
         _state.StackPointer = (ushort) test.Initial.SP;
