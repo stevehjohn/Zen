@@ -1,4 +1,6 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Text;
+using System.Text.Json.Serialization;
+using Zen.Common.Extensions;
 using Zen.Z80.Implementation;
 
 namespace Zen.Z80.Processor;
@@ -226,5 +228,24 @@ public class State
         LastInstruction = null;
 
         // TODO: The rest...
+    }
+
+    public override string ToString()
+    {
+        var builder = new StringBuilder();
+
+        builder.Append($"PC: {ProgramCounter:X4}  ");
+        builder.Append($"SP: {StackPointer:X4}  ");
+
+        builder.Append($"AF: {this[RegisterPair.AF]:X4}  ");
+        builder.Append($"BC: {this[RegisterPair.BC]:X4}  ");
+        builder.Append($"DE: {this[RegisterPair.DE]:X4}  ");
+        builder.Append($"HL: {this[RegisterPair.HL]:X4}  ");
+        builder.Append($"IX: {this[RegisterPair.IX]:X4}  ");
+        builder.Append($"IY: {this[RegisterPair.IY]:X4}  ");
+
+        builder.Append($"Flags: {this[Register.F].ToFlags()}");
+
+        return builder.ToString();
     }
 }

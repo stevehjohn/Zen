@@ -9,6 +9,7 @@
   <ItemGroup>
     <Folder Include="Infrastructure\" />
     <Folder Include="Interfaces\" />
+    <Folder Include="Exceptions\" />
   </ItemGroup>
 
   <ItemGroup>
