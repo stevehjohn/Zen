@@ -4,17 +4,11 @@ namespace Zen.System.Modules;
 
 public class VideoModulator
 {
-    private const int PaperRegionStart = 14_336 - 40; // Dunno why, but 40 fixes El Stompo.
+    private const int PaperRegionAdjusted = Constants.PaperRegionStart - 40; // Dunno why, but 40 fixes El Stompo.
 
-    private const int ScreenStart = PaperRegionStart - StatesPerScreenLine * Constants.BorderPixels;
+    private const int ScreenStart = PaperRegionAdjusted - Constants.StatesPerScreenLine * Constants.BorderPixels;
 
-    private const int ScreenEnd = ScreenStart + StatesPerScreenLine * (Constants.ScreenHeightPixels + 1);
-
-    private const int StatesPerPaperLine = 128;
-
-    private const int StatesPerScreenLine = 224;
-
-    private const int ScreenPixelCount = Constants.ScreenWidthPixels * Constants.ScreenHeightPixels;
+    private const int ScreenEnd = ScreenStart + Constants.StatesPerScreenLine * (Constants.ScreenHeightPixels + 1);
 
     private const int StatesPerHBorder = Constants.BorderPixels / 2;
 
@@ -25,11 +19,11 @@ public class VideoModulator
     // .. S           F B     P P P I I I
     // .. 7 6 5 4 3 2 1 0 7 6 5 4 3 2 1 0
     // S == Whether pixel is set.
-    private readonly ushort[] _screen = new ushort[ScreenPixelCount];
+    private readonly ushort[] _screen = new ushort[Constants.ScreenPixelCount];
 
-    private readonly ushort[] _frame = new ushort[ScreenPixelCount];
+    private readonly ushort[] _frame = new ushort[Constants.ScreenPixelCount];
 
-    private readonly byte[] _vram = new byte[0x4000];
+    private readonly byte[] _vram = new byte[Constants.RamBankSize];
 
     public ushort[] ScreenFrame => _frame;
 
@@ -69,22 +63,22 @@ public class VideoModulator
 
         while (start < end)
         {
-            y = start / StatesPerScreenLine;
+            y = start / Constants.StatesPerScreenLine;
 
-            var xS = start % StatesPerScreenLine;
+            var xS = start % Constants.StatesPerScreenLine;
 
             start++;
 
             var pixel = y * Constants.ScreenWidthPixels + xS * 2;
 
-            if (pixel >= ScreenPixelCount)
+            if (pixel >= Constants.ScreenPixelCount)
             {
                 break;
             }
 
             if (y < Constants.BorderPixels || y >= Constants.PaperHeightPixels + Constants.BorderPixels
                                            || xS < StatesPerHBorder
-                                           || xS >= StatesPerPaperLine + StatesPerHBorder)
+                                           || xS >= Constants.StatesPerPaperLine + StatesPerHBorder)
             {
                 _screen[pixel] = (byte) (Border << 3);
 
@@ -102,7 +96,7 @@ public class VideoModulator
 
         if (y >= Constants.ScreenHeightPixels)
         {
-            Array.Copy(_screen, 0, _frame, 0, ScreenPixelCount);
+            Array.Copy(_screen, 0, _frame, 0, Constants.ScreenPixelCount);
         }
     }
 
