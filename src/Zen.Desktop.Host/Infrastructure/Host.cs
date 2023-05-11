@@ -18,7 +18,7 @@ namespace Zen.Desktop.Host.Infrastructure;
 
 public class Host : Game
 {
-    private const int StartPause = 60;
+    private const int StartPause = 30;
 
     // ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
     private readonly GraphicsDeviceManager _graphicsDeviceManager;
