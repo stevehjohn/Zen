@@ -1,6 +1,7 @@
 ﻿using Zen.System.Infrastructure;
 using Zen.System.Interfaces;
 using Zen.System.Modules;
+using Zen.System.ProcessorHooks;
 using Zen.Z80.Interfaces;
 using Zen.Z80.Processor;
 using Worker = Zen.System.Modules.Worker;
@@ -61,6 +62,8 @@ public class Motherboard : IPortConnector, IRamConnector
         _state = new();
 
         _core = new Core(_interface, _state);
+
+        _core.AddHook(new LdBytesHook());
 
         _ram = new() { ProtectRom = true };
 

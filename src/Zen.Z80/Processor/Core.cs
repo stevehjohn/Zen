@@ -1,5 +1,6 @@
 ﻿// #define LOG
 using Zen.Z80.Implementation;
+using Zen.Z80.Interfaces;
 
 namespace Zen.Z80.Processor;
 
@@ -10,6 +11,10 @@ public class Core
     private readonly State _state;
 
     private readonly Instructions _instructions;
+
+    private readonly List<IProcessorHook> _hooks = new();
+
+    private IProcessorHook? _currentHook;
 
 #if LOG
     private readonly List<string> _log = new(21_000);
@@ -30,8 +35,26 @@ public class Core
     {
         _state.IgnoreNextInterrupt = false;
 
-        if (_state.ProgramCounter == 0x0556)
+        if (_currentHook == null)
         {
+            foreach (var hook in _hooks)
+            {
+                if (hook.Activate(_state))
+                {
+                    _currentHook = hook;
+
+                    return;
+                }
+            }
+        }
+        else
+        {
+            if (_currentHook.ExecuteCycle(_state, _interface))
+            {
+                _currentHook = null;
+
+                return;
+            }
         }
 
         Instruction? instruction;
@@ -118,6 +141,11 @@ public class Core
             _log.Clear();
         }
 #endif
+    }
+
+    public void AddHook(IProcessorHook hook)
+    {
+        _hooks.Add(hook);
     }
 
     private void UpdateR(Instruction instruction)
