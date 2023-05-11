@@ -22,7 +22,7 @@ public class LdBytesHook : IProcessorHook
     {
         _loader = new TapFileLoader();
 
-        _loader.StageFile("C:\\Users\\steve\\Downloads\\RType.tap");
+        _loader.StageFile("C:\\Users\\steve\\Downloads\\Rampage.tap");
     }
 
     public bool Activate(State state)
