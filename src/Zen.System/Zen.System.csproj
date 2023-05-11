@@ -10,6 +10,7 @@
     <Folder Include="Infrastructure\" />
     <Folder Include="Interfaces\" />
     <Folder Include="Exceptions\" />
+    <Folder Include="ProcessorHooks\" />
   </ItemGroup>
 
   <ItemGroup>
