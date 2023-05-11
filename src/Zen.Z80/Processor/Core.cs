@@ -30,6 +30,10 @@ public class Core
     {
         _state.IgnoreNextInterrupt = false;
 
+        if (_state.ProgramCounter == 0x0556)
+        {
+        }
+
         Instruction? instruction;
 
         if (_state.Halted)
