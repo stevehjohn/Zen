@@ -6,7 +6,7 @@ namespace Zen.System.ProcessorHooks;
 
 public class LdBytesHook : IProcessorHook
 {
-    private const int PauseLength = 30;
+    private const int PauseLength = 10;
 
     private byte[] _data = Array.Empty<byte>();
 
@@ -22,7 +22,7 @@ public class LdBytesHook : IProcessorHook
     {
         _loader = new TapFileLoader();
 
-        _loader.StageFile("C:\\Users\\steve\\Downloads\\Aqua Plane.tap");
+        _loader.StageFile("C:\\Users\\steve\\Downloads\\RType.tap");
     }
 
     public bool Activate(State state)
