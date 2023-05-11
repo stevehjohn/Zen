@@ -29,7 +29,6 @@ public class LdBytesHook : IProcessorHook
     {
         if (state.ProgramCounter == 0x0556)
         {
-
             //_data = _loader.ReadNextBlock(state[Register.A] == 0x00);
             _data = _loader.ReadNextBlock();
 
