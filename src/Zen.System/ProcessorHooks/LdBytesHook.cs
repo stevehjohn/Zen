@@ -1,4 +1,5 @@
-﻿using Zen.Z80.Interfaces;
+﻿using Zen.System.FileHandling;
+using Zen.Z80.Interfaces;
 using Zen.Z80.Processor;
 
 namespace Zen.System.ProcessorHooks;
@@ -15,13 +16,22 @@ public class LdBytesHook : IProcessorHook
 
     private int _pause;
 
+    private TapFileLoader? _loader;
+
+    public LdBytesHook()
+    {
+        _loader = new TapFileLoader();
+
+        _loader.StageFile("C:\\Users\\steve\\Downloads\\Aqua Plane.tap");
+    }
+
     public bool Activate(State state)
     {
         if (state.ProgramCounter == 0x0556)
         {
-            _data = File.ReadAllBytes("C:\\Users\\steve\\Downloads\\Aqua Plane.tap");
-            
-            _data = _data[3..20];
+
+            //_data = _loader.ReadNextBlock(state[Register.A] == 0x00);
+            _data = _loader.ReadNextBlock();
 
             _position = 0;
 
@@ -58,6 +68,8 @@ public class LdBytesHook : IProcessorHook
 
             state[RegisterPair.DE]--;
 
+            state[Register.F] = 0x93;
+
             if (state[RegisterPair.DE] == 0)
             {
                 Ret(state, @interface);
@@ -72,6 +84,15 @@ public class LdBytesHook : IProcessorHook
             _bit = 1;
 
             _position++;
+
+            //if (_position >= _data.Length)
+            //{
+            //    state[Flag.Carry] = true;
+
+            //    Ret(state, @interface);
+
+            //    return true;
+            //}
         }
 
         return false;
