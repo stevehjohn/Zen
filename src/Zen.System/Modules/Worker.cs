@@ -88,7 +88,7 @@ public class Worker : IDisposable
 
                 while (frameCycles < Constants.FrameCycles)
                 {
-                    _interface.INT = frameCycles is >= 24 and < 56;
+                    _interface.INT = frameCycles is >= Constants.InterruptStart and < Constants.InterruptEnd;
 
                     ClearFrameRamBuffer();
 

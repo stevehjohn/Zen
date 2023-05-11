@@ -13,7 +13,7 @@ public static class Constants
 
     public const int BorderPixels = 16;
     
-    public const int ScreenPixelCount = Constants.ScreenWidthPixels * Constants.ScreenHeightPixels;
+    public const int ScreenPixelCount = ScreenWidthPixels * ScreenHeightPixels;
 
     /* Timing */
     public const int FrameCycles = 69_888;
@@ -23,6 +23,10 @@ public static class Constants
     public const int StatesPerPaperLine = 128;
 
     public const int PaperRegionStart = 14_336;
+
+    public const int InterruptStart = 24;
+
+    public const int InterruptEnd = 56;
 
     /* RAM */
     public const int ScreenRamSize = 0x1B00;
