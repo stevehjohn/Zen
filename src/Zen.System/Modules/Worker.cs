@@ -1,4 +1,5 @@
-﻿using Zen.Z80.Processor;
+﻿using Zen.Common;
+using Zen.Z80.Processor;
 
 // ReSharper disable IdentifierTypo
 
@@ -85,7 +86,7 @@ public class Worker : IDisposable
 
                 _videoAdapter.StartFrame();
 
-                while (frameCycles < 69_888)
+                while (frameCycles < Constants.FrameCycles)
                 {
                     _interface.INT = frameCycles is >= 24 and < 56;
 

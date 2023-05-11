@@ -12,6 +12,17 @@ public static class Constants
     public const int PaperHeightPixels = 192;
 
     public const int BorderPixels = 16;
+    
+    public const int ScreenPixelCount = Constants.ScreenWidthPixels * Constants.ScreenHeightPixels;
+
+    /* Timing */
+    public const int FrameCycles = 69_888;
+
+    public const int StatesPerScreenLine = 224;
+
+    public const int StatesPerPaperLine = 128;
+
+    public const int PaperRegionStart = 14_336;
 
     /* RAM */
     public const int ScreenRamSize = 0x1B00;
