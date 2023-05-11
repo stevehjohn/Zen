@@ -52,9 +52,9 @@ public class Core
             if (_currentHook.ExecuteCycle(_state, _interface))
             {
                 _currentHook = null;
-
-                return;
             }
+
+            return;
         }
 
         Instruction? instruction;

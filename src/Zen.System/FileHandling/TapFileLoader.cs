@@ -2,38 +2,37 @@
 
 namespace Zen.System.FileHandling;
 
-public class TapFileLoader : IFileLoader
+public class TapFileLoader
 {
     private int _position;
 
-    public void Load(string filename)
+    private byte[] _data;
+
+    public void StageFile(string filename)
     {
         _position = 0;
 
-        var data = File.ReadAllBytes(filename);
-
-        byte[] block;
-
-        while ((block = ReadBlock(data)).Length > 0)
-        {
-            var isHeader = block[0] == 0;
-        }
+        _data = File.ReadAllBytes(filename);
     }
 
-    private byte[] ReadBlock(byte[] data)
+    public byte[] ReadNextBlock()
     {
-        if (_position > data.Length)
+        if (_position > _data.Length)
         {
             return Array.Empty<byte>();
         }
 
-        var length = data[_position] | (data[_position + 1] << 8);
+        var length = _data[_position] | (_data[_position + 1] << 8);
 
-        if (_position + length > data.Length)
+        if (_position + length > _data.Length)
         {
             throw new Exceptions.FileLoadException("Block length is greater than file size.");
         }
 
-        return data[(_position + 2)..(_position + 2 + length)];
+        var data = _data[(_position + 3)..(_position + 1 + length)];
+
+        _position += length + 2;
+
+        return data;
     }
 }
