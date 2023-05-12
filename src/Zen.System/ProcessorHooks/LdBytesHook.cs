@@ -25,7 +25,7 @@ public class LdBytesHook : IProcessorHook
 
     public void StageFile(string filename)
     {
-        _loader.StageFile("C:\\Git\\Zen\\Other Images\\zexall2.tap");
+        _loader.StageFile(filename);
     }
 
     public bool Activate(State state)
