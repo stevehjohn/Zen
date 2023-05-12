@@ -225,7 +225,7 @@ public class FileSelect : CharacterOverlayBase
 
         directories.ForEach(d => _files.Add((d, Path.GetFileName(d), true)));
 
-        var files = Directory.EnumerateFiles(_path).Where(f => Path.GetExtension(f).ToLowerInvariant() is ".z80" or ".sna").OrderBy(d => d).ToList();
+        var files = Directory.EnumerateFiles(_path).Where(f => Path.GetExtension(f).ToLowerInvariant() is ".z80" or ".sna" or ".tap").OrderBy(d => d).ToList();
 
         files.ForEach(f => _files.Add((f, Path.GetFileName(f), false)));
     }

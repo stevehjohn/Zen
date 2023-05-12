@@ -34,3 +34,4 @@ I did have one issue building on macOS on an M1 processor. Solved by https://sta
 - https://github.com/redcode/Z80/wiki/Technical-literature
 - https://github.com/redcode/ZXSpectrum/wiki
 - https://github.com/redcode/Z80/wiki/Z80-Block-Flags-Test
+- https://github.com/redcode/Z80/wiki/Tests

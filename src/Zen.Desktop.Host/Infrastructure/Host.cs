@@ -236,7 +236,7 @@ public class Host : Game
     
     private void LoadZ80Sna(string filename)
     {
-        IFileLoader loader;
+        IFileLoader loader = null;
 
         switch (Path.GetExtension(filename).ToLowerInvariant())
         {
@@ -248,12 +248,20 @@ public class Host : Game
                 loader = new SnaFileLoader(_motherboard.State, _motherboard.Ram);
 
                 break;
+
+            case ".tap":
+                _motherboard.StageFile(filename);
+
+                break;
             default:
                 // TODO: Proper exception
                 throw new Exception("Unsupported file format");
         }
 
-        loader.Load(filename);
+        if (loader != null)
+        {
+            loader.Load(filename);
+        }
 
         _imageName = filename.Split(Path.DirectorySeparatorChar)[^2];
 
