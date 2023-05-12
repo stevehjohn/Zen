@@ -4,7 +4,7 @@ public class TapFileLoader
 {
     private int _position;
 
-    private byte[] _data;
+    private byte[] _data = Array.Empty<byte>();
 
     public void StageFile(string filename)
     {
