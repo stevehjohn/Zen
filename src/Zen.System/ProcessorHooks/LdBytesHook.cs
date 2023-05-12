@@ -16,13 +16,16 @@ public class LdBytesHook : IProcessorHook
 
     private int _pause;
 
-    private TapFileLoader? _loader;
+    private readonly TapFileLoader _loader;
 
     public LdBytesHook()
     {
         _loader = new TapFileLoader();
+    }
 
-        _loader.StageFile("C:\\Users\\steve\\Downloads\\Rampage.tap");
+    public void StageFile(string filename)
+    {
+        _loader.StageFile("C:\\Git\\Zen\\Other Images\\zexall2.tap");
     }
 
     public bool Activate(State state)

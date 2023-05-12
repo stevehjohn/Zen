@@ -31,6 +31,8 @@ public class Motherboard : IPortConnector, IRamConnector
 
     private readonly Dictionary<int, byte[]> _romCache = new();
 
+    private readonly LdBytesHook _ldBytesHook;
+
     private bool _pagingDisabled;
 
     // ReSharper disable once InconsistentNaming
@@ -63,7 +65,9 @@ public class Motherboard : IPortConnector, IRamConnector
 
         _core = new Core(_interface, _state);
 
-        _core.AddHook(new LdBytesHook());
+        _ldBytesHook = new LdBytesHook();
+
+        _core.AddHook(_ldBytesHook);
 
         _ram = new() { ProtectRom = true };
 
@@ -85,6 +89,11 @@ public class Motherboard : IPortConnector, IRamConnector
     public void AddPeripheral(IPeripheral peripheral)
     {
         _peripherals.Add(peripheral);
+    }
+
+    public void StageFile(string filename)
+    {
+        _ldBytesHook.StageFile(filename);
     }
 
     public byte CpuPortRead(ushort port)
