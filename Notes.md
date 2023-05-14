@@ -3,6 +3,17 @@
 ToDos, aide memoires, etc...
 
 - https://discord.com/channels/654774470652723220/689220116801650811/885861410490433566
+- https://github.com/hoglet67/Z80Decoder/wiki/Undocumented-Flags
+- https://rk.nvg.ntnu.no/sinclair/faq/tech_z80.html#UNDOC
+
+## ZexAll 2
+
+BIT n, (HL)
+CPD [R]
+CPI [R]
+LDD [R] (1)
+LDI [R] (2)
+
 
 ## ZexDoc
 
