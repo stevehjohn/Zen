@@ -34,7 +34,7 @@ public class TestRunner
 
     public void RunTests()
     {
-        var input = File.ReadAllLines("TestDefinitions\\input.fuse");
+        var input = File.ReadAllLines(Path.Combine("TestDefinitions", "input.fuse"));
 
         var test = new List<string>();
 
