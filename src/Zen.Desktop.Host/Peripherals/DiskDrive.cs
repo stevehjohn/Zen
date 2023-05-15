@@ -11,6 +11,6 @@ public class DiskDrive : IPeripheral
             return 0b10000000;
         }
 
-        return 0xFF;
+        return null;
     }
 }
