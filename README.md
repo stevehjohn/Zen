@@ -18,7 +18,7 @@ Compatible with Windows and macOS (and in theory, Linux, but I haven't tested th
 
 Press <kbd>F10</kbd> for the menu once running.
 
-Open `ZXE.Desktop.sln` and build it with your favourite tool(s).
+Open `Zen.Desktop.Host.sln` and build it with your favourite tool(s).
 
 I did have one issue building on macOS on an M1 processor. Solved by https://stackoverflow.com/a/74317078.
 
