@@ -11,8 +11,7 @@ public class PoAnyHook : IProcessorHook
 
     public PoAnyHook()
     {
-        File.AppendAllText(LogFile, Environment.NewLine);
-        File.AppendAllText(LogFile, Environment.NewLine);
+        File.Delete(LogFile);
     }
 
     public bool Activate(State state)
