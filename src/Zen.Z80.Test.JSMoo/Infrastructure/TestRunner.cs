@@ -44,7 +44,7 @@ public class TestRunner
 
     public void RunTests()
     {
-        var files = Directory.EnumerateFiles("TestDefinitions", "*.json");
+        var files = Directory.EnumerateFiles("TestDefinitions", "*.json").OrderBy(p => p);
 
         var total = 0;
 
