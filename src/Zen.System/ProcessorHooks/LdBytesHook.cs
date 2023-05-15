@@ -86,18 +86,13 @@ public class LdBytesHook : IProcessorHook
             _bit = 1;
 
             _position++;
-
-            //if (_position >= _data.Length)
-            //{
-            //    state[Flag.Carry] = true;
-
-            //    Ret(state, @interface);
-
-            //    return true;
-            //}
         }
 
         return false;
+    }
+
+    public void PassiveCycle(State state, Interface @interface)
+    {
     }
 
     private static void Ret(State state, Interface @interface)
