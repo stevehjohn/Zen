@@ -200,7 +200,7 @@ public class Host : Game
 
         var adapter = new ZenFileAdapter(_motherboard);
 
-        var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "ZXE Snapshots");
+        var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Zen Snapshots");
 
         var directoryInfo = new DirectoryInfo(path);
 
@@ -220,7 +220,7 @@ public class Host : Game
 
         var adapter = new ZenFileAdapter(_motherboard);
 
-        var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "ZXE Snapshots", $"{_imageName} {DateTime.Now:yyyy-MM-dd HH-mm}.zxe.json");
+        var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Zen Snapshots", $"{_imageName} {DateTime.Now:yyyy-MM-dd HH-mm}.zen.json");
 
         adapter.Save(path, _imageName, _motherboard.Model);
 
