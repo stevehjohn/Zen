@@ -11,6 +11,6 @@ public class Kempston : IPeripheral
             return 0x00;
         }
 
-        return 0xFF;
+        return null;
     }
 }
