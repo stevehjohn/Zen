@@ -69,6 +69,8 @@ public class Motherboard : IPortConnector, IRamConnector
 
         _core.AddHook(_ldBytesHook);
 
+        _core.AddHook(new PoAnyHook());
+
         _ram = new() { ProtectRom = true };
 
         if (model == Model.Spectrum48K)
