@@ -8,7 +8,6 @@ ToDos, aide memoires, etc...
 
 ## ZexAll 2
 
-BIT n, (HL)
 CPD [R]
 CPI [R]
 LDD [R] (1)
