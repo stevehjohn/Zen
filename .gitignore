@@ -291,3 +291,5 @@ lambdas/.serverless/
 
 .dotnetcli/
 .vscode/
+
+.DS_Store
