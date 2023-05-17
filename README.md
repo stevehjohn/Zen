@@ -24,14 +24,3 @@ I did have one issue building on macOS on an M1 processor. Solved by https://sta
 
 - `brew install freeimage`
 - `sudo ln -s /opt/homebrew/Cellar/freeimage/3.18.0/lib/libfreeimage.dylib /usr/local/lib/libfreeimage`
-
-## Useful References
-
-- https://clrhome.org/table/
-- http://ped.7gods.org/Z80N_table_ClrHome.html
-- https://github.com/Agaxia/Z80Plus/blob/master/sources/Z80Plus.cpp
-- https://github.com/raddad772/jsmoo/tree/main/misc/tests/GeneratedTests/z80
-- https://github.com/redcode/Z80/wiki/Technical-literature
-- https://github.com/redcode/ZXSpectrum/wiki
-- https://github.com/redcode/Z80/wiki/Z80-Block-Flags-Test
-- https://github.com/redcode/Z80/wiki/Tests
