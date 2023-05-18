@@ -1,6 +1,5 @@
-﻿// #define LOG
+﻿//#define LOG
 
-using System.Diagnostics;
 using Zen.Z80.Implementation;
 using Zen.Z80.Interfaces;
 

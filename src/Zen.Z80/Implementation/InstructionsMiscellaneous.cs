@@ -103,7 +103,7 @@ public partial class Instructions
             _state[Flag.AddSubtract] = true;
             _state[Flag.ParityOverflow] = _state[RegisterPair.BC] != 0;
             _state[Flag.X1] = (x & 0x08) > 0;
-            _state[Flag.HalfCarry] = (0x10 & ((_state[Register.A] & 0x0F) - (value & 0x0F) - (_state[Flag.Carry] ? 1 : 0))) / 0x10 > 0;
+            _state[Flag.HalfCarry] = (0x10 & ((_state[Register.A] & 0x0F) - (value & 0x0F) - (_state[Flag.Carry] ? 1 : 0))) > 0;
             _state[Flag.X2] = (x & 0x02) > 0;
             _state[Flag.Zero] = difference == 0;
             _state[Flag.Sign] = ((byte) difference & 0x80) > 0;
