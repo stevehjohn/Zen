@@ -256,7 +256,7 @@ public class TestRunner
 
         _ramConnector.Setup(c => c.WriteRam(It.IsAny<ushort>(), It.IsAny<byte>())).Callback<ushort, byte>((a, b) => ram[a] = b);
 
-        _portConnector.Setup(c => c.CpuPortRead(It.IsAny<ushort>())).Returns<byte>(p => ports[p]);
+        _portConnector.Setup(c => c.CpuPortRead(It.IsAny<ushort>())).Returns<ushort>(p => ports[p]);
 
         _portConnector.Setup(c => c.CpuPortWrite(It.IsAny<ushort>(), It.IsAny<byte>())).Callback<ushort, byte>((p, b) => ports[p] = b);
 
