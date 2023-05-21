@@ -25,6 +25,20 @@ CPI [R]
 LDD [R] (1)
 LDI [R] (2)
 
+## Z80 Flags
+
+ADC16
+SBC16
+BIT n, (HL)
+LDI
+LDD
+LDDR
+CPI
+CPD
+IND
+OUTI
+OUTD
+
 ## ZexDoc
 
 All pass.
