@@ -10,11 +10,28 @@
     <Folder Include="Infrastructure\" />
     <Folder Include="Interfaces\" />
     <Folder Include="Exceptions\" />
+    <Folder Include="Libraries\" />
     <Folder Include="ProcessorHooks\" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Bufdio" Version="0.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Zen.Z80\Zen.Z80.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Libraries\libportaudio-2.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Libraries\libportaudio.dylib">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Libraries\libportaudio.so">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
