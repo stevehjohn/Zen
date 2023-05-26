@@ -11,6 +11,7 @@
     <Folder Include="Interfaces\" />
     <Folder Include="Exceptions\" />
     <Folder Include="Libraries\" />
+    <Folder Include="Modules\Audio\" />
     <Folder Include="ProcessorHooks\" />
   </ItemGroup>
 
