@@ -3,6 +3,7 @@
 ToDos, aide memoires, etc...
 
 - MemPtr stuff.
+- https://softspectrum48.weebly.com/notes/category/ay389108912
 
 ## Useful References
 
