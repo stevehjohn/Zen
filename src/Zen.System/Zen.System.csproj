@@ -10,7 +10,6 @@
     <Folder Include="Infrastructure\" />
     <Folder Include="Interfaces\" />
     <Folder Include="Exceptions\" />
-    <Folder Include="Libraries\" />
     <Folder Include="Modules\Audio\" />
     <Folder Include="ProcessorHooks\" />
   </ItemGroup>
@@ -24,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Libraries\libportaudio-2.dll">
+    <None Update="Libraries\libportaudio.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Libraries\libportaudio.dylib">

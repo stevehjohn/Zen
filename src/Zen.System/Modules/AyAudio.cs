@@ -12,6 +12,8 @@ public class AyAudio : IDisposable
 
     private Task? _audioThread;
 
+    private byte _registerNumber;
+
     private readonly float[] _buffer;
 
     private readonly IAudioEngine _engine;
@@ -27,7 +29,7 @@ public class AyAudio : IDisposable
 
         _buffer = new float[Constants.BufferSize];
 
-        BufdioLib.InitializePortAudio();
+        BufdioLib.InitializePortAudio(Path.Combine("Libraries", "libportaudio"));
 
         _engine = new PortAudioEngine(new AudioEngineOptions(1, Constants.SampleRate));
     }
@@ -37,9 +39,14 @@ public class AyAudio : IDisposable
         _audioThread = Task.Run(RunFrame);
     }
 
-    public void SetRegister(byte registerNumber, byte value)
+    public void SelectRegister(byte registerNumber)
     {
-        switch (registerNumber)
+        _registerNumber = registerNumber;
+    }
+
+    public void SetRegister(byte value)
+    {
+        switch (_registerNumber)
         {
             case 0:
                 _channels[0].TonePeriod = (ushort) ((_channels[0].TonePeriod & 0x0F00) | value);
@@ -141,11 +148,11 @@ public class AyAudio : IDisposable
             for (var i = 0; i < Constants.BufferSize; i++)
             {
                 _buffer[i] = (_mixer & 0b0000_0001) > 0 ? _channels[0].GetNextToneSignal() : 0;
-                _buffer[i] += (_mixer & 0b0000_1000) > 0 ? _channels[0].GetNextNoiseSignal() : 0;
-                _buffer[i] += (_mixer & 0b0000_0010) > 0 ? _channels[1].GetNextToneSignal() : 0;
-                _buffer[i] += (_mixer & 0b0001_0000) > 0 ? _channels[1].GetNextNoiseSignal() : 0;
-                _buffer[i] += (_mixer & 0b0000_0100) > 0 ? _channels[2].GetNextToneSignal() : 0;
-                _buffer[i] += (_mixer & 0b0010_0000) > 0 ? _channels[2].GetNextNoiseSignal() : 0;
+                //_buffer[i] += (_mixer & 0b0000_1000) > 0 ? _channels[0].GetNextNoiseSignal() : 0;
+                //_buffer[i] += (_mixer & 0b0000_0010) > 0 ? _channels[1].GetNextToneSignal() : 0;
+                //_buffer[i] += (_mixer & 0b0001_0000) > 0 ? _channels[1].GetNextNoiseSignal() : 0;
+                //_buffer[i] += (_mixer & 0b0000_0100) > 0 ? _channels[2].GetNextToneSignal() : 0;
+                //_buffer[i] += (_mixer & 0b0010_0000) > 0 ? _channels[2].GetNextNoiseSignal() : 0;
             }
 
             _engine.Send(_buffer);
