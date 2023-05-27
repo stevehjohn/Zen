@@ -212,11 +212,11 @@ public partial class Instructions
 
             var data = _interface.ReadFromMemory(address);
 
-            _interface.WriteToPort(address, data);
-
             _state[RegisterPair.HL]--;
 
             _state[Register.B]--;
+
+            _interface.WriteToPort(_state[RegisterPair.BC], data);
 
             _state[Flag.Carry] = data + _state[Register.L] > 255;
             _state[Flag.AddSubtract] = (data & 0b1000_0000) > 0;
@@ -227,7 +227,7 @@ public partial class Instructions
             _state[Flag.Zero] = _state[Register.B] == 0;
             _state[Flag.Sign] = (sbyte) _state[Register.B] < 0;
 
-            _state.MemPtr = (ushort) (_state[RegisterPair.BC] + 1);
+            _state.MemPtr = (ushort) (_state[RegisterPair.BC] - 1);
 
             if (_state[Register.B] != 0)
             {
