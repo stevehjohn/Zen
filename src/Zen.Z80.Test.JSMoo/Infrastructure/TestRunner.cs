@@ -64,7 +64,7 @@ public class TestRunner
 
         foreach (var file in files)
         {
-            //if (Path.GetFileNameWithoutExtension(file).CompareTo("fd 8d ") < 0)
+            //if (Path.GetFileNameWithoutExtension(file).CompareTo("ed aa ") < 0)
             //{
             //    continue;
             //}
