@@ -171,7 +171,7 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
 
     private void PortDataChanged(ushort port, byte data)
     {
-        if (port % 2 == 0)
+        if ((port & 0x01) == 0)
         {
             _videoModulator.Border = (byte) (data & 0b0000_0111);
         }

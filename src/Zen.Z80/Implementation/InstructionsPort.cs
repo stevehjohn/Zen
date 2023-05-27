@@ -298,11 +298,11 @@ public partial class Instructions
 
             var data = _interface.ReadFromMemory(address);
 
-            _interface.WriteToPort(address, data);
-
             _state[RegisterPair.HL]--;
 
             _state[Register.B]--;
+
+            _interface.WriteToPort(_state[RegisterPair.BC], data);
 
             _state[Flag.Carry] = data > _state[Register.A];
             _state[Flag.AddSubtract] = true;
