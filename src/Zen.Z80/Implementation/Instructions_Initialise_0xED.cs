@@ -235,7 +235,7 @@ public partial class Instructions
 
         _instructions.Add(0x00ED70, new Instruction(_ => IN_C(), "IN (C)", 0x00ED70, 0));
 
-        _instructions.Add(0x00ED71, new Instruction(_ => OUT_C_b(0x01), "OUT (C), 0", 0x00ED71, 0));
+        _instructions.Add(0x00ED71, new Instruction(_ => OUT_C_b(0x00), "OUT (C), 0", 0x00ED71, 0));
 
         _instructions.Add(0x00ED72, new Instruction(_ => SBC_RR_RR(RegisterPair.HL, RegisterPair.SP), "SBC HL, SP", 0x00ED72, 0));
 

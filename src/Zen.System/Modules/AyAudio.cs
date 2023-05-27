@@ -1,4 +1,5 @@
-﻿using Bufdio.Engines;
+﻿using System.Diagnostics;
+using Bufdio.Engines;
 using Bufdio;
 using Zen.System.Modules.Audio;
 
@@ -50,10 +51,14 @@ public class AyAudio : IDisposable
         {
             case 0:
                 _channels[0].TonePeriod = (ushort) ((_channels[0].TonePeriod & 0x0F00) | value);
+                Debugger.Log(0, "Info", $"{_channels[0].TonePeriod}\n");
+
                 break;
 
             case 1:
                 _channels[0].TonePeriod = (ushort) ((_channels[0].TonePeriod & 0x00FF) | ((value & 0x0F) << 8));
+                Debugger.Log(0, "Info", $"{_channels[0].TonePeriod}\n");
+
                 break;
 
             case 2:
