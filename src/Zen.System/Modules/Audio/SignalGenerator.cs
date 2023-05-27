@@ -33,6 +33,11 @@ public class SignalGenerator
 
         var increment = (float) (2 * Math.PI * frequency / Constants.SampleRate);
 
+        if (float.IsNaN(increment) || float.IsInfinity(increment))
+        {
+            increment = 0;
+        }
+
         _phaseAngle += increment;
 
         if (_phaseAngle > Math.PI * 2)
@@ -43,11 +48,6 @@ public class SignalGenerator
         }
 
         var signal = Volume / 15f * Constants.Amplitude * (_noise ? _noiseValue : (float) Math.Sin(_phaseAngle));
-
-        if (float.IsNaN(signal))
-        {
-            signal = 0;
-        }
 
         return signal;
     }
