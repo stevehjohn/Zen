@@ -6,7 +6,7 @@ public class Constants
 
     public const int Channels = 3;
 
-    public const int BufferSize = SampleRate / 50;
+    public const int BufferSize = (int) AyFrequency / SampleRate;
 
     public const float Amplitude = 0.35f * short.MaxValue;
 
