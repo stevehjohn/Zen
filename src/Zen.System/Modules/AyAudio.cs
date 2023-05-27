@@ -51,14 +51,10 @@ public class AyAudio : IDisposable
         {
             case 0:
                 _channels[0].TonePeriod = (ushort) ((_channels[0].TonePeriod & 0x0F00) | value);
-                Debugger.Log(0, "Info", $"{_channels[0].TonePeriod}\n");
-
                 break;
 
             case 1:
                 _channels[0].TonePeriod = (ushort) ((_channels[0].TonePeriod & 0x00FF) | ((value & 0x0F) << 8));
-                Debugger.Log(0, "Info", $"{_channels[0].TonePeriod}\n");
-
                 break;
 
             case 2:
@@ -152,12 +148,18 @@ public class AyAudio : IDisposable
         {
             for (var i = 0; i < Constants.BufferSize; i++)
             {
-                _buffer[i] = (_mixer & 0b0000_0001) > 0 ? _channels[0].GetNextToneSignal() : 0;
-                _buffer[i] += (_mixer & 0b0000_1000) > 0 ? _channels[0].GetNextNoiseSignal() : 0;
-                _buffer[i] += (_mixer & 0b0000_0010) > 0 ? _channels[1].GetNextToneSignal() : 0;
-                _buffer[i] += (_mixer & 0b0001_0000) > 0 ? _channels[1].GetNextNoiseSignal() : 0;
-                _buffer[i] += (_mixer & 0b0000_0100) > 0 ? _channels[2].GetNextToneSignal() : 0;
-                _buffer[i] += (_mixer & 0b0010_0000) > 0 ? _channels[2].GetNextNoiseSignal() : 0;
+                _buffer[i] = _channels[0].GetNextToneSignal();
+                _buffer[i] += _channels[1].GetNextToneSignal();
+                _buffer[i] += _channels[2].GetNextToneSignal();
+                //_buffer[i] += _channels[0].GetNextNoiseSignal();
+                //_buffer[i] += _channels[1].GetNextNoiseSignal();
+                //_buffer[i] += _channels[2].GetNextNoiseSignal();
+                //_buffer[i] = (_mixer & 0b0000_0001) > 0 ? _channels[0].GetNextToneSignal() : 0;
+                //_buffer[i] += (_mixer & 0b0000_1000) > 0 ? _channels[0].GetNextNoiseSignal() : 0;
+                //_buffer[i] += (_mixer & 0b0000_0010) > 0 ? _channels[1].GetNextToneSignal() : 0;
+                //_buffer[i] += (_mixer & 0b0001_0000) > 0 ? _channels[1].GetNextNoiseSignal() : 0;
+                //_buffer[i] += (_mixer & 0b0000_0100) > 0 ? _channels[2].GetNextToneSignal() : 0;
+                //_buffer[i] += (_mixer & 0b0010_0000) > 0 ? _channels[2].GetNextNoiseSignal() : 0;
             }
 
             _engine.Send(_buffer);
