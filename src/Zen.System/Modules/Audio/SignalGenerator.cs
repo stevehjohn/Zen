@@ -42,8 +42,13 @@ public class SignalGenerator
             _phaseAngle -= (float) (Math.PI * 2);
         }
 
-        var signal = Math.Sin(_phaseAngle);
+        var signal = Volume / 15f * Constants.Amplitude * (_noise ? _noiseValue : (float) Math.Sin(_phaseAngle));
 
-        return Volume / 15f * Constants.Amplitude * (_noise ? _noiseValue : (float) signal);
+        if (float.IsNaN(signal))
+        {
+            signal = 0;
+        }
+
+        return signal;
     }
 }

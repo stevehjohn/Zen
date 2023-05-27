@@ -148,11 +148,11 @@ public class AyAudio : IDisposable
             for (var i = 0; i < Constants.BufferSize; i++)
             {
                 _buffer[i] = (_mixer & 0b0000_0001) > 0 ? _channels[0].GetNextToneSignal() : 0;
-                //_buffer[i] += (_mixer & 0b0000_1000) > 0 ? _channels[0].GetNextNoiseSignal() : 0;
-                //_buffer[i] += (_mixer & 0b0000_0010) > 0 ? _channels[1].GetNextToneSignal() : 0;
-                //_buffer[i] += (_mixer & 0b0001_0000) > 0 ? _channels[1].GetNextNoiseSignal() : 0;
-                //_buffer[i] += (_mixer & 0b0000_0100) > 0 ? _channels[2].GetNextToneSignal() : 0;
-                //_buffer[i] += (_mixer & 0b0010_0000) > 0 ? _channels[2].GetNextNoiseSignal() : 0;
+                _buffer[i] += (_mixer & 0b0000_1000) > 0 ? _channels[0].GetNextNoiseSignal() : 0;
+                _buffer[i] += (_mixer & 0b0000_0010) > 0 ? _channels[1].GetNextToneSignal() : 0;
+                _buffer[i] += (_mixer & 0b0001_0000) > 0 ? _channels[1].GetNextNoiseSignal() : 0;
+                _buffer[i] += (_mixer & 0b0000_0100) > 0 ? _channels[2].GetNextToneSignal() : 0;
+                _buffer[i] += (_mixer & 0b0010_0000) > 0 ? _channels[2].GetNextNoiseSignal() : 0;
             }
 
             _engine.Send(_buffer);
