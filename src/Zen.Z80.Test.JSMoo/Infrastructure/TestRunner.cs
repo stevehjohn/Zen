@@ -1,7 +1,7 @@
-﻿#define UNATTENDED
+﻿// #define UNATTENDED
 // #define UNDOCUMENTED
 // #define EXACT
-#define QUICK
+// #define QUICK
 // #define IGNOREFLAGS
 
 using Moq;
@@ -64,10 +64,10 @@ public class TestRunner
 
         foreach (var file in files)
         {
-            //if (Path.GetFileNameWithoutExtension(file).CompareTo("ed aa ") < 0)
-            //{
-            //    continue;
-            //}
+            if (Path.GetFileNameWithoutExtension(file).CompareTo("ed ba ") < 0)
+            {
+                continue;
+            }
 
             //if (Path.GetFileNameWithoutExtension(file).StartsWith("dd cb __ 40"))
             //{
