@@ -8,7 +8,7 @@ using Worker = Zen.System.Modules.Worker;
 
 namespace Zen.System;
 
-public class Motherboard : IPortConnector, IRamConnector
+public class Motherboard : IPortConnector, IRamConnector, IDisposable
 {
     private const int FramesPerSecond = 60;
 
@@ -32,6 +32,8 @@ public class Motherboard : IPortConnector, IRamConnector
     private readonly Dictionary<int, byte[]> _romCache = new();
 
     private readonly LdBytesHook _ldBytesHook;
+
+    private readonly AyAudio? _ayAudio;
 
     private bool _pagingDisabled;
 
@@ -86,6 +88,13 @@ public class Motherboard : IPortConnector, IRamConnector
                   {
                       OnTick = OnTick
                   };
+
+        if (_model != Model.Spectrum48K)
+        {
+            _ayAudio = new AyAudio();
+
+            _ayAudio.Start();
+        }
     }
 
     public void AddPeripheral(IPeripheral peripheral)
@@ -112,7 +121,7 @@ public class Motherboard : IPortConnector, IRamConnector
 
         return 0xFF;
     }
-    
+
     public byte ReadRam(ushort address)
     {
         return _ram[address];
@@ -162,9 +171,22 @@ public class Motherboard : IPortConnector, IRamConnector
 
     private void PortDataChanged(ushort port, byte data)
     {
-        if (port % 2 == 0)
+        if ((port & 0x01) == 0)
         {
             _videoModulator.Border = (byte) (data & 0b0000_0111);
+        }
+
+        if (_ayAudio != null)
+        {
+            if ((port & 0xC002) == 0xC000)
+            {
+                _ayAudio.SelectRegister(data);
+            }
+            //else 
+            if ((port & 0x8002) == 0x8000)
+            {
+                _ayAudio.SetRegister(data);
+            }
         }
 
         if (_pagingDisabled)
@@ -292,5 +314,12 @@ public class Motherboard : IPortConnector, IRamConnector
         }
 
         return _romCache[romNumber];
+    }
+
+    public void Dispose()
+    {
+        _worker.Dispose();
+
+        _ayAudio?.Dispose();
     }
 }

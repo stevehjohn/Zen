@@ -1,7 +1,7 @@
-﻿#define UNATTENDED
+﻿// #define UNATTENDED
 // #define UNDOCUMENTED
 // #define EXACT
-#define QUICK
+// #define QUICK
 // #define IGNOREFLAGS
 
 using Moq;
@@ -64,10 +64,10 @@ public class TestRunner
 
         foreach (var file in files)
         {
-            //if (Path.GetFileNameWithoutExtension(file).CompareTo("fd 8d ") < 0)
-            //{
-            //    continue;
-            //}
+            if (Path.GetFileNameWithoutExtension(file).CompareTo("ed ba ") < 0)
+            {
+                continue;
+            }
 
             //if (Path.GetFileNameWithoutExtension(file).StartsWith("dd cb __ 40"))
             //{
@@ -231,7 +231,7 @@ public class TestRunner
         return (testResult, result.Mnemonic, result.Warn);
     }
 
-    private (bool Passed, int Operations, Dictionary<int, byte> Ram, Exception? Exception, string? Mnemonic, bool Warn) ExecuteTest(TestDefinition test)
+    private (bool Passed, int Operations, Dictionary<int, byte> Ram, Dictionary<int, byte> Ports, Exception? Exception, string? Mnemonic, bool Warn) ExecuteTest(TestDefinition test)
     {
         _state.Reset();
 
@@ -248,7 +248,10 @@ public class TestRunner
         {
             foreach (var port in test.Ports)
             {
-                ports.Add((ushort) ((JsonElement) port[0]).GetInt32(), ((JsonElement) port[1]).GetByte());
+                if (((JsonElement) port[2]).GetString() == "r")
+                {
+                    ports.Add((ushort) ((JsonElement) port[0]).GetInt32(), ((JsonElement) port[1]).GetByte());
+                }
             }
         }
 
@@ -321,7 +324,7 @@ public class TestRunner
                 firstMnemonic = _state.LastInstruction.Mnemonic;
             }
 
-            return (false, operations, ram, exception, firstMnemonic, false);
+            return (false, operations, ram, ports, exception, firstMnemonic, false);
         }
 
         var warn = _state.ClockCycles != (ulong) test.Cycles.Length;
@@ -343,6 +346,24 @@ public class TestRunner
                    && _state[RegisterPair.BC_] == test.Final.BC_
                    && _state[RegisterPair.DE_] == test.Final.DE_
                    && _state[RegisterPair.HL_] == test.Final.HL_;
+
+        if (test.Ports != null)
+        {
+            foreach (var port in test.Ports)
+            {
+                if (((JsonElement) port[2]).GetString() == "w")
+                {
+                    if (ports.ContainsKey(((JsonElement) port[0]).GetInt32()))
+                    {
+                        pass &= ports[((JsonElement) port[0]).GetInt32()] == ((JsonElement) port[1]).GetByte();
+                    }
+                    else
+                    {
+                        pass = false;
+                    }
+                }
+            }
+        }
 
         // TODO: ?
         //pass &= _state.InterruptFlipFlop1 == test.Final.IFF1 > 0
@@ -367,7 +388,7 @@ public class TestRunner
             pass = pass && ram[pair[0]] == pair[1];
         }
 
-        return (pass, operations, ram, null, firstMnemonic, warn);
+        return (pass, operations, ram, ports, null, firstMnemonic, warn);
     }
 
     private void DumpTest(TestDefinition test)
@@ -447,6 +468,37 @@ public class TestRunner
 
             FormattedConsole.WriteLine(string.Empty);
         }
+
+        if (test.Ports != null)
+        {
+            var newline = false;
+
+            foreach (var port in test.Ports)
+            {
+                if (((JsonElement) port[2]).GetString() == "w")
+                {
+                    newline = true;
+
+                    if (result.Ports.ContainsKey(((JsonElement) port[0]).GetInt32()))
+                    {
+                        if (result.Ports[((JsonElement) port[0]).GetInt32()] != ((JsonElement) port[1]).GetByte())
+                        {
+                            FormattedConsole.WriteLine($"    &Cyan;Port&White;:       &Cyan;0x{((JsonElement) port[0]).GetInt32():X4}&White;: &Green;0x{((JsonElement) port[1]).GetByte():X2}  &Red;0x{result.Ports[((JsonElement) port[0]).GetInt32()]:X2}");
+                        }
+                    }
+                    else
+                    {
+                        FormattedConsole.WriteLine($"    &Cyan;Port&White;:       &Cyan;0x{((JsonElement) port[0]).GetInt32():X4}&White;: &Red; No write");
+                    }
+                }
+            }
+
+            if (newline)
+            {
+                FormattedConsole.WriteLine(string.Empty);
+            }
+        }
+
 
 #if ! UNATTENDED
         FormattedConsole.WriteLine("\n    &Cyan;Press any key to continue...\n");
