@@ -123,9 +123,9 @@ public class AyAudio : IDisposable
                 break;
 
             case 11:
-                _channels[0].EnvelopePeriod = (ushort) ((_channels[0].EnvelopePeriod & 0x0F00) | value);
-                _channels[1].EnvelopePeriod = (ushort) ((_channels[1].EnvelopePeriod & 0x0F00) | value);
-                _channels[2].EnvelopePeriod = (ushort) ((_channels[2].EnvelopePeriod & 0x0F00) | value);
+                _channels[0].EnvelopePeriod = (ushort) ((_channels[0].EnvelopePeriod & 0xFF00) | value);
+                _channels[1].EnvelopePeriod = (ushort) ((_channels[1].EnvelopePeriod & 0xFF00) | value);
+                _channels[2].EnvelopePeriod = (ushort) ((_channels[2].EnvelopePeriod & 0xFF00) | value);
                 break;
 
             case 12:
