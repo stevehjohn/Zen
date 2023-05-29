@@ -8,7 +8,7 @@ public class Constants
 
     public const int BufferSize = (int) AyFrequency / SampleRate;
 
-    public const float Amplitude = 1;
+    public const float Amplitude = 0.16f;
 
     public const float AyFrequency = 1773500f;
 }
