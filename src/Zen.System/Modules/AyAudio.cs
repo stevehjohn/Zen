@@ -1,6 +1,5 @@
-﻿using System.Diagnostics;
+﻿using Bufdio;
 using Bufdio.Engines;
-using Bufdio;
 using Zen.System.Modules.Audio;
 
 namespace Zen.System.Modules;
@@ -155,12 +154,6 @@ public class AyAudio : IDisposable
         {
             for (var i = 0; i < Constants.BufferSize; i++)
             {
-                //_buffer[i] = _channels[0].GetNextToneSignal();
-                //_buffer[i] += _channels[1].GetNextToneSignal();
-                //_buffer[i] += _channels[2].GetNextToneSignal();
-                //_buffer[i] += _channels[0].GetNextNoiseSignal();
-                //_buffer[i] += _channels[1].GetNextNoiseSignal();
-                //_buffer[i] += _channels[2].GetNextNoiseSignal();
                 _buffer[i] = (_mixer & 0b0000_0001) == 0 ? _channels[0].GetNextToneSignal() : 0;
                 _buffer[i] += (_mixer & 0b0000_1000) == 0 ? _channels[0].GetNextNoiseSignal() : 0;
                 _buffer[i] += (_mixer & 0b0000_0010) == 0 ? _channels[1].GetNextToneSignal() : 0;
