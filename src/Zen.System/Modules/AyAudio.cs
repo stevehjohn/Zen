@@ -30,7 +30,14 @@ public class AyAudio : IDisposable
 
         _buffer = new float[Constants.BufferSize];
 
-        BufdioLib.InitializePortAudio(Path.Combine("Libraries", "libportaudio"));
+        if (Environment.OSVersion.Platform == PlatformID.Unix)
+        {
+            BufdioLib.InitializePortAudio(Path.Combine("Libraries", "libportaudio.dylib"));
+        }
+        else
+        {
+            BufdioLib.InitializePortAudio(Path.Combine("Libraries", "libportaudio"));
+        }
 
         _engine = new PortAudioEngine(new AudioEngineOptions(1, Constants.SampleRate));
     }
