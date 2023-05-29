@@ -147,6 +147,13 @@ public class AyAudio : IDisposable
                 break;
         }
     }
+    
+    public void Dispose()
+    {
+        _audioThread?.Dispose();
+
+        _engine.Dispose();
+    }
 
     private void RunFrame()
     {
@@ -154,12 +161,19 @@ public class AyAudio : IDisposable
         {
             for (var i = 0; i < Constants.BufferSize; i++)
             {
-                _buffer[i] = (_mixer & 0b0000_0001) == 0 ? _channels[0].GetNextToneSignal() : 0;
-                _buffer[i] += (_mixer & 0b0000_1000) == 0 ? _channels[0].GetNextNoiseSignal() : 0;
-                _buffer[i] += (_mixer & 0b0000_0010) == 0 ? _channels[1].GetNextToneSignal() : 0;
-                _buffer[i] += (_mixer & 0b0001_0000) == 0 ? _channels[1].GetNextNoiseSignal() : 0;
-                _buffer[i] += (_mixer & 0b0000_0100) == 0 ? _channels[2].GetNextToneSignal() : 0;
-                _buffer[i] += (_mixer & 0b0010_0000) == 0 ? _channels[2].GetNextNoiseSignal() : 0;
+                var signal = (_mixer & 0b0000_0001) == 0 ? _channels[0].GetNextToneSignal() : 0;
+
+                signal = Mix(signal, (_mixer & 0b0000_1000) == 0 ? _channels[0].GetNextNoiseSignal() : 0);
+
+                signal = Mix(signal, (_mixer & 0b0000_0010) == 0 ? _channels[1].GetNextToneSignal() : 0); 
+                
+                signal = Mix(signal, (_mixer & 0b0001_0000) == 0 ? _channels[1].GetNextNoiseSignal() : 0);
+
+                signal = Mix(signal, (_mixer & 0b0000_0100) == 0 ? _channels[2].GetNextToneSignal() : 0);
+
+                signal = Mix(signal, (_mixer & 0b0010_0000) == 0 ? _channels[2].GetNextNoiseSignal() : 0);
+
+                _buffer[i] = signal;
             }
 
             _engine.Send(_buffer);
@@ -167,10 +181,8 @@ public class AyAudio : IDisposable
         // ReSharper disable once FunctionNeverReturns
     }
 
-    public void Dispose()
+    private static float Mix(float channelA, float channelB)
     {
-        _audioThread?.Dispose();
-
-        _engine.Dispose();
+        return channelA + channelB - channelA * channelB;
     }
 }
