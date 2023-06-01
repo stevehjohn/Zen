@@ -18,6 +18,8 @@ public class SignalGenerator
             var period = 256f * _envelopePeriod / Constants.AyFrequency;
 
             _gainStep = Constants.Amplitude / (period * Constants.SampleRate);
+
+            _phaseAngle = 0;
         }
     }
 
@@ -131,7 +133,7 @@ public class SignalGenerator
 
         if (_phaseAngle > Math.PI * 2)
         {
-            _noiseValue = (float) _random.NextDouble();
+            _noiseValue = (float) _random.NextDouble() * 0.3f;
 
             _phaseAngle -= (float) (Math.PI * 2);
         }
