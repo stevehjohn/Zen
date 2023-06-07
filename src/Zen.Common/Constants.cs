@@ -34,4 +34,7 @@ public static class Constants
     public const int RamBankSize = 0x4000;
 
     public const int RomSize = 0x4000;
+
+    /* Host */
+    public const int FramesPerSecond = 60;
 }
