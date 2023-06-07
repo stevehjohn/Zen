@@ -6,7 +6,7 @@ public class Constants
 
     public const int Channels = 3;
 
-    public const int BufferSize = SampleRate / 50;
+    public const int BufferSize = SampleRate / Common.Constants.FramesPerSecond;
 
     public const float Amplitude = 0.16f;
 

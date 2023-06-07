@@ -1,4 +1,5 @@
-﻿using Zen.System.Infrastructure;
+﻿using Zen.Common;
+using Zen.System.Infrastructure;
 using Zen.System.Interfaces;
 using Zen.System.Modules;
 using Zen.System.ProcessorHooks;
@@ -10,8 +11,6 @@ namespace Zen.System;
 
 public class Motherboard : IPortConnector, IRamConnector, IDisposable
 {
-    private const int FramesPerSecond = 60;
-
     private readonly Model _model;
 
     private readonly Core _core;
@@ -84,7 +83,7 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
 
         _videoModulator = new VideoModulator(_ram);
 
-        _worker = new(_interface, _videoModulator, FramesPerSecond)
+        _worker = new(_interface, _videoModulator, Constants.FramesPerSecond)
                   {
                       OnTick = OnTick
                   };
