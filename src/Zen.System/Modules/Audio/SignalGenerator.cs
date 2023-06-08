@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-
-namespace Zen.System.Modules.Audio;
+﻿namespace Zen.System.Modules.Audio;
 
 public class SignalGenerator
 {
@@ -18,8 +16,6 @@ public class SignalGenerator
             var period = 256f * _envelopePeriod / Constants.AyFrequency;
 
             _gainStep = Constants.Amplitude / (period * Constants.SampleRate);
-
-            _phaseAngle = 0;
         }
     }
 
