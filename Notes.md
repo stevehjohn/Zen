@@ -78,17 +78,13 @@ ed70: IN (C)
 ed78: IN A, (C)
 eda2: INI
 eda2_01: INI
-eda2_02: INI
-eda2_03: INI
 eda3_02: OUTI
 eda3_04: OUTI
 eda3_06: OUTI
 eda3_08: OUTI
 edaa_01: IND
 edaa_02: IND
-edab: OUTD
-edab_01: OUTD
+edb1: CPIR
 edb2: INIR
 edb3: OTIR
 edba: INDR
-edbb: OTDR
