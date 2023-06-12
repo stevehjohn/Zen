@@ -71,7 +71,7 @@ public class Worker : IDisposable
 
         try
         {
-            _workerThread.Wait(_cancellationToken);
+            _workerThread.Wait();
         }
         finally
         {
