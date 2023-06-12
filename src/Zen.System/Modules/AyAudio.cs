@@ -164,7 +164,7 @@ public class AyAudio : IDisposable
 
             try
             {
-                _audioThread.Wait(_cancellationToken);
+                _audioThread.Wait();
             }
             finally
             {
