@@ -11,5 +11,7 @@ public enum MenuResult
     SpeedFast,
     SaveState,
     LoadState,
-    ChangeScale
+    ChangeScale,
+    SoundOn,
+    SoundOff
 }

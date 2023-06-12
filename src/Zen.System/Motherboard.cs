@@ -32,7 +32,7 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
 
     private readonly LdBytesHook _ldBytesHook;
 
-    private readonly AyAudio? _ayAudio;
+    private AyAudio? _ayAudio;
 
     private bool _pagingDisabled;
 
@@ -54,6 +54,32 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
     {
         get => _worker.Fast;
         set => _worker.Fast = value;
+    }
+
+    public bool Sound
+    {
+        get => _ayAudio != null;
+        set
+        {
+            if (value)
+            {
+                if (_ayAudio != null)
+                {
+                    _ayAudio = new AyAudio();
+                    
+                    _ayAudio.Start();
+                }
+            }
+            else
+            {
+                if (_ayAudio != null)
+                {
+                    _ayAudio.Dispose();
+
+                    _ayAudio = null;
+                }
+            }
+        }
     }
 
     public Motherboard(Model model)
