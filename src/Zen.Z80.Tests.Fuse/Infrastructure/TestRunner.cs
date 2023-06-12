@@ -240,7 +240,7 @@ public class TestRunner
 
     private static TestExpectedResult LoadExpectedResult(string testName)
     {
-        var results = File.ReadAllLines("TestDefinitions\\expected.fuse");
+        var results = File.ReadAllLines(Path.Combine("TestDefinitions", "expected.fuse"));
 
         var line = 0;
 
@@ -313,9 +313,9 @@ public class TestRunner
     {
         for (var i = 0; i < 0xFFFF; i++)
         {
-            if (input.Ram[i].HasValue)
+            if (TestInput.Ram[i].HasValue)
             {
-                ram[i] = input.Ram[i]!.Value;
+                ram[i] = TestInput.Ram[i]!.Value;
             }
         }
     }
