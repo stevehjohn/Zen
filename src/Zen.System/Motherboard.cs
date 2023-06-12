@@ -57,6 +57,7 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
 
     public bool Sound
     {
+        get => _ayAudio != null;
         set
         {
             if (value)

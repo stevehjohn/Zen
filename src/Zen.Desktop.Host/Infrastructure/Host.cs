@@ -39,6 +39,8 @@ public class Host : Game
 
     private int? _pause = StartPause;
 
+    private bool _soundState;
+
     public Host()
     {
         _graphicsDeviceManager = new GraphicsDeviceManager(this)
@@ -121,6 +123,10 @@ public class Host : Game
             
             var screen = _vRamAdapter.Display;
 
+            _soundState = _motherboard.Sound;
+            
+            _motherboard.Sound = false;
+            
             _menuSystem = new MenuSystem(screen, _graphicsDeviceManager, Content, MenuFinished);
         }
 
@@ -184,6 +190,11 @@ public class Host : Game
                 _motherboard.Sound = false;
                 
                 break;
+        }
+
+        if (_soundState && result != MenuResult.SoundOff)
+        {
+            _motherboard.Sound = true;
         }
 
         _motherboard.Resume();
