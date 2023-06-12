@@ -192,53 +192,58 @@ public class TestRunner
     {
         var result = ExecuteTest(test);
 
-        FormattedConsole.Write($"  &Cyan;Test&White;: &Magenta;{test.Name,-18}  ");
+        var testResult = TestResult.Pass;
 
-        FormattedConsole.Write($"  &Cyan;RAM&White;: &Magenta;{test.Initial.Ram.Length,3}B  ");
-
-        FormattedConsole.Write($"  &Cyan;Operations&White;: &Magenta;{result.Operations,6}  ");
-
-        FormattedConsole.Write("  &Cyan;Result&White;: [ ");
-
-        var testResult = TestResult.Fail;
-
-        if (result.Passed)
+        if (test.Name.EndsWith("0000") || ! result.Passed)
         {
-            if (result.Warn)
-            {
-                FormattedConsole.Write("&DarkGreen;WARN");
-            }
-            else
-            {
-                FormattedConsole.Write("&Green;PASS");
-            }
+            FormattedConsole.Write($"  &Cyan;Test&White;: &Magenta;{test.Name,-18}  ");
 
-            testResult = TestResult.Pass;
-        }
-        else
-        {
-            if (result.Exception != null)
+            FormattedConsole.Write($"  &Cyan;RAM&White;: &Magenta;{test.Initial.Ram.Length,3}B  ");
+
+            FormattedConsole.Write($"  &Cyan;Operations&White;: &Magenta;{result.Operations,6}  ");
+
+            FormattedConsole.Write("  &Cyan;Result&White;: [ ");
+
+            if (result.Passed)
             {
-                if (result.Exception is OpCodeNotFoundException)
+                if (result.Warn)
                 {
-                    FormattedConsole.Write("&Yellow;NIMP");
-
-                    testResult = TestResult.NotImplemented;
+                    FormattedConsole.Write("&DarkGreen;WARN");
                 }
                 else
                 {
-                    FormattedConsole.Write("&Red;EXCP");
+                    FormattedConsole.Write("&Green;PASS");
                 }
+
+                testResult = TestResult.Pass;
             }
             else
             {
-                FormattedConsole.Write("&Red;FAIL");
+                if (result.Exception != null)
+                {
+                    if (result.Exception is OpCodeNotFoundException)
+                    {
+                        FormattedConsole.Write("&Yellow;NIMP");
+
+                        testResult = TestResult.NotImplemented;
+                    }
+                    else
+                    {
+                        FormattedConsole.Write("&Red;EXCP");
+                    }
+                }
+                else
+                {
+                    FormattedConsole.Write("&Red;FAIL");
+
+                    testResult = TestResult.Fail;
+                }
             }
+
+            FormattedConsole.Write("&White; ]  ");
+
+            FormattedConsole.WriteLine($"  &Cyan;Mnemonic&White;: &Yellow;{result.Mnemonic ?? "N/A"}");
         }
-
-        FormattedConsole.Write("&White; ]  ");
-
-        FormattedConsole.WriteLine($"  &Cyan;Mnemonic&White;: &Yellow;{result.Mnemonic ?? "N/A"}");
 
         return (testResult, result.Mnemonic, result.Warn);
     }
