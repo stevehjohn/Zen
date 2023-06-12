@@ -23,6 +23,8 @@ public class Worker : IDisposable
 
     private readonly (int Address, byte Data)[] _vramChanges = new (int, byte)[2];
 
+    private Task? _workerThread;
+
     public bool Fast { get; set; }
 
     public Worker(Interface @interface, VideoModulator videoAdapter, int framesPerSecond)
@@ -43,7 +45,7 @@ public class Worker : IDisposable
 
     public void Start()
     {
-        Task.Run(TimerWorker, _cancellationToken);
+        _workerThread = Task.Run(TimerWorker, _cancellationToken);
     }
 
     public void Pause()
@@ -58,7 +60,23 @@ public class Worker : IDisposable
 
     public void Dispose()
     {
+        if (_workerThread == null)
+        {
+            _cancellationTokenSource.Dispose();
+            
+            return;
+        }
+
         _cancellationTokenSource.Cancel();
+
+        try
+        {
+            _workerThread.Wait(_cancellationToken);
+        }
+        finally
+        {
+            _workerThread.Dispose();
+        }
 
         _cancellationTokenSource.Dispose();
     }
