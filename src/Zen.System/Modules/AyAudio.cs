@@ -18,6 +18,10 @@ public class AyAudio : IDisposable
 
     private readonly IAudioEngine _engine;
 
+    private readonly CancellationTokenSource _cancellationTokenSource;
+
+    private readonly CancellationToken _cancellationToken;
+
     public AyAudio()
     {
         _channels = new List<Channel>();
@@ -39,11 +43,15 @@ public class AyAudio : IDisposable
         }
 
         _engine = new PortAudioEngine(new AudioEngineOptions(1, Constants.SampleRate));
+        
+        _cancellationTokenSource = new CancellationTokenSource();
+
+        _cancellationToken = _cancellationTokenSource.Token;
     }
 
     public void Start()
     {
-        _audioThread = Task.Run(RunFrame);
+        _audioThread = Task.Run(RunFrame, _cancellationToken);
     }
 
     public void SelectRegister(byte registerNumber)
@@ -150,7 +158,19 @@ public class AyAudio : IDisposable
     
     public void Dispose()
     {
-        _audioThread?.Dispose();
+        if (_audioThread != null)
+        {
+            _cancellationTokenSource.Cancel();
+
+            try
+            {
+                _audioThread.Wait();
+            }
+            finally
+            {
+                _audioThread?.Dispose();
+            }
+        }
 
         _engine.Dispose();
     }
@@ -159,6 +179,11 @@ public class AyAudio : IDisposable
     {
         while (true)
         {
+            if (_cancellationToken.IsCancellationRequested)
+            {
+                break;
+            }
+
             for (var i = 0; i < Constants.BufferSize; i++)
             {
                 var signal = (_mixer & 0b0000_0001) == 0 ? _channels[0].GetNextToneSignal() : 0;

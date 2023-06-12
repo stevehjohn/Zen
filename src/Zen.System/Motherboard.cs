@@ -52,18 +52,16 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
 
     public bool Fast
     {
-        get => _worker.Fast;
         set => _worker.Fast = value;
     }
 
     public bool Sound
     {
-        get => _ayAudio != null;
         set
         {
             if (value)
             {
-                if (_ayAudio != null)
+                if (_ayAudio == null)
                 {
                     _ayAudio = new AyAudio();
                     
@@ -207,7 +205,7 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
             {
                 _ayAudio.SelectRegister(data);
             }
-            //else 
+            
             if ((port & 0x8002) == 0x8000)
             {
                 _ayAudio.SetRegister(data);
