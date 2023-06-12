@@ -5,7 +5,7 @@
 namespace Zen.Z80.Test.JSMoo.Models;
 
 [ExcludeFromCodeCoverage]
-public class TestDefinition
+public struct TestDefinition
 {
     public string Name { get; set; }
 

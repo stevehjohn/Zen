@@ -31,11 +31,23 @@ public class TestRunner
 
     private readonly Core _processor;
 
+    private readonly Dictionary<int, byte> _ram = new();
+
+    private readonly Dictionary<int, byte> _ports = new();
+
     public TestRunner()
     {
         _portConnector = new Mock<IPortConnector>();
 
         _ramConnector = new Mock<IRamConnector>();
+        
+        _ramConnector.Setup(c => c.ReadRam(It.IsAny<ushort>())).Returns<ushort>(address => _ram[address]);
+
+        _ramConnector.Setup(c => c.WriteRam(It.IsAny<ushort>(), It.IsAny<byte>())).Callback<ushort, byte>((a, b) => _ram[a] = b);
+
+        _portConnector.Setup(c => c.CpuPortRead(It.IsAny<ushort>())).Returns<ushort>(p => _ports[p]);
+
+        _portConnector.Setup(c => c.CpuPortWrite(It.IsAny<ushort>(), It.IsAny<byte>())).Callback<ushort, byte>((p, b) => _ports[p] = b);
 
         _interface = new Interface(_portConnector.Object, _ramConnector.Object);
 
@@ -235,13 +247,13 @@ public class TestRunner
     {
         _state.Reset();
 
-        var ram = new Dictionary<int, byte>();
-
-        var ports = new Dictionary<int, byte>();
-
+        _ram.Clear();
+        
+        _ports.Clear();
+        
         foreach (var pair in test.Initial.Ram)
         {
-            ram[pair[0]] = (byte) pair[1];
+            _ram[pair[0]] = (byte) pair[1];
         }
 
         if (test.Ports != null)
@@ -250,18 +262,10 @@ public class TestRunner
             {
                 if (((JsonElement) port[2]).GetString() == "r")
                 {
-                    ports.Add((ushort) ((JsonElement) port[0]).GetInt32(), ((JsonElement) port[1]).GetByte());
+                    _ports.Add((ushort) ((JsonElement) port[0]).GetInt32(), ((JsonElement) port[1]).GetByte());
                 }
             }
         }
-
-        _ramConnector.Setup(c => c.ReadRam(It.IsAny<ushort>())).Returns<ushort>(address => ram[address]);
-
-        _ramConnector.Setup(c => c.WriteRam(It.IsAny<ushort>(), It.IsAny<byte>())).Callback<ushort, byte>((a, b) => ram[a] = b);
-
-        _portConnector.Setup(c => c.CpuPortRead(It.IsAny<ushort>())).Returns<ushort>(p => ports[p]);
-
-        _portConnector.Setup(c => c.CpuPortWrite(It.IsAny<ushort>(), It.IsAny<byte>())).Callback<ushort, byte>((p, b) => ports[p] = b);
 
         _state.ProgramCounter = (ushort) test.Initial.PC;
         _state.StackPointer = (ushort) test.Initial.SP;
@@ -324,7 +328,7 @@ public class TestRunner
                 firstMnemonic = _state.LastInstruction.Mnemonic;
             }
 
-            return (false, operations, ram, ports, exception, firstMnemonic, false);
+            return (false, operations, _ram, _ports, exception, firstMnemonic, false);
         }
 
         var warn = _state.ClockCycles != (ulong) test.Cycles.Length;
@@ -353,9 +357,9 @@ public class TestRunner
             {
                 if (((JsonElement) port[2]).GetString() == "w")
                 {
-                    if (ports.ContainsKey(((JsonElement) port[0]).GetInt32()))
+                    if (_ports.ContainsKey(((JsonElement) port[0]).GetInt32()))
                     {
-                        pass &= ports[((JsonElement) port[0]).GetInt32()] == ((JsonElement) port[1]).GetByte();
+                        pass &= _ports[((JsonElement) port[0]).GetInt32()] == ((JsonElement) port[1]).GetByte();
                     }
                     else
                     {
@@ -385,10 +389,10 @@ public class TestRunner
 
         foreach (var pair in test.Final.Ram)
         {
-            pass = pass && ram[pair[0]] == pair[1];
+            pass = pass && _ram[pair[0]] == pair[1];
         }
 
-        return (pass, operations, ram, ports, null, firstMnemonic, warn);
+        return (pass, operations, _ram, _ports, null, firstMnemonic, warn);
     }
 
     private void DumpTest(TestDefinition test)
