@@ -7,7 +7,7 @@ using System.Diagnostics.CodeAnalysis;
 namespace Zen.Z80.Test.JSMoo.Models;
 
 [ExcludeFromCodeCoverage]
-public class StateDefinition
+public struct StateDefinition
 {
     public int PC { get; set; }
 
