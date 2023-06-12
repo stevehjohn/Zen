@@ -174,6 +174,16 @@ public class Host : Game
                 ChangeScale((int) arguments);
 
                 break;
+            
+            case MenuResult.SoundOn:
+                _motherboard.Sound = true;
+
+                break;
+            
+            case MenuResult.SoundOff:
+                _motherboard.Sound = false;
+                
+                break;
         }
 
         _motherboard.Resume();

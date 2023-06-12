@@ -16,6 +16,7 @@ public class MainMenu : MenuBase
                         new(3, false, "[3] Load/Save State", Color.Yellow, 1, 7, Keys.D3, Color.LightGreen),
                         new(4, false, "[4] Emulator Speed", Color.Yellow, 1, 9, Keys.D4, Color.LightGreen),
                         new(5, false, "[5] Display Scale", Color.Yellow, 1, 11, Keys.D5, Color.LightGreen),
+                        new(5, false, "[6] Sound", Color.Yellow, 1, 11, Keys.D5, Color.LightGreen),
                         new(99, true, "[ESC] Close Menu", Color.FromNonPremultiplied(255, 64, 64, 255), 0, 21, Keys.Escape, Color.LightGreen)
                     };
 
@@ -40,6 +41,9 @@ public class MainMenu : MenuBase
 
             case 5:
                 return (MenuResult.NewMenu, new ScaleMenu(), null);
+            
+            case 6:
+                return (MenuResult.NewMenu, new SoundMenu(), null);
 
             case 99:
                 return (MenuResult.Exit, null, null);
