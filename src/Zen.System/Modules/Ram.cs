@@ -114,7 +114,7 @@ public class Ram
 
     private void CreateVRamNoise()
     {
-        var random = new Random();
+        var random = new Random(Guid.NewGuid().GetHashCode());
 
         for (var i = 0; i < Constants.ScreenRamSize; i++)
         {
