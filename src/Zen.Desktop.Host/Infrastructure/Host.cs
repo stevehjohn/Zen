@@ -183,11 +183,15 @@ public class Host : Game
             
             case MenuResult.SoundOn:
                 _motherboard.Sound = true;
+                AppSettings.Instance.Sound = true;
+                AppSettings.Instance.Save();
 
                 break;
             
             case MenuResult.SoundOff:
                 _motherboard.Sound = false;
+                AppSettings.Instance.Sound = false;
+                AppSettings.Instance.Save();
                 
                 break;
         }
