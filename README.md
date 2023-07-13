@@ -8,9 +8,9 @@ for display output.
 
 This project aims to take the lessons learned from ZXE and build upon them.
 
-<img src="Images/128-boot.png" width="50%" alt="128 Boot Screen" />
+<img src="Images/128-boot.png" width="40%" alt="128 Boot Screen" />
 
-<img src="Images/dizzy.png" width="50%" alt="Treasure Island Dizzy" />
+<img src="Images/dizzy.png" width="40%" alt="Treasure Island Dizzy" />
 
 ## Solution Structure
 
