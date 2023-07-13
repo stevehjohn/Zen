@@ -18,6 +18,8 @@ public class AppSettings
     public Model SystemModel { get; set; }
 
     public int ScaleFactor { get; set; }
+    
+    public bool Sound { get; set; }
 
     private static AppSettings GetAppSettings()
     {
