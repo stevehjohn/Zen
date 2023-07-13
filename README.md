@@ -28,6 +28,7 @@ I did have one issue building on macOS on an M1 processor. Solved by https://sta
 - `sudo ln -s /opt/homebrew/Cellar/freeimage/3.18.0/lib/libfreeimage.dylib /usr/local/lib/libfreeimage`
 
 <a id="Screenshots" />
+
 ## Screenshots
 
 ![128 Boot Screen](Images/128-boot.png)
