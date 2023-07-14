@@ -64,6 +64,8 @@ public class Host : Game
         _motherboard.AddPeripheral(new Peripherals.Kempston());
         _motherboard.AddPeripheral(new Peripherals.DiskDrive());
 
+        _motherboard.Sound = AppSettings.Instance.Sound;
+        
         _imageName = $"Standard {model} ROM";
 
         AppSettings.Instance.SystemModel = model;
@@ -77,10 +79,6 @@ public class Host : Game
     {
         if (! _hostStarted)
         {
-            //var loader = new ZenFileAdapter(_motherboard);
-
-            //loader.Load("C:\\Users\\steve\\OneDrive\\Documents\\ZXE Snapshots\\Other Images 2023-05-08 20-26.zxe.json");
-
             _motherboard.Start();
 
             _motherboard.Pause();
