@@ -129,12 +129,12 @@ public class SignalGenerator
 
         if (_phaseAngle > Math.PI * 2)
         {
-            _noiseValue = (float) _random.NextDouble() * 0.3f;
+            _noiseValue = (float) _random.NextDouble() * 2 - 1;
 
             _phaseAngle -= (float) (Math.PI * 2);
         }
 
-        var signal = _noise ? _noiseValue : SquareWave((float) Math.Sin(_phaseAngle));
+        var signal = _noise ? SquareWave(_noiseValue) : SquareWave((float) Math.Sin(_phaseAngle));
 
         if (! EnvelopeOn)
         {
