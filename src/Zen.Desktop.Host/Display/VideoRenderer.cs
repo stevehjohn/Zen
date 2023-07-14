@@ -19,7 +19,7 @@ public class VideoRenderer
 
     private bool _flash;
 
-    private Color[] _data = new Color[Constants.ScreenWidthPixels * Constants.ScreenHeightPixels];
+    private readonly Color[] _data = new Color[Constants.ScreenWidthPixels * Constants.ScreenHeightPixels];
 
     public Texture2D Display => _display;
 
