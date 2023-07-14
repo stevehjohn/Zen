@@ -20,14 +20,16 @@ ToDos, aide memoires, etc...
 - https://github.com/hoglet67/Z80Decoder/wiki/Undocumented-Flags
 - https://rk.nvg.ntnu.no/sinclair/faq/tech_z80.html#UNDOC
 
-## ZexAll 2
+## Failing Tests
+
+### ZexAll 2
 
 CPD [R]
 CPI [R]
 LDD [R] (1)
 LDI [R] (2)
 
-## Z80 Flags
+### Z80 Flags
 
 ADC16
 SBC16
@@ -41,11 +43,11 @@ IND
 OUTI
 OUTD
 
-## ZexDoc
+### ZexDoc
 
 All pass.
 
-## JSMoo
+### JSMoo
 
 76 0000: HALT
 DD 76 0000: HALT
@@ -60,7 +62,7 @@ ED BA 0000: INDR
 ED BB 0000: OTDR
 FD 76 0000: HALT
 
-## Fuse
+##~~~~# Fuse
 
 76: HALT
 db_1: IN A, n
