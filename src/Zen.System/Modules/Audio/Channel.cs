@@ -36,7 +36,6 @@ public class Channel
         }
     }
 
-
     public bool EnvelopeOn
     {
         set
@@ -46,11 +45,14 @@ public class Channel
         }
     }
 
-
     public byte NoisePeriod
     {
         set => _noiseGenerator.Period = value;
     }
+
+    public bool ToneOn { get; set; }
+
+    public bool NoiseOn { get; set; }
 
     private readonly SignalGenerator _toneGenerator;
 
@@ -63,13 +65,20 @@ public class Channel
         _noiseGenerator = new SignalGenerator(true);
     }
 
-    public float GetNextToneSignal()
+    public float GetNextSignal()
     {
-        return _toneGenerator.GetNextSignal();
-    }
+        var signal = 0f;
+        
+        if (ToneOn)
+        {
+            signal = _toneGenerator.GetNextSignal();
+        }
 
-    public float GetNextNoiseSignal()
-    {
-        return _noiseGenerator.GetNextSignal();
+        if (NoiseOn)
+        {
+            signal += _noiseGenerator.GetNextSignal();
+        }
+
+        return signal;
     }
 }
