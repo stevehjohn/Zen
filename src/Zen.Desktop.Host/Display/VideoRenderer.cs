@@ -19,6 +19,8 @@ public class VideoRenderer
 
     private bool _flash;
 
+    private Color[] _data = new Color[Constants.ScreenWidthPixels * Constants.ScreenHeightPixels];
+
     public Texture2D Display => _display;
 
     public VideoRenderer(ushort[] screenFrame, GraphicsDeviceManager graphicsDeviceManager)
@@ -32,14 +34,12 @@ public class VideoRenderer
     {
         var texture = new Texture2D(_graphicsDeviceManager.GraphicsDevice, Constants.ScreenWidthPixels, Constants.ScreenHeightPixels);
 
-        var data = new Color[Constants.ScreenWidthPixels * Constants.ScreenHeightPixels];
-
         for (var p = 0; p < Constants.ScreenWidthPixels * Constants.ScreenHeightPixels; p++)
         {
-            data[p] = GetColor(_screenFrame[p]);
+            _data[p] = GetColor(_screenFrame[p]);
         }
 
-        texture.SetData(data);
+        texture.SetData(_data);
 
         _display = texture;
 
