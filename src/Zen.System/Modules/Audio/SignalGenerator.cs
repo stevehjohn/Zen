@@ -134,7 +134,7 @@ public class SignalGenerator
             _phaseAngle -= (float) (Math.PI * 2);
         }
 
-        var signal = _noise ? _noiseValue : (float) Math.Sin(_phaseAngle);
+        var signal = _noise ? _noiseValue : SquareWave((float) Math.Sin(_phaseAngle));
 
         if (! EnvelopeOn)
         {
@@ -233,5 +233,10 @@ public class SignalGenerator
 
                 break;
         }
+    }
+
+    private float SquareWave(float sineValue)
+    {
+        return sineValue > 0 ? 1 : 0;
     }
 }
