@@ -8,7 +8,7 @@ public class Constants
 
     public const int BufferSize = SampleRate / Common.Constants.FramesPerSecond;
 
-    public const float Amplitude = 0.16f;
+    public const float Amplitude = 0.32f;
 
     public const float AyFrequency = 1773500f;
 }

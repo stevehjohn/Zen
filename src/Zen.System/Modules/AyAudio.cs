@@ -8,8 +8,6 @@ public class AyAudio : IDisposable
 {
     private readonly List<Channel> _channels;
 
-    private byte _mixer;
-
     private Task? _audioThread;
 
     private byte _registerNumber;
@@ -94,7 +92,14 @@ public class AyAudio : IDisposable
                 break;
 
             case 7:
-                _mixer = value;
+                _channels[0].ToneOn = (value & 0b0000_0001) == 0;
+                _channels[1].ToneOn = (value & 0b0000_0010) == 0;
+                _channels[2].ToneOn = (value & 0b0000_0100) == 0;
+
+                _channels[0].NoiseOn = (value & 0b0000_1000) == 0;
+                _channels[1].NoiseOn = (value & 0b0001_0000) == 0;
+                _channels[2].NoiseOn = (value & 0b0010_0000) == 0;
+
                 break;
 
             case 8:
@@ -164,6 +169,7 @@ public class AyAudio : IDisposable
 
             try
             {
+                // ReSharper disable once MethodSupportsCancellation
                 _audioThread.Wait();
             }
             finally
@@ -188,17 +194,11 @@ public class AyAudio : IDisposable
 
             for (var i = 0; i < Constants.BufferSize; i++)
             {
-                var signal = (_mixer & 0b0000_0001) == 0 ? _channels[0].GetNextToneSignal() : 0;
+                var signal = _channels[0].GetNextSignal();
 
-                signal = Mix(signal, (_mixer & 0b0000_1000) == 0 ? _channels[0].GetNextNoiseSignal() : 0);
+                signal += _channels[1].GetNextSignal();
 
-                signal = Mix(signal, (_mixer & 0b0000_0010) == 0 ? _channels[1].GetNextToneSignal() : 0); 
-                
-                signal = Mix(signal, (_mixer & 0b0001_0000) == 0 ? _channels[1].GetNextNoiseSignal() : 0);
-
-                signal = Mix(signal, (_mixer & 0b0000_0100) == 0 ? _channels[2].GetNextToneSignal() : 0);
-
-                signal = Mix(signal, (_mixer & 0b0010_0000) == 0 ? _channels[2].GetNextNoiseSignal() : 0);
+                signal += _channels[2].GetNextSignal();
 
                 _buffer[i] = signal;
             }
@@ -206,10 +206,5 @@ public class AyAudio : IDisposable
             _engine.Send(_buffer);
         }
         // ReSharper disable once FunctionNeverReturns
-    }
-
-    private static float Mix(float channelA, float channelB)
-    {
-        return channelA + channelB - channelA * channelB;
     }
 }
