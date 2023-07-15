@@ -79,6 +79,6 @@ public class Channel
             signal += _noiseGenerator.GetNextSignal();
         }
 
-        return signal;
+        return signal * Constants.Amplitude;
     }
 }
