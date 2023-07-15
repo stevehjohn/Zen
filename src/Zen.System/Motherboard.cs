@@ -5,6 +5,7 @@ using Zen.System.Modules;
 using Zen.System.ProcessorHooks;
 using Zen.Z80.Interfaces;
 using Zen.Z80.Processor;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 using Worker = Zen.System.Modules.Worker;
 
 namespace Zen.System;
@@ -133,6 +134,19 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
 
     public byte CpuPortRead(ushort port)
     {
+        if (_ayAudio != null)
+        {
+            if ((port & 0xC002) == 0xC000)
+            {
+                return _ayAudio.GetSelectedRegister();
+            }
+
+            if ((port & 0x8002) == 0x8000)
+            {
+                return _ayAudio.GetRegister();
+            }
+        }
+
         foreach (var peripheral in _peripherals)
         {
             var result = peripheral.GetPortState(port);

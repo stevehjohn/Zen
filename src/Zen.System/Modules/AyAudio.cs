@@ -20,6 +20,8 @@ public class AyAudio : IDisposable
 
     private readonly CancellationToken _cancellationToken;
 
+    private readonly byte[] _registerValues = new byte[256];
+
     public AyAudio()
     {
         _channels = new List<Channel>();
@@ -52,13 +54,25 @@ public class AyAudio : IDisposable
         _audioThread = Task.Run(RunFrame, _cancellationToken);
     }
 
+    public byte GetSelectedRegister()
+    {
+        return _registerNumber;
+    }
+
     public void SelectRegister(byte registerNumber)
     {
         _registerNumber = registerNumber;
     }
 
+    public byte GetRegister()
+    {
+        return _registerValues[_registerNumber];
+    }
+
     public void SetRegister(byte value)
     {
+        _registerValues[_registerNumber] = value;
+
         switch (_registerNumber)
         {
             case 0:
