@@ -1,5 +1,6 @@
 {
   "LastZ80SnaPath": "",
   "SystemModel": 0,
-  "ScaleFactor": 4
+  "ScaleFactor": 4,
+  "Sound": true
 }
