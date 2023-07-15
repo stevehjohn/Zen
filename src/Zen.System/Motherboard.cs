@@ -5,7 +5,6 @@ using Zen.System.Modules;
 using Zen.System.ProcessorHooks;
 using Zen.Z80.Interfaces;
 using Zen.Z80.Processor;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 using Worker = Zen.System.Modules.Worker;
 
 namespace Zen.System;
