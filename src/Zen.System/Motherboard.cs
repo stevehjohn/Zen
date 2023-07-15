@@ -139,6 +139,11 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
             {
                 return _ayAudio.GetRegister();
             }
+
+            if ((port & 0x8002) == 0x8000)
+            {
+                return _ayAudio.GetRegister();
+            }
         }
 
         foreach (var peripheral in _peripherals)
