@@ -137,11 +137,6 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
         {
             if ((port & 0xC002) == 0xC000)
             {
-                return _ayAudio.GetSelectedRegister();
-            }
-
-            if ((port & 0x8002) == 0x8000)
-            {
                 return _ayAudio.GetRegister();
             }
         }
