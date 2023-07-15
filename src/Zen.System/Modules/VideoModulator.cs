@@ -97,8 +97,6 @@ public class VideoModulator
 
             _screen[pixel] = GetPixel(ramPixel);
 
-            FloatingBusValue = _ram[(ushort) ramPixel];
-
             _screen[pixel + 1] = GetPixel(ramPixel + 1);
 
             FloatingBusValue = _ram[(ushort) (ramPixel + 1)];
