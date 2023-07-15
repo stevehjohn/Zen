@@ -29,6 +29,8 @@ public class VideoModulator
 
     public byte Border { get; set; }
 
+    public byte FloatingBusValue { get; private set; }
+
     public VideoModulator(Ram ram)
     {
         _ram = ram;
@@ -48,6 +50,8 @@ public class VideoModulator
     {
         if (cycles < ScreenStart || cycles > ScreenEnd)
         {
+            FloatingBusValue = 0xFF;
+
             _previousCycles = ScreenStart;
 
             return;
@@ -84,6 +88,8 @@ public class VideoModulator
 
                 _screen[pixel + 1] = (byte) (Border << 3);
 
+                FloatingBusValue = 0xFF;
+
                 continue;
             }
 
@@ -91,7 +97,11 @@ public class VideoModulator
 
             _screen[pixel] = GetPixel(ramPixel);
 
+            FloatingBusValue = _ram[(ushort) ramPixel];
+
             _screen[pixel + 1] = GetPixel(ramPixel + 1);
+
+            FloatingBusValue = _ram[(ushort) (ramPixel + 1)];
         }
 
         if (y >= Constants.ScreenHeightPixels)

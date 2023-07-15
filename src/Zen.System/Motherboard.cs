@@ -156,7 +156,7 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
             }
         }
 
-        return 0xFF;
+        return _videoModulator.FloatingBusValue;
     }
 
     public byte ReadRam(ushort address)
