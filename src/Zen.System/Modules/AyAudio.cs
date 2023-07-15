@@ -54,11 +54,6 @@ public class AyAudio : IDisposable
         _audioThread = Task.Run(RunFrame, _cancellationToken);
     }
 
-    public byte GetSelectedRegister()
-    {
-        return _registerNumber;
-    }
-
     public void SelectRegister(byte registerNumber)
     {
         _registerNumber = registerNumber;
