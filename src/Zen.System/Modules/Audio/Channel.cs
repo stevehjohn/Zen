@@ -96,6 +96,7 @@ public class Channel
     public byte NoisePeriod
     {
         set => _noiseGenerator.Period = value;
+        get => (byte) _noiseGenerator.Period;
     }
 
     public bool ToneOn { get; set; }
