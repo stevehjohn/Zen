@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-
-namespace Zen.System.Modules.Audio;
+﻿namespace Zen.System.Modules.Audio;
 
 public class Channel
 {
@@ -14,31 +12,86 @@ public class Channel
 
     public ushort EnvelopePeriod
     {
+        get => _envelopePeriod;
         set
         {
-            _toneGenerator.EnvelopePeriod = value;
-            _noiseGenerator.EnvelopePeriod = value;
+            _envelopePeriod = value;
+
+            var period = 256f * _envelopePeriod / Constants.AyFrequency;
+
+            _gainStep = Constants.Amplitude / (period * Constants.SampleRate);
         }
-        get => _toneGenerator.EnvelopePeriod;
     }
 
     public byte Envelope
     {
+        get => _envelope;
         set
         {
-            _toneGenerator.Envelope = value;
-            _noiseGenerator.Envelope = value;
+            _envelope = value;
+
+            switch (value)
+            {
+                case 0:
+                case 1:
+                case 2:
+                case 3:
+                case 9:
+                    _gain = 1;
+                    _gainDirection = -1;
+
+                    break;
+
+                case 4:
+                case 5:
+                case 6:
+                case 7:
+                case 15:
+                    _gain = 0;
+                    _gainDirection = 1;
+
+                    break;
+
+                case 8:
+                    _gain = 1;
+                    _gainDirection = -1;
+
+                    break;
+
+                case 10:
+                    _gain = 1;
+                    _gainDirection = -1;
+
+                    break;
+
+                case 11:
+                    _gain = 1;
+                    _gainDirection = -1;
+
+                    break;
+
+                case 12:
+                    _gain = 0;
+                    _gainDirection = 1;
+
+                    break;
+
+                case 13:
+                    _gain = 0;
+                    _gainDirection = 1;
+
+                    break;
+
+                case 14:
+                    _gain = 0;
+                    _gainDirection = 1;
+
+                    break;
+            }
         }
     }
 
-    public bool EnvelopeOn
-    {
-        set
-        {
-            _toneGenerator.EnvelopeOn = value;
-            _noiseGenerator.EnvelopeOn = value;
-        }
-    }
+    public bool EnvelopeOn { get; set; }
 
     public byte NoisePeriod
     {
@@ -52,6 +105,16 @@ public class Channel
     private readonly SignalGenerator _toneGenerator;
 
     private readonly SignalGenerator _noiseGenerator;
+    
+    private byte _envelope;
+
+    private ushort _envelopePeriod;
+
+    private float _gain;
+
+    private float _gainDirection;
+
+    private float _gainStep;
 
     public Channel()
     {
@@ -74,7 +137,18 @@ public class Channel
             signal += _noiseGenerator.GetNextSignal();
         }
 
-        return signal * NormaliseVolume(Volume) * Constants.Amplitude;
+        if (EnvelopeOn)
+        {
+            signal *= _gain;
+
+            CycleEnvelope();
+        }
+        else
+        {
+            signal *= NormaliseVolume(Volume);
+        }
+
+        return signal * Constants.Amplitude;
     }
 
     private static float NormaliseVolume(byte volume)
@@ -100,4 +174,90 @@ public class Channel
         };
 
         return result;
-    }}
+    }
+
+    private void CycleEnvelope()
+    {
+        _gain += _gainDirection * _gainStep;
+
+        switch (_envelope)
+        {
+            case 0:
+            case 1:
+            case 2:
+            case 3:
+            case 9:
+                if (_gain < 0)
+                {
+                    _gain = 0;
+                    _gainDirection = 0;
+                }
+
+                break;
+
+            case 4:
+            case 5:
+            case 6:
+            case 7:
+            case 15:
+                if (_gain > 1)
+                {
+                    _gain = 0;
+                    _gainDirection = 0;
+                }
+
+                break;
+
+            case 8:
+                if (_gain < 0)
+                {
+                    _gain = 1;
+                    _gainDirection = -1;
+                }
+
+                break;
+
+            case 10:
+            case 14:
+                if (_gain < 0)
+                {
+                    _gain = 0;
+                    _gainDirection = 1;
+                }
+                else if (_gain > 1)
+                {
+                    _gain = 1;
+                    _gainDirection = -1;
+                }
+
+                break;
+
+            case 11:
+                if (_gain < 0)
+                {
+                    _gain = 1;
+                    _gainDirection = 0;
+                }
+
+                break;
+
+            case 12:
+                if (_gain > 1)
+                {
+                    _gain = 0;
+                    _gainDirection = 1;
+                }
+
+                break;
+
+            case 13:
+                if (_gain > 1)
+                {
+                    _gain = 1;
+                    _gainDirection = 0;
+                }
+
+                break;
+        }
+    }
+}
