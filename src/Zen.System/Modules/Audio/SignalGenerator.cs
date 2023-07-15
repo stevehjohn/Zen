@@ -138,7 +138,7 @@ public class SignalGenerator
 
         if (! EnvelopeOn)
         {
-            signal *= NormaliseVolume(Volume) * Constants.Amplitude;
+            signal *= NormaliseVolume(Volume);
         }
         else
         {
