@@ -140,7 +140,7 @@ public class Channel
 
         if (EnvelopeOn)
         {
-            signal *= _gain;
+            signal *= NormaliseVolume((byte) (_gain * 15));
 
             CycleEnvelope();
         }
