@@ -41,7 +41,9 @@ public class SignalGenerator
             _phaseAngle -= (float) (Math.PI * 2);
         }
 
-        var signal = _noise ? SquareWave(_noiseValue) : SquareWave((float) Math.Sin(_phaseAngle));
+        var signal = _noise ? _noiseValue : (float) Math.Sin(_phaseAngle);
+
+        signal = SquareWave(signal);
 
         return signal;
     }
