@@ -81,6 +81,9 @@ public class AyAudio : IDisposable
 
             case 1:
                 _channels[0].TonePeriod = (ushort) ((_channels[0].TonePeriod & 0x00FF) | ((value & 0x0F) << 8));
+
+                _registerValues[_registerNumber] = (byte) (value & 0x0F);
+
                 break;
 
             case 2:
@@ -89,6 +92,9 @@ public class AyAudio : IDisposable
 
             case 3:
                 _channels[1].TonePeriod = (ushort) ((_channels[1].TonePeriod & 0x00FF) | ((value & 0x0F) << 8));
+
+                _registerValues[_registerNumber] = (byte) (value & 0x0F);
+
                 break;
 
             case 4:
@@ -97,12 +103,18 @@ public class AyAudio : IDisposable
 
             case 5:
                 _channels[2].TonePeriod = (ushort) ((_channels[2].TonePeriod & 0x00FF) | ((value & 0x0F) << 8));
+
+                _registerValues[_registerNumber] = (byte) (value & 0x0F);
+
                 break;
 
             case 6:
                 _channels[0].NoisePeriod = (byte) (value & 0x1F);
                 _channels[1].NoisePeriod = (byte) (value & 0x1F);
                 _channels[2].NoisePeriod = (byte) (value & 0x1F);
+
+                _registerValues[_registerNumber] = (byte) (value & 0x1F);
+                
                 break;
 
             case 7:
@@ -126,6 +138,8 @@ public class AyAudio : IDisposable
                     _channels[0].EnvelopeOn = false;
                     _channels[0].Volume = (byte) (value & 0x0F);
                 }
+                
+                _registerValues[_registerNumber] = (byte) (value & 0x1F);
 
                 break;
 
@@ -139,6 +153,8 @@ public class AyAudio : IDisposable
                     _channels[1].EnvelopeOn = false;
                     _channels[1].Volume = (byte) (value & 0x0F);
                 }
+                
+                _registerValues[_registerNumber] = (byte) (value & 0x1F);
 
                 break;
 
@@ -152,6 +168,8 @@ public class AyAudio : IDisposable
                     _channels[2].EnvelopeOn = false;
                     _channels[2].Volume = (byte) (value & 0x0F);
                 }
+                                
+                _registerValues[_registerNumber] = (byte) (value & 0x1F);
 
                 break;
 
