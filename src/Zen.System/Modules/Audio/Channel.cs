@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-
-namespace Zen.System.Modules.Audio;
+﻿namespace Zen.System.Modules.Audio;
 
 public class Channel
 {
