@@ -1,4 +1,6 @@
-﻿namespace Zen.System.Modules.Audio;
+﻿using System.Diagnostics;
+
+namespace Zen.System.Modules.Audio;
 
 public class Channel
 {
@@ -8,14 +10,7 @@ public class Channel
         get => _toneGenerator.Period;
     }
 
-    public byte Volume
-    {
-        set
-        {
-            _toneGenerator.Volume = value;
-            _noiseGenerator.Volume = value;
-        }
-    }
+    public byte Volume { get; set; }
 
     public ushort EnvelopePeriod
     {
@@ -79,6 +74,30 @@ public class Channel
             signal += _noiseGenerator.GetNextSignal();
         }
 
-        return signal * Constants.Amplitude;
+        return signal * NormaliseVolume(Volume) * Constants.Amplitude;
     }
-}
+
+    private static float NormaliseVolume(byte volume)
+    {
+        var result = volume switch
+        {
+            1 => 0.0105f,
+            2 => 0.0154f,
+            3 => 0.0216f,
+            4 => 0.0314f,
+            5 => 0.0461f,
+            6 => 0.0635f,
+            7 => 0.1061f,
+            8 => 0.1319f,
+            9 => 0.2163f,
+            10 => 0.2973f,
+            11 => 0.3908f,
+            12 => 0.5129f,
+            13 => 0.6371f,
+            14 => 0.8186f,
+            15 => 1.0000f,
+            _ => 0f
+        };
+
+        return result;
+    }}
