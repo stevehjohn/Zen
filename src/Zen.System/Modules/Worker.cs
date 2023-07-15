@@ -71,6 +71,7 @@ public class Worker : IDisposable
 
         try
         {
+            // ReSharper disable once MethodSupportsCancellation
             _workerThread.Wait();
         }
         finally

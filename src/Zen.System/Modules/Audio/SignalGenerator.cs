@@ -48,7 +48,7 @@ public class SignalGenerator
         return signal;
     }
 
-    private float SquareWave(float sineValue)
+    private static float SquareWave(float sineValue)
     {
         return sineValue > 0 ? 1 : -1;
     }
