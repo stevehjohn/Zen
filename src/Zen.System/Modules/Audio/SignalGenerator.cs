@@ -3,9 +3,7 @@
 public class SignalGenerator
 {
     public ushort Period { get; set; }
-
-    public bool EnvelopeOn { get; set; }
-
+    
     private readonly bool _noise;
 
     private float _phaseAngle;
