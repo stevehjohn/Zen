@@ -25,7 +25,6 @@ public class Channel
 
     public byte Envelope
     {
-        get => _envelope;
         set
         {
             _envelope = value;
