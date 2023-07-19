@@ -34,7 +34,11 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
 
     private AyAudio? _ayAudio;
 
+    private Beeper? _beeper;
+
     private bool _pagingDisabled;
+
+    private ulong _cycle;
 
     // ReSharper disable once InconsistentNaming
     public byte Last7FFD { get; set; }
@@ -67,6 +71,8 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
                     _ayAudio = new AyAudio();
                     
                     _ayAudio.Start();
+
+                    _beeper = new Beeper();
                 }
             }
             else
@@ -76,6 +82,8 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
                     _ayAudio.Dispose();
 
                     _ayAudio = null;
+
+                    _beeper = null;
                 }
             }
         }
@@ -203,6 +211,11 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
     {
         _core.ExecuteCycle();
 
+        unchecked
+        {
+            _cycle += _state.ClockCycles;
+        }
+
         return _state.LastMCycles;
     }
 
@@ -211,6 +224,11 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
         if ((port & 0x01) == 0)
         {
             _videoModulator.Border = (byte) (data & 0b0000_0111);
+
+            if (_beeper != null)
+            {
+                _beeper.UlaAddressed(data, _cycle);
+            }
         }
 
         if (_ayAudio != null)
