@@ -83,6 +83,8 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
 
                     _ayAudio = null;
 
+                    _beeper!.Dispose();
+
                     _beeper = null;
                 }
             }
@@ -376,5 +378,7 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
         _worker.Dispose();
 
         _ayAudio?.Dispose();
+
+        _beeper?.Dispose();
     }
 }

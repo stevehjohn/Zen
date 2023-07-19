@@ -1,4 +1,6 @@
-﻿namespace Zen.Common;
+﻿// ReSharper disable InconsistentNaming
+
+namespace Zen.Common;
 
 public static class Constants
 {
