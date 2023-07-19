@@ -68,16 +68,6 @@ public class Beeper : IDisposable
         _queue.Enqueue((frequency, amplitude));
     }
 
-    private void PlayFrame()
-    {
-        if (_queue.Count == 0)
-        {
-            return;
-        }
-
-        var (frequency, amplitude) = _queue.Dequeue();
-    }
-
     public void Dispose()
     {
         _engine.Dispose();
