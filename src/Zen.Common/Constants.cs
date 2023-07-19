@@ -28,6 +28,8 @@ public static class Constants
 
     public const int InterruptEnd = 56;
 
+    public const int TStatesPerSecond = FrameCycles * 50;
+
     /* RAM */
     public const int ScreenRamSize = 0x1B00;
 
