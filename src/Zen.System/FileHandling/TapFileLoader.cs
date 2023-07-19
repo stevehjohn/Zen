@@ -15,7 +15,7 @@ public class TapFileLoader
 
     public byte[] ReadNextBlock()
     {
-        if (_position > _data.Length)
+        if (_position >= _data.Length)
         {
             return Array.Empty<byte>();
         }
