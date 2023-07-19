@@ -10,6 +10,8 @@ public class Beeper
 
     private ulong? _lastCycle;
 
+    private readonly Queue<(float Frequency, int Amplitude)> _buffer = new();
+
     public void UlaAddressed(byte value, ulong cycle)
     {
         var amplitude = 0;
@@ -36,10 +38,11 @@ public class Beeper
 
         if (_lastCycle != null)
         {
-            // So, frequency seems to be 2x the expected value. Why?
-            frequency = Constants.TStatesPerSecond / (float) (cycle - _lastCycle);
+            frequency = Constants.TStatesPerSecond / (float) (cycle - _lastCycle) / 2;
         }
 
         _lastCycle = cycle;
+
+        _buffer.Enqueue((frequency, amplitude));
     }
 }
