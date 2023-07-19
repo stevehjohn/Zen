@@ -1,8 +1,10 @@
-﻿using Zen.Common;
+﻿using Bufdio;
+using Bufdio.Engines;
+using Zen.Common;
 
 namespace Zen.System.Modules;
 
-public class Beeper
+public class Beeper : IDisposable
 {
     private bool _bit3State;
 
@@ -10,7 +12,27 @@ public class Beeper
 
     private ulong? _lastCycle;
 
-    private readonly Queue<(float Frequency, int Amplitude)> _buffer = new();
+    private readonly IAudioEngine _engine;
+
+    private readonly Queue<(float Frequency, int Amplitude)> _queue = new();
+
+    private float[] _buffer;
+
+    public Beeper()
+    {
+        if (Environment.OSVersion.Platform == PlatformID.Unix)
+        {
+            BufdioLib.InitializePortAudio(Path.Combine("Libraries", "libportaudio.dylib"));
+        }
+        else
+        {
+            BufdioLib.InitializePortAudio(Path.Combine("Libraries", "libportaudio"));
+        }
+
+        _engine = new PortAudioEngine(new AudioEngineOptions(1, Audio.Constants.SampleRate));
+
+        _buffer = new float[Audio.Constants.SampleRate / Constants.FramesPerSecond];
+    }
 
     public void UlaAddressed(byte value, ulong cycle)
     {
@@ -43,6 +65,21 @@ public class Beeper
 
         _lastCycle = cycle;
 
-        _buffer.Enqueue((frequency, amplitude));
+        _queue.Enqueue((frequency, amplitude));
+    }
+
+    private void PlayFrame()
+    {
+        if (_queue.Count == 0)
+        {
+            return;
+        }
+
+        var (frequency, amplitude) = _queue.Dequeue();
+    }
+
+    public void Dispose()
+    {
+        _engine.Dispose();
     }
 }
