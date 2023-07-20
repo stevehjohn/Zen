@@ -40,6 +40,8 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
 
     private ulong _cycle;
 
+    private int _frameCycle;
+
     // ReSharper disable once InconsistentNaming
     public byte Last7FFD { get; set; }
 
@@ -211,8 +213,10 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
         // TODO.
     }
 
-    private byte[] OnTick()
+    private byte[] OnTick(int frameCycle)
     {
+        _frameCycle = frameCycle;
+
         _core.ExecuteCycle();
 
         unchecked
@@ -231,7 +235,7 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
 
             if (_beeper != null)
             {
-                _beeper.UlaAddressed(data, _cycle);
+                _beeper.UlaAddressed(data, _frameCycle);
             }
         }
 
