@@ -73,6 +73,8 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
                     _ayAudio.Start();
 
                     _beeper = new Beeper();
+                    
+                    _beeper.Start();
                 }
             }
             else

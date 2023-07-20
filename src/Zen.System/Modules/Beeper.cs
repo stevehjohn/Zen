@@ -1,4 +1,5 @@
-﻿using Bufdio;
+﻿using System.Diagnostics;
+using Bufdio;
 using Bufdio.Engines;
 using Zen.Common;
 
@@ -14,9 +15,11 @@ public class Beeper : IDisposable
 
     private readonly IAudioEngine _engine;
 
-    private readonly Queue<(float Frequency, int Amplitude)> _queue = new();
+    private readonly Queue<(float Frequency, int Amplitude, int Duration)> _queue = new();
 
     private float[] _buffer;
+
+    private Task? _beeperThread;
 
     public Beeper()
     {
@@ -32,6 +35,11 @@ public class Beeper : IDisposable
         _engine = new PortAudioEngine(new AudioEngineOptions(1, Audio.Constants.SampleRate));
 
         _buffer = new float[Audio.Constants.SampleRate / Constants.FramesPerSecond];
+    }
+
+    public void Start()
+    {
+        _beeperThread = Task.Run(PlayFrame);
     }
 
     public void UlaAddressed(byte value, ulong cycle)
@@ -56,16 +64,28 @@ public class Beeper : IDisposable
             _bit4State = bit4State;
         }
 
-        var frequency = 0f;
-
         if (_lastCycle != null)
         {
-            frequency = Constants.TStatesPerSecond / (float) (cycle - _lastCycle) / 2;
+            var duration = cycle - _lastCycle;
+            
+            var frequency = Constants.TStatesPerSecond / (float) (cycle - _lastCycle) / 2;
+
+            _queue.Enqueue((frequency, amplitude, (int) duration));
         }
 
         _lastCycle = cycle;
+    }
 
-        _queue.Enqueue((frequency, amplitude));
+    private void PlayFrame()
+    {
+        var count = 0;
+        
+        while (_queue.Count > 0)
+        {
+            count += _queue.Dequeue().Duration;
+        }
+        
+        Debugger.Log(0, "INFO", $"{count}\n");
     }
 
     public void Dispose()
