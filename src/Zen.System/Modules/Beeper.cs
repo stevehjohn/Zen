@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using Bufdio;
+﻿using Bufdio;
 using Bufdio.Engines;
 using Zen.Common;
 
@@ -17,7 +16,7 @@ public class Beeper : IDisposable
 
     private readonly Queue<(float Frequency, int Amplitude, int Duration)> _queue = new();
 
-    private float[] _buffer;
+    private readonly float[] _buffer;
 
     private Task? _beeperThread;
 
@@ -78,14 +77,10 @@ public class Beeper : IDisposable
 
     private void PlayFrame()
     {
-        var count = 0;
-        
-        while (_queue.Count > 0)
+        while (true)
         {
-            count += _queue.Dequeue().Duration;
+            _engine.Send(_buffer);
         }
-        
-        Debugger.Log(0, "INFO", $"{count}\n");
     }
 
     public void Dispose()
