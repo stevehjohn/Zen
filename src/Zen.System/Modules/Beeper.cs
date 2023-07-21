@@ -32,6 +32,8 @@ public class Beeper : IDisposable
         _engine = new PortAudioEngine(new AudioEngineOptions(1, Audio.Constants.SampleRate));
 
         _buffer = new float[Constants.FrameCycles / 79];
+
+        Array.Fill(_buffer, 1);
     }
 
     public void UlaAddressed(byte value)
