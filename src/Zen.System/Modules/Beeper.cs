@@ -1,5 +1,6 @@
 ﻿using Bufdio;
 using Bufdio.Engines;
+using Zen.Common;
 
 namespace Zen.System.Modules;
 
@@ -30,7 +31,7 @@ public class Beeper : IDisposable
 
         _engine = new PortAudioEngine(new AudioEngineOptions(1, Audio.Constants.SampleRate));
 
-        _buffer = new float[Audio.Constants.SampleRate / 49];
+        _buffer = new float[Constants.FrameCycles / 79];
     }
 
     public void UlaAddressed(byte value)
