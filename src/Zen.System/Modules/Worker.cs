@@ -128,9 +128,9 @@ public class Worker : IDisposable
 
                         sampleCycle += cycles[i];
 
-                        if (sampleCycle > 79)
+                        if (sampleCycle > Audio.Constants.BeeperTStateSampleRate)
                         {
-                            sampleCycle -= 79;
+                            sampleCycle -= Audio.Constants.BeeperTStateSampleRate;
 
                             _beeper.Sample();
                         }
