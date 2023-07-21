@@ -133,7 +133,7 @@ public class FileSelect : CharacterOverlayBase
 
             _y++;
 
-            if (_y >= FileRows - 1)
+            if (_y >= FileRows)
             {
                 _y = FileRows - 1;
 
