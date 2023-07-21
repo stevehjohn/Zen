@@ -7,7 +7,7 @@ namespace Zen.System.Modules;
 
 public class Worker : IDisposable
 {
-    public required Func<int, byte[]> OnTick { get; init; }
+    public required Func<byte[]> OnTick { get; init; }
 
     private readonly CancellationTokenSource _cancellationTokenSource;
 
@@ -16,6 +16,8 @@ public class Worker : IDisposable
     private readonly Interface _interface;
 
     private readonly VideoModulator _videoAdapter;
+
+    private readonly Beeper _beeper;
 
     private readonly int _frameSleep;
 
@@ -27,11 +29,13 @@ public class Worker : IDisposable
 
     public bool Fast { get; set; }
 
-    public Worker(Interface @interface, VideoModulator videoAdapter, int framesPerSecond)
+    public Worker(Interface @interface, VideoModulator videoAdapter, Beeper beeper, int framesPerSecond)
     {
         _interface = @interface;
 
         _videoAdapter = videoAdapter;
+
+        _beeper = beeper;
 
         _frameSleep = 1_000 / framesPerSecond;
 
@@ -111,7 +115,7 @@ public class Worker : IDisposable
 
                     ClearFrameRamBuffer();
 
-                    var cycles = OnTick(frameCycles);
+                    var cycles = OnTick();
 
                     for (var i = 0; i < 7; i++)
                     {

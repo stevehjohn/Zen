@@ -32,15 +32,11 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
 
     private readonly LdBytesHook _ldBytesHook;
 
+    private readonly Beeper? _beeper;
+
     private AyAudio? _ayAudio;
 
-    private Beeper? _beeper;
-
     private bool _pagingDisabled;
-
-    private ulong _cycle;
-
-    private int _frameCycle;
 
     // ReSharper disable once InconsistentNaming
     public byte Last7FFD { get; set; }
@@ -73,10 +69,6 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
                     _ayAudio = new AyAudio();
                     
                     _ayAudio.Start();
-
-                    _beeper = new Beeper();
-                    
-                    _beeper.Start();
                 }
             }
             else
@@ -86,10 +78,6 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
                     _ayAudio.Dispose();
 
                     _ayAudio = null;
-
-                    _beeper!.Dispose();
-
-                    _beeper = null;
                 }
             }
         }
@@ -122,14 +110,12 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
 
         _videoModulator = new VideoModulator(_ram);
 
-        _worker = new(_interface, _videoModulator, Constants.FramesPerSecond)
+        _beeper = new Beeper();
+
+        _worker = new(_interface, _videoModulator, _beeper, Constants.FramesPerSecond)
                   {
                       OnTick = OnTick
                   };
-
-        _beeper = new Beeper();
-
-        _beeper.Start();
 
         if (_model != Model.Spectrum48K)
         {
@@ -217,16 +203,9 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
         // TODO.
     }
 
-    private byte[] OnTick(int frameCycle)
+    private byte[] OnTick()
     {
-        _frameCycle = frameCycle;
-
         _core.ExecuteCycle();
-
-        unchecked
-        {
-            _cycle += _state.ClockCycles;
-        }
 
         return _state.LastMCycles;
     }
@@ -239,7 +218,7 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
 
             if (_beeper != null)
             {
-                _beeper.UlaAddressed(data, _frameCycle);
+                _beeper.UlaAddressed(data);
             }
         }
 
