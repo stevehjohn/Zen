@@ -127,6 +127,10 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
                       OnTick = OnTick
                   };
 
+        _beeper = new Beeper();
+
+        _beeper.Start();
+
         if (_model != Model.Spectrum48K)
         {
             _ayAudio = new AyAudio();
