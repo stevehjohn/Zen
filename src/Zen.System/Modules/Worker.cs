@@ -107,6 +107,8 @@ public class Worker : IDisposable
             {
                 var frameCycles = 0;
 
+                var sampleCycle = 0;
+
                 _videoAdapter.StartFrame();
 
                 while (frameCycles < Constants.FrameCycles)
@@ -124,6 +126,15 @@ public class Worker : IDisposable
                             break;
                         }
 
+                        sampleCycle += cycles[i];
+
+                        if (sampleCycle > 79)
+                        {
+                            sampleCycle -= 79;
+
+                            _beeper.Sample();
+                        }
+
                         frameCycles += cycles[i];
 
                         frameCycles += ApplyFrameRamChanges(i, frameCycles, cycles);
@@ -134,6 +145,8 @@ public class Worker : IDisposable
                         }
                     }
                 }
+
+                _beeper.PlayFrame();
             }
 
             if (! Fast)
