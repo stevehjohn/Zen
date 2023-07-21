@@ -70,8 +70,6 @@ public class Beeper : IDisposable
     {
         _engine.Send(_buffer);
 
-        Array.Fill(_buffer, _amplitude);
-
         _bufferPosition = 0;
     }
 
