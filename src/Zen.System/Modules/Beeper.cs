@@ -10,15 +10,15 @@ public class Beeper : IDisposable
 
     private bool _bit4State;
 
-    private ulong? _lastCycle;
+    private int _bufferPosition;
+
+    private float _amplitude;
 
     private readonly IAudioEngine _engine;
 
     private readonly Queue<(float Frequency, int Amplitude, int Duration)> _queue = new();
 
     private readonly float[] _buffer;
-
-    private Task? _beeperThread;
 
     public Beeper()
     {
@@ -36,12 +36,7 @@ public class Beeper : IDisposable
         _buffer = new float[Audio.Constants.SampleRate / Constants.FramesPerSecond];
     }
 
-    public void Start()
-    {
-        _beeperThread = Task.Run(PlayFrame);
-    }
-
-    public void UlaAddressed(byte value, int frameCycle)
+    public void UlaAddressed(byte value)
     {
         var amplitude = 0;
 
@@ -63,33 +58,23 @@ public class Beeper : IDisposable
             _bit4State = bit4State;
         }
 
-        var sampleStart = (int) ((float) frameCycle / Constants.FrameCycles * Audio.Constants.SampleRate);
-
-        for (var i = sampleStart; i < Audio.Constants.SampleRate / Constants.FramesPerSecond; i++)
-        {
-            _buffer[i] = (float) (amplitude * 0.5);
-        }
-
-        //if (_lastCycle != null)
-        //{
-        //    var duration = cycle - _lastCycle;
-            
-        //    var frequency = Constants.TStatesPerSecond / (float) (cycle - _lastCycle) / 2;
-
-        //    _queue.Enqueue((frequency, amplitude, (int) duration));
-        //}
-
-        //_lastCycle = cycle;
+        _amplitude = (float) (amplitude * 0.5);
     }
 
-    private void PlayFrame()
+    public void Sample()
     {
-        while (true)
-        {
-            _engine.Send(_buffer);
+        _buffer[_bufferPosition] = _amplitude;
 
-            Array.Clear(_buffer);
-        }
+        _bufferPosition++;
+    }
+
+    public void PlayFrame()
+    {
+        _engine.Send(_buffer);
+
+        Array.Clear(_buffer);
+
+        _bufferPosition = 0;
     }
 
     public void Dispose()
