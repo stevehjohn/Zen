@@ -17,6 +17,8 @@ public class Worker : IDisposable
 
     private readonly VideoModulator _videoAdapter;
 
+    private readonly Beeper _beeper;
+
     private readonly int _frameSleep;
 
     private bool _paused;
@@ -27,11 +29,13 @@ public class Worker : IDisposable
 
     public bool Fast { get; set; }
 
-    public Worker(Interface @interface, VideoModulator videoAdapter, int framesPerSecond)
+    public Worker(Interface @interface, VideoModulator videoAdapter, Beeper beeper, int framesPerSecond)
     {
         _interface = @interface;
 
         _videoAdapter = videoAdapter;
+
+        _beeper = beeper;
 
         _frameSleep = 1_000 / framesPerSecond;
 
@@ -103,6 +107,8 @@ public class Worker : IDisposable
             {
                 var frameCycles = 0;
 
+                var sampleCycle = 0;
+
                 _videoAdapter.StartFrame();
 
                 while (frameCycles < Constants.FrameCycles)
@@ -120,6 +126,15 @@ public class Worker : IDisposable
                             break;
                         }
 
+                        sampleCycle += cycles[i];
+
+                        if (sampleCycle > 79)
+                        {
+                            sampleCycle -= 79;
+
+                            _beeper.Sample();
+                        }
+
                         frameCycles += cycles[i];
 
                         frameCycles += ApplyFrameRamChanges(i, frameCycles, cycles);
@@ -130,6 +145,8 @@ public class Worker : IDisposable
                         }
                     }
                 }
+
+                _beeper.PlayFrame();
             }
 
             if (! Fast)

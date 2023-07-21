@@ -32,6 +32,8 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
 
     private readonly LdBytesHook _ldBytesHook;
 
+    private readonly Beeper? _beeper;
+
     private AyAudio? _ayAudio;
 
     private bool _pagingDisabled;
@@ -108,7 +110,9 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
 
         _videoModulator = new VideoModulator(_ram);
 
-        _worker = new(_interface, _videoModulator, Constants.FramesPerSecond)
+        _beeper = new Beeper();
+
+        _worker = new(_interface, _videoModulator, _beeper, Constants.FramesPerSecond)
                   {
                       OnTick = OnTick
                   };
@@ -211,6 +215,11 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
         if ((port & 0x01) == 0)
         {
             _videoModulator.Border = (byte) (data & 0b0000_0111);
+
+            if (_beeper != null)
+            {
+                _beeper.UlaAddressed(data);
+            }
         }
 
         if (_ayAudio != null)
@@ -358,5 +367,7 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
         _worker.Dispose();
 
         _ayAudio?.Dispose();
+
+        _beeper?.Dispose();
     }
 }
