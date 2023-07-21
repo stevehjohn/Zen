@@ -11,4 +11,6 @@ public class Constants
     public const float Amplitude = 0.16f;
 
     public const float AyFrequency = 1773500f;
+
+    public const int BeeperTStateSampleRate = 79;
 }
