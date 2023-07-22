@@ -145,8 +145,6 @@ public class Worker : IDisposable
                         }
                     }
                 }
-
-                _beeper.PlayFrame();
             }
 
             if (! Fast)
