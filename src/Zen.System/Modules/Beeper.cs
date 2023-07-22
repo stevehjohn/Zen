@@ -36,14 +36,7 @@ public class Beeper : IDisposable
 
     public void Sample()
     {
-        if (_amplitude < _bitValue)
-        {
-            _amplitude += 0.09f;
-        }
-        else if (_amplitude > _bitValue)
-        {
-            _amplitude -= 0.09f;
-        }
+        _amplitude += (_bitValue - _amplitude) / 11;
 
         _buffer[0] = _amplitude;
 
