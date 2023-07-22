@@ -5,6 +5,8 @@ namespace Zen.System.Modules;
 
 public class Beeper : IDisposable
 {
+    private float _bitValue;
+
     private float _amplitude;
 
     private readonly IAudioEngine _engine;
@@ -29,11 +31,20 @@ public class Beeper : IDisposable
 
     public void UlaAddressed(byte value)
     {
-        _amplitude = (value & 0b0001_0000) > 0 ? 1 : 0;
+        _bitValue = (value & 0b0001_0000) > 0 ? 1 : 0;
     }
 
     public void Sample()
     {
+        if (_amplitude < _bitValue)
+        {
+            _amplitude += 0.09f;
+        }
+        else if (_amplitude > _bitValue)
+        {
+            _amplitude -= 0.09f;
+        }
+
         _buffer[0] = _amplitude;
 
         _engine.Send(_buffer);
