@@ -62,7 +62,7 @@ ED BA 0000: INDR
 ED BB 0000: OTDR
 FD 76 0000: HALT
 
-##~~~~# Fuse
+### Fuse
 
 76: HALT
 db_1: IN A, n
