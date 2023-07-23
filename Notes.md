@@ -2,10 +2,6 @@
 
 ToDos, aide memoires, etc...
 
-- MemPtr stuff.
-- https://softspectrum48.weebly.com/notes/category/ay389108912
-- Pause sound when menu shown.
-
 ## Useful References
 
 - https://clrhome.org/table/
