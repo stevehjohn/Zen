@@ -2,6 +2,8 @@
 
 ToDos, aide memoires, etc...
 
+- Fast mode now not working because beeper is blocking.
+
 ## Useful References
 
 - https://clrhome.org/table/
