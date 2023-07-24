@@ -38,7 +38,7 @@ public class Beeper : IDisposable
 
     public void Sample()
     {
-        if (!Silent)
+        if (! Silent)
         {
             _amplitude += (_bitValue - _amplitude) / 11;
 
