@@ -147,10 +147,10 @@ public class Worker : IDisposable
                 }
             }
 
-            // if (! Fast)
-            // {
-            //     Thread.Sleep(_frameSleep);
-            // }
+            if (! Fast && _beeper.Silent)
+            {
+                Thread.Sleep(_frameSleep);
+            }
         }
         // ReSharper disable once FunctionNeverReturns
     }

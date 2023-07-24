@@ -13,6 +13,8 @@ public class Beeper : IDisposable
 
     private readonly float[] _buffer;
 
+    public bool Silent { get; set; }
+
     public Beeper()
     {
         if (Environment.OSVersion.Platform == PlatformID.Unix)
@@ -36,11 +38,14 @@ public class Beeper : IDisposable
 
     public void Sample()
     {
-        _amplitude += (_bitValue - _amplitude) / 11;
+        if (!Silent)
+        {
+            _amplitude += (_bitValue - _amplitude) / 11;
 
-        _buffer[0] = _amplitude;
+            _buffer[0] = _amplitude;
 
-        _engine.Send(_buffer);
+            _engine.Send(_buffer);
+        }
     }
 
     public void Dispose()
