@@ -84,6 +84,8 @@ public class Host : Game
             _motherboard.Pause();
 
             _hostStarted = true;
+
+            _motherboard.Fast = AppSettings.Instance.Fast;
         }
     }
 

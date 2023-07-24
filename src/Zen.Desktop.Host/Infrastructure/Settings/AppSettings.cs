@@ -21,6 +21,8 @@ public class AppSettings
     
     public bool Sound { get; set; }
 
+    public bool Fast { get; set; }
+
     private static AppSettings GetAppSettings()
     {
         var json = File.ReadAllText(SettingsFile);

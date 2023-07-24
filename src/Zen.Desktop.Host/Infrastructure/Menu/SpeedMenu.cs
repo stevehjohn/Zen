@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using Zen.Desktop.Host.Infrastructure.Settings;
 
 namespace Zen.Desktop.Host.Infrastructure.Menu;
 
@@ -24,9 +25,15 @@ public class SpeedMenu : MenuBase
         switch (id)
         {
             case 1:
+                AppSettings.Instance.Fast = false;
+                AppSettings.Instance.Save();
+
                 return (MenuResult.SpeedNormal, null, null);
 
             case 2:
+                AppSettings.Instance.Fast = true;
+                AppSettings.Instance.Save();
+
                 return (MenuResult.SpeedFast, null, null);
 
             default:
