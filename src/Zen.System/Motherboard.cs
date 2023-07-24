@@ -32,7 +32,7 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
 
     private readonly LdBytesHook _ldBytesHook;
 
-    private readonly Beeper? _beeper;
+    private readonly Beeper _beeper;
 
     private AyAudio? _ayAudio;
 
@@ -70,6 +70,8 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
                     
                     _ayAudio.Start();
                 }
+
+                _beeper.Silent = false;
             }
             else
             {
@@ -79,6 +81,8 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
 
                     _ayAudio = null;
                 }
+
+                _beeper.Silent = true;
             }
         }
     }
@@ -216,10 +220,7 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
         {
             _videoModulator.Border = (byte) (data & 0b0000_0111);
 
-            if (_beeper != null)
-            {
-                _beeper.UlaAddressed(data);
-            }
+            _beeper.UlaAddressed(data);
         }
 
         if (_ayAudio != null)
@@ -368,6 +369,6 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
 
         _ayAudio?.Dispose();
 
-        _beeper?.Dispose();
+        _beeper.Dispose();
     }
 }

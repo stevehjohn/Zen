@@ -86,6 +86,8 @@ public class Host : Game
             _hostStarted = true;
 
             _motherboard.Fast = AppSettings.Instance.Fast;
+
+            _motherboard.Sound = AppSettings.Instance.Sound;
         }
     }
 
