@@ -1,6 +1,7 @@
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework.Input;
+using Zen.Desktop.Host.Infrastructure.Settings;
 
 namespace Zen.Desktop.Host.Infrastructure.Menu;
 
@@ -11,8 +12,8 @@ public class SoundMenu : MenuBase
         var items = new List<Label>
         {
             new(0, true, "Zen - Sound", Color.White, 0, 0, null),
-            new(1, false, "[1] On", Color.Yellow, 1, 3, Keys.D1, Color.LightGreen),
-            new(2, false, "[2] Off", Color.Yellow, 1, 5, Keys.D2, Color.LightGreen),
+            new(1, false, $"[1] {(AppSettings.Instance.Sound ? ">" : " ")} On {(AppSettings.Instance.Sound ? "<" : " ")}", Color.Yellow, 1, 3, Keys.D1, Color.LightGreen),
+            new(2, false, $"[2] {(AppSettings.Instance.Sound ? " " : ">")} Off {(AppSettings.Instance.Sound ? " " : "<")}", Color.Yellow, 1, 5, Keys.D2, Color.LightGreen),
             new(99, true, "[ESC] Close Menu", Color.FromNonPremultiplied(255, 64, 64, 255), 0, 21, Keys.Escape, Color.LightGreen)
         };
 
