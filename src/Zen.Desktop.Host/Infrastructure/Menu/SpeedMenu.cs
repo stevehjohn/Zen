@@ -12,8 +12,8 @@ public class SpeedMenu : MenuBase
         var items = new List<Label>
                     {
                         new(0, true, "Zen - Emulator Speed", Color.White, 0, 0, null),
-                        new(1, false, "[1] Normal", Color.Yellow, 1, 3, Keys.D1, Color.LightGreen),
-                        new(2, false, "[2] Fast", Color.Yellow, 1, 5, Keys.D2, Color.LightGreen),
+                        new(1, false, $"[1] {(AppSettings.Instance.Fast ? " " : ">")} Normal {(AppSettings.Instance.Fast ? " " : "<")}", Color.Yellow, 1, 3, Keys.D1, Color.LightGreen),
+                        new(2, false, $"[2] {(AppSettings.Instance.Fast ? ">" : " ")} Fast {(AppSettings.Instance.Fast ? "<" : " ")}", Color.Yellow, 1, 5, Keys.D2, Color.LightGreen),
                         new(99, true, "[ESC] Close Menu", Color.FromNonPremultiplied(255, 64, 64, 255), 0, 21, Keys.Escape, Color.LightGreen)
                     };
 
