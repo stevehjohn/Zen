@@ -128,7 +128,7 @@ public class Worker : IDisposable
 
                         sampleCycle += cycles[i];
 
-                        if (sampleCycle > Audio.Constants.BeeperTStateSampleRate)
+                        if (sampleCycle > Audio.Constants.BeeperTStateSampleRate && ! Fast)
                         {
                             sampleCycle -= Audio.Constants.BeeperTStateSampleRate;
 
@@ -147,10 +147,10 @@ public class Worker : IDisposable
                 }
             }
 
-            if (! Fast)
-            {
-                Thread.Sleep(_frameSleep);
-            }
+            // if (! Fast)
+            // {
+            //     Thread.Sleep(_frameSleep);
+            // }
         }
         // ReSharper disable once FunctionNeverReturns
     }
