@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Threading.Tasks;
-using Zen.Common;
+using Constants = Zen.Common.Constants;
 
 namespace Zen.Desktop.Host.Features;
 
@@ -107,19 +107,25 @@ public class WaveVisualiser
 
         for (var x = 0; x < width; x++)
         {
-            var dataPoint = buffer[x * (int) ((float) length / width)];
+            var dataPoint = buffer[(int) (x * ((float) length / width))];
 
             var offset = (int) (dataPoint * height * 2.5f);
 
+            _data[mid + x + offset * width - width] = Color.Green;
             _data[mid + x + offset * width] = Color.Green;
+            _data[mid + x + offset * width + width] = Color.Green;
 
-            if (offset != lastOffset)
+            if (x > 0 && offset != lastOffset)
             {
                 var direction = offset > 0 ? 1 : -1;
 
                 for (var y = 0; y != offset; y += direction)
                 {
+                    _data[mid + x + y * width - width] = Color.Green;
+                    _data[mid + x + y * width - 1] = Color.Green;
                     _data[mid + x + y * width] = Color.Green;
+                    _data[mid + x + y * width + 1] = Color.Green;
+                    _data[mid + x + y * width + width] = Color.Green;
                 }
             }
 
