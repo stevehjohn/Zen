@@ -69,7 +69,7 @@ public class WaveVisualiser
 
     public void ReceiveSignal(float signal)
     {
-        _buffers[3][_beeperBufferPosition] = signal / 3;
+        _buffers[3][_beeperBufferPosition] = -signal / 3;
 
         _beeperBufferPosition++;
 
@@ -119,15 +119,17 @@ public class WaveVisualiser
 
         var lastOffset = 0;
 
+        var color = channel == 3 ? Color.Blue : Color.Green;
+
         for (var x = 0; x < width; x++)
         {
             var dataPoint = buffer[(int) (x * ((float) length / width))];
 
             var offset = (int) (dataPoint * height);
 
-            _data[mid + x + offset * width - width] = Color.Green;
-            _data[mid + x + offset * width] = Color.Green;
-            _data[mid + x + offset * width + width] = Color.Green;
+            _data[mid + x + offset * width - width] = color;
+            _data[mid + x + offset * width] = color;
+            _data[mid + x + offset * width + width] = color;
 
             if (x > 0 && offset != lastOffset)
             {
@@ -135,11 +137,11 @@ public class WaveVisualiser
 
                 for (var y = lastOffset; y != offset; y += direction)
                 {
-                    _data[mid + x + y * width - width] = Color.Green;
-                    _data[mid + x + y * width - 1] = Color.Green;
-                    _data[mid + x + y * width] = Color.Green;
-                    _data[mid + x + y * width + 1] = Color.Green;
-                    _data[mid + x + y * width + width] = Color.Green;
+                    _data[mid + x + y * width - width] = color;
+                    _data[mid + x + y * width - 1] = color;
+                    _data[mid + x + y * width] = color;
+                    _data[mid + x + y * width + 1] = color;
+                    _data[mid + x + y * width + width] = color;
                 }
             }
 
