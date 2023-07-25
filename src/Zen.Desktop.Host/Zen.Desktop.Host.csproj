@@ -34,6 +34,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Features\" />
     <Folder Include="Peripherals\" />
   </ItemGroup>
   <Target Name="RestoreDotnetTools" BeforeTargets="Restore">

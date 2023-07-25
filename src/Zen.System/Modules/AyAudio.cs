@@ -22,6 +22,8 @@ public class AyAudio : IDisposable
 
     private readonly byte[] _registerValues = new byte[256];
 
+    public bool Silent { get; set; }
+
     public AyAudio()
     {
         _channels = new List<Channel>();
