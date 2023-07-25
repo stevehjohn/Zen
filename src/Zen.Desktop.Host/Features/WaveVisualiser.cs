@@ -78,7 +78,7 @@ public class WaveVisualiser
         
         Array.Fill(_data, Color.Black);
 
-        for (var i = 0; i < 1; i++)
+        for (var i = 0; i < 3; i++)
         { 
             RenderChannel(i);
         }
