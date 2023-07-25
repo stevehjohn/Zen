@@ -39,4 +39,7 @@ public static class Constants
 
     /* Host */
     public const int FramesPerSecond = 60;
+
+    /* Wave Visualiser */
+    public const int WavePanelWidth = 200;
 }
