@@ -24,6 +24,8 @@ public class AyAudio : IDisposable
 
     public bool Silent { get; set; }
 
+    public Action<float[]>? SignalHook { get; set; }
+
     public AyAudio()
     {
         _channels = new List<Channel>();
@@ -214,6 +216,8 @@ public class AyAudio : IDisposable
 
     private void RunFrame()
     {
+        var signals = new float[3];
+
         while (true)
         {
             if (_cancellationToken.IsCancellationRequested)
@@ -223,11 +227,20 @@ public class AyAudio : IDisposable
 
             for (var i = 0; i < Constants.BufferSize; i++)
             {
-                var signal = _channels[0].GetNextSignal();
+                signals[0] = _channels[0].GetNextSignal();
+                signals[1] = _channels[1].GetNextSignal();
+                signals[2] = _channels[2].GetNextSignal();
 
-                signal += _channels[1].GetNextSignal();
+                if (SignalHook != null)
+                {
+                    SignalHook(signals);
+                }
 
-                signal += _channels[2].GetNextSignal();
+                var signal = signals[0];
+
+                signal += signals[1];
+
+                signal += signals[2];
 
                 _buffer[i] = signal;
             }

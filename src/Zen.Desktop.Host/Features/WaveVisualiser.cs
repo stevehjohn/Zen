@@ -1,14 +1,13 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using Zen.Common;
-using Zen.System.Modules;
 
 namespace Zen.Desktop.Host.Features;
 
 public class WaveVisualiser
 {
-    private const int BufferMultiplier = 3;
+    private const int BufferSize = 44_100;
 
     private readonly GraphicsDeviceManager _graphicsDeviceManager;
 
@@ -16,7 +15,13 @@ public class WaveVisualiser
 
     private readonly float[][] _buffers;
 
+    private int _bufferPosition;
+
+    private Texture2D _waves;
+
     public int ScaleFactor { get; set; }
+
+    public Texture2D Waves => _waves;
 
     public WaveVisualiser(GraphicsDeviceManager graphicsDeviceManager, int scaleFactor)
     {
@@ -30,34 +35,43 @@ public class WaveVisualiser
 
         for (var i = 0; i < 6; i++)
         {
-            _buffers[i] = new float[System.Modules.Audio.Constants.BufferSize * BufferMultiplier];
+            _buffers[i] = new float[BufferSize];
         }
     }
 
-    public void Receive(float[] signals)
+    public void ReceiveSignals(float[] signals)
     {
+        _buffers[0][_bufferPosition] = signals[0];
+        _buffers[1][_bufferPosition] = signals[1];
+        _buffers[2][_bufferPosition] = signals[2];
+
+        _bufferPosition++;
+
+        if (_bufferPosition > BufferSize)
+        {
+            _bufferPosition = 0;
+
+            RenderWaves();
+        }
     }
 
-    public Texture2D RenderWaves(AyAudio ayAudio)
+    private void RenderWaves()
     {
         var texture = new Texture2D(_graphicsDeviceManager.GraphicsDevice, Constants.WavePanelWidth * ScaleFactor, Constants.ScreenHeightPixels * ScaleFactor);
         
         Array.Fill(_data, Color.Black);
 
-        if (ayAudio != null)
+        for (var i = 0; i < 3; i++)
         {
-            for (var i = 0; i < 3; i++)
-            {
-                RenderChannel(i, ayAudio);
-            }
+            RenderChannel(i);
         }
 
         texture.SetData(_data);
 
-        return texture;
+        _waves = texture;
     }
 
-    private void RenderChannel(int channel, AyAudio ayAudio)
+    private void RenderChannel(int channel)
     {
         var width = Constants.WavePanelWidth * ScaleFactor;
 
