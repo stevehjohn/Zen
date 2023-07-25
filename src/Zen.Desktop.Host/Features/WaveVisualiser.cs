@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Threading.Tasks;
 using Constants = Zen.Common.Constants;
 
 namespace Zen.Desktop.Host.Features;
@@ -74,8 +75,11 @@ public class WaveVisualiser
 
         _rendering = true;
 
-        var texture = new Texture2D(_graphicsDeviceManager.GraphicsDevice, Constants.WavePanelWidth * ScaleFactor, Constants.ScreenHeightPixels * ScaleFactor);
-        
+        if (_waves == null)
+        {
+            _waves = new Texture2D(_graphicsDeviceManager.GraphicsDevice, Constants.WavePanelWidth * ScaleFactor, Constants.ScreenHeightPixels * ScaleFactor);
+        }
+
         Array.Fill(_data, Color.Black);
 
         for (var i = 0; i < 3; i++)
@@ -83,9 +87,7 @@ public class WaveVisualiser
             RenderChannel(i);
         }
 
-        texture.SetData(_data);
-
-        _waves = texture;
+        _waves.SetData(_data);
 
         _rendering = false;
     }
