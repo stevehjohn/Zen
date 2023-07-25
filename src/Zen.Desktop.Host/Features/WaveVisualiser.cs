@@ -116,9 +116,9 @@ public class WaveVisualiser
 
             if (x > 0 && offset != lastOffset)
             {
-                var direction = offset > 0 ? 1 : -1;
+                var direction = offset > lastOffset ? 1 : -1;
 
-                for (var y = 0; y != offset; y += direction)
+                for (var y = lastOffset; y != offset; y += direction)
                 {
                     _data[mid + x + y * width - width] = Color.Green;
                     _data[mid + x + y * width - 1] = Color.Green;
