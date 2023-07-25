@@ -34,7 +34,7 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
 
     private readonly Beeper _beeper;
 
-    private AyAudio _ayAudio;
+    private readonly AyAudio _ayAudio;
 
     private bool _pagingDisabled;
 
