@@ -15,6 +15,8 @@ public class Beeper : IDisposable
 
     public bool Silent { get; set; }
 
+    public Action<float>? SignalHook { get; set; }
+
     public Beeper()
     {
         if (Environment.OSVersion.Platform == PlatformID.Unix)
@@ -45,6 +47,11 @@ public class Beeper : IDisposable
             _buffer[0] = _amplitude;
 
             _engine.Send(_buffer);
+
+            if (SignalHook != null)
+            {
+                SignalHook(_amplitude);
+            }
         }
     }
 
