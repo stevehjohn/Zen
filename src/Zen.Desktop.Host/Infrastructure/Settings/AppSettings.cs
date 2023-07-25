@@ -23,6 +23,8 @@ public class AppSettings
 
     public bool Fast { get; set; }
 
+    public bool ViewWaves { get; set; }
+
     private static AppSettings GetAppSettings()
     {
         var json = File.ReadAllText(SettingsFile);

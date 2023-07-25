@@ -46,11 +46,22 @@ public class Host : Game
 
     public Host()
     {
-        _graphicsDeviceManager = new GraphicsDeviceManager(this)
+        if (AppSettings.Instance.ViewWaves)
         {
-            PreferredBackBufferWidth = (Constants.ScreenWidthPixels + Constants.WavePanelWidth) * _scaleFactor,
-            PreferredBackBufferHeight = Constants.ScreenHeightPixels * _scaleFactor
-        };
+            _graphicsDeviceManager = new GraphicsDeviceManager(this)
+                                     {
+                                         PreferredBackBufferWidth = (Constants.ScreenWidthPixels + Constants.WavePanelWidth) * _scaleFactor,
+                                         PreferredBackBufferHeight = Constants.ScreenHeightPixels * _scaleFactor
+                                     };
+        }
+        else
+        {
+            _graphicsDeviceManager = new GraphicsDeviceManager(this)
+                                     {
+                                         PreferredBackBufferWidth = Constants.ScreenWidthPixels * _scaleFactor,
+                                         PreferredBackBufferHeight = Constants.ScreenHeightPixels * _scaleFactor
+                                     };
+        }
 
         Content.RootDirectory = "_Content";
 
@@ -77,11 +88,14 @@ public class Host : Game
 
         _vRamAdapter = new VideoRenderer(_motherboard.VideoAdapter.ScreenFrame, _graphicsDeviceManager);
 
-        _waveVisualiser = new WaveVisualiser(_graphicsDeviceManager, _scaleFactor);
+        if (AppSettings.Instance.ViewWaves)
+        {
+            _waveVisualiser = new WaveVisualiser(_graphicsDeviceManager, _scaleFactor);
 
-        _motherboard.AyAudio.SignalHook = _waveVisualiser.ReceiveSignals;
+            _motherboard.AyAudio.SignalHook = _waveVisualiser.ReceiveSignals;
 
-        _motherboard.Beeper.SignalHook = _waveVisualiser.ReceiveSignal;
+            _motherboard.Beeper.SignalHook = _waveVisualiser.ReceiveSignal;
+        }
     }
 
     protected override void OnActivated(object sender, EventArgs args)
@@ -219,8 +233,16 @@ public class Host : Game
     {
         _scaleFactor = scale;
 
-        _graphicsDeviceManager.PreferredBackBufferWidth = Constants.ScreenWidthPixels + Constants.WavePanelWidth * _scaleFactor;
-        _graphicsDeviceManager.PreferredBackBufferHeight = Constants.ScreenHeightPixels * _scaleFactor;
+        if (AppSettings.Instance.ViewWaves)
+        {
+            _graphicsDeviceManager.PreferredBackBufferWidth = (Constants.ScreenWidthPixels + Constants.WavePanelWidth) * _scaleFactor;
+            _graphicsDeviceManager.PreferredBackBufferHeight = Constants.ScreenHeightPixels * _scaleFactor;
+        }
+        else
+        {
+            _graphicsDeviceManager.PreferredBackBufferWidth = Constants.ScreenWidthPixels * _scaleFactor;
+            _graphicsDeviceManager.PreferredBackBufferHeight = Constants.ScreenHeightPixels * _scaleFactor;
+        }
 
         _graphicsDeviceManager.ApplyChanges();
 
@@ -320,11 +342,14 @@ public class Host : Game
 
         _spriteBatch.Draw(screen, new Rectangle(0, 0, Constants.ScreenWidthPixels * _scaleFactor, Constants.ScreenHeightPixels * _scaleFactor), new Rectangle(0, 0, Constants.ScreenWidthPixels, Constants.ScreenHeightPixels), Color.White);
 
-        var waves = _waveVisualiser.Waves;
-
-        if (waves != null)
+        if (_waveVisualiser != null)
         {
-            _spriteBatch.Draw(waves, new Rectangle(Constants.ScreenWidthPixels * _scaleFactor, 0, Constants.WavePanelWidth * _scaleFactor, Constants.ScreenHeightPixels * _scaleFactor), new Rectangle(0, 0, Constants.WavePanelWidth * _scaleFactor, Constants.ScreenHeightPixels * _scaleFactor), Color.White);
+            var waves = _waveVisualiser.Waves;
+
+            if (waves != null)
+            {
+                _spriteBatch.Draw(waves, new Rectangle(Constants.ScreenWidthPixels * _scaleFactor, 0, Constants.WavePanelWidth * _scaleFactor, Constants.ScreenHeightPixels * _scaleFactor), new Rectangle(0, 0, Constants.WavePanelWidth * _scaleFactor, Constants.ScreenHeightPixels * _scaleFactor), Color.White);
+            }
         }
 
         _spriteBatch.End();
