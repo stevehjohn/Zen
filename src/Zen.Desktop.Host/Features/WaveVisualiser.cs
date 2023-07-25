@@ -95,19 +95,17 @@ public class WaveVisualiser
         {
             var dataPoint = buffer[x * (int) ((float) length / width)];
 
-            var offset = (int) (width * dataPoint * height * 2.5f);
+            var offset = (int) (dataPoint * height * 2.5f);
 
-            //_data[mid + x + offset - Constants.WavePanelWidth * ScaleFactor] = Color.Green;
-            _data[mid + x + offset] = Color.Green;
-            //_data[mid + x + offset + Constants.WavePanelWidth * ScaleFactor] = Color.Green;
+            _data[mid + x + offset * width] = Color.Green;
 
-            if (x > 0 && offset != lastOffset)
+            if (offset != lastOffset)
             {
-                var direction = offset < lastOffset ? 1 : -1;
+                var direction = offset > 0 ? 1 : -1;
 
-                for (var y = offset; y != lastOffset; y += direction)
+                for (var y = 0; y != offset; y += direction)
                 {
-                    _data[mid + x + y] = Color.Green;
+                    _data[mid + x + y * width] = Color.Green;
                 }
             }
 
