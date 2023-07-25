@@ -34,7 +34,7 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
 
     private readonly Beeper _beeper;
 
-    private AyAudio? _ayAudio;
+    private AyAudio _ayAudio;
 
     private bool _pagingDisabled;
 
@@ -59,30 +59,12 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
 
     public bool Sound
     {
-        get => _ayAudio != null;
+        get => _ayAudio.Silent;
         set
         {
-            if (value)
+            if (Model != Model.Spectrum48K)
             {
-                if (_ayAudio == null)
-                {
-                    _ayAudio = new AyAudio();
-                    
-                    _ayAudio.Start();
-                }
-
-                _beeper.Silent = false;
-            }
-            else
-            {
-                if (_ayAudio != null)
-                {
-                    _ayAudio.Dispose();
-
-                    _ayAudio = null;
-                }
-
-                _beeper.Silent = true;
+                _ayAudio.Silent = value;
             }
         }
     }
@@ -121,12 +103,11 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
                       OnTick = OnTick
                   };
 
-        if (_model != Model.Spectrum48K)
-        {
-            _ayAudio = new AyAudio();
+        _ayAudio = new AyAudio();
 
-            _ayAudio.Start();
-        }
+        _ayAudio.Start();
+
+        _ayAudio.Silent = model == Model.Spectrum48K;
     }
 
     public void AddPeripheral(IPeripheral peripheral)
@@ -141,17 +122,14 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
 
     public byte CpuPortRead(ushort port)
     {
-        if (_ayAudio != null)
+        if ((port & 0xC002) == 0xC000)
         {
-            if ((port & 0xC002) == 0xC000)
-            {
-                return _ayAudio.GetRegister();
-            }
+            return _ayAudio.GetRegister();
+        }
 
-            if ((port & 0x8002) == 0x8000)
-            {
-                return _ayAudio.GetRegister();
-            }
+        if ((port & 0x8002) == 0x8000)
+        {
+            return _ayAudio.GetRegister();
         }
 
         foreach (var peripheral in _peripherals)
@@ -223,17 +201,14 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
             _beeper.UlaAddressed(data);
         }
 
-        if (_ayAudio != null)
+        if ((port & 0xC002) == 0xC000)
         {
-            if ((port & 0xC002) == 0xC000)
-            {
-                _ayAudio.SelectRegister(data);
-            }
-            
-            if ((port & 0x8002) == 0x8000)
-            {
-                _ayAudio.SetRegister(data);
-            }
+            _ayAudio.SelectRegister(data);
+        }
+
+        if ((port & 0x8002) == 0x8000)
+        {
+            _ayAudio.SetRegister(data);
         }
 
         if (_pagingDisabled)
@@ -367,7 +342,7 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
     {
         _worker.Dispose();
 
-        _ayAudio?.Dispose();
+        _ayAudio.Dispose();
 
         _beeper.Dispose();
     }
