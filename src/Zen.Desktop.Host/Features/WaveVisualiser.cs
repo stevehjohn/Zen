@@ -108,7 +108,7 @@ public class WaveVisualiser
         {
             var dataPoint = buffer[(int) (x * ((float) length / width))];
 
-            var offset = (int) (dataPoint * height * 2.5f);
+            var offset = (int) (dataPoint * height);
 
             _data[mid + x + offset * width - width] = Color.Green;
             _data[mid + x + offset * width] = Color.Green;
