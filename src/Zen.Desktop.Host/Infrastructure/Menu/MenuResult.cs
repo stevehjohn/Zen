@@ -13,5 +13,7 @@ public enum MenuResult
     LoadState,
     ChangeScale,
     SoundOn,
-    SoundOff
+    SoundOff,
+    WaveformOn,
+    WaveformOff
 }

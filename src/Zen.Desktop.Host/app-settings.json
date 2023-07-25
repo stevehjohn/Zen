@@ -4,5 +4,5 @@
   "ScaleFactor": 4,
   "Sound": true,
   "Fast": false,
-  "ViewWaves": false
+  "ViewWaves": true
 }
