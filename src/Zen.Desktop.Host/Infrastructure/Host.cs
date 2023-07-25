@@ -78,6 +78,8 @@ public class Host : Game
         _vRamAdapter = new VideoRenderer(_motherboard.VideoAdapter.ScreenFrame, _graphicsDeviceManager);
 
         _waveVisualiser = new WaveVisualiser(_graphicsDeviceManager, _scaleFactor);
+
+        _motherboard.AyAudio.SignalHook = _waveVisualiser.ReceiveSignals;
     }
 
     protected override void OnActivated(object sender, EventArgs args)
@@ -314,7 +316,7 @@ public class Host : Game
 
         _spriteBatch.Draw(screen, new Rectangle(0, 0, Constants.ScreenWidthPixels * _scaleFactor, Constants.ScreenHeightPixels * _scaleFactor), new Rectangle(0, 0, Constants.ScreenWidthPixels, Constants.ScreenHeightPixels), Color.White);
 
-        _spriteBatch.Draw(_waveVisualiser.RenderWaves(null), new Rectangle(Constants.ScreenWidthPixels * _scaleFactor, 0, Constants.WavePanelWidth * _scaleFactor, Constants.ScreenHeightPixels * _scaleFactor), new Rectangle(0, 0, Constants.ScreenWidthPixels, Constants.ScreenHeightPixels), Color.White);
+        _spriteBatch.Draw(_waveVisualiser.Waves, new Rectangle(Constants.ScreenWidthPixels * _scaleFactor, 0, Constants.WavePanelWidth * _scaleFactor, Constants.ScreenHeightPixels * _scaleFactor), new Rectangle(0, 0, Constants.ScreenWidthPixels, Constants.ScreenHeightPixels), Color.White);
 
         _spriteBatch.End();
 

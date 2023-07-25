@@ -52,6 +52,8 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
 
     public VideoModulator VideoAdapter => _videoModulator;
 
+    public AyAudio AyAudio => _ayAudio;
+
     public bool Fast
     {
         set => _worker.Fast = value;
