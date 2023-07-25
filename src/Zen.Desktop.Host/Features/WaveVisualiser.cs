@@ -22,6 +22,8 @@ public class WaveVisualiser
 
     public int ScaleFactor { get; set; }
 
+    private bool _rendering;
+
     public Texture2D Waves => _waves;
 
     public WaveVisualiser(GraphicsDeviceManager graphicsDeviceManager, int scaleFactor)
@@ -52,7 +54,10 @@ public class WaveVisualiser
         {
             _bufferPosition = 0;
 
-            RenderWaves();
+            if (! _rendering)
+            {
+                Task.Run(RenderWaves);
+            }
         }
     }
 
@@ -62,6 +67,8 @@ public class WaveVisualiser
         {
             return;
         }
+
+        _rendering = true;
 
         var texture = new Texture2D(_graphicsDeviceManager.GraphicsDevice, Constants.WavePanelWidth * ScaleFactor, Constants.ScreenHeightPixels * ScaleFactor);
         
@@ -75,6 +82,8 @@ public class WaveVisualiser
         texture.SetData(_data);
 
         _waves = texture;
+
+        _rendering = false;
     }
 
     private void RenderChannel(int channel)
