@@ -44,6 +44,11 @@ public class WaveVisualiser
 
     public void ReceiveSignals(float[] signals)
     {
+        if (_rendering)
+        {
+            return;
+        }
+
         _buffers[0][_bufferPosition] = signals[0];
         _buffers[1][_bufferPosition] = signals[1];
         _buffers[2][_bufferPosition] = signals[2];
