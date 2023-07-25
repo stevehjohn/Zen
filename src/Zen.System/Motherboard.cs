@@ -54,6 +54,8 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
 
     public AyAudio AyAudio => _ayAudio;
 
+    public Beeper Beeper => _beeper;
+
     public bool Fast
     {
         set => _worker.Fast = value;
