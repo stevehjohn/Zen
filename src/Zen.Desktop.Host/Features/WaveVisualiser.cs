@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Threading.Tasks;
 using Constants = Zen.Common.Constants;
 
 namespace Zen.Desktop.Host.Features;
@@ -61,7 +60,7 @@ public class WaveVisualiser
 
             if (! _rendering)
             {
-                Task.Run(RenderWaves);
+                RenderWaves();
             }
         }
     }
@@ -79,7 +78,7 @@ public class WaveVisualiser
         
         Array.Fill(_data, Color.Black);
 
-        for (var i = 0; i < 3; i++)
+        for (var i = 0; i < 1; i++)
         { 
             RenderChannel(i);
         }
