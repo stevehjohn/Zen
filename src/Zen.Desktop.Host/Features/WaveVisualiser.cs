@@ -1,13 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Threading.Tasks;
 using Zen.Common;
 
 namespace Zen.Desktop.Host.Features;
 
 public class WaveVisualiser
 {
-    private const int BufferSize = 44_100;
+    private const int BufferSize = 44_100 / 50;
 
     private readonly GraphicsDeviceManager _graphicsDeviceManager;
 
@@ -47,22 +48,27 @@ public class WaveVisualiser
 
         _bufferPosition++;
 
-        if (_bufferPosition > BufferSize)
+        if (_bufferPosition >= BufferSize)
         {
             _bufferPosition = 0;
 
-            RenderWaves();
+            Task.Run(RenderWaves);
         }
     }
 
     private void RenderWaves()
     {
+        if (_graphicsDeviceManager.GraphicsDevice == null)
+        {
+            return;
+        }
+
         var texture = new Texture2D(_graphicsDeviceManager.GraphicsDevice, Constants.WavePanelWidth * ScaleFactor, Constants.ScreenHeightPixels * ScaleFactor);
         
         Array.Fill(_data, Color.Black);
 
         for (var i = 0; i < 3; i++)
-        {
+        { 
             RenderChannel(i);
         }
 
@@ -79,13 +85,13 @@ public class WaveVisualiser
 
         var mid = height * width * channel + height * width / 2;
 
-        var buffer = new float[100]; // ayAudio.Buffers[channel];
+        var buffer = _buffers[channel];
 
         var length = buffer.Length;
 
         for (var x = 0; x < width; x++)
         {
-            var dataPoint = buffer[x * (length / width)];
+            var dataPoint = buffer[x * (width / length)];
 
             var offset = width * dataPoint * (height / 2f);
 
