@@ -35,4 +35,5 @@ I did have one issue building on macOS on an M1 processor. Solved by https://sta
 
 ![Treasure Island Dizzy](Images/dizzy.png)
 
+![Batman with Waveform Visualiser](Images/batman-waveform.png)
 
