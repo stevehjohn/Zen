@@ -79,7 +79,7 @@ public class Host : Game
         _motherboard.AddPeripheral(new Peripherals.DiskDrive());
 
         _motherboard.Sound = AppSettings.Instance.Sound;
-        
+
         _imageName = $"Standard {model} ROM";
 
         AppSettings.Instance.SystemModel = model;
@@ -145,13 +145,13 @@ public class Host : Game
             _motherboard.Pause();
 
             _vRamAdapter.RenderDisplay();
-            
+
             var screen = _vRamAdapter.Display;
 
             _soundState = _motherboard.Sound;
-            
+
             _motherboard.Sound = false;
-            
+
             _menuSystem = new MenuSystem(screen, _graphicsDeviceManager, Content, MenuFinished);
         }
 
@@ -205,19 +205,47 @@ public class Host : Game
                 ChangeScale((int) arguments);
 
                 break;
-            
+
             case MenuResult.SoundOn:
                 _motherboard.Sound = true;
                 AppSettings.Instance.Sound = true;
                 AppSettings.Instance.Save();
 
                 break;
-            
+
             case MenuResult.SoundOff:
                 _motherboard.Sound = false;
                 AppSettings.Instance.Sound = false;
                 AppSettings.Instance.Save();
-                
+
+                break;
+
+            case MenuResult.WaveformOn:
+                AppSettings.Instance.ViewWaves = true;
+                AppSettings.Instance.Save();
+
+                _graphicsDeviceManager.PreferredBackBufferWidth = (Constants.ScreenWidthPixels + Constants.WavePanelWidth) * _scaleFactor;
+                _graphicsDeviceManager.PreferredBackBufferHeight = Constants.ScreenHeightPixels * _scaleFactor;
+                _graphicsDeviceManager.ApplyChanges();
+
+                _waveVisualiser = new WaveVisualiser(_graphicsDeviceManager, _scaleFactor);
+                _motherboard.AyAudio.SignalHook = _waveVisualiser.ReceiveSignals;
+                _motherboard.Beeper.SignalHook = _waveVisualiser.ReceiveSignal;
+
+                break;
+            
+            case MenuResult.WaveformOff:
+                AppSettings.Instance.ViewWaves = false;
+                AppSettings.Instance.Save();
+
+                _graphicsDeviceManager.PreferredBackBufferWidth = Constants.ScreenWidthPixels * _scaleFactor;
+                _graphicsDeviceManager.PreferredBackBufferHeight = Constants.ScreenHeightPixels * _scaleFactor;
+                _graphicsDeviceManager.ApplyChanges();
+
+                _waveVisualiser = null;
+                _motherboard.AyAudio.SignalHook = null;
+                _motherboard.Beeper.SignalHook = null;
+
                 break;
         }
 
@@ -286,7 +314,7 @@ public class Host : Game
 
         _motherboard.Resume();
     }
-    
+
     private void LoadZ80Sna(string filename)
     {
         IFileLoader loader = null;
@@ -334,7 +362,7 @@ public class Host : Game
         else
         {
             _vRamAdapter.RenderDisplay();
-            
+
             screen = _vRamAdapter.Display;
         }
 
