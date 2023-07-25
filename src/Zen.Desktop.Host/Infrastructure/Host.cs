@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using Zen.Common;
 using Zen.Desktop.Host.Display;
+using Zen.Desktop.Host.Features;
 using Zen.Desktop.Host.Infrastructure.Menu;
 using Zen.Desktop.Host.Infrastructure.Settings;
 using Zen.System;
@@ -41,11 +42,13 @@ public class Host : Game
 
     private bool _soundState;
 
+    private WaveVisualiser _waveVisualiser;
+
     public Host()
     {
         _graphicsDeviceManager = new GraphicsDeviceManager(this)
         {
-            PreferredBackBufferWidth = Constants.ScreenWidthPixels * _scaleFactor,
+            PreferredBackBufferWidth = (Constants.ScreenWidthPixels + Constants.WavePanelWidth) * _scaleFactor,
             PreferredBackBufferHeight = Constants.ScreenHeightPixels * _scaleFactor
         };
 
@@ -73,6 +76,8 @@ public class Host : Game
         AppSettings.Instance.Save();
 
         _vRamAdapter = new VideoRenderer(_motherboard.VideoAdapter.ScreenFrame, _graphicsDeviceManager);
+
+        _waveVisualiser = new WaveVisualiser(_graphicsDeviceManager, _scaleFactor);
     }
 
     protected override void OnActivated(object sender, EventArgs args)
@@ -210,7 +215,7 @@ public class Host : Game
     {
         _scaleFactor = scale;
 
-        _graphicsDeviceManager.PreferredBackBufferWidth = Constants.ScreenWidthPixels * _scaleFactor;
+        _graphicsDeviceManager.PreferredBackBufferWidth = Constants.ScreenWidthPixels + Constants.WavePanelWidth * _scaleFactor;
         _graphicsDeviceManager.PreferredBackBufferHeight = Constants.ScreenHeightPixels * _scaleFactor;
 
         _graphicsDeviceManager.ApplyChanges();
@@ -290,7 +295,7 @@ public class Host : Game
 
     protected override void Draw(GameTime gameTime)
     {
-        GraphicsDevice.Clear(Color.DarkGray);
+        GraphicsDevice.Clear(Color.Black);
 
         Texture2D screen;
 
@@ -308,6 +313,8 @@ public class Host : Game
         _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp);
 
         _spriteBatch.Draw(screen, new Rectangle(0, 0, Constants.ScreenWidthPixels * _scaleFactor, Constants.ScreenHeightPixels * _scaleFactor), new Rectangle(0, 0, Constants.ScreenWidthPixels, Constants.ScreenHeightPixels), Color.White);
+
+        _spriteBatch.Draw(_waveVisualiser.RenderWaves(null), new Rectangle(Constants.ScreenWidthPixels * _scaleFactor, 0, Constants.WavePanelWidth * _scaleFactor, Constants.ScreenHeightPixels * _scaleFactor), new Rectangle(0, 0, Constants.ScreenWidthPixels, Constants.ScreenHeightPixels), Color.White);
 
         _spriteBatch.End();
 
