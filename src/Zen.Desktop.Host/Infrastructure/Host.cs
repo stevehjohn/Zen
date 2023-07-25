@@ -80,6 +80,8 @@ public class Host : Game
         _waveVisualiser = new WaveVisualiser(_graphicsDeviceManager, _scaleFactor);
 
         _motherboard.AyAudio.SignalHook = _waveVisualiser.ReceiveSignals;
+
+        _motherboard.Beeper.SignalHook = _waveVisualiser.ReceiveSignal;
     }
 
     protected override void OnActivated(object sender, EventArgs args)
