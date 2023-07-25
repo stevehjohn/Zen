@@ -222,6 +222,8 @@ public class Host : Game
 
         _graphicsDeviceManager.ApplyChanges();
 
+        _waveVisualiser.ScaleFactor = scale;
+
         AppSettings.Instance.ScaleFactor = _scaleFactor;
         AppSettings.Instance.Save();
     }
