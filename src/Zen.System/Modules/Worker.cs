@@ -147,7 +147,7 @@ public class Worker : IDisposable
                 }
             }
 
-            if (! Fast && _beeper.Silent)
+            if (! Fast) // && _beeper.Silent)
             {
                 Thread.Sleep(_frameSleep);
             }
