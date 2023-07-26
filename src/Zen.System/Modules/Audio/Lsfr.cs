@@ -5,7 +5,7 @@ public static class Lsfr
 {
     private static uint _seed = 1;
 
-    public static float Value { get; private set; }
+    public static byte Value { get; private set; }
 
     public static void GenerateNextValue()
     {
@@ -16,6 +16,6 @@ public static class Lsfr
 
         _seed >>= 1;
 
-        Value = _seed / 131_070f;
+        Value = (byte) (_seed & 0x01);
     }
 }
