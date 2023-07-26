@@ -7,7 +7,7 @@ namespace Zen.Desktop.Host.Features;
 
 public class WaveVisualiser
 {
-    private const int BufferSize = 44_100 / 50;
+    private const int BufferSize = System.Modules.Audio.Constants.SampleRate / Constants.FramesPerSecond;
 
     private readonly GraphicsDeviceManager _graphicsDeviceManager;
 
