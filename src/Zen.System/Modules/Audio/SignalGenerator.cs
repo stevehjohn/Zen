@@ -14,7 +14,7 @@ public class SignalGenerator
     {
         _noise = noise;
 
-        _noiseValue = Lsfr.Value;
+        _noiseValue = Lfsr.Value;
     }
 
     public float GetNextSignal()
@@ -32,7 +32,7 @@ public class SignalGenerator
 
         if (_phaseAngle > Math.PI * 2)
         {
-            _noiseValue = Lsfr.Value * 2 - 1;
+            _noiseValue = Lfsr.Value * 2 - 1;
 
             _phaseAngle -= (float) (Math.PI * 2);
         }
