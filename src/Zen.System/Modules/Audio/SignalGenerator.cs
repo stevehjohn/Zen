@@ -3,12 +3,18 @@
 public class SignalGenerator
 {
     public ushort Period { get; set; }
-    
+
     private readonly bool _noise;
 
     private float _phaseAngle;
 
     private float _noiseValue;
+
+    private float _lastValue;
+
+    private float _delta;
+
+    private int _valueCycles;
 
     public SignalGenerator(bool noise)
     {
@@ -44,8 +50,60 @@ public class SignalGenerator
         return signal;
     }
 
-    private static float SquareWave(float sineValue)
+    private float SquareWave(float sineValue)
     {
-        return sineValue > 0 ? 1 : -1;
+        if (sineValue > 0)
+        {
+            if (_lastValue <= 0)
+            {
+                _lastValue = 1;
+
+                _delta = 0.05f;
+            }
+            else
+            {
+                _lastValue -= _delta;
+
+                _delta /= 1.2f;
+            }
+
+            return _lastValue;
+        }
+
+        if (sineValue < 0)
+        {
+            if (_lastValue >= 0)
+            {
+                _lastValue = -1;
+
+                _delta = 0.05f;
+            }
+            else
+            {
+                _lastValue += _delta;
+
+                _delta /= 1.2f;
+            }
+
+            return _lastValue;
+        }
+
+        return 0;
+    }
+
+    private float GetValueForCycle(float sineValue)
+    {
+        var value = _valueCycles switch
+        {
+            >= 0 and < 5 => 1f,
+            >= 5 and < 10 => 0.95f,
+            >= 10 and < 20 => 0.9f,
+            >= 20 and < 40 => 0.85f,
+            _ => 0.875f
+        };
+
+        _valueCycles++;
+
+        return sineValue < 0 ? -value : value;
     }
 }
