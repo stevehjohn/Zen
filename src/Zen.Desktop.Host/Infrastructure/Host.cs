@@ -265,8 +265,6 @@ public class Host : Game
         {
             _graphicsDeviceManager.PreferredBackBufferWidth = (Constants.ScreenWidthPixels + Constants.WavePanelWidth) * _scaleFactor;
             _graphicsDeviceManager.PreferredBackBufferHeight = Constants.ScreenHeightPixels * _scaleFactor;
-
-            _waveVisualiser.ScaleFactor = scale;
         }
         else
         {
