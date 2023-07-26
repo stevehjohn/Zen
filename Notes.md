@@ -2,6 +2,8 @@
 
 ToDos, aide memoires, etc...
 
+- No need to create a new texture for each frame.
+
 ## Useful References
 
 - https://clrhome.org/table/
