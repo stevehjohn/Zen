@@ -231,7 +231,7 @@ public class AyAudio : IDisposable
                 signals[1] = _channels[1].GetNextSignal();
                 signals[2] = _channels[2].GetNextSignal();
 
-                Lsfr.GenerateNextValue();
+                Lfsr.GenerateNextValue();
 
                 if (SignalHook != null)
                 {

@@ -1,7 +1,7 @@
 ﻿namespace Zen.System.Modules.Audio;
 
 // ReSharper disable  IdentifierTypo
-public static class Lsfr
+public static class Lfsr
 {
     private static uint _seed = 1;
 
