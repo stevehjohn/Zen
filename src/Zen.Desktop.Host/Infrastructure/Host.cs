@@ -5,6 +5,7 @@ using System;
 using System.IO;
 using System.Linq;
 using Zen.Common;
+using Zen.Common.Infrastructure;
 using Zen.Desktop.Host.Display;
 using Zen.Desktop.Host.Features;
 using Zen.Desktop.Host.Infrastructure.Menu;
@@ -12,6 +13,7 @@ using Zen.Desktop.Host.Infrastructure.Settings;
 using Zen.System;
 using Zen.System.FileHandling;
 using Zen.System.FileHandling.Interfaces;
+using Zen.System.Infrastructure;
 using Keys = Microsoft.Xna.Framework.Input.Keys;
 using Model = Zen.System.Infrastructure.Model;
 
@@ -161,6 +163,8 @@ public class Host : Game
         }
 
         base.Update(gameTime);
+
+        Window.Title = $"Zen - FPS: {Counters.Instance.GetCountPerSecond(Counter.RenderedFrames)} OPS: {Counters.Instance.GetCountPerSecond(Counter.Instructions)} SFPS: {Counters.Instance.GetCountPerSecond(Counter.SpectrumFrames)}";
     }
 
     private void MenuFinished(MenuResult result, object arguments)
@@ -383,6 +387,8 @@ public class Host : Game
         _spriteBatch.End();
 
         base.Draw(gameTime);
+
+        Counters.Instance.IncrementCounter(Counter.RenderedFrames);
 
         screen.Dispose();
     }
