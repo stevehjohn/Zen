@@ -18,6 +18,7 @@ public class MainMenu : MenuBase
                         new(5, false, "[5] Display Scale", Color.Yellow, 1, 11, Keys.D5, Color.LightGreen),
                         new(6, false, "[6] Sound", Color.Yellow, 1, 13, Keys.D6, Color.LightGreen),
                         new(7, false, "[7] Waveform Viewer", Color.Yellow, 1, 15, Keys.D7, Color.LightGreen),
+                        new(8, false, "[8] Counters", Color.Yellow, 1, 17, Keys.D8, Color.LightGreen),
                         new(99, true, "[ESC] Close Menu", Color.FromNonPremultiplied(255, 64, 64, 255), 0, 21, Keys.Escape, Color.LightGreen)
                     };
 
@@ -48,6 +49,9 @@ public class MainMenu : MenuBase
 
             case 7:
                 return (MenuResult.NewMenu, new WaveformMenu(), null);
+
+            case 8:
+                return (MenuResult.NewMenu, new CountersMenu(), null);
 
             case 99:
                 return (MenuResult.Exit, null, null);

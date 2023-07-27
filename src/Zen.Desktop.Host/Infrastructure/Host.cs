@@ -231,11 +231,11 @@ public class Host : Game
                 AppSettings.Instance.ViewWaves = true;
                 AppSettings.Instance.Save();
 
-                ChangeScale(_scaleFactor);
-
                 _waveVisualiser = new WaveVisualiser(_graphicsDeviceManager, _scaleFactor);
                 _motherboard.AyAudio.SignalHook = _waveVisualiser.ReceiveSignals;
                 _motherboard.Beeper.SignalHook = _waveVisualiser.ReceiveSignal;
+
+                ChangeScale(_scaleFactor);
 
                 break;
             
@@ -243,11 +243,31 @@ public class Host : Game
                 AppSettings.Instance.ViewWaves = false;
                 AppSettings.Instance.Save();
 
-                ChangeScale(_scaleFactor);
-
                 _waveVisualiser = null;
                 _motherboard.AyAudio.SignalHook = null;
                 _motherboard.Beeper.SignalHook = null;
+
+                ChangeScale(_scaleFactor);
+
+                break;
+
+            case MenuResult.CountersOn:
+                AppSettings.Instance.ViewCounters = true;
+                AppSettings.Instance.Save();
+
+                _countersVisualiser = new CountersVisualiser(_graphicsDeviceManager, Content);
+
+                ChangeScale(_scaleFactor);
+
+                break;
+
+            case MenuResult.CountersOff:
+                AppSettings.Instance.ViewCounters = false;
+                AppSettings.Instance.Save();
+
+                _countersVisualiser = null;
+
+                ChangeScale(_scaleFactor);
 
                 break;
         }
