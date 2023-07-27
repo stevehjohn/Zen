@@ -245,7 +245,7 @@ public class AyAudio : IDisposable
 
                 signal += signals[2];
 
-                _buffer[i] = signal;
+                _buffer[i] = Silent ? 0 : signal;
             }
 
             _engine.Send(_buffer);
