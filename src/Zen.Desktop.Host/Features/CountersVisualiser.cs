@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Zen.Common;
@@ -34,19 +35,15 @@ public class CountersVisualiser
         ScaleFactor = scaleFactor;
 
         _data = new Color[Constants.WavePanelWidth * ScaleFactor * Constants.CountersPanelHeight * ScaleFactor];
+
+        _texture = new Texture2D(_graphicsDeviceManager.GraphicsDevice, Constants.WavePanelWidth * ScaleFactor, Constants.CountersPanelHeight * ScaleFactor);
     }
 
     public Texture2D RenderPanel()
     {
-        if (_graphicsDeviceManager.GraphicsDevice == null)
-        {
-            return null;
-        }
+        Array.Fill(_data, Color.Black);
 
-        if (_texture == null)
-        {
-            _texture = new Texture2D(_graphicsDeviceManager.GraphicsDevice, Constants.WavePanelWidth * ScaleFactor, Constants.CountersPanelHeight * ScaleFactor);
-        }
+        _texture.SetData(_data);
 
         return _texture;
     }
