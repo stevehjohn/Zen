@@ -100,8 +100,6 @@ public class Host : Game
 
         AppSettings.Instance.Save();
 
-        _vRamAdapter = new VideoRenderer(_motherboard.VideoAdapter.ScreenFrame, _graphicsDeviceManager);
-
         if (_waveVisualiser != null)
         {
             _motherboard.AyAudio.SignalHook = _waveVisualiser.ReceiveSignals;
@@ -147,6 +145,8 @@ public class Host : Game
 
             _motherboard.Beeper.SignalHook = _waveVisualiser.ReceiveSignal;
         }
+
+        _vRamAdapter = new VideoRenderer(_motherboard.VideoAdapter.ScreenFrame, _graphicsDeviceManager);
     }
 
     protected override void Update(GameTime gameTime)
@@ -443,7 +443,5 @@ public class Host : Game
         base.Draw(gameTime);
 
         Counters.Instance.IncrementCounter(Counter.RenderedFrames);
-
-        screen.Dispose();
     }
 }
