@@ -145,9 +145,9 @@ public class Worker : IDisposable
                             _videoAdapter.CycleComplete(frameCycles);
                         }
                     }
-
-                    Counters.Instance.IncrementCounter(Counter.SpectrumFrames);
                 }
+
+                Counters.Instance.IncrementCounter(Counter.SpectrumFrames);
             }
 
             if (! Fast && _beeper.Silent)
