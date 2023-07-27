@@ -31,7 +31,7 @@ public class Counters
         _stopwatch = Stopwatch.StartNew();
     }
 
-    public void IncrementCounter(Counter counter)
+    public void IncrementCounter(Counter counter, int value = 1)
     {
         _totalCounts[(int) counter]++;
 
@@ -41,11 +41,11 @@ public class Counters
 
             _countsPerSecond[(int) counter] = _temporaryCountsPerSecond[(int) counter];
 
-            _temporaryCountsPerSecond[(int) counter] = 1;
+            _temporaryCountsPerSecond[(int) counter] += value;
         }
         else
         {
-            _temporaryCountsPerSecond[(int) counter]++;
+            _temporaryCountsPerSecond[(int) counter] += value;
         }
     }
 

@@ -44,5 +44,5 @@ public static class Constants
     public const int WavePanelWidth = 200;
 
     /* Counters Visualiser */
-    public const int CountersPanelHeight = 16;
+    public const int CountersPanelHeight = 24;
 }

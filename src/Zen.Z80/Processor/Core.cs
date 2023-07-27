@@ -70,6 +70,8 @@ public class Core
 
             Counters.Instance.IncrementCounter(Counter.Instructions);
 
+            Counters.Instance.IncrementCounter(Counter.Hertz, (int) _state.ClockCycles);
+
             return;
         }
 
@@ -108,6 +110,8 @@ public class Core
 
         instruction.Execute(parameters);
 
+        Counters.Instance.IncrementCounter(Counter.Hertz, (int) _state.ClockCycles);
+
         Counters.Instance.IncrementCounter(Counter.Instructions);
 
         if (_state.InstructionPrefix > 0xFF)
@@ -119,6 +123,8 @@ public class Core
             UpdateR(instruction);
 
             instruction.Execute(parameters[..1]);
+
+            Counters.Instance.IncrementCounter(Counter.Hertz, (int) _state.ClockCycles);
 
             Counters.Instance.IncrementCounter(Counter.Instructions);
 
