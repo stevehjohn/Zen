@@ -1,5 +1,6 @@
 ﻿using Bufdio;
 using Bufdio.Engines;
+using Zen.Common.Infrastructure;
 using Zen.System.Modules.Audio;
 
 namespace Zen.System.Modules;
@@ -246,6 +247,8 @@ public class AyAudio : IDisposable
 
                 _buffer[i] = signal;
             }
+
+            Counters.Instance.IncrementCounter(Counter.AyFrames);
 
             _engine.Send(_buffer);
         }
