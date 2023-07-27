@@ -5,6 +5,7 @@ using System;
 using System.IO;
 using System.Linq;
 using Zen.Common;
+using Zen.Common.Infrastructure;
 using Zen.Desktop.Host.Display;
 using Zen.Desktop.Host.Features;
 using Zen.Desktop.Host.Infrastructure.Menu;
