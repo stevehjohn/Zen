@@ -4,11 +4,13 @@ namespace Zen.Common.Infrastructure;
 
 public class Counters
 {
-    private readonly ulong[] _totalCounts;
+    private readonly long[] _totalCounts;
 
-    private readonly ulong[] _temporaryCountsPerSecond;
+    private readonly long[] _temporaryCountsPerSecond;
 
-    private readonly ulong[] _countsPerSecond;
+    private readonly long[] _countsPerSecond;
+
+    private readonly long[] _lastResetMilliseconds;
 
     private readonly Stopwatch _stopwatch;
 
@@ -18,11 +20,13 @@ public class Counters
     {
         var numberOfCounters = Enum.GetNames<Counter>().Length;
 
-        _totalCounts = new ulong[numberOfCounters];
+        _totalCounts = new long[numberOfCounters];
 
-        _temporaryCountsPerSecond = new ulong[numberOfCounters];
+        _temporaryCountsPerSecond = new long[numberOfCounters];
 
-        _countsPerSecond = new ulong[numberOfCounters];
+        _countsPerSecond = new long[numberOfCounters];
+
+        _lastResetMilliseconds = new long[numberOfCounters];
 
         _stopwatch = Stopwatch.StartNew();
     }
@@ -31,9 +35,9 @@ public class Counters
     {
         _totalCounts[(int) counter]++;
 
-        if (_stopwatch.ElapsedMilliseconds > 1000)
+        if (_stopwatch.ElapsedMilliseconds - _lastResetMilliseconds[(int) counter] > 1000)
         {
-            _stopwatch.Restart();
+            _lastResetMilliseconds[(int) counter] = _stopwatch.ElapsedMilliseconds;
 
             _countsPerSecond[(int) counter] = _temporaryCountsPerSecond[(int) counter];
 
@@ -45,7 +49,7 @@ public class Counters
         }
     }
 
-    public ulong GetCounterPerSecond(Counter counter)
+    public long GetCountPerSecond(Counter counter)
     {
         return _countsPerSecond[(int) counter];
     }
