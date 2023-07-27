@@ -92,6 +92,8 @@ public class Host : Game
 
         _motherboard.Sound = AppSettings.Instance.Sound;
 
+        _motherboard.Fast = AppSettings.Instance.Fast;
+
         _imageName = $"Standard {model} ROM";
 
         AppSettings.Instance.SystemModel = model;
