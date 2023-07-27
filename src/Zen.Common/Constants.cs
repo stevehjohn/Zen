@@ -42,4 +42,7 @@ public static class Constants
 
     /* Wave Visualiser */
     public const int WavePanelWidth = 200;
+
+    /* Counters Visualiser */
+    public const int CountersPanelHeight = 16;
 }
