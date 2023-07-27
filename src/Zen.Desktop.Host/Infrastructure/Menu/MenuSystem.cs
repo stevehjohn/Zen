@@ -27,6 +27,8 @@ public class MenuSystem : CharacterOverlayBase
         _menuFinished = menuFinished;
 
         _menu = new MainMenu();
+
+        Menu = new Texture2D(GraphicsDeviceManager.GraphicsDevice, Constants.ScreenWidthPixels, Constants.ScreenHeightPixels);
     }
 
     public void Update()
@@ -152,10 +154,6 @@ public class MenuSystem : CharacterOverlayBase
             DrawString(data, item.Text, item.X, item.Y, _selectedItem == item.Id ? item.SelectedColor!.Value : item.Color, item.Centered, _selectedItem == item.Id);
         }
 
-        var screen = new Texture2D(GraphicsDeviceManager.GraphicsDevice, Constants.ScreenWidthPixels, Constants.ScreenHeightPixels);
-
-        screen.SetData(data);
-
-        Menu = screen;
+        Menu.SetData(data);
     }
 }

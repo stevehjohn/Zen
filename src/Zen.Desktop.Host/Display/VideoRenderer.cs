@@ -11,9 +11,7 @@ public class VideoRenderer
 
     private readonly ushort[] _screenFrame;
 
-    private readonly GraphicsDeviceManager _graphicsDeviceManager;
-
-    private Texture2D _display;
+    private readonly Texture2D _display;
 
     private ulong _frameCount;
 
@@ -27,21 +25,18 @@ public class VideoRenderer
     {
         _screenFrame = screenFrame;
 
-        _graphicsDeviceManager = graphicsDeviceManager;
+        _display = new Texture2D(graphicsDeviceManager.GraphicsDevice, Constants.ScreenWidthPixels, Constants.ScreenHeightPixels);
     }
 
     public void RenderDisplay()
     {
-        var texture = new Texture2D(_graphicsDeviceManager.GraphicsDevice, Constants.ScreenWidthPixels, Constants.ScreenHeightPixels);
 
         for (var p = 0; p < Constants.ScreenWidthPixels * Constants.ScreenHeightPixels; p++)
         {
             _data[p] = GetColor(_screenFrame[p]);
         }
 
-        texture.SetData(_data);
-
-        _display = texture;
+        _display.SetData(_data);
 
         unchecked
         {
