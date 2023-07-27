@@ -45,24 +45,25 @@ public class Host : Game
 
     private WaveVisualiser _waveVisualiser;
 
+    private CountersVisualiser _countersVisualiser;
+
     public Host()
     {
+        var width = Constants.ScreenWidthPixels * _scaleFactor;
+        var height = Constants.ScreenHeightPixels * _scaleFactor;
+
         if (AppSettings.Instance.ViewWaves)
         {
-            _graphicsDeviceManager = new GraphicsDeviceManager(this)
-                                     {
-                                         PreferredBackBufferWidth = (Constants.ScreenWidthPixels + Constants.WavePanelWidth) * _scaleFactor,
-                                         PreferredBackBufferHeight = Constants.ScreenHeightPixels * _scaleFactor
-                                     };
+            width += Constants.WavePanelWidth * _scaleFactor;
         }
-        else
-        {
-            _graphicsDeviceManager = new GraphicsDeviceManager(this)
-                                     {
-                                         PreferredBackBufferWidth = Constants.ScreenWidthPixels * _scaleFactor,
-                                         PreferredBackBufferHeight = Constants.ScreenHeightPixels * _scaleFactor
-                                     };
-        }
+
+        height += Constants.CountersPanelHeight * _scaleFactor;
+
+        _graphicsDeviceManager = new GraphicsDeviceManager(this)
+                                 { 
+                                     PreferredBackBufferWidth = width,
+                                     PreferredBackBufferHeight = height
+                                 };
 
         Content.RootDirectory = "_Content";
 
@@ -125,6 +126,8 @@ public class Host : Game
     protected override void LoadContent()
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
+
+        _countersVisualiser = new CountersVisualiser(_graphicsDeviceManager, Content, _scaleFactor);
     }
 
     protected override void Update(GameTime gameTime)
@@ -162,8 +165,6 @@ public class Host : Game
         }
 
         base.Update(gameTime);
-
-        Window.Title = $"Zen - FPS: {Counters.Instance.GetCountPerSecond(Counter.RenderedFrames)} Z80Op/S: {Counters.Instance.GetCountPerSecond(Counter.Instructions)} Hz: {Counters.Instance.GetCountPerSecond(Counter.SpectrumFrames)} AYFPS: {Counters.Instance.GetCountPerSecond(Counter.AyFrames)}";
     }
 
     private void MenuFinished(MenuResult result, object arguments)
@@ -264,16 +265,18 @@ public class Host : Game
     {
         _scaleFactor = scale;
 
+        var width = Constants.ScreenWidthPixels * _scaleFactor;
+        var height = Constants.ScreenHeightPixels * _scaleFactor;
+
         if (AppSettings.Instance.ViewWaves)
         {
-            _graphicsDeviceManager.PreferredBackBufferWidth = (Constants.ScreenWidthPixels + Constants.WavePanelWidth) * _scaleFactor;
-            _graphicsDeviceManager.PreferredBackBufferHeight = Constants.ScreenHeightPixels * _scaleFactor;
+            width += Constants.WavePanelWidth * _scaleFactor;
         }
-        else
-        {
-            _graphicsDeviceManager.PreferredBackBufferWidth = Constants.ScreenWidthPixels * _scaleFactor;
-            _graphicsDeviceManager.PreferredBackBufferHeight = Constants.ScreenHeightPixels * _scaleFactor;
-        }
+
+        height += Constants.CountersPanelHeight * _scaleFactor;
+
+        _graphicsDeviceManager.PreferredBackBufferWidth = width;
+        _graphicsDeviceManager.PreferredBackBufferHeight = height;
 
         _graphicsDeviceManager.ApplyChanges();
 
