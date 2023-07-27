@@ -11,7 +11,7 @@ public class WaveVisualiser
 
     private readonly GraphicsDeviceManager _graphicsDeviceManager;
 
-    private readonly Color[] _data;
+    private Color[] _data;
 
     private readonly float[][] _buffers;
 
@@ -21,7 +21,20 @@ public class WaveVisualiser
 
     private Texture2D _waves;
 
-    public int ScaleFactor { get; set; }
+    private int _scaleFactor;
+
+    public int ScaleFactor
+    {
+        get => _scaleFactor;
+        set
+        {
+            _scaleFactor = value;
+
+            _data = new Color[Constants.WavePanelWidth * _scaleFactor * Constants.ScreenHeightPixels * _scaleFactor];
+
+            _waves = new Texture2D(_graphicsDeviceManager.GraphicsDevice, Constants.WavePanelWidth * _scaleFactor, Constants.ScreenHeightPixels * _scaleFactor);
+        }
+    }
 
     private bool _rendering;
 
@@ -31,9 +44,11 @@ public class WaveVisualiser
     {
         _graphicsDeviceManager = graphicsDeviceManager;
 
-        ScaleFactor = scaleFactor;
+        _scaleFactor = scaleFactor;
 
-        _data = new Color[Constants.WavePanelWidth * ScaleFactor * Constants.ScreenHeightPixels * ScaleFactor];
+        _data = new Color[Constants.WavePanelWidth * _scaleFactor * Constants.ScreenHeightPixels * _scaleFactor];
+
+        _waves = new Texture2D(_graphicsDeviceManager.GraphicsDevice, Constants.WavePanelWidth * _scaleFactor, Constants.ScreenHeightPixels * _scaleFactor);
 
         _buffers = new float[4][];
 
@@ -81,17 +96,7 @@ public class WaveVisualiser
 
     private void RenderWaves()
     {
-        if (_graphicsDeviceManager.GraphicsDevice == null)
-        {
-            return;
-        }
-
         _rendering = true;
-
-        if (_waves == null)
-        {
-            _waves = new Texture2D(_graphicsDeviceManager.GraphicsDevice, Constants.WavePanelWidth * ScaleFactor, Constants.ScreenHeightPixels * ScaleFactor);
-        }
 
         Array.Fill(_data, Color.Black);
 
@@ -107,9 +112,9 @@ public class WaveVisualiser
 
     private void RenderChannel(int channel)
     {
-        var width = Constants.WavePanelWidth * ScaleFactor;
+        var width = Constants.WavePanelWidth * _scaleFactor;
 
-        var height = Constants.ScreenHeightPixels * ScaleFactor / 4;
+        var height = Constants.ScreenHeightPixels * _scaleFactor / 4;
 
         var mid = height * width * channel + height * width / 2;
 

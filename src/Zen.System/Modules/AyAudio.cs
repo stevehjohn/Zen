@@ -248,9 +248,9 @@ public class AyAudio : IDisposable
                 _buffer[i] = signal;
             }
 
-            Counters.Instance.IncrementCounter(Counter.AyFrames);
-
             _engine.Send(_buffer);
+
+            Counters.Instance.IncrementCounter(Counter.AyFrames);
         }
         // ReSharper disable once FunctionNeverReturns
     }
