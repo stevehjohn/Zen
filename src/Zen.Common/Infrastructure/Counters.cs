@@ -41,7 +41,7 @@ public class Counters
 
             _countsPerSecond[(int) counter] = _temporaryCountsPerSecond[(int) counter];
 
-            _temporaryCountsPerSecond[(int) counter] += value;
+            _temporaryCountsPerSecond[(int) counter] = value;
         }
         else
         {
