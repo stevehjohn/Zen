@@ -27,9 +27,9 @@ public class Counters
         _stopwatch = Stopwatch.StartNew();
     }
 
-    public void IncrementCounter(Counter counter, int value)
+    public void IncrementCounter(Counter counter)
     {
-        _totalCounts[(int) counter] += (ulong) value;
+        _totalCounts[(int) counter]++;
 
         if (_stopwatch.ElapsedMilliseconds > 1000)
         {
@@ -37,11 +37,11 @@ public class Counters
 
             _countsPerSecond[(int) counter] = _temporaryCountsPerSecond[(int) counter];
 
-            _temporaryCountsPerSecond[(int) counter] = (ulong) value;
+            _temporaryCountsPerSecond[(int) counter] = 1;
         }
         else
         {
-            _temporaryCountsPerSecond[(int) counter] += (ulong) value;
+            _temporaryCountsPerSecond[(int) counter]++;
         }
     }
 

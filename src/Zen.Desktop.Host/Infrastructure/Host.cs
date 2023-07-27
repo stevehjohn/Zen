@@ -386,7 +386,7 @@ public class Host : Game
 
         base.Draw(gameTime);
 
-        Counters.Instance.IncrementCounter(Counter.RenderedFrames, 1);
+        Counters.Instance.IncrementCounter(Counter.RenderedFrames);
 
         screen.Dispose();
     }
