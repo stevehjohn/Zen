@@ -1,4 +1,5 @@
-﻿using Zen.Z80.Implementation;
+﻿using Zen.Common.Infrastructure;
+using Zen.Z80.Implementation;
 using Zen.Z80.Interfaces;
 
 namespace Zen.Z80.Processor;
@@ -67,6 +68,8 @@ public class Core
 
             instruction.Execute(Array.Empty<byte>());
 
+            Counters.Instance.IncrementCounter(Counter.Instructions);
+
             return;
         }
 
@@ -105,6 +108,8 @@ public class Core
 
         instruction.Execute(parameters);
 
+        Counters.Instance.IncrementCounter(Counter.Instructions);
+
         if (_state.InstructionPrefix > 0xFF)
         {
             opcode = _state.InstructionPrefix << 8 | parameters[1];
@@ -114,6 +119,8 @@ public class Core
             UpdateR(instruction);
 
             instruction.Execute(parameters[..1]);
+
+            Counters.Instance.IncrementCounter(Counter.Instructions);
 
             _state.LastInstruction = instruction;
 

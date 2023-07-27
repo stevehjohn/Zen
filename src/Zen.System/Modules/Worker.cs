@@ -1,4 +1,5 @@
 ﻿using Zen.Common;
+using Zen.Common.Infrastructure;
 using Zen.Z80.Processor;
 
 // ReSharper disable IdentifierTypo
@@ -145,6 +146,8 @@ public class Worker : IDisposable
                         }
                     }
                 }
+
+                Counters.Instance.IncrementCounter(Counter.SpectrumFrames);
             }
 
             if (! Fast && _beeper.Silent)
