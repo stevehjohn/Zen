@@ -77,6 +77,13 @@ public class Host : Game
 
     private void SetMotherboard(Model model)
     {
+        if (_motherboard != null)
+        {
+            _motherboard.Dispose();
+
+            _motherboard = null;
+        }
+
         _motherboard = new Motherboard(model);
 
         _motherboard.AddPeripheral(new Peripherals.Keyboard());
@@ -92,6 +99,13 @@ public class Host : Game
         AppSettings.Instance.Save();
 
         _vRamAdapter = new VideoRenderer(_motherboard.VideoAdapter.ScreenFrame, _graphicsDeviceManager);
+
+        if (_waveVisualiser != null)
+        {
+            _motherboard.AyAudio.SignalHook = _waveVisualiser.ReceiveSignals;
+
+            _motherboard.Beeper.SignalHook = _waveVisualiser.ReceiveSignal;
+        }
     }
 
     protected override void OnActivated(object sender, EventArgs args)

@@ -76,8 +76,7 @@ public class Worker : IDisposable
 
         try
         {
-            // ReSharper disable once MethodSupportsCancellation
-            _workerThread.Wait();
+            _workerThread.Wait(_cancellationToken);
         }
         finally
         {
@@ -104,6 +103,11 @@ public class Worker : IDisposable
     {
         while (true)
         {
+            if (_cancellationToken.IsCancellationRequested)
+            {
+                break;
+            }
+
             if (! _paused)
             {
                 var frameCycles = 0;

@@ -195,22 +195,16 @@ public class AyAudio : IDisposable
     
     public void Dispose()
     {
-        if (_audioThread != null)
+        if (_audioThread == null)
         {
-            _cancellationTokenSource.Cancel();
-
-            try
-            {
-                // ReSharper disable once MethodSupportsCancellation
-                _audioThread.Wait();
-            }
-            finally
-            {
-                _audioThread?.Dispose();
-            }
-            
             _cancellationTokenSource.Dispose();
+            
+            return;
         }
+
+        _cancellationTokenSource.Cancel();
+
+        _cancellationTokenSource.Dispose();
 
         _engine.Dispose();
     }
@@ -219,13 +213,8 @@ public class AyAudio : IDisposable
     {
         var signals = new float[3];
 
-        while (true)
+        while (! _cancellationToken.IsCancellationRequested)
         {
-            if (_cancellationToken.IsCancellationRequested)
-            {
-                break;
-            }
-
             for (var i = 0; i < Constants.BufferSize; i++)
             {
                 signals[0] = _channels[0].GetNextSignal();
