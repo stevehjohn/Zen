@@ -4,5 +4,6 @@ public enum Counter
 {
     RenderedFrames,
     Instructions,
-    SpectrumFrames
+    SpectrumFrames,
+    AyFrames
 }
