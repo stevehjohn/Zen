@@ -9,7 +9,7 @@ public class VideoRenderer
 {
     private const int FlashFrames = 20;
 
-    private readonly ushort[] _screenFrame;
+    private  ushort[] _screenFrame;
 
     private readonly Texture2D _display;
 
@@ -21,6 +21,12 @@ public class VideoRenderer
 
     public Texture2D Display => _display;
 
+    public ushort[] ScreenFrame
+    {
+        get => _screenFrame;
+        set => _screenFrame = value;
+    }
+
     public VideoRenderer(ushort[] screenFrame, GraphicsDeviceManager graphicsDeviceManager)
     {
         _screenFrame = screenFrame;
@@ -30,7 +36,6 @@ public class VideoRenderer
 
     public void RenderDisplay()
     {
-
         for (var p = 0; p < Constants.ScreenWidthPixels * Constants.ScreenHeightPixels; p++)
         {
             _data[p] = GetColor(_screenFrame[p]);
