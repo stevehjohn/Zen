@@ -1,4 +1,5 @@
-﻿using Zen.Common;
+﻿// #define LOGTESTS
+using Zen.Common;
 using Zen.System.Infrastructure;
 using Zen.System.Interfaces;
 using Zen.System.Modules;
@@ -38,6 +39,8 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
 
     private bool _pagingDisabled;
 
+    private bool _sound;
+
     // ReSharper disable once InconsistentNaming
     public byte Last7FFD { get; set; }
 
@@ -63,15 +66,14 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
 
     public bool Sound
     {
-        get => ! _ayAudio.Silent;
+        get => _sound;
         set
         {
-            if (Model != Model.Spectrum48K)
-            {
-                _ayAudio.Silent = ! value;
-            }
+            _ayAudio.Silent = ! value;
 
             _beeper.Silent = ! value;
+
+            _sound = value;
         }
     }
 
@@ -89,7 +91,9 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
 
         _core.AddHook(_ldBytesHook);
 
+#if LOGTESTS
         _core.AddHook(new PoAnyHook());
+#endif
 
         _ram = new() { ProtectRom = true };
 
