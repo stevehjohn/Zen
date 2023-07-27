@@ -147,7 +147,7 @@ public class Host : Game
             _motherboard.Resume();
         }
 
-        if (Keyboard.GetState().IsKeyDown(Keys.F10) && _menuSystem == null)
+        if (Keyboard.GetState().IsKeyDown(Keys.Tab) && _menuSystem == null)
         {
             _motherboard.Pause();
 

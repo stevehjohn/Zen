@@ -18,7 +18,7 @@ The fun bit most people are probably interested in. This is the UI that you can 
 
 Compatible with Windows and macOS (and in theory, Linux, but I haven't tested that).
 
-Press <kbd>F10</kbd> for the menu once running.
+Press <kbd>Tab</kbd> for the menu once running.
 
 Open `Zen.Desktop.Host.sln` and build it with your favourite tool(s).
 
