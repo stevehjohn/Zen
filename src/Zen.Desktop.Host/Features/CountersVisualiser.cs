@@ -10,22 +10,14 @@ namespace Zen.Desktop.Host.Features;
 
 public class CountersVisualiser
 {
-    private readonly GraphicsDeviceManager _graphicsDeviceManager;
-
     private readonly Color[] _data;
     
     private readonly Color[] _characterSet;
-
-    private readonly ContentManager _contentManager;
 
     private readonly Texture2D _texture;
 
     public CountersVisualiser(GraphicsDeviceManager graphicsDeviceManager, ContentManager contentManager)
     {
-        _graphicsDeviceManager = graphicsDeviceManager;
-        
-        _contentManager = contentManager;
-
         var characterSet = contentManager.Load<Texture2D>("character-set");
         
         _characterSet = new Color[7168];
@@ -34,7 +26,7 @@ public class CountersVisualiser
 
         _data = new Color[Constants.ScreenWidthPixels * Constants.CountersPanelHeight];
 
-        _texture = new Texture2D(_graphicsDeviceManager.GraphicsDevice, Constants.ScreenWidthPixels, Constants.CountersPanelHeight);
+        _texture = new Texture2D(graphicsDeviceManager.GraphicsDevice, Constants.ScreenWidthPixels, Constants.CountersPanelHeight);
     }
 
     public Texture2D RenderPanel()
