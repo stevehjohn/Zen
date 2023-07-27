@@ -217,9 +217,9 @@ public class AyAudio : IDisposable
         {
             for (var i = 0; i < Constants.BufferSize; i++)
             {
-                signals[0] = _channels[0].GetNextSignal();
-                signals[1] = _channels[1].GetNextSignal();
-                signals[2] = _channels[2].GetNextSignal();
+                signals[0] = Silent ? 0 : _channels[0].GetNextSignal();
+                signals[1] = Silent ? 0 : _channels[1].GetNextSignal();
+                signals[2] = Silent ? 0 : _channels[2].GetNextSignal();
 
                 Lfsr.GenerateNextValue();
 
@@ -234,7 +234,7 @@ public class AyAudio : IDisposable
 
                 signal += signals[2];
 
-                _buffer[i] = Silent ? 0 : signal;
+                _buffer[i] = signal;
             }
 
             _engine.Send(_buffer);

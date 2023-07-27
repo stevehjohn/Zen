@@ -70,6 +70,8 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
             {
                 _ayAudio.Silent = ! value;
             }
+
+            _beeper.Silent = ! value;
         }
     }
 
