@@ -37,3 +37,7 @@ I did have one issue building on macOS on an M1 processor. Solved by https://sta
 
 ![Batman with Waveform Visualiser](Images/batman-waveform.png)
 
+![Robocop with Waveform Visualiser](Images/robocop.png)
+
+![Robocop with System Menu](Images/robocop-menu.png)
+
