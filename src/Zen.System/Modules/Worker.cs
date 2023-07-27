@@ -74,15 +74,6 @@ public class Worker : IDisposable
 
         _cancellationTokenSource.Cancel();
 
-        try
-        {
-            _workerThread.Wait(_cancellationToken);
-        }
-        finally
-        {
-            _workerThread.Dispose();
-        }
-
         _cancellationTokenSource.Dispose();
     }
 
