@@ -127,7 +127,7 @@ public class Host : Game
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-        _countersVisualiser = new CountersVisualiser(_graphicsDeviceManager, Content, _scaleFactor);
+        _countersVisualiser = new CountersVisualiser(_graphicsDeviceManager, Content);
     }
 
     protected override void Update(GameTime gameTime)
@@ -374,7 +374,9 @@ public class Host : Game
 
         _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp);
 
-        _spriteBatch.Draw(screen, new Rectangle(0, 0, Constants.ScreenWidthPixels * _scaleFactor, Constants.ScreenHeightPixels * _scaleFactor), new Rectangle(0, 0, Constants.ScreenWidthPixels, Constants.ScreenHeightPixels), Color.White);
+        _spriteBatch.Draw(screen, 
+                          new Rectangle(0, 0, Constants.ScreenWidthPixels * _scaleFactor, Constants.ScreenHeightPixels * _scaleFactor), 
+                          new Rectangle(0, 0, Constants.ScreenWidthPixels, Constants.ScreenHeightPixels), Color.White);
 
         if (_waveVisualiser != null)
         {
@@ -382,8 +384,17 @@ public class Host : Game
 
             if (waves != null)
             {
-                _spriteBatch.Draw(waves, new Rectangle(Constants.ScreenWidthPixels * _scaleFactor, 0, Constants.WavePanelWidth * _scaleFactor, Constants.ScreenHeightPixels * _scaleFactor), new Rectangle(0, 0, Constants.WavePanelWidth * _scaleFactor, Constants.ScreenHeightPixels * _scaleFactor), Color.White);
+                _spriteBatch.Draw(waves, 
+                                  new Rectangle(Constants.ScreenWidthPixels * _scaleFactor, 0, Constants.WavePanelWidth * _scaleFactor, Constants.ScreenHeightPixels * _scaleFactor), 
+                                  new Rectangle(0, 0, Constants.WavePanelWidth * _scaleFactor, Constants.ScreenHeightPixels * _scaleFactor), Color.White);
             }
+        }
+
+        if (_countersVisualiser != null)
+        {
+            _spriteBatch.Draw(_countersVisualiser.RenderPanel(), 
+                              new Rectangle(0, Constants.ScreenHeightPixels * _scaleFactor, Constants.ScreenWidthPixels * _scaleFactor, Constants.CountersPanelHeight * _scaleFactor), 
+                              new Rectangle(0, 0, Constants.ScreenWidthPixels, Constants.CountersPanelHeight), Color.White);
         }
 
         _spriteBatch.End();
