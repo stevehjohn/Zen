@@ -57,7 +57,10 @@ public class Host : Game
             width += Constants.WavePanelWidth * _scaleFactor;
         }
 
-        height += Constants.CountersPanelHeight * _scaleFactor;
+        if (AppSettings.Instance.ViewCounters)
+        {
+            height += Constants.CountersPanelHeight * _scaleFactor;
+        }
 
         _graphicsDeviceManager = new GraphicsDeviceManager(this)
                                  { 
@@ -89,15 +92,6 @@ public class Host : Game
         AppSettings.Instance.Save();
 
         _vRamAdapter = new VideoRenderer(_motherboard.VideoAdapter.ScreenFrame, _graphicsDeviceManager);
-
-        if (AppSettings.Instance.ViewWaves)
-        {
-            _waveVisualiser = new WaveVisualiser(_graphicsDeviceManager, _scaleFactor);
-
-            _motherboard.AyAudio.SignalHook = _waveVisualiser.ReceiveSignals;
-
-            _motherboard.Beeper.SignalHook = _waveVisualiser.ReceiveSignal;
-        }
     }
 
     protected override void OnActivated(object sender, EventArgs args)
@@ -128,6 +122,15 @@ public class Host : Game
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
         _countersVisualiser = new CountersVisualiser(_graphicsDeviceManager, Content);
+
+        if (AppSettings.Instance.ViewWaves)
+        {
+            _waveVisualiser = new WaveVisualiser(_graphicsDeviceManager, _scaleFactor);
+
+            _motherboard.AyAudio.SignalHook = _waveVisualiser.ReceiveSignals;
+
+            _motherboard.Beeper.SignalHook = _waveVisualiser.ReceiveSignal;
+        }
     }
 
     protected override void Update(GameTime gameTime)
@@ -228,9 +231,7 @@ public class Host : Game
                 AppSettings.Instance.ViewWaves = true;
                 AppSettings.Instance.Save();
 
-                _graphicsDeviceManager.PreferredBackBufferWidth = (Constants.ScreenWidthPixels + Constants.WavePanelWidth) * _scaleFactor;
-                _graphicsDeviceManager.PreferredBackBufferHeight = Constants.ScreenHeightPixels * _scaleFactor;
-                _graphicsDeviceManager.ApplyChanges();
+                ChangeScale(_scaleFactor);
 
                 _waveVisualiser = new WaveVisualiser(_graphicsDeviceManager, _scaleFactor);
                 _motherboard.AyAudio.SignalHook = _waveVisualiser.ReceiveSignals;
@@ -242,9 +243,7 @@ public class Host : Game
                 AppSettings.Instance.ViewWaves = false;
                 AppSettings.Instance.Save();
 
-                _graphicsDeviceManager.PreferredBackBufferWidth = Constants.ScreenWidthPixels * _scaleFactor;
-                _graphicsDeviceManager.PreferredBackBufferHeight = Constants.ScreenHeightPixels * _scaleFactor;
-                _graphicsDeviceManager.ApplyChanges();
+                ChangeScale(_scaleFactor);
 
                 _waveVisualiser = null;
                 _motherboard.AyAudio.SignalHook = null;
@@ -273,14 +272,20 @@ public class Host : Game
             width += Constants.WavePanelWidth * _scaleFactor;
         }
 
-        height += Constants.CountersPanelHeight * _scaleFactor;
+        if (AppSettings.Instance.ViewCounters)
+        {
+            height += Constants.CountersPanelHeight * _scaleFactor;
+        }
 
         _graphicsDeviceManager.PreferredBackBufferWidth = width;
         _graphicsDeviceManager.PreferredBackBufferHeight = height;
 
         _graphicsDeviceManager.ApplyChanges();
 
-        _waveVisualiser.ScaleFactor = scale;
+        if (_waveVisualiser != null)
+        {
+            _waveVisualiser.ScaleFactor = scale;
+        }
 
         AppSettings.Instance.ScaleFactor = _scaleFactor;
         AppSettings.Instance.Save();

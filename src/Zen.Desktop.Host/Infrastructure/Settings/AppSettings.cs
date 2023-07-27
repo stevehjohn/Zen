@@ -25,6 +25,8 @@ public class AppSettings
 
     public bool ViewWaves { get; set; }
 
+    public bool ViewCounters { get; set; }
+
     private static AppSettings GetAppSettings()
     {
         var json = File.ReadAllText(SettingsFile);

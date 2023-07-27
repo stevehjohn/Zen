@@ -1,8 +1,9 @@
 {
   "LastZ80SnaPath": "",
-  "SystemModel": 0,
+  "SystemModel": 2,
   "ScaleFactor": 4,
   "Sound": true,
   "Fast": false,
-  "ViewWaves": true
+  "ViewWaves": false,
+  "ViewCounters":  true
 }
