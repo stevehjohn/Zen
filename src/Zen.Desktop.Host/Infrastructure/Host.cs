@@ -163,6 +163,8 @@ public class Host : Game
         }
 
         base.Update(gameTime);
+
+        Window.Title = $"Zen - FPS: {Counters.Instance.GetCountPerSecond(Counter.RenderedFrames)} OPS: {Counters.Instance.GetCountPerSecond(Counter.Instructions)} SFPS: {Counters.Instance.GetCountPerSecond(Counter.SpectrumFrames)}";
     }
 
     private void MenuFinished(MenuResult result, object arguments)
