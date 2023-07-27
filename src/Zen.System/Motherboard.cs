@@ -63,12 +63,12 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
 
     public bool Sound
     {
-        get => _ayAudio.Silent;
+        get => ! _ayAudio.Silent;
         set
         {
             if (Model != Model.Spectrum48K)
             {
-                _ayAudio.Silent = value;
+                _ayAudio.Silent = ! value;
             }
         }
     }
