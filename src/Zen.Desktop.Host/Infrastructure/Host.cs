@@ -13,7 +13,6 @@ using Zen.Desktop.Host.Infrastructure.Settings;
 using Zen.System;
 using Zen.System.FileHandling;
 using Zen.System.FileHandling.Interfaces;
-using Zen.System.Infrastructure;
 using Keys = Microsoft.Xna.Framework.Input.Keys;
 using Model = Zen.System.Infrastructure.Model;
 
