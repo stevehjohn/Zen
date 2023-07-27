@@ -14,7 +14,7 @@ public class Counters
 
     private readonly Stopwatch _stopwatch;
 
-    public static Counters Instance { get; } = new ();
+    public static Counters Instance { get; } = new();
 
     private Counters()
     {
