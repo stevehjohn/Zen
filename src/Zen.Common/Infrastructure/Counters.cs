@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 
-namespace Zen.System.Infrastructure;
+namespace Zen.Common.Infrastructure;
 
 public class Counters
 {
