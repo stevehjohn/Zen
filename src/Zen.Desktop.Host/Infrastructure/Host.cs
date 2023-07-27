@@ -163,7 +163,7 @@ public class Host : Game
 
         base.Update(gameTime);
 
-        Window.Title = $"Zen - FPS: {Counters.Instance.GetCountPerSecond(Counter.RenderedFrames)} OPS: {Counters.Instance.GetCountPerSecond(Counter.Instructions)} SFPS: {Counters.Instance.GetCountPerSecond(Counter.SpectrumFrames)} AYFPS: {Counters.Instance.GetCountPerSecond(Counter.AyFrames)}";
+        Window.Title = $"Zen - FPS: {Counters.Instance.GetCountPerSecond(Counter.RenderedFrames)} Z80Op/S: {Counters.Instance.GetCountPerSecond(Counter.Instructions)} Hz: {Counters.Instance.GetCountPerSecond(Counter.SpectrumFrames)} AYFPS: {Counters.Instance.GetCountPerSecond(Counter.AyFrames)}";
     }
 
     private void MenuFinished(MenuResult result, object arguments)
