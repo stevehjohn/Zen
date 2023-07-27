@@ -41,13 +41,17 @@ public class CountersVisualiser
         DrawString(":", Color.White, 23, 0);
         DrawString(Counters.Instance.GetCountPerSecond(Counter.Instructions).ToString(), Color.Cyan, 25, 0);
 
-        DrawString("Hz", Color.Magenta, 2, 1);
+        DrawString("SPFS", Color.Magenta, 2, 1);
         DrawString(":", Color.White, 5, 1);
         DrawString(Counters.Instance.GetCountPerSecond(Counter.SpectrumFrames).ToString(), Color.Cyan, 7, 1);
 
         DrawString("AYFPS", Color.Magenta, 15, 1);
         DrawString(":", Color.White, 23, 1);
         DrawString(Counters.Instance.GetCountPerSecond(Counter.AyFrames).ToString(), Color.Cyan, 25, 1);
+
+        DrawString("Hz", Color.Magenta, 2, 2);
+        DrawString(":", Color.White, 5, 2);
+        DrawString(Counters.Instance.GetCountPerSecond(Counter.Hertz).ToString(), Color.Cyan, 7, 1);
 
         _texture.SetData(_data);
 

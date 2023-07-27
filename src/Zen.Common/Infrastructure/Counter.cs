@@ -5,5 +5,6 @@ public enum Counter
     RenderedFrames,
     Instructions,
     SpectrumFrames,
-    AyFrames
+    AyFrames,
+    Hertz
 }
