@@ -197,6 +197,8 @@ public class Host : Game
 
                 _motherboard.Start();
 
+                _vRamAdapter.ScreenFrame = _motherboard.VideoAdapter.ScreenFrame;
+
                 return;
 
             case MenuResult.LoadZ80Sna:
