@@ -30,7 +30,7 @@ public class LdBytesHook : IProcessorHook
 
     public bool Activate(State state)
     {
-        if (state.ProgramCounter == 0x0556)
+        if (state.ProgramCounter == 0x0556 || state.ProgramCounter == 0x0562)
         {
             //_data = _loader.ReadNextBlock(state[Register.A] == 0x00);
             _data = _loader.ReadNextBlock();
@@ -57,8 +57,6 @@ public class LdBytesHook : IProcessorHook
         }
 
         _pause = PauseLength;
-
-        @interface.WriteToPort(0xFE, (byte) ((_data[_position] & _bit) > 0 ? 5 : 6));
 
         _bit <<= 1;
 
