@@ -6,7 +6,7 @@ namespace Zen.System.ProcessorHooks;
 
 public class LdBytesHook : IProcessorHook
 {
-    private const int PauseLength = 10;
+    private const int PauseLength = 0;
 
     private byte[] _data = Array.Empty<byte>();
 
