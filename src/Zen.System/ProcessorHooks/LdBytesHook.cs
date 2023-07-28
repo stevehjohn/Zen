@@ -47,28 +47,28 @@ public class LdBytesHook : IProcessorHook
 
         if (_bit == 0x0100)
         {
-            @interface.WriteToMemory(state[RegisterPair.IX], _data[_position]);
-
-            state[RegisterPair.IX]++;
-
-            state[RegisterPair.DE]--;
-
-            state[Register.F] = 0x93;
-
-            if (state[RegisterPair.DE] == 0)
+            while (state[RegisterPair.DE] > 0)
             {
-                Ret(state, @interface);
+                @interface.WriteToMemory(state[RegisterPair.IX], _data[_position]);
 
-                state[Flag.Carry] = true;
+                state[RegisterPair.IX]++;
 
-                @interface.WriteToPort(0xFE, 7);
+                state[RegisterPair.DE]--;
 
-                return true;
+                state[Register.F] = 0x93;
+
+                _position++;
             }
+
+            Ret(state, @interface);
+
+            state[Flag.Carry] = true;
+
+            @interface.WriteToPort(0xFE, 7);
 
             _bit = 1;
 
-            _position++;
+            return true;
         }
 
         return false;
