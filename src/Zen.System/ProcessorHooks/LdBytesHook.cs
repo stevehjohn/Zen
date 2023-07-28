@@ -6,15 +6,11 @@ namespace Zen.System.ProcessorHooks;
 
 public class LdBytesHook : IProcessorHook
 {
-    private const int PauseLength = 0;
-
     private byte[] _data = Array.Empty<byte>();
 
     private int _position;
 
     private int _bit;
-
-    private int _pause;
 
     private readonly TapFileLoader _loader;
 
@@ -39,8 +35,6 @@ public class LdBytesHook : IProcessorHook
 
             _bit = 0b0000_0001;
 
-            _pause = 0;
-
             return true;
         }
 
@@ -49,15 +43,6 @@ public class LdBytesHook : IProcessorHook
 
     public bool ExecuteCycle(State state, Interface @interface)
     {
-        if (_pause > 0)
-        {
-            _pause--;
-
-            return false;
-        }
-
-        _pause = PauseLength;
-
         _bit <<= 1;
 
         if (_bit == 0x0100)

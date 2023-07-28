@@ -415,7 +415,7 @@ public partial class Instructions
 
         _instructions.Add(0x00DDCA, new Instruction(p => JP_F_nn(Flag.Zero, p), "JP Z, nn", 0x00DDCA, 2, 4));
 
-        _instructions.Add(0x00DDCB, new Instruction(_ => PREFIX(0xDDCB), "PREFIX 0xDDCB", 0x00DDCB, 2));
+        _instructions.Add(0x00DDCB, new Instruction(_ => PREFIX(0xDDCB), "PREFIX 0xDDCB", 0x00DDCB, 2, 0, true));
 
         _instructions.Add(0x00DDCC, new Instruction(p => CALL_F_nn(Flag.Zero, p), "CALL Z, nn", 0x00DDCC, 2, 4));
 
@@ -451,7 +451,7 @@ public partial class Instructions
 
         _instructions.Add(0x00DDDC, new Instruction(p => CALL_F_nn(Flag.Carry, p), "CALL C, nn", 0x00DDDC, 2, 4));
 
-        _instructions.Add(0x00DDDD, new Instruction(_ => PREFIX(0xDD), "PREFIX 0xDD", 0x00DDDD, 0, 4));
+        _instructions.Add(0x00DDDD, new Instruction(_ => PREFIX(0xDD), "PREFIX 0xDD", 0x00DDDD, 0, 4, true));
 
         _instructions.Add(0x00DDDE, new Instruction(p => SBC_R_n(Register.A, p), "SBC A, n", 0x00DDDE, 1, 4));
 
@@ -483,7 +483,7 @@ public partial class Instructions
 
         _instructions.Add(0x00DDEC, new Instruction(p => CALL_F_nn(Flag.ParityOverflow, p), "CALL PE, nn", 0x00DDEC, 2, 4));
 
-        _instructions.Add(0x00DDED, new Instruction(_ => PREFIX(0xED), "PREFIX 0xED", 0x00DDED, 0, 4));
+        _instructions.Add(0x00DDED, new Instruction(_ => PREFIX(0xED), "PREFIX 0xED", 0x00DDED, 0, 4, true));
 
         _instructions.Add(0x00DDEE, new Instruction(p => XOR_R_n(Register.A, p), "XOR A, n", 0x00DDEE, 1, 4));
 
@@ -515,7 +515,7 @@ public partial class Instructions
 
         _instructions.Add(0x00DDFC, new Instruction(p => CALL_F_nn(Flag.Sign, p), "CALL S, nn", 0x00DDFC, 2, 4));
 
-        _instructions.Add(0x00DDFD, new Instruction(_ => PREFIX(0xFD), "PREFIX 0xFD", 0x00DDFD, 0, 4));
+        _instructions.Add(0x00DDFD, new Instruction(_ => PREFIX(0xFD), "PREFIX 0xFD", 0x00DDFD, 0, 4, true));
 
         _instructions.Add(0x00DDFE, new Instruction(p => CP_R_n(Register.A, p), "CP A, n", 0x00DDFE, 1, 4));
 

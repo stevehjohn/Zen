@@ -83,7 +83,7 @@ public class Core
 
         instruction = _instructions[opcode];
 
-        if (! instruction.Mnemonic.StartsWith("PREFIX"))
+        if (! instruction.IsPrefix)
         {
             _state.LastInstruction = instruction;
         }
@@ -131,7 +131,7 @@ public class Core
             _state.InstructionPrefix = 0;
         }
 
-        if (! instruction.Mnemonic.StartsWith("PREFIX") && _state.InstructionPrefix == 0 && ! _state.IgnoreNextInterrupt)
+        if (! instruction.IsPrefix && _state.InstructionPrefix == 0 && ! _state.IgnoreNextInterrupt)
         {
             HandleInterrupts();
         }
@@ -144,7 +144,7 @@ public class Core
 
     private void UpdateR(Instruction instruction)
     {
-        if (instruction.Mnemonic.StartsWith("PREFIX"))
+        if (instruction.IsPrefix)
         {
             return;
         }

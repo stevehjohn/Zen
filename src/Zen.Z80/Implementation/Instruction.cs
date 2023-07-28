@@ -12,7 +12,9 @@ public class Instruction
 
     public byte ExtraCycles { get; private set; }
 
-    public Instruction(Action<byte[]> execute, string mnemonic, int opCode, int parameterLength, byte extraCycles = 0)
+    public bool IsPrefix { get; private set; }
+
+    public Instruction(Action<byte[]> execute, string mnemonic, int opCode, int parameterLength, byte extraCycles = 0, bool isPrefix = false)
     {
         Execute = execute;
 
@@ -23,5 +25,7 @@ public class Instruction
         ParameterLength = parameterLength;
 
         ExtraCycles = extraCycles;
+
+        IsPrefix = isPrefix;
     }
 }
