@@ -14,6 +14,8 @@ public class Core
 
     private readonly List<IProcessorHook> _hooks = new();
 
+    private readonly byte[] _parameters = new byte[2];
+
     private IProcessorHook? _currentHook;
 
     public Core(Interface @interface, State state)
@@ -90,25 +92,21 @@ public class Core
 
         _state.ProgramCounter++;
 
-        var parameters = Array.Empty<byte>();
-
         if (instruction.ParameterLength > 0)
         {
-            parameters = new byte[instruction.ParameterLength];
-
             for (var p = 0; p < instruction.ParameterLength; p++)
             {
                 data = _interface.ReadFromMemory(_state.ProgramCounter);
 
                 _state.ProgramCounter++;
 
-                parameters[p] = data;
+                _parameters[p] = data;
             }
         }
 
         UpdateR(instruction);
 
-        instruction.Execute(parameters);
+        instruction.Execute(_parameters);
 
         Counters.Instance.IncrementCounter(Counter.Hertz, (int) _state.ClockCycles);
 
@@ -116,13 +114,13 @@ public class Core
 
         if (_state.InstructionPrefix > 0xFF)
         {
-            opcode = _state.InstructionPrefix << 8 | parameters[1];
+            opcode = _state.InstructionPrefix << 8 | _parameters[1];
 
             instruction = _instructions[opcode];
 
             UpdateR(instruction);
 
-            instruction.Execute(parameters[..1]);
+            instruction.Execute(_parameters[..1]);
 
             Counters.Instance.IncrementCounter(Counter.Hertz, (int) _state.ClockCycles);
 
