@@ -52,7 +52,6 @@ public class CountersVisualiser
         DrawString("Hz", Color.Magenta, 2, 2);
         DrawString(":", Color.White, 7, 2);
         DrawString(Counters.Instance.GetCountPerSecond(Counter.Hertz).ToString("N0"), Color.Cyan, 9, 2);
-
         
         _texture.SetData(_data);
 
