@@ -34,24 +34,24 @@ public class CountersVisualiser
         Array.Fill(_data, Color.Black);
 
         DrawString("PCFPS", Color.Magenta, 2, 0);
-        DrawString(":", Color.White, 8, 0);
-        DrawString(Counters.Instance.GetCountPerSecond(Counter.RenderedFrames).ToString("N0"), Color.Cyan, 10, 0);
+        DrawString(":", Color.White, 7, 0);
+        DrawString(Counters.Instance.GetCountPerSecond(Counter.RenderedFrames).ToString("N0"), Color.Cyan, 9, 0);
 
         DrawString("Z80Ops/s", Color.Magenta, 15, 0);
         DrawString(":", Color.White, 23, 0);
         DrawString(Counters.Instance.GetCountPerSecond(Counter.Instructions).ToString("N0"), Color.Cyan, 25, 0);
 
         DrawString("ZXPFS", Color.Magenta, 2, 1);
-        DrawString(":", Color.White, 8, 1);
-        DrawString(Counters.Instance.GetCountPerSecond(Counter.SpectrumFrames).ToString("N0"), Color.Cyan, 10, 1);
+        DrawString(":", Color.White, 7, 1);
+        DrawString(Counters.Instance.GetCountPerSecond(Counter.SpectrumFrames).ToString("N0"), Color.Cyan, 9, 1);
 
         DrawString("AYFPS", Color.Magenta, 15, 1);
         DrawString(":", Color.White, 23, 1);
         DrawString(Counters.Instance.GetCountPerSecond(Counter.AyFrames).ToString("N0"), Color.Cyan, 25, 1);
 
         DrawString("Hz", Color.Magenta, 2, 2);
-        DrawString(":", Color.White, 8, 2);
-        DrawString(Counters.Instance.GetCountPerSecond(Counter.Hertz).ToString("N0"), Color.Cyan, 10, 2);
+        DrawString(":", Color.White, 7, 2);
+        DrawString(Counters.Instance.GetCountPerSecond(Counter.Hertz).ToString("N0"), Color.Cyan, 9, 2);
 
         _texture.SetData(_data);
 
