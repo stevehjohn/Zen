@@ -10,8 +10,6 @@ public class LdBytesHook : IProcessorHook
 
     private int _position;
 
-    private int _bit;
-
     private readonly TapFileLoader _loader;
 
     public LdBytesHook()
@@ -33,8 +31,6 @@ public class LdBytesHook : IProcessorHook
 
             _position = 0;
 
-            _bit = 0b0000_0001;
-
             return true;
         }
 
@@ -43,35 +39,26 @@ public class LdBytesHook : IProcessorHook
 
     public bool ExecuteCycle(State state, Interface @interface)
     {
-        _bit <<= 1;
-
-        if (_bit == 0x0100)
+        while (state[RegisterPair.DE] > 0)
         {
-            while (state[RegisterPair.DE] > 0)
-            {
-                @interface.WriteToMemory(state[RegisterPair.IX], _data[_position]);
+            @interface.WriteToMemory(state[RegisterPair.IX], _data[_position]);
 
-                state[RegisterPair.IX]++;
+            state[RegisterPair.IX]++;
 
-                state[RegisterPair.DE]--;
+            state[RegisterPair.DE]--;
 
-                state[Register.F] = 0x93;
+            state[Register.F] = 0x93;
 
-                _position++;
-            }
-
-            Ret(state, @interface);
-
-            state[Flag.Carry] = true;
-
-            @interface.WriteToPort(0xFE, 7);
-
-            _bit = 1;
-
-            return true;
+            _position++;
         }
 
-        return false;
+        Ret(state, @interface);
+
+        state[Flag.Carry] = true;
+
+        @interface.WriteToPort(0xFE, 7);
+
+        return true;
     }
 
     public void PassiveCycle(State state, Interface @interface)
