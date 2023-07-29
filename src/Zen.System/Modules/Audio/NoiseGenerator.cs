@@ -28,6 +28,10 @@ public class NoiseGenerator
 
             _value = Lfsr.GetNextValue();
         }
+        else
+        {
+            Lfsr.GetNextValue();
+        }
 
         return _value;
    }
