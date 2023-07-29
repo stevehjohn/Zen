@@ -36,7 +36,7 @@ public class EnvelopeGenerator
 
             _hold = (value & 0b0001) > 0;
 
-            _gain = _attack ? (byte) 0 : MaxGain;
+            _gain = _attack ? 0 : MaxGain;
 
             _direction = _attack ? 1 : -1;
         }
@@ -92,6 +92,22 @@ public class EnvelopeGenerator
 
     private void CycleComplete()
     {
+        if (_hold)
+        {
+            _direction = 0;
+        }
 
+        if (_alternate)
+        {
+            _direction = -_direction;
+        }
+
+        if (_attack)
+        {
+        }
+
+        if (_continue)
+        {
+        }
     }
 }
