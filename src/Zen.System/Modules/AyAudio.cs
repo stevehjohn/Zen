@@ -13,6 +13,8 @@ public class AyAudio : IDisposable
 
     private readonly ToneGenerator _toneC = new();
 
+    private readonly DigitalToAudioConverter _digitalToAudioConverter = new();
+
     private Task? _audioThread;
 
     private byte _registerNumber;
@@ -129,46 +131,43 @@ public class AyAudio : IDisposable
                 break;
 
             case 8:
-                //if ((value & 0b0001_0000) > 0)
-                //{
-                //    _channels[0].EnvelopeOn = true;
-                //}
-                //else
-                //{
-                //    _channels[0].EnvelopeOn = false;
-                //    _channels[0].Volume = (byte) (value & 0x0F);
-                //}
-                
+                if ((value & 0b0001_0000) > 0)
+                {
+                    //_channels[0].EnvelopeOn = true;
+                }
+                else
+                {
+                    _digitalToAudioConverter.ChannelAVolume = value;
+                }
+
                 _registerValues[_registerNumber] = (byte) (value & 0x1F);
 
                 break;
 
             case 9:
-                //if ((value & 0b0001_0000) > 0)
-                //{
-                //    _channels[1].EnvelopeOn = true;
-                //}
-                //else
-                //{
-                //    _channels[1].EnvelopeOn = false;
-                //    _channels[1].Volume = (byte) (value & 0x0F);
-                //}
-                
+                if ((value & 0b0001_0000) > 0)
+                {
+                    //_channels[1].EnvelopeOn = true;
+                }
+                else
+                {
+                    _digitalToAudioConverter.ChannelBVolume = value;
+                }
+
                 _registerValues[_registerNumber] = (byte) (value & 0x1F);
 
                 break;
 
             case 10:
-                //if ((value & 0b0001_0000) > 0)
-                //{
-                //    _channels[2].EnvelopeOn = true;
-                //}
-                //else
-                //{
-                //    _channels[2].EnvelopeOn = false;
-                //    _channels[2].Volume = (byte) (value & 0x0F);
-                //}
-                                
+                if ((value & 0b0001_0000) > 0)
+                {
+                    //_channels[2].EnvelopeOn = true;
+                }
+                else
+                {
+                    _digitalToAudioConverter.ChannelCVolume = value;
+                }
+
                 _registerValues[_registerNumber] = (byte) (value & 0x1F);
 
                 break;
@@ -228,15 +227,12 @@ public class AyAudio : IDisposable
                 }
                 else
                 {
-                    signals[0] = _toneA.GetNextSignal() ? 0.3f : -0.3f;
-                    signals[1] = _toneB.GetNextSignal() ? 0.3f : -0.3f;
-                    signals[2] = _toneC.GetNextSignal() ? 0.3f : -0.3f;
+                    signals[0] = _digitalToAudioConverter.GetChannelASignal(_toneA.GetNextSignal());
+                    signals[1] = _digitalToAudioConverter.GetChannelBSignal(_toneB.GetNextSignal());
+                    signals[2] = _digitalToAudioConverter.GetChannelCSignal(_toneC.GetNextSignal());
                 }
 
-                if (SignalHook != null)
-                {
-                    SignalHook(signals);
-                }
+                SignalHook?.Invoke(signals);
 
                 var signal = signals[0];
 
