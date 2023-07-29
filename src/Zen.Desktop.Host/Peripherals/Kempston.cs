@@ -15,7 +15,7 @@ public class Kempston : IPeripheral
         return null;
     }
 
-    private byte MapKeysToJoystick()
+    private static byte MapKeysToJoystick()
     {
         var keys = Microsoft.Xna.Framework.Input.Keyboard.GetState().GetPressedKeys();
 

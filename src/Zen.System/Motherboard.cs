@@ -1,5 +1,4 @@
-﻿// #define LOGTESTS
-using Zen.Common;
+﻿using Zen.Common;
 using Zen.System.Infrastructure;
 using Zen.System.Interfaces;
 using Zen.System.Modules;
@@ -90,10 +89,6 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
         _ldBytesHook = new LdBytesHook();
 
         _core.AddHook(_ldBytesHook);
-
-#if LOGTESTS
-        _core.AddHook(new PoAnyHook());
-#endif
 
         _ram = new() { ProtectRom = true };
 
