@@ -133,10 +133,11 @@ public class AyAudio : IDisposable
             case 8:
                 if ((value & 0b0001_0000) > 0)
                 {
-                    //_channels[0].EnvelopeOn = true;
+                    _digitalToAudioConverter.ChannelAEnvelopeOn = true;
                 }
                 else
                 {
+                    _digitalToAudioConverter.ChannelAEnvelopeOn = false;
                     _digitalToAudioConverter.ChannelAVolume = value;
                 }
 
@@ -147,10 +148,11 @@ public class AyAudio : IDisposable
             case 9:
                 if ((value & 0b0001_0000) > 0)
                 {
-                    //_channels[1].EnvelopeOn = true;
+                    _digitalToAudioConverter.ChannelBEnvelopeOn = true;
                 }
                 else
                 {
+                    _digitalToAudioConverter.ChannelBEnvelopeOn = false;
                     _digitalToAudioConverter.ChannelBVolume = value;
                 }
 
@@ -161,10 +163,11 @@ public class AyAudio : IDisposable
             case 10:
                 if ((value & 0b0001_0000) > 0)
                 {
-                    //_channels[2].EnvelopeOn = true;
+                    _digitalToAudioConverter.ChannelCEnvelopeOn = true;
                 }
                 else
                 {
+                    _digitalToAudioConverter.ChannelCEnvelopeOn = false;
                     _digitalToAudioConverter.ChannelCVolume = value;
                 }
 
@@ -227,9 +230,7 @@ public class AyAudio : IDisposable
                 }
                 else
                 {
-                    signals[0] = _digitalToAudioConverter.GetChannelASignal(_toneA.GetNextSignal());
-                    signals[1] = _digitalToAudioConverter.GetChannelBSignal(_toneB.GetNextSignal());
-                    signals[2] = _digitalToAudioConverter.GetChannelCSignal(_toneC.GetNextSignal());
+                    _digitalToAudioConverter.GetChannelSignals(signals, _toneA.GetNextSignal(), _toneB.GetNextSignal(), _toneC.GetNextSignal());
                 }
 
                 SignalHook?.Invoke(signals);

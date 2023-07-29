@@ -17,25 +17,23 @@ public class DigitalToAudioConverter
         set => _channelCVolume = (byte) (value & 0x0F);
     }
 
+    public bool ChannelAEnvelopeOn { get; set; }
+
+    public bool ChannelBEnvelopeOn { get; set; }
+
+    public bool ChannelCEnvelopeOn { get; set; }
+
     private byte _channelAVolume;
 
     private byte _channelBVolume;
 
     private byte _channelCVolume;
 
-    public float GetChannelASignal(bool channelValue)
+    public void GetChannelSignals(float[] buffer, bool channelAValue, bool channelBValue, bool channelCValue)
     {
-        return NormaliseVolume(_channelAVolume) * (channelValue ? Constants.ChannelAmplitude : 0);
-    }
-
-    public float GetChannelBSignal(bool channelValue)
-    {
-        return NormaliseVolume(_channelBVolume) * (channelValue ? Constants.ChannelAmplitude : 0);
-    }
-
-    public float GetChannelCSignal(bool channelValue)
-    {
-        return NormaliseVolume(_channelCVolume) * (channelValue ? Constants.ChannelAmplitude : 0);
+        buffer[0] = NormaliseVolume(_channelAVolume) * (channelAValue ? Constants.ChannelAmplitude : 0);
+        buffer[1] = NormaliseVolume(_channelBVolume) * (channelBValue ? Constants.ChannelAmplitude : 0);
+        buffer[2] = NormaliseVolume(_channelCVolume) * (channelCValue ? Constants.ChannelAmplitude : 0);
     }
 
     private static float NormaliseVolume(byte volume)
