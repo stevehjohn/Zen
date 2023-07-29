@@ -10,5 +10,5 @@ public class Constants
 
     public const float ChannelAmplitude = 0.33f;
 
-    public const float AyFrequency = 1_773_500f;
+    public const int AyFrequency = 1_773_500;
 }
