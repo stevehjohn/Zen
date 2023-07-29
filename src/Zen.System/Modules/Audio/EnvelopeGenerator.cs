@@ -74,6 +74,7 @@ public class EnvelopeGenerator
 
             if (_gain < 0 || _gain > MaxGain)
             {
+                CycleComplete();
             }
         }
 
@@ -84,8 +85,13 @@ public class EnvelopeGenerator
     {
         _position = 0;
 
-        var period = 256 * _period / Constants.AyFrequency; // Period in seconds.
+        var period = 256 * _period / Constants.AyFrequency;
 
         _stepChange = period * Constants.SampleRate / MaxGain;
+    }
+
+    private void CycleComplete()
+    {
+
     }
 }
