@@ -32,6 +32,12 @@ public class MixerDac
 
     public bool ToneCOn { get; set; }
 
+    public bool NoiseAOn { get; set; }
+
+    public bool NoiseBOn { get; set; }
+
+    public bool NoiseCOn { get; set; }
+
     private byte _channelAVolume;
 
     private byte _channelBVolume;
