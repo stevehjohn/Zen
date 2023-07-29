@@ -2,7 +2,7 @@
 
 public class Constants
 {
-    public const int SampleRate = 44100;
+    public const int SampleRate = 44_100;
 
     public const int Channels = 3;
 
@@ -10,7 +10,5 @@ public class Constants
 
     public const float Amplitude = 0.16f;
 
-    public const float AyFrequency = 1773500f;
-
-    public const int BeeperTStateSampleRate = 79;
+    public const float AyFrequency = 1_773_500f;
 }
