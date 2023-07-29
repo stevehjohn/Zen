@@ -1,6 +1,6 @@
 ﻿namespace Zen.System.Modules.Audio;
 
-public class DigitalToAudioConverter
+public class MixerDac
 {
     public byte ChannelAVolume
     {
@@ -25,6 +25,12 @@ public class DigitalToAudioConverter
 
     public bool ChannelCEnvelopeOn { get; set; }
 
+    public bool ToneAOn { get; set; }
+
+    public bool ToneBOn { get; set; }
+
+    public bool ToneCOn { get; set; }
+
     private byte _channelAVolume;
 
     private byte _channelBVolume;
@@ -35,6 +41,10 @@ public class DigitalToAudioConverter
 
     public void GetChannelSignals(float[] buffer, bool channelAValue, bool channelBValue, bool channelCValue)
     {
+        channelAValue |= ! ToneAOn;
+        channelBValue |= ! ToneBOn;
+        channelCValue |= ! ToneCOn;
+
         buffer[0] = NormaliseVolume(_channelAVolume) * (channelAValue ? Constants.ChannelAmplitude : 0);
         buffer[1] = NormaliseVolume(_channelBVolume) * (channelBValue ? Constants.ChannelAmplitude : 0);
         buffer[2] = NormaliseVolume(_channelCVolume) * (channelCValue ? Constants.ChannelAmplitude : 0);

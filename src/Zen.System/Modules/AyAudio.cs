@@ -13,7 +13,7 @@ public class AyAudio : IDisposable
 
     private readonly ToneGenerator _toneC = new();
 
-    private readonly DigitalToAudioConverter _digitalToAudioConverter = new();
+    private readonly MixerDac _mixerDac = new();
 
     private Task? _audioThread;
 
@@ -120,9 +120,9 @@ public class AyAudio : IDisposable
                 break;
 
             case 7:
-                //_channels[0].ToneOn = (value & 0b0000_0001) == 0;
-                //_channels[1].ToneOn = (value & 0b0000_0010) == 0;
-                //_channels[2].ToneOn = (value & 0b0000_0100) == 0;
+                _mixerDac.ToneAOn = (value & 0b0000_0001) == 0;
+                _mixerDac.ToneBOn = (value & 0b0000_0010) == 0;
+                _mixerDac.ToneCOn = (value & 0b0000_0100) == 0;
 
                 //_channels[0].NoiseOn = (value & 0b0000_1000) == 0;
                 //_channels[1].NoiseOn = (value & 0b0001_0000) == 0;
@@ -133,12 +133,12 @@ public class AyAudio : IDisposable
             case 8:
                 if ((value & 0b0001_0000) > 0)
                 {
-                    _digitalToAudioConverter.ChannelAEnvelopeOn = true;
+                    _mixerDac.ChannelAEnvelopeOn = true;
                 }
                 else
                 {
-                    _digitalToAudioConverter.ChannelAEnvelopeOn = false;
-                    _digitalToAudioConverter.ChannelAVolume = value;
+                    _mixerDac.ChannelAEnvelopeOn = false;
+                    _mixerDac.ChannelAVolume = value;
                 }
 
                 _registerValues[_registerNumber] = (byte) (value & 0x1F);
@@ -148,12 +148,12 @@ public class AyAudio : IDisposable
             case 9:
                 if ((value & 0b0001_0000) > 0)
                 {
-                    _digitalToAudioConverter.ChannelBEnvelopeOn = true;
+                    _mixerDac.ChannelBEnvelopeOn = true;
                 }
                 else
                 {
-                    _digitalToAudioConverter.ChannelBEnvelopeOn = false;
-                    _digitalToAudioConverter.ChannelBVolume = value;
+                    _mixerDac.ChannelBEnvelopeOn = false;
+                    _mixerDac.ChannelBVolume = value;
                 }
 
                 _registerValues[_registerNumber] = (byte) (value & 0x1F);
@@ -163,12 +163,12 @@ public class AyAudio : IDisposable
             case 10:
                 if ((value & 0b0001_0000) > 0)
                 {
-                    _digitalToAudioConverter.ChannelCEnvelopeOn = true;
+                    _mixerDac.ChannelCEnvelopeOn = true;
                 }
                 else
                 {
-                    _digitalToAudioConverter.ChannelCEnvelopeOn = false;
-                    _digitalToAudioConverter.ChannelCVolume = value;
+                    _mixerDac.ChannelCEnvelopeOn = false;
+                    _mixerDac.ChannelCVolume = value;
                 }
 
                 _registerValues[_registerNumber] = (byte) (value & 0x1F);
@@ -176,12 +176,12 @@ public class AyAudio : IDisposable
                 break;
 
             case 11:
-                _digitalToAudioConverter.EnvelopeGenerator.FinePeriod = value;
+                _mixerDac.EnvelopeGenerator.FinePeriod = value;
                 
                 break;
 
             case 12:
-                _digitalToAudioConverter.EnvelopeGenerator.CoarsePeriod = value;
+                _mixerDac.EnvelopeGenerator.CoarsePeriod = value;
                 
                 break;
 
@@ -226,7 +226,7 @@ public class AyAudio : IDisposable
                 }
                 else
                 {
-                    _digitalToAudioConverter.GetChannelSignals(signals, _toneA.GetNextSignal(), _toneB.GetNextSignal(), _toneC.GetNextSignal());
+                    _mixerDac.GetChannelSignals(signals, _toneA.GetNextSignal(), _toneB.GetNextSignal(), _toneC.GetNextSignal());
                 }
 
                 SignalHook?.Invoke(signals);
