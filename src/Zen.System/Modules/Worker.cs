@@ -124,9 +124,9 @@ public class Worker : IDisposable
 
                         sampleCycle += cycles[i];
 
-                        if (sampleCycle > Audio.Constants.BeeperTStateSampleRate && ! Fast)
+                        if (sampleCycle > Beeper.BeeperTStateSampleRate && ! Fast)
                         {
-                            sampleCycle -= Audio.Constants.BeeperTStateSampleRate;
+                            sampleCycle -= Beeper.BeeperTStateSampleRate;
 
                             _beeper.Sample();
                         }

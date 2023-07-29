@@ -5,6 +5,8 @@ namespace Zen.System.Modules;
 
 public class Beeper : IDisposable
 {
+    public const int BeeperTStateSampleRate = 79;
+
     private float _bitValue;
 
     private float _amplitude;
