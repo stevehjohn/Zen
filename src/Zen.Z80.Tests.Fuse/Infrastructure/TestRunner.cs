@@ -111,7 +111,7 @@ public class TestRunner
 
         var ram = new Dictionary<int, byte>();
 
-        PopulateRam(ram, input);
+        PopulateRam(ram);
         
         _ramConnector.Setup(c => c.ReadRam(It.IsAny<ushort>())).Returns<ushort>(address => ram[address]);
 
@@ -309,7 +309,7 @@ public class TestRunner
         _state.Halted = processorState.Halted;
     }
 
-    private static void PopulateRam(Dictionary<int, byte> ram, TestInput input)
+    private static void PopulateRam(Dictionary<int, byte> ram)
     {
         for (var i = 0; i < 0xFFFF; i++)
         {

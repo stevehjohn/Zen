@@ -12,7 +12,7 @@ public class TestInput
 
     public static byte?[] Ram => _ram;
 
-    private static byte?[] _ram = new byte?[0xFFFF];
+    private static readonly byte?[] _ram = new byte?[0xFFFF];
 
     public TestInput(string[] testData)
     {
