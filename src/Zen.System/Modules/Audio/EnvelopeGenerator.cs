@@ -4,7 +4,7 @@ public class EnvelopeGenerator
 {
     private const byte MaxGain = 15;
 
-    public byte FinePeriod 
+    public byte FinePeriod
     {
         set
         {
@@ -14,7 +14,7 @@ public class EnvelopeGenerator
         }
     }
 
-    public byte CoarsePeriod 
+    public byte CoarsePeriod
     {
         set
         {
@@ -24,33 +24,23 @@ public class EnvelopeGenerator
         }
     }
 
-    public byte Properties 
+    public byte Properties
     {
-        set 
-        { 
-            _continue = (value & 0b1000) > 0;
+        set
+        {
+            _properties = value;
 
-            _attack = (value & 0b0100) > 0;
+            var attack = (value & 0b0100) > 0;
 
-            _alternate = (value & 0b0010) > 0;
+            _gain = attack ? 0 : MaxGain;
 
-            _hold = (value & 0b0001) > 0;
-
-            _gain = _attack ? 0 : MaxGain;
-
-            _direction = _attack ? 1 : -1;
+            _direction = attack ? 1 : -1;
         }
     }
 
     private int _period;
 
-    private bool _continue;
-
-    private bool _attack;
-
-    private bool _alternate;
-
-    private bool _hold;
+    private byte _properties;
 
     private int _gain;
 
@@ -92,22 +82,84 @@ public class EnvelopeGenerator
 
     private void CycleComplete()
     {
-        if (_hold)
+        switch (_properties)
         {
-            _direction = 0;
-        }
+            case 0:
+            case 1:
+            case 2:
+            case 3:
+            case 9:
+                if (_gain < 0)
+                {
+                    _gain = 0;
+                    _direction = 0;
+                }
 
-        if (_alternate)
-        {
-            _direction = -_direction;
-        }
+                break;
 
-        if (_attack)
-        {
-        }
+            case 4:
+            case 5:
+            case 6:
+            case 7:
+            case 15:
+                if (_gain > MaxGain)
+                {
+                    _gain = 0;
+                    _direction = 0;
+                }
 
-        if (_continue)
-        {
+                break;
+
+            case 8:
+                if (_gain < 0)
+                {
+                    _gain = MaxGain;
+                    _direction = -1;
+                }
+
+                break;
+
+            case 10:
+            case 14:
+                if (_gain < 0)
+                {
+                    _gain = 0;
+                    _direction = 1;
+                }
+                else if (_gain > MaxGain)
+                {
+                    _gain = MaxGain;
+                    _direction = -1;
+                }
+
+                break;
+
+            case 11:
+                if (_gain < 0)
+                {
+                    _gain = MaxGain;
+                    _direction = 0;
+                }
+
+                break;
+
+            case 12:
+                if (_gain > MaxGain)
+                {
+                    _gain = 0;
+                    _direction = 1;
+                }
+
+                break;
+
+            case 13:
+                if (_gain > MaxGain)
+                {
+                    _gain = MaxGain;
+                    _direction = 0;
+                }
+
+                break;
         }
     }
 }
