@@ -7,7 +7,11 @@ namespace Zen.System.Modules;
 
 public class AyAudio : IDisposable
 {
-    private readonly List<Channel> _channels;
+    private readonly ToneGenerator _toneA = new();
+
+    private readonly ToneGenerator _toneB = new();
+
+    private readonly ToneGenerator _toneC = new();
 
     private Task? _audioThread;
 
@@ -29,13 +33,6 @@ public class AyAudio : IDisposable
 
     public AyAudio()
     {
-        _channels = new List<Channel>();
-
-        for (var i = 0; i < Constants.Channels; i++)
-        {
-            _channels.Add(new Channel());
-        }
-
         _buffer = new float[Constants.BufferSize];
 
         if (Environment.OSVersion.Platform == PlatformID.Unix)
@@ -76,119 +73,125 @@ public class AyAudio : IDisposable
         switch (_registerNumber)
         {
             case 0:
-                _channels[0].TonePeriod = (ushort) ((_channels[0].TonePeriod & 0x0F00) | value);
+                _toneA.FinePeriod = value;
+
                 break;
 
             case 1:
-                _channels[0].TonePeriod = (ushort) ((_channels[0].TonePeriod & 0x00FF) | ((value & 0x0F) << 8));
+                _toneA.CoarsePeriod = value;
 
                 _registerValues[_registerNumber] = (byte) (value & 0x0F);
 
                 break;
 
             case 2:
-                _channels[1].TonePeriod = (ushort) ((_channels[1].TonePeriod & 0x0F00) | value);
+                _toneB.FinePeriod = value;
+
                 break;
 
             case 3:
-                _channels[1].TonePeriod = (ushort) ((_channels[1].TonePeriod & 0x00FF) | ((value & 0x0F) << 8));
+                _toneB.CoarsePeriod = value;
 
                 _registerValues[_registerNumber] = (byte) (value & 0x0F);
 
                 break;
 
             case 4:
-                _channels[2].TonePeriod = (ushort) ((_channels[2].TonePeriod & 0x0F00) | value);
+                _toneC.FinePeriod = value;
+
                 break;
 
             case 5:
-                _channels[2].TonePeriod = (ushort) ((_channels[2].TonePeriod & 0x00FF) | ((value & 0x0F) << 8));
+                _toneC.CoarsePeriod = value;
 
                 _registerValues[_registerNumber] = (byte) (value & 0x0F);
 
                 break;
 
             case 6:
-                _channels[0].NoisePeriod = (byte) (value & 0x1F);
-                _channels[1].NoisePeriod = (byte) (value & 0x1F);
-                _channels[2].NoisePeriod = (byte) (value & 0x1F);
+                //_channels[0].NoisePeriod = (byte) (value & 0x1F);
+                //_channels[1].NoisePeriod = (byte) (value & 0x1F);
+                //_channels[2].NoisePeriod = (byte) (value & 0x1F);
 
                 _registerValues[_registerNumber] = (byte) (value & 0x1F);
                 
                 break;
 
             case 7:
-                _channels[0].ToneOn = (value & 0b0000_0001) == 0;
-                _channels[1].ToneOn = (value & 0b0000_0010) == 0;
-                _channels[2].ToneOn = (value & 0b0000_0100) == 0;
+                //_channels[0].ToneOn = (value & 0b0000_0001) == 0;
+                //_channels[1].ToneOn = (value & 0b0000_0010) == 0;
+                //_channels[2].ToneOn = (value & 0b0000_0100) == 0;
 
-                _channels[0].NoiseOn = (value & 0b0000_1000) == 0;
-                _channels[1].NoiseOn = (value & 0b0001_0000) == 0;
-                _channels[2].NoiseOn = (value & 0b0010_0000) == 0;
+                //_channels[0].NoiseOn = (value & 0b0000_1000) == 0;
+                //_channels[1].NoiseOn = (value & 0b0001_0000) == 0;
+                //_channels[2].NoiseOn = (value & 0b0010_0000) == 0;
 
                 break;
 
             case 8:
-                if ((value & 0b0001_0000) > 0)
-                {
-                    _channels[0].EnvelopeOn = true;
-                }
-                else
-                {
-                    _channels[0].EnvelopeOn = false;
-                    _channels[0].Volume = (byte) (value & 0x0F);
-                }
+                //if ((value & 0b0001_0000) > 0)
+                //{
+                //    _channels[0].EnvelopeOn = true;
+                //}
+                //else
+                //{
+                //    _channels[0].EnvelopeOn = false;
+                //    _channels[0].Volume = (byte) (value & 0x0F);
+                //}
                 
                 _registerValues[_registerNumber] = (byte) (value & 0x1F);
 
                 break;
 
             case 9:
-                if ((value & 0b0001_0000) > 0)
-                {
-                    _channels[1].EnvelopeOn = true;
-                }
-                else
-                {
-                    _channels[1].EnvelopeOn = false;
-                    _channels[1].Volume = (byte) (value & 0x0F);
-                }
+                //if ((value & 0b0001_0000) > 0)
+                //{
+                //    _channels[1].EnvelopeOn = true;
+                //}
+                //else
+                //{
+                //    _channels[1].EnvelopeOn = false;
+                //    _channels[1].Volume = (byte) (value & 0x0F);
+                //}
                 
                 _registerValues[_registerNumber] = (byte) (value & 0x1F);
 
                 break;
 
             case 10:
-                if ((value & 0b0001_0000) > 0)
-                {
-                    _channels[2].EnvelopeOn = true;
-                }
-                else
-                {
-                    _channels[2].EnvelopeOn = false;
-                    _channels[2].Volume = (byte) (value & 0x0F);
-                }
+                //if ((value & 0b0001_0000) > 0)
+                //{
+                //    _channels[2].EnvelopeOn = true;
+                //}
+                //else
+                //{
+                //    _channels[2].EnvelopeOn = false;
+                //    _channels[2].Volume = (byte) (value & 0x0F);
+                //}
                                 
                 _registerValues[_registerNumber] = (byte) (value & 0x1F);
 
                 break;
 
             case 11:
-                _channels[0].EnvelopePeriod = (ushort) ((_channels[0].EnvelopePeriod & 0xFF00) | value);
-                _channels[1].EnvelopePeriod = (ushort) ((_channels[1].EnvelopePeriod & 0xFF00) | value);
-                _channels[2].EnvelopePeriod = (ushort) ((_channels[2].EnvelopePeriod & 0xFF00) | value);
+                //_channels[0].EnvelopePeriod = (ushort) ((_channels[0].EnvelopePeriod & 0xFF00) | value);
+                //_channels[1].EnvelopePeriod = (ushort) ((_channels[1].EnvelopePeriod & 0xFF00) | value);
+                //_channels[2].EnvelopePeriod = (ushort) ((_channels[2].EnvelopePeriod & 0xFF00) | value);
+                
                 break;
 
             case 12:
-                _channels[0].EnvelopePeriod = (ushort) ((_channels[0].EnvelopePeriod & 0x00FF) | (value << 8));
-                _channels[1].EnvelopePeriod = (ushort) ((_channels[1].EnvelopePeriod & 0x00FF) | (value << 8));
-                _channels[2].EnvelopePeriod = (ushort) ((_channels[2].EnvelopePeriod & 0x00FF) | (value << 8));
+                //_channels[0].EnvelopePeriod = (ushort) ((_channels[0].EnvelopePeriod & 0x00FF) | (value << 8));
+                //_channels[1].EnvelopePeriod = (ushort) ((_channels[1].EnvelopePeriod & 0x00FF) | (value << 8));
+                //_channels[2].EnvelopePeriod = (ushort) ((_channels[2].EnvelopePeriod & 0x00FF) | (value << 8));
+                
                 break;
 
             case 13:
-                _channels[0].Envelope = (byte) (value & 0x0F);
-                _channels[1].Envelope = (byte) (value & 0x0F);
-                _channels[2].Envelope = (byte) (value & 0x0F);
+                //_channels[0].Envelope = (byte) (value & 0x0F);
+                //_channels[1].Envelope = (byte) (value & 0x0F);
+                //_channels[2].Envelope = (byte) (value & 0x0F);
+                
                 break;
         }
     }
@@ -217,11 +220,18 @@ public class AyAudio : IDisposable
         {
             for (var i = 0; i < Constants.BufferSize; i++)
             {
-                signals[0] = Silent ? 0 : _channels[0].GetNextSignal();
-                signals[1] = Silent ? 0 : _channels[1].GetNextSignal();
-                signals[2] = Silent ? 0 : _channels[2].GetNextSignal();
-
-                Lfsr.GenerateNextValue();
+                if (Silent)
+                {
+                    signals[0] = 0;
+                    signals[1] = 0;
+                    signals[2] = 0;
+                }
+                else
+                {
+                    signals[0] = _toneA.GetNextSignal() ? 0.3f : -0.3f;
+                    signals[1] = _toneB.GetNextSignal() ? 0.3f : -0.3f;
+                    signals[2] = _toneC.GetNextSignal() ? 0.3f : -0.3f;
+                }
 
                 if (SignalHook != null)
                 {
