@@ -17,6 +17,8 @@ public class DigitalToAudioConverter
         set => _channelCVolume = (byte) (value & 0x0F);
     }
 
+    public EnvelopeGenerator EnvelopeGenerator => _envelopeGenerator;
+
     public bool ChannelAEnvelopeOn { get; set; }
 
     public bool ChannelBEnvelopeOn { get; set; }
@@ -28,6 +30,8 @@ public class DigitalToAudioConverter
     private byte _channelBVolume;
 
     private byte _channelCVolume;
+
+    private EnvelopeGenerator _envelopeGenerator = new();
 
     public void GetChannelSignals(float[] buffer, bool channelAValue, bool channelBValue, bool channelCValue)
     {
