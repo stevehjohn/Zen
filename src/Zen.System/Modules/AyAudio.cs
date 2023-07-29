@@ -13,6 +13,8 @@ public class AyAudio : IDisposable
 
     private readonly ToneGenerator _toneC = new();
 
+    private readonly NoiseGenerator _noiseGenerator = new();
+
     private readonly MixerDac _mixerDac = new();
 
     private Task? _audioThread;
@@ -111,9 +113,7 @@ public class AyAudio : IDisposable
                 break;
 
             case 6:
-                //_channels[0].NoisePeriod = (byte) (value & 0x1F);
-                //_channels[1].NoisePeriod = (byte) (value & 0x1F);
-                //_channels[2].NoisePeriod = (byte) (value & 0x1F);
+                _noiseGenerator.Period = value;
 
                 _registerValues[_registerNumber] = (byte) (value & 0x1F);
                 
@@ -124,9 +124,9 @@ public class AyAudio : IDisposable
                 _mixerDac.ToneBOn = (value & 0b0000_0010) == 0;
                 _mixerDac.ToneCOn = (value & 0b0000_0100) == 0;
 
-                //_channels[0].NoiseOn = (value & 0b0000_1000) == 0;
-                //_channels[1].NoiseOn = (value & 0b0001_0000) == 0;
-                //_channels[2].NoiseOn = (value & 0b0010_0000) == 0;
+                _mixerDac.NoiseAOn = (value & 0b0000_1000) == 0;
+                _mixerDac.NoiseBOn = (value & 0b0001_0000) == 0;
+                _mixerDac.NoiseCOn = (value & 0b0010_0000) == 0;
 
                 break;
 
