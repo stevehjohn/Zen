@@ -17,6 +17,7 @@ public class MixerDac
         set => _channelCVolume = (byte) (value & 0x0F);
     }
 
+    // ReSharper disable once ConvertToAutoProperty
     public EnvelopeGenerator EnvelopeGenerator => _envelopeGenerator;
 
     public bool ChannelAEnvelopeOn { get; set; }
@@ -37,7 +38,7 @@ public class MixerDac
 
     private byte _channelCVolume;
 
-    private EnvelopeGenerator _envelopeGenerator = new();
+    private readonly EnvelopeGenerator _envelopeGenerator = new();
 
     public void GetChannelSignals(float[] buffer, bool channelAValue, bool channelBValue, bool channelCValue)
     {
@@ -45,9 +46,11 @@ public class MixerDac
         channelBValue |= ! ToneBOn;
         channelCValue |= ! ToneCOn;
 
-        buffer[0] = NormaliseVolume(_channelAVolume) * (channelAValue ? Constants.ChannelAmplitude : 0);
-        buffer[1] = NormaliseVolume(_channelBVolume) * (channelBValue ? Constants.ChannelAmplitude : 0);
-        buffer[2] = NormaliseVolume(_channelCVolume) * (channelCValue ? Constants.ChannelAmplitude : 0);
+        var envelopeVolume = EnvelopeGenerator.GetNextValue();
+
+        buffer[0] = NormaliseVolume(ChannelAEnvelopeOn ? envelopeVolume : _channelAVolume) * (channelAValue ? Constants.ChannelAmplitude : 0);
+        buffer[1] = NormaliseVolume(ChannelBEnvelopeOn ? envelopeVolume : _channelBVolume) * (channelBValue ? Constants.ChannelAmplitude : 0);
+        buffer[2] = NormaliseVolume(ChannelCEnvelopeOn ? envelopeVolume : _channelCVolume) * (channelCValue ? Constants.ChannelAmplitude : 0);
     }
 
     private static float NormaliseVolume(byte volume)

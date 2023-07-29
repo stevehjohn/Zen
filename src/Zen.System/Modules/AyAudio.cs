@@ -186,9 +186,9 @@ public class AyAudio : IDisposable
                 break;
 
             case 13:
-                //_channels[0].Envelope = (byte) (value & 0x0F);
-                //_channels[1].Envelope = (byte) (value & 0x0F);
-                //_channels[2].Envelope = (byte) (value & 0x0F);
+                _mixerDac.EnvelopeGenerator.Properties = value;
+
+                _registerValues[_registerNumber] = (byte) (value & 0x0F);
                 
                 break;
         }

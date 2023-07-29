@@ -2,6 +2,8 @@
 
 public class EnvelopeGenerator
 {
+    private const byte MaxGain = 15;
+
     public byte FinePeriod 
     {
         set
@@ -22,9 +24,68 @@ public class EnvelopeGenerator
         }
     }
 
+    public byte Properties 
+    {
+        set 
+        { 
+            _continue = (value & 0b1000) > 0;
+
+            _attack = (value & 0b0100) > 0;
+
+            _alternate = (value & 0b0010) > 0;
+
+            _hold = (value & 0b0001) > 0;
+
+            _gain = _attack ? (byte) 0 : MaxGain;
+
+            _direction = _attack ? 1 : -1;
+        }
+    }
+
     private int _period;
+
+    private bool _continue;
+
+    private bool _attack;
+
+    private bool _alternate;
+
+    private bool _hold;
+
+    private int _gain;
+
+    private int _direction;
+
+    private int _position;
+
+    private int _stepChange;
+
+    public byte GetNextValue()
+    {
+        var result = _gain;
+
+        _position++;
+
+        if (_position > _stepChange)
+        {
+            _gain += _direction;
+
+            _position = 0;
+
+            if (_gain < 0 || _gain > MaxGain)
+            {
+            }
+        }
+
+        return (byte) result;
+    }
 
     private void RecalculateParameters()
     {
+        _position = 0;
+
+        var period = 256 * _period / Constants.AyFrequency; // Period in seconds.
+
+        _stepChange = period * Constants.SampleRate / MaxGain;
     }
 }
