@@ -115,6 +115,10 @@ public class Channel
     private float _gainDirection;
 
     private float _gainStep;
+    
+    private float _lastValue;
+
+    private float _delta;
 
     public Channel()
     {
@@ -136,6 +140,8 @@ public class Channel
         {
             signal += _noiseGenerator.GetNextSignal();
         }
+
+        signal = SquareWave(signal);
 
         if (EnvelopeOn)
         {
@@ -259,5 +265,46 @@ public class Channel
 
                 break;
         }
+    }
+
+    private float SquareWave(float sineValue)
+    {
+        if (sineValue > 0)
+        {
+            if (_lastValue <= 0)
+            {
+                _lastValue = 1;
+
+                _delta = 0.05f;
+            }
+            else
+            {
+                _lastValue -= _delta;
+
+                _delta /= 1.2f;
+            }
+
+            return _lastValue;
+        }
+
+        if (sineValue < 0)
+        {
+            if (_lastValue >= 0)
+            {
+                _lastValue = -1;
+
+                _delta = 0.05f;
+            }
+            else
+            {
+                _lastValue += _delta;
+
+                _delta /= 1.2f;
+            }
+
+            return _lastValue;
+        }
+
+        return 0;
     }
 }
