@@ -226,7 +226,7 @@ public class AyAudio : IDisposable
                 }
                 else
                 {
-                    _mixerDac.GetChannelSignals(signals, _toneA.GetNextSignal(), _toneB.GetNextSignal(), _toneC.GetNextSignal());
+                    _mixerDac.GetChannelSignals(signals, _toneA.GetNextSignal(), _toneB.GetNextSignal(), _toneC.GetNextSignal(), _noiseGenerator.GetNextSignal());
                 }
 
                 SignalHook?.Invoke(signals);
