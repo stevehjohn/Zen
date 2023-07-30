@@ -41,7 +41,7 @@ public class ToneGenerator
 
         _position += _increment;
 
-        if (_position > 0.5)
+        if (_position >= 0.5)
         {
             _position -= 0.5f;
 
