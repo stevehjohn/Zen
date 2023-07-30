@@ -46,9 +46,9 @@ public class EnvelopeGenerator
 
     private int _direction;
 
-    private int _position;
+    private float _position;
 
-    private int _stepChange;
+    private float _stepChange;
 
     public byte GetNextValue()
     {
@@ -75,7 +75,7 @@ public class EnvelopeGenerator
     {
         _position = 0;
 
-        var period = 256 * _period / Constants.AyFrequency;
+        var period = 256f * _period / Constants.AyFrequency;
 
         _stepChange = period * Constants.SampleRate / MaxGain;
     }
