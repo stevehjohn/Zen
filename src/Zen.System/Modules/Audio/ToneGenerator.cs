@@ -32,6 +32,13 @@ public class ToneGenerator
 
     public bool GetNextSignal()
     {
+        if (float.IsInfinity(_increment))
+        {
+            _value = ! _value;
+
+            return _value;
+        }
+
         _position += _increment;
 
         if (_position > 0.5)
@@ -49,10 +56,5 @@ public class ToneGenerator
         var frequency = Constants.AyFrequency / (16f * _period);
 
         _increment = frequency / Constants.SampleRate;
-
-        if (float.IsInfinity(_increment) || float.IsNaN(_increment))
-        {
-            _increment = 0;
-        }
     }
 }
