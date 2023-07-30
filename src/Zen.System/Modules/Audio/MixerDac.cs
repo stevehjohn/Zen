@@ -58,9 +58,9 @@ public class MixerDac
 
         var envelopeVolume = EnvelopeGenerator.GetNextValue();
 
-        buffer[0] = NormaliseVolume(ChannelAEnvelopeOn ? envelopeVolume : _channelAVolume) * (channelAValue ? Constants.ChannelAmplitude : 0);
-        buffer[1] = NormaliseVolume(ChannelBEnvelopeOn ? envelopeVolume : _channelBVolume) * (channelBValue ? Constants.ChannelAmplitude : 0);
-        buffer[2] = NormaliseVolume(ChannelCEnvelopeOn ? envelopeVolume : _channelCVolume) * (channelCValue ? Constants.ChannelAmplitude : 0);
+        buffer[0] = NormaliseVolume((byte) ((channelAValue ? 1 : 0) * (ChannelAEnvelopeOn ? envelopeVolume : _channelAVolume))) * Constants.ChannelAmplitude;
+        buffer[1] = NormaliseVolume((byte) ((channelBValue ? 1 : 0) * (ChannelBEnvelopeOn ? envelopeVolume : _channelBVolume))) * Constants.ChannelAmplitude;
+        buffer[2] = NormaliseVolume((byte) ((channelCValue ? 1 : 0) * (ChannelCEnvelopeOn ? envelopeVolume : _channelCVolume))) * Constants.ChannelAmplitude;
     }
 
     private static float NormaliseVolume(byte volume)
