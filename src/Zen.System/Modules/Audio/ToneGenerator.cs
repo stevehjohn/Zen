@@ -36,7 +36,7 @@ public class ToneGenerator
 
         if (_position > 0.5)
         {
-            _position = 0;
+            _position -= 0.5f;
 
             _value = ! _value;
         }
@@ -49,5 +49,10 @@ public class ToneGenerator
         var frequency = Constants.AyFrequency / (16f * _period);
 
         _increment = frequency / Constants.SampleRate;
+
+        if (float.IsInfinity(_increment) || float.IsNaN(_increment))
+        {
+            _increment = 0;
+        }
     }
 }
