@@ -16,7 +16,7 @@ public class ToneGenerator
     {
         set
         {
-            _period = (_period & 0x00FF) | (value << 8);
+            _period = (_period & 0x00FF) | ((value & 0x0F) << 8);
 
             RecalculateParameters();
         }
@@ -46,13 +46,13 @@ public class ToneGenerator
 
     private void RecalculateParameters()
     {
-        var frequency = Constants.AyFrequency / (16f * _period);
-
-        _increment = frequency / Constants.SampleRate;
-
-        if (float.IsInfinity(_increment) || float.IsNaN(_increment))
+        if (_period == 0)
         {
             _increment = 0;
         }
+
+        var frequency = Constants.AyFrequency / (16f * _period);
+
+        _increment = frequency / Constants.SampleRate;
     }
 }

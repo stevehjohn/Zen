@@ -5,7 +5,14 @@ public class NoiseGenerator
     public byte Period
     {
         set 
-        { 
+        {
+            if (value == 0)
+            {
+                _increment = 0;
+
+                return;
+            }
+
             var frequency = Constants.AyFrequency / (16f * (value & 0b0001_1111));
 
             _increment = frequency / Constants.SampleRate;
@@ -22,9 +29,9 @@ public class NoiseGenerator
     {
          _position += _increment;
 
-        if (_position > 0.5)
+        if (_position > 1)
         {
-            _position = 0;
+            _position -= 1f;
 
             _value = Lfsr.GetNextValue();
         }
