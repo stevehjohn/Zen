@@ -116,7 +116,7 @@ public class WaveVisualiser
 
         var height = Constants.ScreenHeightPixels * _scaleFactor / 4;
 
-        var mid = height * width * channel + height * width / 2;
+        var axis = channel == 3 ? height * width * channel + height * width / 2 : height * width * (channel + 1) - width;
 
         var buffer = _buffers[channel];
 
@@ -130,11 +130,11 @@ public class WaveVisualiser
         {
             var dataPoint = buffer[(int) (x * ((float) length / width))];
 
-            var offset = -(int) (dataPoint * height);
+            var offset = -(int) (dataPoint * height * (channel == 3 ? 1 : 2));
 
-            _data[mid + x + offset * width - width] = color;
-            _data[mid + x + offset * width] = color;
-            _data[mid + x + offset * width + width] = color;
+            _data[axis + x + offset * width - width] = color;
+            _data[axis + x + offset * width] = color;
+            _data[axis + x + offset * width + width] = color;
 
             if (x > 0 && offset != lastOffset)
             {
@@ -142,11 +142,11 @@ public class WaveVisualiser
 
                 for (var y = lastOffset; y != offset; y += direction)
                 {
-                    _data[mid + x + y * width - width] = color;
-                    _data[mid + x + y * width - 1] = color;
-                    _data[mid + x + y * width] = color;
-                    _data[mid + x + y * width + 1] = color;
-                    _data[mid + x + y * width + width] = color;
+                    _data[axis + x + y * width - width] = color;
+                    _data[axis + x + y * width - 1] = color;
+                    _data[axis + x + y * width] = color;
+                    _data[axis + x + y * width + 1] = color;
+                    _data[axis + x + y * width + width] = color;
                 }
             }
 
