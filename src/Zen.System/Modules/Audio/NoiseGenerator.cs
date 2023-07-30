@@ -24,7 +24,7 @@ public class NoiseGenerator
 
         if (_position > 0.5)
         {
-            _position = 0;
+            _position -= 0.5f;
 
             _value = Lfsr.GetNextValue();
         }
