@@ -48,13 +48,9 @@ public class MixerDac
 
     public void GetChannelSignals(float[] buffer, bool channelAValue, bool channelBValue, bool channelCValue, bool noiseValue)
     {
-        channelAValue |= ! ToneAOn;
-        channelBValue |= ! ToneBOn;
-        channelCValue |= ! ToneCOn;
-
-        channelAValue &= ! NoiseAOn | noiseValue;
-        channelBValue &= ! NoiseBOn | noiseValue;
-        channelCValue &= ! NoiseCOn | noiseValue;
+        channelAValue = (channelAValue | ! ToneAOn) & (noiseValue | ! NoiseAOn);
+        channelBValue = (channelBValue | ! ToneBOn) & (noiseValue | ! NoiseBOn);
+        channelCValue = (channelCValue | ! ToneCOn) & (noiseValue | ! NoiseCOn);
 
         var envelopeVolume = EnvelopeGenerator.GetNextValue();
 
