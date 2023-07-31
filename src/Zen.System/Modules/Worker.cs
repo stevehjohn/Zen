@@ -92,13 +92,8 @@ public class Worker : IDisposable
 
     private void TimerWorker()
     {
-        while (true)
+        while (! _cancellationToken.IsCancellationRequested)
         {
-            if (_cancellationToken.IsCancellationRequested)
-            {
-                break;
-            }
-
             if (! _paused)
             {
                 var frameCycles = 0;
