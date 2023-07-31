@@ -2,7 +2,7 @@
 
 public class Constants
 {
-    public const int SampleRate = 44_100;
+    public const int SampleRate = 48_000;
 
     public const int BufferSize = SampleRate / Common.Constants.SpectrumFramesPerSecond;
 
