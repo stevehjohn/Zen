@@ -33,7 +33,9 @@ public class AyAudio : IDisposable
 
     private readonly ManualResetEvent _resetEvent = new(false);
 
-    private ManualResetEvent? _workeResetEvent;
+    private readonly Queue<(int Frame, byte Port, byte Value)> _commandQueue = new();
+
+    private ManualResetEvent? _workerResetEvent;
 
     public bool Silent { get; set; }
 
@@ -53,7 +55,7 @@ public class AyAudio : IDisposable
         }
 
         _engine = new PortAudioEngine(new AudioEngineOptions(1, Constants.SampleRate));
-        
+
         _cancellationTokenSource = new CancellationTokenSource();
 
         _cancellationToken = _cancellationTokenSource.Token;
@@ -66,12 +68,42 @@ public class AyAudio : IDisposable
 
     public void FrameReady(ManualResetEvent resetEvent)
     {
-        _workeResetEvent = resetEvent;
+        _workerResetEvent = resetEvent;
 
         _resetEvent.Set();
     }
 
-    public void SelectRegister(byte registerNumber)
+    public void SelectRegister(int cycle, byte registerNumber)
+    {
+        _commandQueue.Enqueue((cycle, 0xC0, registerNumber));
+    }
+
+    public void SetRegister(int cycle, byte value)
+    {
+        _registerValues[_registerNumber] = value;
+
+        switch (_registerNumber)
+        {
+            case 1:
+            case 3:
+            case 5:
+            case 13:
+                _registerValues[_registerNumber] = (byte) (value & 0x0F);
+
+                break;
+
+            case 8:
+            case 9:
+            case 10:
+                _registerValues[_registerNumber] = (byte) (value & 0x1F);
+
+                break;
+        }
+
+        _commandQueue.Enqueue((cycle, 0x80, value));
+    }
+
+    public void SelectRegisterInternal(byte registerNumber)
     {
         _registerNumber = registerNumber;
     }
@@ -81,7 +113,7 @@ public class AyAudio : IDisposable
         return _registerValues[_registerNumber];
     }
 
-    public void SetRegister(byte value)
+    public void SetRegisterInternal(byte value)
     {
         _registerValues[_registerNumber] = value;
 
@@ -127,7 +159,7 @@ public class AyAudio : IDisposable
                 _noiseGenerator.Period = value;
 
                 _registerValues[_registerNumber] = (byte) (value & 0x1F);
-                
+
                 break;
 
             case 7:
@@ -188,29 +220,29 @@ public class AyAudio : IDisposable
 
             case 11:
                 _mixerDac.EnvelopeGenerator.FinePeriod = value;
-                
+
                 break;
 
             case 12:
                 _mixerDac.EnvelopeGenerator.CoarsePeriod = value;
-                
+
                 break;
 
             case 13:
                 _mixerDac.EnvelopeGenerator.Properties = value;
 
                 _registerValues[_registerNumber] = (byte) (value & 0x0F);
-                
+
                 break;
         }
     }
-    
+
     public void Dispose()
     {
         if (_audioThread == null)
         {
             _cancellationTokenSource.Dispose();
-            
+
             return;
         }
 
@@ -257,7 +289,7 @@ public class AyAudio : IDisposable
 
             _engine.Send(_buffer);
 
-            _workeResetEvent?.Set();
+            _workerResetEvent?.Set();
 
             Counters.Instance.IncrementCounter(Counter.AyFrames);
         }

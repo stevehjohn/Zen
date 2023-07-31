@@ -40,6 +40,8 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
 
     private bool _sound;
 
+    private int _currentFrameCycle;
+
     // ReSharper disable once InconsistentNaming
     public byte Last7FFD { get; set; }
 
@@ -190,8 +192,10 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
         // TODO.
     }
 
-    private byte[] OnTick()
+    private byte[] OnTick(int frameCycle)
     {
+        _currentFrameCycle = frameCycle;
+
         _core.ExecuteCycle();
 
         return _state.LastMCycles;
@@ -208,12 +212,12 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
 
         if ((port & 0xC002) == 0xC000)
         {
-            _ayAudio.SelectRegister(data);
+            _ayAudio.SelectRegister(_currentFrameCycle, data);
         }
 
         if ((port & 0x8002) == 0x8000)
         {
-            _ayAudio.SetRegister(data);
+            _ayAudio.SetRegister(_currentFrameCycle, data);
         }
 
         if (_pagingDisabled)
