@@ -75,8 +75,6 @@ public class EnvelopeGenerator
 
     private void RecalculateParameters()
     {
-        _position = 0;
-
         var period = 256f * (_period == 0 ? 1 : _period) / Constants.AyFrequency;
 
         _stepChange = period * Constants.SampleRate / MaxGain;
