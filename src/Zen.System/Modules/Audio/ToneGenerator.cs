@@ -34,7 +34,7 @@ public class ToneGenerator
     {
         if (float.IsInfinity(_increment))
         {
-            _value = ! _value;
+            _value = true;
 
             return _value;
         }
