@@ -74,7 +74,7 @@ public class Worker : IDisposable
         if (_workerThread == null)
         {
             _cancellationTokenSource.Dispose();
-            
+
             return;
         }
 
