@@ -41,6 +41,11 @@ public class LdBytesHook : IProcessorHook
     {
         while (state[RegisterPair.DE] > 0)
         {
+            if (_position >= _data.Length)
+            {
+                return true;
+            }
+
             @interface.WriteToMemory(state[RegisterPair.IX], _data[_position]);
 
             state[RegisterPair.IX]++;
