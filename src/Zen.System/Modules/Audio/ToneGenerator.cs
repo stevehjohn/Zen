@@ -53,7 +53,7 @@ public class ToneGenerator
 
     private void RecalculateParameters()
     {
-        var frequency = Constants.AyFrequency / (16f * (_period == 0 ? 1 : _period));
+        var frequency = Constants.AyFrequency / (16f * _period);
 
         _increment = frequency / Constants.SampleRate;
     }
