@@ -258,7 +258,7 @@ public class AyAudio : IDisposable
     {
         var signals = new float[3];
 
-        var bufferStep = (float) Common.Constants.FrameCycles / Constants.BufferSize;
+        var bufferStep = (float) Common.Constants.FrameCycles / (Constants.BufferSize - 1);
 
         while (! _cancellationToken.IsCancellationRequested)
         {
@@ -279,6 +279,10 @@ public class AyAudio : IDisposable
                     else
                     {
                         var currentFrame = (int) Math.Ceiling(i * bufferStep);
+
+                        if (i == Constants.BufferSize - 1)
+                        {
+                        }
 
                         while (_commandQueue.Count > 0 && _commandQueue.TryPeek(out var command))
                         {
@@ -312,6 +316,8 @@ public class AyAudio : IDisposable
 
                     _buffer[i] = signal;
                 }
+
+                _commandQueue.Clear();
 
                 _engine.Send(_buffer);
 
