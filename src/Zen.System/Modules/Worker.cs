@@ -8,7 +8,7 @@ namespace Zen.System.Modules;
 
 public class Worker : IDisposable
 {
-    public required Func<byte[]> OnTick { get; init; }
+    public required Func<int, byte[]> OnTick { get; init; }
 
     private readonly CancellationTokenSource _cancellationTokenSource;
 
@@ -114,7 +114,7 @@ public class Worker : IDisposable
 
                     ClearFrameRamBuffer();
 
-                    var cycles = OnTick();
+                    var cycles = OnTick(frameCycles);
 
                     for (var i = 0; i < 7; i++)
                     {
