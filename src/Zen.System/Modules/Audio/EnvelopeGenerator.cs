@@ -77,7 +77,7 @@ public class EnvelopeGenerator
     {
         _position = 0;
 
-        var period = 256f * _period / Constants.AyFrequency;
+        var period = 256f * (_period == 0 ? 1 : _period) / Constants.AyFrequency;
 
         _stepChange = period * Constants.SampleRate / MaxGain;
     }

@@ -4,9 +4,16 @@ public class NoiseGenerator
 {
     public byte Period
     {
-        set 
+        set
         {
-            var frequency = Constants.AyFrequency / (16f * (value & 0b0001_1111));
+            var frequency = Constants.AyFrequency / 16f;
+
+            value = (byte) (value & 0b0001_1111);
+
+            if (value != 0)
+            {
+                frequency *= value;
+            }
 
             _increment = frequency / Constants.SampleRate;
         }
@@ -39,5 +46,5 @@ public class NoiseGenerator
         }
 
         return _value;
-   }
+    }
 }
