@@ -8,7 +8,7 @@ namespace Zen.System.Modules;
 
 public class Worker : IDisposable
 {
-    public required Func<byte[]> OnTick { get; init; }
+    public required Func<int, byte[]> OnTick { get; init; }
 
     private readonly CancellationTokenSource _cancellationTokenSource;
 
@@ -18,23 +18,29 @@ public class Worker : IDisposable
 
     private readonly VideoModulator _videoAdapter;
 
+    private readonly AyAudio _ayAudio;
+
     private readonly Beeper _beeper;
 
     private readonly int _frameSleep;
 
-    private bool _paused;
-
     private readonly (int Address, byte Data)[] _vramChanges = new (int, byte)[2];
+
+    private readonly ManualResetEvent _resetEvent = new(true);
+
+    private bool _paused;
 
     private Task? _workerThread;
 
     public bool Fast { get; set; }
 
-    public Worker(Interface @interface, VideoModulator videoAdapter, Beeper beeper, int framesPerSecond)
+    public Worker(Interface @interface, VideoModulator videoAdapter, AyAudio ayAudio, Beeper beeper, int framesPerSecond)
     {
         _interface = @interface;
 
         _videoAdapter = videoAdapter;
+
+        _ayAudio = ayAudio;
 
         _beeper = beeper;
 
@@ -68,7 +74,7 @@ public class Worker : IDisposable
         if (_workerThread == null)
         {
             _cancellationTokenSource.Dispose();
-            
+
             return;
         }
 
@@ -94,55 +100,70 @@ public class Worker : IDisposable
     {
         while (! _cancellationToken.IsCancellationRequested)
         {
-            if (! _paused)
+            try
             {
-                var frameCycles = 0;
-
-                var sampleCycle = 0;
-
-                _videoAdapter.StartFrame();
-
-                while (frameCycles < Constants.FrameCycles)
+                if (! _paused)
                 {
-                    _interface.INT = frameCycles is >= Constants.InterruptStart and < Constants.InterruptEnd;
+                    var frameCycles = 0;
 
-                    ClearFrameRamBuffer();
+                    var sampleCycle = 0;
 
-                    var cycles = OnTick();
+                    _videoAdapter.StartFrame();
 
-                    for (var i = 0; i < 7; i++)
+                    while (frameCycles < Constants.FrameCycles)
                     {
-                        if (i > 0 && cycles[i] == 0)
+                        _interface.INT = frameCycles is >= Constants.InterruptStart and < Constants.InterruptEnd;
+
+                        ClearFrameRamBuffer();
+
+                        var cycles = OnTick(frameCycles);
+
+                        for (var i = 0; i < 7; i++)
                         {
-                            break;
-                        }
+                            if (i > 0 && cycles[i] == 0)
+                            {
+                                break;
+                            }
 
-                        sampleCycle += cycles[i];
+                            //sampleCycle += cycles[i];
 
-                        if (sampleCycle > Beeper.BeeperTStateSampleRate && ! Fast)
-                        {
-                            sampleCycle -= Beeper.BeeperTStateSampleRate;
+                            //if (sampleCycle > Beeper.BeeperTStateSampleRate && ! Fast)
+                            //{
+                            //    sampleCycle -= Beeper.BeeperTStateSampleRate;
 
-                            _beeper.Sample();
-                        }
+                            //    _beeper.Sample();
+                            //}
 
-                        frameCycles += cycles[i];
+                            frameCycles += cycles[i];
 
-                        frameCycles += ApplyFrameRamChanges(i, frameCycles, cycles);
+                            frameCycles += ApplyFrameRamChanges(i, frameCycles, cycles);
 
-                        if (cycles[i] > 0)
-                        {
-                            _videoAdapter.CycleComplete(frameCycles);
+                            if (cycles[i] > 0)
+                            {
+                                _videoAdapter.CycleComplete(frameCycles);
+                            }
                         }
                     }
+
+                    _resetEvent.WaitOne();
+
+                    _ayAudio.FrameReady(_resetEvent);
+
+                    _resetEvent.Reset();
+
+                    Counters.Instance.IncrementCounter(Counter.SpectrumFrames);
                 }
 
-                Counters.Instance.IncrementCounter(Counter.SpectrumFrames);
+                if (! Fast && _beeper.Silent)
+                {
+                    Thread.Sleep(_frameSleep);
+                }
             }
-
-            if (! Fast && _beeper.Silent)
+            catch (Exception exception)
             {
-                Thread.Sleep(_frameSleep);
+                File.AppendAllText("log.txt", exception.ToString());
+
+                throw;
             }
         }
         // ReSharper disable once FunctionNeverReturns
