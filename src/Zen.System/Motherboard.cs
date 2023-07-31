@@ -102,17 +102,17 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
         _videoModulator = new VideoModulator(_ram);
 
         _beeper = new Beeper();
-
-        _worker = new(_interface, _videoModulator, _beeper, Constants.FramesPerSecond)
-                  {
-                      OnTick = OnTick
-                  };
-
+        
         _ayAudio = new AyAudio();
 
         _ayAudio.Start();
 
         _ayAudio.Silent = model == Model.Spectrum48K;
+
+        _worker = new(_interface, _videoModulator, _ayAudio, _beeper, Constants.FramesPerSecond)
+                  {
+                      OnTick = OnTick
+                  };
     }
 
     public void AddPeripheral(IPeripheral peripheral)
