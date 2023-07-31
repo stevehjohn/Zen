@@ -125,14 +125,14 @@ public class Worker : IDisposable
                                 break;
                             }
 
-                            //sampleCycle += cycles[i];
+                            sampleCycle += cycles[i];
 
-                            //if (sampleCycle > Beeper.BeeperTStateSampleRate && ! Fast)
-                            //{
-                            //    sampleCycle -= Beeper.BeeperTStateSampleRate;
+                            if (sampleCycle > Beeper.BeeperTStateSampleRate && !Fast)
+                            {
+                                sampleCycle -= Beeper.BeeperTStateSampleRate;
 
-                            //    _beeper.Sample();
-                            //}
+                                _beeper.Sample();
+                            }
 
                             frameCycles += cycles[i];
 
