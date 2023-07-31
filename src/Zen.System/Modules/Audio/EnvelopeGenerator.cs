@@ -28,13 +28,15 @@ public class EnvelopeGenerator
     {
         set
         {
-            _properties = value;
+            _properties = (byte) (value & 0x0F);
 
             var attack = (value & 0b0100) > 0;
 
             _gain = attack ? 0 : MaxGain;
 
             _direction = attack ? 1 : -1;
+
+            _position = 0;
         }
     }
 
