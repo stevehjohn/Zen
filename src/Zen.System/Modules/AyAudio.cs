@@ -280,10 +280,6 @@ public class AyAudio : IDisposable
                     {
                         var currentFrame = (int) Math.Ceiling(i * bufferStep);
 
-                        if (i == Constants.BufferSize - 1)
-                        {
-                        }
-
                         while (_commandQueue.Count > 0 && _commandQueue.TryPeek(out var command))
                         {
                             if (command.Frame > currentFrame)
