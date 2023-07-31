@@ -31,6 +31,10 @@ public class AyAudio : IDisposable
 
     private readonly byte[] _registerValues = new byte[256];
 
+    private readonly ManualResetEvent _resetEvent = new(false);
+
+    private ManualResetEvent? _workeResetEvent;
+
     public bool Silent { get; set; }
 
     public Action<float[]>? SignalHook { get; set; }
@@ -58,6 +62,13 @@ public class AyAudio : IDisposable
     public void Start()
     {
         _audioThread = Task.Run(RunFrame, _cancellationToken);
+    }
+
+    public void FrameReady(ManualResetEvent resetEvent)
+    {
+        _workeResetEvent = resetEvent;
+
+        _resetEvent.Set();
     }
 
     public void SelectRegister(byte registerNumber)
@@ -216,6 +227,10 @@ public class AyAudio : IDisposable
 
         while (! _cancellationToken.IsCancellationRequested)
         {
+            _resetEvent.WaitOne();
+
+            _resetEvent.Reset();
+
             for (var i = 0; i < Constants.BufferSize; i++)
             {
                 if (Silent)
@@ -241,6 +256,8 @@ public class AyAudio : IDisposable
             }
 
             _engine.Send(_buffer);
+
+            _workeResetEvent?.Set();
 
             Counters.Instance.IncrementCounter(Counter.AyFrames);
         }

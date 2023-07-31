@@ -18,23 +18,29 @@ public class Worker : IDisposable
 
     private readonly VideoModulator _videoAdapter;
 
+    private readonly AyAudio _ayAudio;
+
     private readonly Beeper _beeper;
 
     private readonly int _frameSleep;
 
-    private bool _paused;
-
     private readonly (int Address, byte Data)[] _vramChanges = new (int, byte)[2];
+
+    private readonly ManualResetEvent _resetEvent = new(true);
+
+    private bool _paused;
 
     private Task? _workerThread;
 
     public bool Fast { get; set; }
 
-    public Worker(Interface @interface, VideoModulator videoAdapter, Beeper beeper, int framesPerSecond)
+    public Worker(Interface @interface, VideoModulator videoAdapter, AyAudio ayAudio, Beeper beeper, int framesPerSecond)
     {
         _interface = @interface;
 
         _videoAdapter = videoAdapter;
+
+        _ayAudio = ayAudio;
 
         _beeper = beeper;
 
@@ -136,6 +142,12 @@ public class Worker : IDisposable
                         }
                     }
                 }
+
+                _resetEvent.WaitOne();
+
+                _ayAudio.FrameReady(_resetEvent);
+
+                _resetEvent.Reset();
 
                 Counters.Instance.IncrementCounter(Counter.SpectrumFrames);
             }
