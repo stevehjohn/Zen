@@ -116,8 +116,6 @@ public class AyAudio : IDisposable
 
     public void SetRegisterInternal(byte value)
     {
-        _registerValues[_registerNumber] = value;
-
         switch (_registerNumber)
         {
             case 0:
@@ -127,8 +125,6 @@ public class AyAudio : IDisposable
 
             case 1:
                 _toneA.CoarsePeriod = value;
-
-                _registerValues[_registerNumber] = (byte) (value & 0x0F);
 
                 break;
 
@@ -140,8 +136,6 @@ public class AyAudio : IDisposable
             case 3:
                 _toneB.CoarsePeriod = value;
 
-                _registerValues[_registerNumber] = (byte) (value & 0x0F);
-
                 break;
 
             case 4:
@@ -152,14 +146,10 @@ public class AyAudio : IDisposable
             case 5:
                 _toneC.CoarsePeriod = value;
 
-                _registerValues[_registerNumber] = (byte) (value & 0x0F);
-
                 break;
 
             case 6:
                 _noiseGenerator.Period = value;
-
-                _registerValues[_registerNumber] = (byte) (value & 0x1F);
 
                 break;
 
@@ -185,8 +175,6 @@ public class AyAudio : IDisposable
                     _mixerDac.ChannelAVolume = value;
                 }
 
-                _registerValues[_registerNumber] = (byte) (value & 0x1F);
-
                 break;
 
             case 9:
@@ -200,8 +188,6 @@ public class AyAudio : IDisposable
                     _mixerDac.ChannelBVolume = value;
                 }
 
-                _registerValues[_registerNumber] = (byte) (value & 0x1F);
-
                 break;
 
             case 10:
@@ -214,8 +200,6 @@ public class AyAudio : IDisposable
                     _mixerDac.ChannelCEnvelopeOn = false;
                     _mixerDac.ChannelCVolume = value;
                 }
-
-                _registerValues[_registerNumber] = (byte) (value & 0x1F);
 
                 break;
 
@@ -231,8 +215,6 @@ public class AyAudio : IDisposable
 
             case 13:
                 _mixerDac.EnvelopeGenerator.Properties = value;
-
-                _registerValues[_registerNumber] = (byte) (value & 0x0F);
 
                 break;
         }
