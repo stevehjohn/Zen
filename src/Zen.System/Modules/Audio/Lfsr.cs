@@ -5,9 +5,7 @@ public static class Lfsr
 {
     private static uint _seed = 1;
 
-    public static byte Value { get; private set; }
-
-    public static void GenerateNextValue()
+    public static bool GetNextValue()
     {
         if ((_seed & 1) > 0)
         {
@@ -16,6 +14,6 @@ public static class Lfsr
 
         _seed >>= 1;
 
-        Value = (byte) (_seed & 0x01);
+        return (_seed & 0x01) > 0;
     }
 }

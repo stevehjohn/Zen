@@ -40,6 +40,9 @@ public static class Constants
     /* Host */
     public const int FramesPerSecond = 60;
 
+    /* Spectrum */
+    public const int SpectrumFramesPerSecond = 50;
+
     /* Wave Visualiser */
     public const int WavePanelWidth = 200;
 
