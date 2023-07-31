@@ -257,6 +257,8 @@ public class AyAudio : IDisposable
     {
         var signals = new float[3];
 
+        var bufferStep = (float) Common.Constants.FrameCycles / Constants.BufferSize;
+
         while (! _cancellationToken.IsCancellationRequested)
         {
             _resetEvent.WaitOne();
@@ -273,6 +275,22 @@ public class AyAudio : IDisposable
                 }
                 else
                 {
+                    var currentFrame = (int) Math.Ceiling(i * bufferStep);
+
+                    while (_commandQueue.Count > 0 && _commandQueue.Peek().Frame <= currentFrame)
+                    {
+                        var command = _commandQueue.Dequeue();
+
+                        if (command.Port == 0xC0)
+                        {
+                            SelectRegisterInternal(command.Value);
+                        }
+                        else
+                        {
+                            SetRegisterInternal(command.Value);
+                        }
+                    }
+
                     _mixerDac.GetChannelSignals(signals, _toneA.GetNextSignal(), _toneB.GetNextSignal(), _toneC.GetNextSignal(), _noiseGenerator.GetNextSignal());
                 }
 
