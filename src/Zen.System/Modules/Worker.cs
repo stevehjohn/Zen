@@ -100,61 +100,70 @@ public class Worker : IDisposable
     {
         while (! _cancellationToken.IsCancellationRequested)
         {
-            if (! _paused)
+            try
             {
-                var frameCycles = 0;
-
-                var sampleCycle = 0;
-
-                _videoAdapter.StartFrame();
-
-                while (frameCycles < Constants.FrameCycles)
+                if (! _paused)
                 {
-                    _interface.INT = frameCycles is >= Constants.InterruptStart and < Constants.InterruptEnd;
+                    var frameCycles = 0;
 
-                    ClearFrameRamBuffer();
+                    var sampleCycle = 0;
 
-                    var cycles = OnTick(frameCycles);
+                    _videoAdapter.StartFrame();
 
-                    for (var i = 0; i < 7; i++)
+                    while (frameCycles < Constants.FrameCycles)
                     {
-                        if (i > 0 && cycles[i] == 0)
+                        _interface.INT = frameCycles is >= Constants.InterruptStart and < Constants.InterruptEnd;
+
+                        ClearFrameRamBuffer();
+
+                        var cycles = OnTick(frameCycles);
+
+                        for (var i = 0; i < 7; i++)
                         {
-                            break;
-                        }
+                            if (i > 0 && cycles[i] == 0)
+                            {
+                                break;
+                            }
 
-                        //sampleCycle += cycles[i];
+                            //sampleCycle += cycles[i];
 
-                        //if (sampleCycle > Beeper.BeeperTStateSampleRate && ! Fast)
-                        //{
-                        //    sampleCycle -= Beeper.BeeperTStateSampleRate;
+                            //if (sampleCycle > Beeper.BeeperTStateSampleRate && ! Fast)
+                            //{
+                            //    sampleCycle -= Beeper.BeeperTStateSampleRate;
 
-                        //    _beeper.Sample();
-                        //}
+                            //    _beeper.Sample();
+                            //}
 
-                        frameCycles += cycles[i];
+                            frameCycles += cycles[i];
 
-                        frameCycles += ApplyFrameRamChanges(i, frameCycles, cycles);
+                            frameCycles += ApplyFrameRamChanges(i, frameCycles, cycles);
 
-                        if (cycles[i] > 0)
-                        {
-                            _videoAdapter.CycleComplete(frameCycles);
+                            if (cycles[i] > 0)
+                            {
+                                _videoAdapter.CycleComplete(frameCycles);
+                            }
                         }
                     }
+
+                    _resetEvent.WaitOne();
+
+                    _ayAudio.FrameReady(_resetEvent);
+
+                    _resetEvent.Reset();
+
+                    Counters.Instance.IncrementCounter(Counter.SpectrumFrames);
                 }
 
-                _resetEvent.WaitOne();
-
-                _ayAudio.FrameReady(_resetEvent);
-
-                _resetEvent.Reset();
-
-                Counters.Instance.IncrementCounter(Counter.SpectrumFrames);
+                if (! Fast && _beeper.Silent)
+                {
+                    Thread.Sleep(_frameSleep);
+                }
             }
-
-            if (! Fast && _beeper.Silent)
+            catch (Exception exception)
             {
-                Thread.Sleep(_frameSleep);
+                File.AppendAllText("log.txt", exception.ToString());
+
+                throw;
             }
         }
         // ReSharper disable once FunctionNeverReturns

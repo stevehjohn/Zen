@@ -1,4 +1,5 @@
-﻿using Bufdio;
+﻿using System.Collections.Concurrent;
+using Bufdio;
 using Bufdio.Engines;
 using Zen.Common.Infrastructure;
 using Zen.System.Modules.Audio;
@@ -33,7 +34,7 @@ public class AyAudio : IDisposable
 
     private readonly ManualResetEvent _resetEvent = new(false);
 
-    private readonly Queue<(int Frame, byte Port, byte Value)> _commandQueue = new();
+    private readonly ConcurrentQueue<(int Frame, byte Port, byte Value)> _commandQueue = new();
 
     private ManualResetEvent? _workerResetEvent;
 
@@ -261,55 +262,70 @@ public class AyAudio : IDisposable
 
         while (! _cancellationToken.IsCancellationRequested)
         {
-            _resetEvent.WaitOne();
-
-            _resetEvent.Reset();
-
-            for (var i = 0; i < Constants.BufferSize; i++)
+            try
             {
-                if (Silent)
-                {
-                    signals[0] = 0;
-                    signals[1] = 0;
-                    signals[2] = 0;
-                }
-                else
-                {
-                    var currentFrame = (int) Math.Ceiling(i * bufferStep);
+                _resetEvent.WaitOne();
 
-                    while (_commandQueue.Count > 0 && _commandQueue.Peek().Frame <= currentFrame)
+                _resetEvent.Reset();
+
+                for (var i = 0; i < Constants.BufferSize; i++)
+                {
+                    if (Silent)
                     {
-                        var command = _commandQueue.Dequeue();
+                        signals[0] = 0;
+                        signals[1] = 0;
+                        signals[2] = 0;
+                    }
+                    else
+                    {
+                        var currentFrame = (int) Math.Ceiling(i * bufferStep);
 
-                        if (command.Port == 0xC0)
+                        while (_commandQueue.Count > 0 && _commandQueue.TryPeek(out var command)) // _commandQueue.Peek().Frame <= currentFrame)
                         {
-                            SelectRegisterInternal(command.Value);
+                            if (command.Frame > currentFrame)
+                            {
+                                break;
+                            }
+
+                            _commandQueue.TryDequeue(out command);
+
+                            if (command.Port == 0xC0)
+                            {
+                                SelectRegisterInternal(command.Value);
+                            }
+                            else
+                            {
+                                SetRegisterInternal(command.Value);
+                            }
                         }
-                        else
-                        {
-                            SetRegisterInternal(command.Value);
-                        }
+
+                        _mixerDac.GetChannelSignals(signals, _toneA.GetNextSignal(), _toneB.GetNextSignal(), _toneC.GetNextSignal(), _noiseGenerator.GetNextSignal());
                     }
 
-                    _mixerDac.GetChannelSignals(signals, _toneA.GetNextSignal(), _toneB.GetNextSignal(), _toneC.GetNextSignal(), _noiseGenerator.GetNextSignal());
+                    SignalHook?.Invoke(signals);
+
+                    var signal = signals[0];
+
+                    signal += signals[1];
+
+                    signal += signals[2];
+
+                    _buffer[i] = signal;
                 }
 
-                SignalHook?.Invoke(signals);
+                _engine.Send(_buffer);
 
-                var signal = signals[0];
+                _workerResetEvent?.Set();
 
-                signal += signals[1];
+                Counters.Instance.IncrementCounter(Counter.AyFrames);
 
-                signal += signals[2];
-
-                _buffer[i] = signal;
             }
+            catch (Exception exception)
+            {
+                File.AppendAllText("log.txt", exception.ToString());
 
-            _engine.Send(_buffer);
-
-            _workerResetEvent?.Set();
-
-            Counters.Instance.IncrementCounter(Counter.AyFrames);
+                throw;
+            }
         }
         // ReSharper disable once FunctionNeverReturns
     }
