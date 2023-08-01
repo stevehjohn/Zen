@@ -295,7 +295,7 @@ public class AyAudio : IDisposable
                     _buffer[i] = signal;
                 }
 
-                _commandQueue.Clear();
+                //_commandQueue.Clear();
 
                 _engine.Send(_buffer);
 
