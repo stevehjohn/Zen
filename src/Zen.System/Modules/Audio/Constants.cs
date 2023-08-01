@@ -6,7 +6,7 @@ public class Constants
 
     public const int BufferSize = SampleRate / Common.Constants.SpectrumFramesPerSecond;
 
-    public const float ChannelAmplitude = 0.33f;
+    public const float ChannelAmplitude = 0.25f;
 
     public const int AyFrequency = 1_773_500;
 }

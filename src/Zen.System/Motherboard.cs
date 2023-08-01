@@ -1,5 +1,4 @@
-﻿using Zen.Common;
-using Zen.System.Infrastructure;
+﻿using Zen.System.Infrastructure;
 using Zen.System.Interfaces;
 using Zen.System.Modules;
 using Zen.System.ProcessorHooks;
@@ -32,8 +31,6 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
 
     private readonly LdBytesHook _ldBytesHook;
 
-    private readonly Beeper _beeper;
-
     private readonly AyAudio _ayAudio;
 
     private bool _pagingDisabled;
@@ -58,8 +55,6 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
 
     public AyAudio AyAudio => _ayAudio;
 
-    public Beeper Beeper => _beeper;
-
     public bool Fast
     {
         set => _worker.Fast = value;
@@ -71,8 +66,6 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
         set
         {
             _ayAudio.Silent = ! value;
-
-            _beeper.Silent = ! value;
 
             _sound = value;
         }
@@ -102,8 +95,6 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
         _ram.LoadRom(LoadRom(0));
 
         _videoModulator = new VideoModulator(_ram);
-
-        _beeper = new Beeper();
         
         _ayAudio = new AyAudio();
 
@@ -111,7 +102,7 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
 
         _ayAudio.Silent = model == Model.Spectrum48K;
 
-        _worker = new(_interface, _videoModulator, _ayAudio, _beeper)
+        _worker = new(_interface, _videoModulator, _ayAudio)
                   {
                       OnTick = OnTick
                   };
@@ -207,7 +198,7 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
         {
             _videoModulator.Border = (byte) (data & 0b0000_0111);
 
-            _beeper.UlaAddressed(data);
+            _ayAudio.UlaAddressed(_currentFrameCycle, data);
         }
 
         if ((port & 0xC002) == 0xC000)
@@ -352,7 +343,5 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
         _worker.Dispose();
 
         _ayAudio.Dispose();
-
-        _beeper.Dispose();
     }
 }

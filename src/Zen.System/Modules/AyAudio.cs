@@ -33,15 +33,21 @@ public class AyAudio : IDisposable
 
     private readonly ManualResetEvent _resetEvent = new(false);
 
-    private readonly Queue<(int Frame, byte Port, byte Value)>[] _commandQueues;
+    private readonly Queue<(int Frame, Command Command, byte Value)>[] _commandQueues;
 
     private int _readQueue;
+
+    private float _bitValue;
+
+    private float _amplitude;
 
     private ManualResetEvent? _workerResetEvent;
 
     public bool Silent { get; set; }
 
-    public Action<float[]>? SignalHook { get; set; }
+    public Action<float[]>? AySignalHook { get; set; }
+
+    public Action<float>? BeeperSignalHook { get; set; }
 
     public AyAudio()
     {
@@ -62,11 +68,11 @@ public class AyAudio : IDisposable
 
         _cancellationToken = _cancellationTokenSource.Token;
 
-        _commandQueues = new Queue<(int Frame, byte Port, byte Value)>[2];
+        _commandQueues = new Queue<(int Frame, Command Command, byte Value)>[2];
 
-        _commandQueues[0] = new Queue<(int Frame, byte Port, byte Value)>();
+        _commandQueues[0] = new Queue<(int Frame, Command Command, byte Value)>();
 
-        _commandQueues[1] = new Queue<(int Frame, byte Port, byte Value)>();
+        _commandQueues[1] = new Queue<(int Frame, Command Command, byte Value)>();
     }
 
     public void Start()
@@ -83,7 +89,7 @@ public class AyAudio : IDisposable
 
     public void SelectRegister(int cycle, byte registerNumber)
     {
-        _commandQueues[1 - _readQueue].Enqueue((cycle, 0xC0, registerNumber));
+        _commandQueues[1 - _readQueue].Enqueue((cycle, Command.SelectRegister, registerNumber));
     }
 
     public void SetRegister(int cycle, byte value)
@@ -108,12 +114,17 @@ public class AyAudio : IDisposable
                 break;
         }
 
-        _commandQueues[1 - _readQueue].Enqueue((cycle, 0x80, value));
+        _commandQueues[1 - _readQueue].Enqueue((cycle, Command.WriteRegister, value));
     }
 
     public byte GetRegister()
     {
         return _registerValues[_registerNumber];
+    }
+    
+    public void UlaAddressed(int cycle, byte value)
+    {
+        _commandQueues[1 - _readQueue].Enqueue((cycle, Command.Beeper, value));
     }
 
     private void SelectRegisterInternal(byte registerNumber)
@@ -278,26 +289,41 @@ public class AyAudio : IDisposable
 
                             _commandQueues[_readQueue].TryDequeue(out command);
 
-                            if (command.Port == 0xC0)
+                            switch (command.Command)
                             {
-                                SelectRegisterInternal(command.Value);
-                            }
-                            else
-                            {
-                                SetRegisterInternal(command.Value);
+                                case Command.SelectRegister:
+                                    SelectRegisterInternal(command.Value);
+
+                                    break;
+
+                                case Command.WriteRegister:
+                                    SetRegisterInternal(command.Value);
+
+                                    break;
+
+                                case Command.Beeper:
+                                    _bitValue = (command.Value & 0b0001_0000) > 0 ? 1 : 0;
+
+                                    break;
                             }
                         }
 
                         _mixerDac.GetChannelSignals(signals, _toneA.GetNextSignal(), _toneB.GetNextSignal(), _toneC.GetNextSignal(), _noiseGenerator.GetNextSignal());
                     }
 
-                    SignalHook?.Invoke(signals);
+                    AySignalHook?.Invoke(signals);
+
+                    BeeperSignalHook?.Invoke(_amplitude);
 
                     var signal = signals[0];
 
                     signal += signals[1];
 
                     signal += signals[2];
+
+                    _amplitude += (_bitValue - _amplitude) / 11;
+
+                    signal += _amplitude * Constants.ChannelAmplitude;
 
                     _buffer[i] = signal;
                 }
