@@ -143,7 +143,11 @@ public class Worker : IDisposable
 
                     _resetEvent.WaitOne();
 
-                    _ayAudio.FrameReady(_resetEvent);
+                    var queueResetEvent = _ayAudio.FrameReady(_resetEvent);
+
+                    queueResetEvent.WaitOne();
+
+                    queueResetEvent.Reset();
 
                     _resetEvent.Reset();
 
