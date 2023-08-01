@@ -1,6 +1,5 @@
 ﻿using Bufdio;
 using Bufdio.Engines;
-using System.Collections.Concurrent;
 using Zen.Common.Infrastructure;
 using Zen.System.Modules.Audio;
 
@@ -34,17 +33,15 @@ public class AyAudio : IDisposable
 
     private readonly ManualResetEvent _resetEvent = new(false);
 
-    private readonly ConcurrentQueue<(int Frame, byte Port, byte Value)> _commandQueue = new();
+    private readonly Queue<(int Frame, byte Port, byte Value)>[] _commandQueues;
 
-    private readonly Mutex _queueMutex = new();
+    private int _readQueue = 0;
 
     private ManualResetEvent? _workerResetEvent;
 
     public bool Silent { get; set; }
 
     public Action<float[]>? SignalHook { get; set; }
-
-    public Mutex QueueMutex => _queueMutex;
 
     public AyAudio()
     {
@@ -64,6 +61,12 @@ public class AyAudio : IDisposable
         _cancellationTokenSource = new CancellationTokenSource();
 
         _cancellationToken = _cancellationTokenSource.Token;
+
+        _commandQueues = new Queue<(int Frame, byte Port, byte Value)>[2];
+
+        _commandQueues[0] = new Queue<(int Frame, byte Port, byte Value)>();
+
+        _commandQueues[1] = new Queue<(int Frame, byte Port, byte Value)>();
     }
 
     public void Start()
@@ -80,7 +83,7 @@ public class AyAudio : IDisposable
 
     public void SelectRegister(int cycle, byte registerNumber)
     {
-        _commandQueue.Enqueue((cycle, 0xC0, registerNumber));
+        _commandQueues[1 - _readQueue].Enqueue((cycle, 0xC0, registerNumber));
     }
 
     public void SetRegister(int cycle, byte value)
@@ -105,7 +108,7 @@ public class AyAudio : IDisposable
                 break;
         }
 
-        _commandQueue.Enqueue((cycle, 0x80, value));
+        _commandQueues[1 - _readQueue].Enqueue((cycle, 0x80, value));
     }
 
     public void SelectRegisterInternal(byte registerNumber)
@@ -254,8 +257,6 @@ public class AyAudio : IDisposable
 
                 _resetEvent.Reset();
 
-                _queueMutex.WaitOne();
-
                 for (var i = 0; i < Constants.BufferSize; i++)
                 {
                     if (Silent)
@@ -268,14 +269,14 @@ public class AyAudio : IDisposable
                     {
                         var currentFrame = (int) Math.Ceiling(i * bufferStep);
 
-                        while (_commandQueue.Count > 0 && _commandQueue.TryPeek(out var command))
+                        while (_commandQueues[_readQueue].Count > 0 && _commandQueues[_readQueue].TryPeek(out var command))
                         {
                             if (command.Frame > currentFrame)
                             {
                                 break;
                             }
 
-                            _commandQueue.TryDequeue(out command);
+                            _commandQueues[_readQueue].TryDequeue(out command);
 
                             if (command.Port == 0xC0)
                             {
@@ -301,7 +302,9 @@ public class AyAudio : IDisposable
                     _buffer[i] = signal;
                 }
 
-                _queueMutex.ReleaseMutex();
+                _readQueue = 1 - _readQueue;
+
+                _commandQueues[1 - _readQueue].Clear();
 
                 _engine.Send(_buffer);
 
