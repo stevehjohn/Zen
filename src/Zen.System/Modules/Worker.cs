@@ -22,8 +22,6 @@ public class Worker : IDisposable
 
     private readonly Beeper _beeper;
 
-    private readonly int _frameSleep;
-
     private readonly (int Address, byte Data)[] _vramChanges = new (int, byte)[2];
 
     private readonly ManualResetEvent _resetEvent = new(true);
@@ -34,7 +32,7 @@ public class Worker : IDisposable
 
     public bool Fast { get; set; }
 
-    public Worker(Interface @interface, VideoModulator videoAdapter, AyAudio ayAudio, Beeper beeper, int framesPerSecond)
+    public Worker(Interface @interface, VideoModulator videoAdapter, AyAudio ayAudio, Beeper beeper)
     {
         _interface = @interface;
 
@@ -43,8 +41,6 @@ public class Worker : IDisposable
         _ayAudio = ayAudio;
 
         _beeper = beeper;
-
-        _frameSleep = 1_000 / framesPerSecond;
 
         _cancellationTokenSource = new CancellationTokenSource();
 
@@ -127,7 +123,7 @@ public class Worker : IDisposable
 
                             sampleCycle += cycles[i];
 
-                            if (sampleCycle > Beeper.BeeperTStateSampleRate && !Fast)
+                            if (sampleCycle > Beeper.BeeperTStateSampleRate && ! Fast)
                             {
                                 sampleCycle -= Beeper.BeeperTStateSampleRate;
 

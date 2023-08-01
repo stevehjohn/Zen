@@ -111,7 +111,7 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
 
         _ayAudio.Silent = model == Model.Spectrum48K;
 
-        _worker = new(_interface, _videoModulator, _ayAudio, _beeper, Constants.FramesPerSecond)
+        _worker = new(_interface, _videoModulator, _ayAudio, _beeper)
                   {
                       OnTick = OnTick
                   };
