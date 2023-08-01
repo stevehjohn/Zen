@@ -102,9 +102,9 @@ public class Host : Game
 
         if (_waveVisualiser != null)
         {
-            _motherboard.AyAudio.SignalHook = _waveVisualiser.ReceiveSignals;
+            _motherboard.AyAudio.AySignalHook = _waveVisualiser.ReceiveSignals;
 
-            _motherboard.Beeper.SignalHook = _waveVisualiser.ReceiveSignal;
+            _motherboard.AyAudio.BeeperSignalHook = _waveVisualiser.ReceiveSignal;
         }
     }
 
@@ -141,9 +141,9 @@ public class Host : Game
         {
             _waveVisualiser = new WaveVisualiser(_graphicsDeviceManager, _scaleFactor);
 
-            _motherboard.AyAudio.SignalHook = _waveVisualiser.ReceiveSignals;
+            _motherboard.AyAudio.AySignalHook = _waveVisualiser.ReceiveSignals;
 
-            _motherboard.Beeper.SignalHook = _waveVisualiser.ReceiveSignal;
+            _motherboard.AyAudio.BeeperSignalHook = _waveVisualiser.ReceiveSignal;
         }
 
         _vRamAdapter = new VideoRenderer(_motherboard.VideoAdapter.ScreenFrame, _graphicsDeviceManager);
@@ -250,8 +250,8 @@ public class Host : Game
                 AppSettings.Instance.Save();
 
                 _waveVisualiser = new WaveVisualiser(_graphicsDeviceManager, _scaleFactor);
-                _motherboard.AyAudio.SignalHook = _waveVisualiser.ReceiveSignals;
-                _motherboard.Beeper.SignalHook = _waveVisualiser.ReceiveSignal;
+                _motherboard.AyAudio.AySignalHook = _waveVisualiser.ReceiveSignals;
+                _motherboard.AyAudio.BeeperSignalHook = _waveVisualiser.ReceiveSignal;
 
                 ChangeScale(_scaleFactor);
 
@@ -262,8 +262,8 @@ public class Host : Game
                 AppSettings.Instance.Save();
 
                 _waveVisualiser = null;
-                _motherboard.AyAudio.SignalHook = null;
-                _motherboard.Beeper.SignalHook = null;
+                _motherboard.AyAudio.AySignalHook = null;
+                _motherboard.AyAudio.BeeperSignalHook = null;
 
                 ChangeScale(_scaleFactor);
 

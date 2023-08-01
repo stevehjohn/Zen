@@ -20,8 +20,6 @@ public class Worker : IDisposable
 
     private readonly AyAudio _ayAudio;
 
-    private readonly Beeper _beeper;
-
     private readonly (int Address, byte Data)[] _vramChanges = new (int, byte)[2];
 
     private readonly ManualResetEvent _resetEvent = new(true);
@@ -32,15 +30,13 @@ public class Worker : IDisposable
 
     public bool Fast { get; set; }
 
-    public Worker(Interface @interface, VideoModulator videoAdapter, AyAudio ayAudio, Beeper beeper)
+    public Worker(Interface @interface, VideoModulator videoAdapter, AyAudio ayAudio)
     {
         _interface = @interface;
 
         _videoAdapter = videoAdapter;
 
         _ayAudio = ayAudio;
-
-        _beeper = beeper;
 
         _cancellationTokenSource = new CancellationTokenSource();
 
@@ -102,8 +98,6 @@ public class Worker : IDisposable
                 {
                     var frameCycles = 0;
 
-                    var sampleCycle = 0;
-
                     _videoAdapter.StartFrame();
 
                     while (frameCycles < Constants.FrameCycles)
@@ -119,15 +113,6 @@ public class Worker : IDisposable
                             if (i > 0 && cycles[i] == 0)
                             {
                                 break;
-                            }
-
-                            sampleCycle += cycles[i];
-
-                            if (sampleCycle > Beeper.BeeperTStateSampleRate && ! Fast)
-                            {
-                                sampleCycle -= Beeper.BeeperTStateSampleRate;
-
-                                _beeper.Sample();
                             }
 
                             frameCycles += cycles[i];
