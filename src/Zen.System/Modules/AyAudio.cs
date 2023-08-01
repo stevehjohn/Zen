@@ -36,13 +36,15 @@ public class AyAudio : IDisposable
 
     private readonly ConcurrentQueue<(int Frame, byte Port, byte Value)> _commandQueue = new();
 
-    private readonly ManualResetEvent _queueResetEvent = new(true);
+    private readonly Mutex _queueMutex = new();
 
     private ManualResetEvent? _workerResetEvent;
 
     public bool Silent { get; set; }
 
     public Action<float[]>? SignalHook { get; set; }
+
+    public Mutex QueueMutex => _queueMutex;
 
     public AyAudio()
     {
@@ -69,13 +71,11 @@ public class AyAudio : IDisposable
         _audioThread = Task.Run(RunFrame, _cancellationToken);
     }
 
-    public ManualResetEvent FrameReady(ManualResetEvent resetEvent)
+    public void FrameReady(ManualResetEvent resetEvent)
     {
         _workerResetEvent = resetEvent;
 
         _resetEvent.Set();
-
-        return _queueResetEvent;
     }
 
     public void SelectRegister(int cycle, byte registerNumber)
@@ -254,6 +254,8 @@ public class AyAudio : IDisposable
 
                 _resetEvent.Reset();
 
+                _queueMutex.WaitOne();
+
                 for (var i = 0; i < Constants.BufferSize; i++)
                 {
                     if (Silent)
@@ -299,7 +301,7 @@ public class AyAudio : IDisposable
                     _buffer[i] = signal;
                 }
 
-                _queueResetEvent.Set();
+                _queueMutex.ReleaseMutex();
 
                 _engine.Send(_buffer);
 

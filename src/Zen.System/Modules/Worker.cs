@@ -1,4 +1,5 @@
-﻿using Zen.Common;
+﻿using FFmpeg.AutoGen;
+using Zen.Common;
 using Zen.Common.Infrastructure;
 using Zen.Z80.Processor;
 
@@ -106,6 +107,8 @@ public class Worker : IDisposable
 
                     _videoAdapter.StartFrame();
 
+                    _ayAudio.QueueMutex.WaitOne();
+
                     while (frameCycles < Constants.FrameCycles)
                     {
                         _interface.INT = frameCycles is >= Constants.InterruptStart and < Constants.InterruptEnd;
@@ -141,13 +144,11 @@ public class Worker : IDisposable
                         }
                     }
 
+                    _ayAudio.QueueMutex.ReleaseMutex();
+
                     _resetEvent.WaitOne();
 
-                    var queueResetEvent = _ayAudio.FrameReady(_resetEvent);
-
-                    queueResetEvent.WaitOne();
-
-                    queueResetEvent.Reset();
+                    _ayAudio.FrameReady(_resetEvent);
 
                     _resetEvent.Reset();
 
