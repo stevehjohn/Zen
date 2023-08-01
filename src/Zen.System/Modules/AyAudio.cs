@@ -323,7 +323,7 @@ public class AyAudio : IDisposable
 
                     _amplitude += (_bitValue - _amplitude) / 11;
 
-                    signal += _amplitude * Constants.ChannelAmplitude;
+                    signal += _amplitude * Constants.BeeperAmplitude;
 
                     _buffer[i] = signal;
                 }
