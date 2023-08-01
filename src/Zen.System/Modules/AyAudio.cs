@@ -35,7 +35,7 @@ public class AyAudio : IDisposable
 
     private readonly Queue<(int Frame, byte Port, byte Value)>[] _commandQueues;
 
-    private int _readQueue = 0;
+    private int _readQueue;
 
     private ManualResetEvent? _workerResetEvent;
 
@@ -111,17 +111,17 @@ public class AyAudio : IDisposable
         _commandQueues[1 - _readQueue].Enqueue((cycle, 0x80, value));
     }
 
-    public void SelectRegisterInternal(byte registerNumber)
-    {
-        _registerNumber = registerNumber;
-    }
-
     public byte GetRegister()
     {
         return _registerValues[_registerNumber];
     }
 
-    public void SetRegisterInternal(byte value)
+    private void SelectRegisterInternal(byte registerNumber)
+    {
+        _registerNumber = registerNumber;
+    }
+
+    private void SetRegisterInternal(byte value)
     {
         switch (_registerNumber)
         {
