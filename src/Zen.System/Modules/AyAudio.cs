@@ -43,6 +43,8 @@ public class AyAudio : IDisposable
 
     private ManualResetEvent? _workerResetEvent;
 
+    private readonly Mutex _queueMutex = new();
+
     public bool Silent { get; set; }
 
     public Action<float[]>? AySignalHook { get; set; }
@@ -89,7 +91,11 @@ public class AyAudio : IDisposable
 
     public void SelectRegister(int cycle, byte registerNumber)
     {
+        _queueMutex.WaitOne();
+
         _commandQueues[1 - _readQueue].Enqueue((cycle, Command.SelectRegister, registerNumber));
+
+        _queueMutex.ReleaseMutex();
     }
 
     public void SetRegister(int cycle, byte value)
@@ -114,7 +120,11 @@ public class AyAudio : IDisposable
                 break;
         }
 
+        _queueMutex.WaitOne();
+
         _commandQueues[1 - _readQueue].Enqueue((cycle, Command.WriteRegister, value));
+
+        _queueMutex.ReleaseMutex();
     }
 
     public byte GetRegister()
@@ -124,7 +134,11 @@ public class AyAudio : IDisposable
     
     public void UlaAddressed(int cycle, byte value)
     {
+        _queueMutex.WaitOne();
+
         _commandQueues[1 - _readQueue].Enqueue((cycle, Command.Beeper, value));
+
+        _queueMutex.ReleaseMutex();
     }
 
     private void SelectRegisterInternal(byte registerNumber)
@@ -328,9 +342,13 @@ public class AyAudio : IDisposable
                     _buffer[i] = signal;
                 }
 
+                _queueMutex.WaitOne();
+
                 _readQueue = 1 - _readQueue;
 
                 _commandQueues[1 - _readQueue].Clear();
+
+                _queueMutex.ReleaseMutex();
 
                 _engine.Send(_buffer);
 
