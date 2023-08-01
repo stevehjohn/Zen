@@ -37,9 +37,6 @@ public static class Constants
 
     public const int RomSize = 0x4000;
 
-    /* Host */
-    public const int FramesPerSecond = 60;
-
     /* Spectrum */
     public const int SpectrumFramesPerSecond = 50;
 
