@@ -153,11 +153,6 @@ public class Worker : IDisposable
 
                     Counters.Instance.IncrementCounter(Counter.SpectrumFrames);
                 }
-
-                if (! Fast && _beeper.Silent)
-                {
-                    Thread.Sleep(_frameSleep);
-                }
             }
             catch (Exception exception)
             {
