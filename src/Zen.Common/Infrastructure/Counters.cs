@@ -35,7 +35,7 @@ public class Counters
     {
         _totalCounts[(int) counter]++;
 
-        if (_stopwatch.ElapsedMilliseconds - _lastResetMilliseconds[(int) counter] > 1000)
+        if (_stopwatch.ElapsedMilliseconds - _lastResetMilliseconds[(int) counter] >= 1000)
         {
             _lastResetMilliseconds[(int) counter] = _stopwatch.ElapsedMilliseconds;
 
