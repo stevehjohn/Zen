@@ -45,4 +45,7 @@ public static class Constants
 
     /* Counters Visualiser */
     public const int CountersPanelHeight = 24;
+
+    /* Miscellaneous */
+    public const string ExceptionsLogFileName = "exceptions.log";
 }
