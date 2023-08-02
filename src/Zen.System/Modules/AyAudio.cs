@@ -344,7 +344,7 @@ public class AyAudio : IDisposable
             }
             catch (Exception exception)
             {
-                File.AppendAllText("log.txt", exception.ToString());
+                Logger.LogException(nameof(AyAudio), exception);
 
                 throw;
             }

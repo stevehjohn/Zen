@@ -140,7 +140,7 @@ public class Worker : IDisposable
             }
             catch (Exception exception)
             {
-                File.AppendAllText("log.txt", exception.ToString());
+                Logger.LogException(nameof(Worker), exception);
 
                 throw;
             }
