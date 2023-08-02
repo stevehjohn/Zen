@@ -1,6 +1,4 @@
-﻿using Bufdio;
-using Bufdio.Engines;
-using Zen.Common.Infrastructure;
+﻿using Zen.Common.Infrastructure;
 using Zen.System.Modules.Audio;
 
 namespace Zen.System.Modules;
@@ -23,7 +21,7 @@ public class AyAudio : IDisposable
 
     private readonly float[] _buffer;
 
-    private readonly IAudioEngine _engine;
+    private readonly AudioEngine _engine = new();
 
     private readonly CancellationTokenSource _cancellationTokenSource;
 
@@ -52,17 +50,6 @@ public class AyAudio : IDisposable
     public AyAudio()
     {
         _buffer = new float[Constants.BufferSize];
-
-        if (Environment.OSVersion.Platform == PlatformID.Unix)
-        {
-            BufdioLib.InitializePortAudio(Path.Combine("Libraries", "libportaudio.dylib"));
-        }
-        else
-        {
-            BufdioLib.InitializePortAudio(Path.Combine("Libraries", "libportaudio"));
-        }
-
-        _engine = new PortAudioEngine(new AudioEngineOptions(1, Constants.SampleRate));
 
         _cancellationTokenSource = new CancellationTokenSource();
 
