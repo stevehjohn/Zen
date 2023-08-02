@@ -30,9 +30,9 @@ public class WaveVisualiser
         {
             _scaleFactor = value;
 
-            _data = new Color[Constants.WavePanelWidth * _scaleFactor * Constants.ScreenHeightPixels * _scaleFactor];
+            _data = new Color[Constants.WavePanelWidth * Constants.ScreenHeightPixels];
 
-            _waves = new Texture2D(_graphicsDeviceManager.GraphicsDevice, Constants.WavePanelWidth * _scaleFactor, Constants.ScreenHeightPixels * _scaleFactor);
+            _waves = new Texture2D(_graphicsDeviceManager.GraphicsDevice, Constants.WavePanelWidth, Constants.ScreenHeightPixels);
         }
     }
 
@@ -46,9 +46,9 @@ public class WaveVisualiser
 
         _scaleFactor = scaleFactor;
 
-        _data = new Color[Constants.WavePanelWidth * _scaleFactor * Constants.ScreenHeightPixels * _scaleFactor];
+        _data = new Color[Constants.WavePanelWidth * Constants.ScreenHeightPixels];
 
-        _waves = new Texture2D(_graphicsDeviceManager.GraphicsDevice, Constants.WavePanelWidth * _scaleFactor, Constants.ScreenHeightPixels * _scaleFactor);
+        _waves = new Texture2D(_graphicsDeviceManager.GraphicsDevice, Constants.WavePanelWidth, Constants.ScreenHeightPixels);
 
         _buffers = new float[4][];
 
@@ -112,9 +112,9 @@ public class WaveVisualiser
 
     private void RenderChannel(int channel)
     {
-        var width = Constants.WavePanelWidth * _scaleFactor;
+        var width = Constants.WavePanelWidth;
 
-        var height = Constants.ScreenHeightPixels * _scaleFactor / 4;
+        var height = Constants.ScreenHeightPixels / 4;
 
         var axis = channel == 3 ? height * width * channel + height * width / 2 : height * width * (channel + 1) - width;
 
@@ -132,9 +132,7 @@ public class WaveVisualiser
 
             var offset = -(int) (dataPoint * height * (channel == 3 ? 1 : 4));
 
-            _data[axis + x + offset * width - width] = color;
             _data[axis + x + offset * width] = color;
-            _data[axis + x + offset * width + width] = color;
 
             if (x > 0 && offset != lastOffset)
             {
@@ -142,11 +140,8 @@ public class WaveVisualiser
 
                 for (var y = lastOffset; y != offset; y += direction)
                 {
-                    _data[axis + x + y * width - width] = color;
-                    _data[axis + x + y * width - 1] = color;
                     _data[axis + x + y * width] = color;
-                    _data[axis + x + y * width + 1] = color;
-                    _data[axis + x + y * width + width] = color;
+
                 }
             }
 
