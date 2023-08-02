@@ -67,6 +67,8 @@ public class Core
             instruction = _instructions[0x00];
 
             instruction.Execute(Array.Empty<byte>());
+            
+            instruction.UseCount++;
 
             Counters.Instance.IncrementCounter(Counter.Instructions);
 
@@ -106,6 +108,8 @@ public class Core
 
         instruction.Execute(_parameters);
 
+        instruction.UseCount++;
+
         Counters.Instance.IncrementCounter(Counter.Hertz, (int) _state.ClockCycles);
 
         Counters.Instance.IncrementCounter(Counter.Instructions);
@@ -119,6 +123,8 @@ public class Core
             UpdateR(instruction);
 
             instruction.Execute(_parameters[..1]);
+            
+            instruction.UseCount++;
 
             Counters.Instance.IncrementCounter(Counter.Hertz, (int) _state.ClockCycles);
 

@@ -14,6 +14,8 @@ public class Instruction
 
     public bool IsPrefix { get; private set; }
 
+    public long UseCount { get; set; }
+
     public Instruction(Action<byte[]> execute, string mnemonic, int opCode, int parameterLength, byte extraCycles = 0, bool isPrefix = false)
     {
         Execute = execute;
