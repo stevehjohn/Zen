@@ -181,6 +181,11 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
         // TODO.
     }
 
+    public void StateLoaded()
+    {
+        _videoModulator.Border = _state.BorderColour;
+    }
+
     private byte[] OnTick(int frameCycle)
     {
         _currentFrameCycle = frameCycle;
@@ -195,6 +200,8 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
         if ((port & 0x01) == 0)
         {
             _videoModulator.Border = (byte) (data & 0b0000_0111);
+
+            _state.BorderColour = _videoModulator.Border;
 
             _ayAudio.UlaAddressed(_currentFrameCycle, data);
         }

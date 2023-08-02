@@ -247,6 +247,8 @@ public class Z80FileLoader : IFileLoader
             byte12 = 0x01;
         }
 
+        _state.BorderColour = (byte) ((byte12 & 0x0000_1110) >> 1);
+
         _state[Register.R] = (byte) ((data[11] & 0x7F) | ((byte12 & 0x01) << 7));
 
         _state[RegisterPair.DE] = (ushort) (data[14] << 8 | data[13]);

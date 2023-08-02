@@ -43,6 +43,8 @@ public class State
 
     public ulong ClockCycles { get; set; }
 
+    public byte BorderColour { get; set; }
+
     [JsonIgnore]
     public Instruction? LastInstruction { get; set; }
 

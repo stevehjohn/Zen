@@ -391,6 +391,8 @@ public class Host : Game
         if (loader != null)
         {
             loader.Load(filename);
+
+            _motherboard.StateLoaded();
         }
 
         _imageName = filename.Split(Path.DirectorySeparatorChar)[^2];
