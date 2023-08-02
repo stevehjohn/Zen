@@ -126,7 +126,10 @@ public class Worker : IDisposable
                         }
                     }
 
-                    _resetEvent.WaitOne();
+                    if (! Fast)
+                    {
+                        _resetEvent.WaitOne();
+                    }
 
                     _ayAudio.FrameReady(_resetEvent);
 
