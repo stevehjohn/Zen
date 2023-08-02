@@ -71,7 +71,7 @@ public partial class Instructions
 
             if (_state[Register.B] > 0)
             {
-                _state.ProgramCounter += (ushort) (sbyte) parameters[0];
+                _state.ProgramCounter = (ushort) (_state.ProgramCounter + (sbyte) parameters[0]);
 
                 _state.Q = 0;
 
@@ -118,7 +118,7 @@ public partial class Instructions
 
         _state.SetMCycles(4, 3, 3);
     }
-    
+
     private void JP_aRR(RegisterPair registers)
     {
         unchecked
@@ -171,7 +171,7 @@ public partial class Instructions
 
         _state.SetMCycles(4, 3);
     }
-    
+
     private void RET()
     {
         unchecked
@@ -195,7 +195,7 @@ public partial class Instructions
 
         _state.SetMCycles(4, 3, 3);
     }
-    
+
     private void RETI()
     {
         unchecked
@@ -219,7 +219,7 @@ public partial class Instructions
 
         _state.SetMCycles(4, 4, 3, 3);
     }
-    
+
     private void RETN()
     {
         unchecked
