@@ -25,8 +25,6 @@ public class Core
         _state = state;
 
         _instructions = new Instructions(_interface, _state);
-
-        File.Delete("Zen.log");
     }
 
     public void ExecuteCycle()
