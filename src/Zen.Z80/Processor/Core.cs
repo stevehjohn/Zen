@@ -1,4 +1,5 @@
 ﻿//#define LOG
+
 using Zen.Common.Infrastructure;
 using Zen.Z80.Implementation;
 using Zen.Z80.Interfaces;
@@ -74,6 +75,8 @@ public class Core
             HandleInterrupts();
 
             instruction = _instructions[0x00];
+
+            UpdateR(instruction);
 
             instruction.Execute(Array.Empty<byte>());
 

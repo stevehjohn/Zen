@@ -41,7 +41,7 @@ public class State
 
     public ushort InstructionPrefix { get; set; }
 
-    public ulong ClockCycles { get; set; }
+    public int ClockCycles { get; set; }
 
     public byte BorderColour { get; set; }
 
@@ -153,7 +153,7 @@ public class State
         _lastMCycles[5] = 0;
         _lastMCycles[6] = 0;
 
-        ClockCycles = (ulong) _lastMCycles[0] + m1;
+        ClockCycles = _lastMCycles[0] + m1;
     }
 
     public void SetMCycles(byte m1, byte m2)
@@ -166,7 +166,7 @@ public class State
         _lastMCycles[5] = 0;
         _lastMCycles[6] = 0;
 
-        ClockCycles = (ulong) _lastMCycles[0] +  m1 + m2;
+        ClockCycles = _lastMCycles[0] +  m1 + m2;
     }
 
     public void SetMCycles(byte m1, byte m2, byte m3)
@@ -179,7 +179,7 @@ public class State
         _lastMCycles[5] = 0;
         _lastMCycles[6] = 0;
 
-        ClockCycles = (ulong) _lastMCycles[0] +  m1 + m2 + m3;
+        ClockCycles = _lastMCycles[0] +  m1 + m2 + m3;
     }
 
     public void SetMCycles(byte m1, byte m2, byte m3, byte m4)
@@ -192,7 +192,7 @@ public class State
         _lastMCycles[5] = 0;
         _lastMCycles[6] = 0;
 
-        ClockCycles = (ulong) _lastMCycles[0] +  m1 + m2 + m3 + m4;
+        ClockCycles = _lastMCycles[0] +  m1 + m2 + m3 + m4;
     }
 
     public void SetMCycles(byte m1, byte m2, byte m3, byte m4, byte m5)
@@ -205,7 +205,7 @@ public class State
         _lastMCycles[5] = m5;
         _lastMCycles[6] = 0;
 
-        ClockCycles = (ulong) _lastMCycles[0] +  m1 + m2 + m3 + m4 + m5;
+        ClockCycles = _lastMCycles[0] +  m1 + m2 + m3 + m4 + m5;
     }
 
     public void SetMCycles(byte m1, byte m2, byte m3, byte m4, byte m5, byte m6)
@@ -218,7 +218,7 @@ public class State
         _lastMCycles[5] = m5;
         _lastMCycles[6] = m6;
 
-        ClockCycles = (ulong) _lastMCycles[0] +  m1 + m2 + m3 + m4 + m5 + m6;
+        ClockCycles = _lastMCycles[0] +  m1 + m2 + m3 + m4 + m5 + m6;
     }
 
     public void Reset()
