@@ -1,4 +1,5 @@
-﻿using Zen.Common.Infrastructure;
+﻿#define LOG
+using Zen.Common.Infrastructure;
 using Zen.Z80.Implementation;
 using Zen.Z80.Interfaces;
 
@@ -18,7 +19,9 @@ public class Core
 
     private readonly byte[] _parameters = new byte[2];
 
+#if LOG
     private readonly List<string> _logLines = new();
+#endif
 
     private IProcessorHook? _currentHook;
 
@@ -73,10 +76,12 @@ public class Core
             instruction = _instructions[0x00];
 
             instruction.Execute(Array.Empty<byte>());
-            
+
             instruction.UseCount++;
 
+#if LOG
             Log(instruction);
+#endif
 
             Counters.Instance.IncrementCounter(Counter.Instructions);
 
@@ -118,7 +123,9 @@ public class Core
 
         instruction.UseCount++;
 
+#if LOG
         Log(instruction);
+#endif
 
         Counters.Instance.IncrementCounter(Counter.Hertz, (int) _state.ClockCycles);
 
@@ -133,10 +140,12 @@ public class Core
             UpdateR(instruction);
 
             instruction.Execute(_parameters[..1]);
-            
+
             instruction.UseCount++;
 
+#if LOG
             Log(instruction);
+#endif
 
             Counters.Instance.IncrementCounter(Counter.Hertz, (int) _state.ClockCycles);
 
@@ -251,6 +260,7 @@ public class Core
         _interface.WriteToMemory(_state.StackPointer, (byte) (_state.ProgramCounter & 0x00FFFF));
     }
 
+#if LOG
     private void Log(Instruction instruction)
     {
         var line = $"PC: {_state.ProgramCounter:X4}  SP: {_state.StackPointer:X4}  AF: {_state[RegisterPair.AF]:X4}  BC: {_state[RegisterPair.BC]:X4}  DE: {_state[RegisterPair.DE]:X4}  HL: {_state[RegisterPair.HL]:X4}  "
@@ -274,4 +284,5 @@ public class Core
             _logLines.Clear();
         }
     }
+#endif
 }
