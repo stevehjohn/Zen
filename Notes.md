@@ -2,8 +2,6 @@
 
 ToDos, aide memoires, etc...
 
-- Why is State.ClockCycles a ulong?
-
 ## Useful References
 
 - https://clrhome.org/table/
