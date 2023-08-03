@@ -1,4 +1,4 @@
-﻿#define LOG
+﻿//#define LOG
 using Zen.Common.Infrastructure;
 using Zen.Z80.Implementation;
 using Zen.Z80.Interfaces;
