@@ -6,6 +6,8 @@ namespace Zen.Z80.Processor;
 
 public class Core
 {
+    private const string InstructionsLogFilename = "instructions.log";
+
     private readonly Interface _interface;
 
     private readonly State _state;
@@ -16,6 +18,8 @@ public class Core
 
     private readonly byte[] _parameters = new byte[2];
 
+    private readonly List<string> _logLines = new();
+
     private IProcessorHook? _currentHook;
 
     public Core(Interface @interface, State state)
@@ -25,6 +29,8 @@ public class Core
         _state = state;
 
         _instructions = new Instructions(_interface, _state);
+
+        File.Delete(InstructionsLogFilename);
     }
 
     public void ExecuteCycle()
@@ -70,6 +76,8 @@ public class Core
             
             instruction.UseCount++;
 
+            Log(instruction);
+
             Counters.Instance.IncrementCounter(Counter.Instructions);
 
             Counters.Instance.IncrementCounter(Counter.Hertz, (int) _state.ClockCycles);
@@ -110,6 +118,8 @@ public class Core
 
         instruction.UseCount++;
 
+        Log(instruction);
+
         Counters.Instance.IncrementCounter(Counter.Hertz, (int) _state.ClockCycles);
 
         Counters.Instance.IncrementCounter(Counter.Instructions);
@@ -125,6 +135,8 @@ public class Core
             instruction.Execute(_parameters[..1]);
             
             instruction.UseCount++;
+
+            Log(instruction);
 
             Counters.Instance.IncrementCounter(Counter.Hertz, (int) _state.ClockCycles);
 
@@ -237,5 +249,29 @@ public class Core
         _state.StackPointer--;
 
         _interface.WriteToMemory(_state.StackPointer, (byte) (_state.ProgramCounter & 0x00FFFF));
+    }
+
+    private void Log(Instruction instruction)
+    {
+        var line = $"PC: {_state.ProgramCounter:X4}  SP: {_state.StackPointer:X4}  AF: {_state[RegisterPair.AF]:X4}  BC: {_state[RegisterPair.BC]:X4}  DE: {_state[RegisterPair.DE]:X4}  HL: {_state[RegisterPair.HL]:X4}  "
+                   + $"{(_state[Flag.Carry] ? 'C' : ' ')}{(_state[Flag.AddSubtract] ? 'N' : ' ')}{(_state[Flag.ParityOverflow] ? 'P' : ' ')}{(_state[Flag.HalfCarry] ? 'H' : ' ')}{(_state[Flag.Zero] ? 'Z' : ' ')}{(_state[Flag.Sign] ? 'S' : ' ')}"
+                   + $" | {instruction.Mnemonic}";
+
+        if (! instruction.IsPrefix)
+        {
+            for (var i = 0; i < instruction.ParameterLength; i++)
+            {
+                line += $" {_parameters[i]:X2}";
+            }
+        }
+
+        _logLines.Add(line);
+
+        if (_logLines.Count > 100_000)
+        {
+            File.AppendAllLines(InstructionsLogFilename, _logLines);
+
+            _logLines.Clear();
+        }
     }
 }
