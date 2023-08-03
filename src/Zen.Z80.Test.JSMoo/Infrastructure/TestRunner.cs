@@ -316,7 +316,7 @@ public class TestRunner
                     firstMnemonic = _state.LastInstruction.Mnemonic;
                 }
 
-                if (_state.ClockCycles >= (ulong) test.Cycles.Length)
+                if (_state.ClockCycles >= test.Cycles.Length)
                 {
                     break;
                 }
@@ -332,7 +332,7 @@ public class TestRunner
             return (false, operations, _ram, _ports, exception, firstMnemonic, false);
         }
 
-        var warn = _state.ClockCycles != (ulong) test.Cycles.Length;
+        var warn = _state.ClockCycles != test.Cycles.Length;
 
         var pass = _state.ProgramCounter == test.Final.PC
                    && _state.StackPointer == test.Final.SP
