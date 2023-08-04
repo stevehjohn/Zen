@@ -327,15 +327,15 @@ public partial class Instructions
 
             var data = _interface.ReadFromMemory(address);
 
+            _state[Register.B]--;
+
             var port = _state[RegisterPair.BC];
 
             _interface.WriteToPort(port, data);
 
             _state[RegisterPair.HL]++;
 
-            _state[Register.B]--;
-
-            //_state[Flag.Carry] = data + _state[Register.L] > 0xFF;
+            _state[Flag.Carry] = data + _state[Register.L] > 0xFF;
             _state[Flag.AddSubtract] = (data & 0x80) > 0;
             _state[Flag.ParityOverflow] = ((byte) ((data + _state[Register.L] & 7) ^ _state[Register.B])).IsEvenParity();
             _state[Flag.X1] = (_state[Register.B] & 0x08) > 0;
@@ -345,6 +345,8 @@ public partial class Instructions
             _state[Flag.Sign] = (sbyte) _state[Register.B] < 0;
 
             _state.MemPtr = (ushort) (_state[RegisterPair.BC] + 1);
+
+            _state.Q = 1;
         }
 
         _state.SetMCycles(4, 5, 3, 4);
