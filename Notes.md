@@ -30,7 +30,6 @@ LDI [R] (2)
 ADC16
 SBC16
 BIT n, (HL)
-LDI
 LDD
 LDDR
 CPI
