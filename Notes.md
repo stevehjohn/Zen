@@ -74,7 +74,5 @@ eda2: INI
 eda2_01: INI
 edaa_01: IND
 edaa_02: IND
-edb1: CPIR
 edb2: INIR
-edb3: OTIR
 edba: INDR
