@@ -18,29 +18,16 @@ ToDos, aide memoires, etc...
 
 ## Failing Tests
 
-### ZexAll 2
+### Z80 Documented
 
-CPD [R]
-CPI [R]
-LDD [R] (1)
-LDI [R] (2)
-
-### Z80 Flags
-
-ADC16
-SBC16
-BIT n, (HL)
-LDD
-LDDR
-CPI
-CPD
+ADC HL, RR
+LDIR -> NOP'
+LDDR -> NOP'
+INI
 IND
-OUTI
-OUTD
+INIR -> NOP'
+INDR -> NOP'
 
-### ZexDoc
-
-All pass.
 
 ### JSMoo
 
