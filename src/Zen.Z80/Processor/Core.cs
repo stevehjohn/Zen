@@ -88,7 +88,7 @@ public class Core
 
             Counters.Instance.IncrementCounter(Counter.Instructions);
 
-            Counters.Instance.IncrementCounter(Counter.Hertz, (int) _state.ClockCycles);
+            Counters.Instance.IncrementCounter(Counter.Hertz, _state.ClockCycles);
 
             return;
         }
@@ -130,7 +130,7 @@ public class Core
         Log(instruction);
 #endif
 
-        Counters.Instance.IncrementCounter(Counter.Hertz, (int) _state.ClockCycles);
+        Counters.Instance.IncrementCounter(Counter.Hertz, _state.ClockCycles);
 
         Counters.Instance.IncrementCounter(Counter.Instructions);
 
@@ -150,7 +150,7 @@ public class Core
             Log(instruction);
 #endif
 
-            Counters.Instance.IncrementCounter(Counter.Hertz, (int) _state.ClockCycles);
+            Counters.Instance.IncrementCounter(Counter.Hertz, _state.ClockCycles);
 
             Counters.Instance.IncrementCounter(Counter.Instructions);
 
