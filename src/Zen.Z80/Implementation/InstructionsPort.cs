@@ -250,22 +250,22 @@ public partial class Instructions
 
             var data = _interface.ReadFromMemory(address);
 
+            _state[Register.B]--;
+
             var port = _state[RegisterPair.BC];
 
             _interface.WriteToPort(port, data);
 
             _state[RegisterPair.HL]++;
 
-            _state[Register.B]--;
-
             _state[Flag.Carry] = data + _state[Register.L] > 0xFF;
-            // _state[Flag.AddSubtract] = (data & 0x80) > 0;
-            _state[Flag.ParityOverflow] = ((byte) ((data + _state[Register.L] & 0x07) ^ _state[Register.B])).IsEvenParity();
-            //_state[Flag.X1] = (_state[Register.B] & 0x08) > 0;
+            _state[Flag.AddSubtract] = (data & 0x80) > 0;
+            _state[Flag.ParityOverflow] = ((byte) ((data + _state[Register.L] & 7) ^ _state[Register.B])).IsEvenParity();
+            _state[Flag.X1] = (_state[Register.B] & 0x08) > 0;
             _state[Flag.HalfCarry] = data + _state[Register.L] > 0xFF;
-            //_state[Flag.X2] = (_state[Register.B] & 0x20) > 0;
-            // Zero unaffected
-            _state[Flag.Sign] = (sbyte) (data + _state[Register.L]) < 0;
+            _state[Flag.X2] = (_state[Register.B] & 0x20) > 0;
+            _state[Flag.Zero] = _state[Register.B] == 0;
+            _state[Flag.Sign] = (sbyte) _state[Register.B] < 0;
 
             _state.MemPtr = (ushort) (_state[RegisterPair.BC] + 1);
 
