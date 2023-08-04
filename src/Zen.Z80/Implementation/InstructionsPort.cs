@@ -203,7 +203,7 @@ public partial class Instructions
 
         _state.SetMCycles(4, 5, 3, 4);
     }
-    
+
     private void OTDR()
     {
         unchecked
@@ -241,7 +241,7 @@ public partial class Instructions
 
         _state.SetMCycles(4, 5, 3, 4);
     }
-    
+
     private void OTIR()
     {
         unchecked
@@ -335,11 +335,11 @@ public partial class Instructions
 
             _state[Register.B]--;
 
-            _state[Flag.Carry] = data > _state[Register.A];
+            //_state[Flag.Carry] = data + _state[Register.L] > 0xFF;
             _state[Flag.AddSubtract] = (data & 0x80) > 0;
-            _state[Flag.ParityOverflow] = _state[Register.B].IsEvenParity();
+            _state[Flag.ParityOverflow] = ((byte) ((data + _state[Register.L] & 7) ^ _state[Register.B])).IsEvenParity();
             _state[Flag.X1] = (_state[Register.B] & 0x08) > 0;
-            _state[Flag.HalfCarry] = (_state[Register.A] & 0x0F) < (data & 0x0F);
+            _state[Flag.HalfCarry] = data + _state[Register.L] > 0xFF;
             _state[Flag.X2] = (_state[Register.B] & 0x20) > 0;
             _state[Flag.Zero] = _state[Register.B] == 0;
             _state[Flag.Sign] = (sbyte) _state[Register.B] < 0;
