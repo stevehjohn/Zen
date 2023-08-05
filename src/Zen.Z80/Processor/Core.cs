@@ -8,7 +8,9 @@ namespace Zen.Z80.Processor;
 
 public class Core
 {
+#if LOG
     private const string InstructionsLogFilename = "instructions.log";
+#endif
 
     private readonly Interface _interface;
 
@@ -34,7 +36,9 @@ public class Core
 
         _instructions = new Instructions(_interface, _state);
 
+#if LOG
         File.Delete(InstructionsLogFilename);
+#endif
     }
 
     public void ExecuteCycle()
