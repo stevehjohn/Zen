@@ -137,11 +137,11 @@ public partial class Instructions
 
             _state[Flag.Carry] = result > 0xFFFF;
             _state[Flag.AddSubtract] = false;
-            _state[Flag.ParityOverflow] = (left & 0x8000) == (right & 0x8000) && (result & 0x8000) != (left & 0x8000);
-            _state[Flag.X1] = (result & 0x0800) > 0;
-            _state[Flag.HalfCarry] = (left & 0x0FFF) + (right & 0x0FFF) + carry > 0x0FFF;
-            _state[Flag.X2] = (result & 0x2000) > 0;
-            _state[Flag.Zero] = result == 0;
+            _state[Flag.ParityOverflow] = (~(left ^ right) & (left ^ result) & 0x8000) <= 0;
+            _state[Flag.X1] = ((result >> 11) & 1) > 0;
+            _state[Flag.HalfCarry] = (((left & 0x0FFF) + (right & 0x0FFF) + carry) & 0x1000) > 0;
+            _state[Flag.X2] = ((result >> 13) & 1) > 0;
+            _state[Flag.Zero] = (result & 0xFFFF) == 0;
             _state[Flag.Sign] = (result & 0x8000) != 0;
 
             _state.MemPtr = (ushort) (_state[target] + 1);
