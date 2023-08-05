@@ -6,5 +6,6 @@ public enum Counter
     Instructions,
     SpectrumFrames,
     AyFrames,
-    Hertz
+    Hertz,
+    IRQs
 }

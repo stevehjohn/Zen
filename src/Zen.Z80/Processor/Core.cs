@@ -223,6 +223,8 @@ public class Core
             return;
         }
 
+        Counters.Instance.IncrementCounter(Counter.IRQs);
+
         _state.InterruptFlipFlop1 = _state.InterruptFlipFlop2 = false;
 
         switch (_state.InterruptMode)
