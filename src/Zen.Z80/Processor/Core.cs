@@ -276,7 +276,7 @@ public class Core
                    + $"AF: {_state[RegisterPair.AF]:X4}  BC: {_state[RegisterPair.BC]:X4}  DE: {_state[RegisterPair.DE]:X4}  HL: {_state[RegisterPair.HL]:X4}  "
                    + $"IX: {_state[RegisterPair.IX]:X4}  IY: {_state[RegisterPair.IY]:X4}  "
                    + $"{(_state[Flag.Carry] ? 'C' : ' ')}{(_state[Flag.AddSubtract] ? 'N' : ' ')}{(_state[Flag.ParityOverflow] ? 'P' : ' ')}{(_state[Flag.HalfCarry] ? 'H' : ' ')}{(_state[Flag.Zero] ? 'Z' : ' ')}{(_state[Flag.Sign] ? 'S' : ' ')}"
-                   + $" | {instruction.Mnemonic}";
+                   + $" | {instruction.OpCode:X6}: {instruction.Mnemonic}";
 
         if (! instruction.IsPrefix)
         {
