@@ -44,21 +44,11 @@ FD 76 0000: HALT
 ### Fuse
 
 76: HALT
-db_1: IN A, n
-db_2: IN A, n
-db_3: IN A, n
-db: IN A, n
 ddfd00: NOP
-ed40: IN B, (C)
-ed48: IN C, (C)
-ed50: IN D, (C)
-ed58: IN E, (C)
-ed60: IN H, (C)
-ed68: IN L, (C)
-ed70: IN (C)
-ed78: IN A, (C)
-eda2: INI
-eda2_01: INI
+ed4a: ADC HL, BC
+ed5a: ADC HL, DE
+ed6a: ADC HL, HL
+ed7a: ADC HL, SP
 edaa_01: IND
 edaa_02: IND
 edb2: INIR

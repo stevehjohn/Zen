@@ -117,17 +117,11 @@ public class TestRunner
 
         _ramConnector.Setup(c => c.WriteRam(It.IsAny<ushort>(), It.IsAny<byte>())).Callback<ushort, byte>((a, b) => ram[a] = b);
 
-        _portConnector.Setup(c => c.CpuPortRead(It.IsAny<ushort>())).Returns<ushort>(p => (byte) (((p & 0xFF) * 2) & 0xFF));
+        _portConnector.Setup(c => c.CpuPortRead(It.IsAny<ushort>())).Returns<ushort>(p => (byte) (((p & 0xFF00) >> 8) & 0xFF));
 
         var tStates = 0;
 
         var expectedResult = LoadExpectedResult(input.Name);
-
-        // https://github.com/floooh/chips-test/issues/27#issuecomment-1451670089
-        //if (instructionIndex == 0xDB)
-        //{
-        //    ports.WriteByte((ushort) ((_state[Register.A] << 8) + ram[1]), _state[Register.A]);
-        //}
 
         try
         {
