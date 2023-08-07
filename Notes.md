@@ -49,5 +49,4 @@ FD 76 0000: HALT
 76: HALT
 ddfd00: NOP
 edb2: INIR
-edba: INDR
 ```
