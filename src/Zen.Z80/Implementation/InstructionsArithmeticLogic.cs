@@ -142,7 +142,7 @@ public partial class Instructions
             _state[Flag.HalfCarry] = (((left & 0x0FFF) + (right & 0x0FFF) + carry) & 0x1000) > 0;
             _state[Flag.X2] = ((result >> 13) & 1) > 0;
             _state[Flag.Zero] = (result & 0xFFFF) == 0;
-            _state[Flag.Sign] = (sbyte) (((left & 0xFF00) >> 8) + ((right & 0xFF00) >> 8) + carry) < 0;
+            _state[Flag.Sign] = (short) result < 0;
 
             _state.MemPtr = (ushort) (_state[target] + 1);
         }
