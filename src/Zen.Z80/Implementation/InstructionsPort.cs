@@ -86,7 +86,7 @@ public partial class Instructions
             _state[Register.B]--;
 
             var flagTemp1 = data + ((_state[Register.C] - 1) & 255);
-            var flagTemp2 = (ushort)((flagTemp1 & 7) ^ _state[Register.B]);
+            var flagTemp2 = (ushort) ((flagTemp1 & 7) ^ _state[Register.B]);
 
             _state[Flag.Carry] = flagTemp1 > 0xFF;
             _state[Flag.AddSubtract] = (data & 0x80) > 0;
