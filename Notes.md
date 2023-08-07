@@ -28,7 +28,6 @@ IND
 INIR -> NOP'
 INDR -> NOP'
 
-
 ### JSMoo
 
 76 0000: HALT
