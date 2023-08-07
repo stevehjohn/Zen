@@ -20,7 +20,6 @@ ToDos, aide memoires, etcetera.
 
 ### Z80 Documented
 
-ADC HL, RR
 LDIR -> NOP'
 LDDR -> NOP'
 INI
@@ -44,10 +43,6 @@ FD 76 0000: HALT
 
 76: HALT
 ddfd00: NOP
-ed4a: ADC HL, BC
-ed5a: ADC HL, DE
-ed6a: ADC HL, HL
-ed7a: ADC HL, SP
 edaa_01: IND
 edaa_02: IND
 edb2: INIR
