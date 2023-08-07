@@ -25,7 +25,7 @@ public class CharacterOverlayBase
     
     public Texture2D Menu { get; protected set; }
 
-    public CharacterOverlayBase(Texture2D background, GraphicsDeviceManager graphicsDeviceManager, ContentManager contentManager)
+    protected CharacterOverlayBase(Texture2D background, GraphicsDeviceManager graphicsDeviceManager, ContentManager contentManager)
     {
         Background = background;
 
