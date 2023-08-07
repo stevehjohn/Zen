@@ -1,6 +1,6 @@
 # Notes
 
-ToDos, aide memoires, etc...
+ToDos, aide memoires, etcetera.
 
 ## Useful References
 
