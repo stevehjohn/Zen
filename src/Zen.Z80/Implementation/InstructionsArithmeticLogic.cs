@@ -137,12 +137,12 @@ public partial class Instructions
 
             _state[Flag.Carry] = result > 0xFFFF;
             _state[Flag.AddSubtract] = false;
-            _state[Flag.ParityOverflow] = (~(left ^ right) & (left ^ result) & 0x8000) <= 0;
+            _state[Flag.ParityOverflow] = (left & 0x8000) == ((right + carry) & 0x8000) && (left & 0x8000) != (result & 0x8000);
             _state[Flag.X1] = ((result >> 11) & 1) > 0;
             _state[Flag.HalfCarry] = (((left & 0x0FFF) + (right & 0x0FFF) + carry) & 0x1000) > 0;
             _state[Flag.X2] = ((result >> 13) & 1) > 0;
             _state[Flag.Zero] = (result & 0xFFFF) == 0;
-            _state[Flag.Sign] = (result & 0x8000) != 0;
+            _state[Flag.Sign] = (sbyte) (((left & 0xFF00) >> 8) + ((right & 0xFF00) >> 8) + carry) < 0;
 
             _state.MemPtr = (ushort) (_state[target] + 1);
         }
@@ -205,7 +205,7 @@ public partial class Instructions
 
         _state.SetMCycles(4, 4, 3, 5, 3);
     }
-    
+
     public void ADD_R_n(Register target, byte[] parameters)
     {
         unchecked
@@ -565,7 +565,7 @@ public partial class Instructions
 
         _state.SetMCycles(6);
     }
-    
+
     private void INC_aRR(RegisterPair registers)
     {
         unchecked
@@ -590,7 +590,7 @@ public partial class Instructions
 
         _state.SetMCycles(4, 4, 3);
     }
-    
+
     private void INC_aRRd(RegisterPair registers, byte[] parameters)
     {
         unchecked
@@ -787,7 +787,7 @@ public partial class Instructions
 
             _state[Flag.Carry] = result < 0;
             _state[Flag.AddSubtract] = true;
-            _state[Flag.ParityOverflow] = ((left ^ (right + carry)) & 0x8000) != 0 && (((right + carry) ^ (ushort)result) & 0x8000) == 0;
+            _state[Flag.ParityOverflow] = ((left ^ (right + carry)) & 0x8000) != 0 && (((right + carry) ^ (ushort) result) & 0x8000) == 0;
             _state[Flag.X1] = (result & 0x0800) > 0;
             _state[Flag.HalfCarry] = ((left & 0x0FFF) - (right & 0x0FFF) - carry & 0x1000) != 0;
             _state[Flag.X2] = (result & 0x2000) > 0;
