@@ -13,6 +13,10 @@ public class MenuSystem : CharacterOverlayBase
 
     private readonly Action<MenuResult, object> _menuFinished;
 
+    private readonly Color[] _backgroundData = new Color[Constants.ScreenWidthPixels * Constants.ScreenHeightPixels];
+
+    private readonly Color[] _menuData = new Color[Constants.ScreenWidthPixels * Constants.ScreenHeightPixels];
+    
     private int _selectedItem = -1;
 
     private int _selectionDelay = SelectionFrameDelay;
@@ -27,7 +31,9 @@ public class MenuSystem : CharacterOverlayBase
         _menuFinished = menuFinished;
 
         _menu = new MainMenu();
-
+        
+        Background.GetData(_backgroundData);
+        
         Menu = new Texture2D(GraphicsDeviceManager.GraphicsDevice, Constants.ScreenWidthPixels, Constants.ScreenHeightPixels);
     }
 
@@ -141,19 +147,17 @@ public class MenuSystem : CharacterOverlayBase
 
     private void DrawMenu()
     {
-        var data = new Color[Constants.ScreenWidthPixels * Constants.ScreenHeightPixels];
-
-        Background.GetData(data);
-
-        DrawWindow(data);
+        Array.Copy(_backgroundData, _menuData, _backgroundData.Length);
+        
+        DrawWindow(_menuData);
 
         var items = _menu.GetMenu();
 
         foreach (var item in items)
         {
-            DrawString(data, item.Text, item.X, item.Y, _selectedItem == item.Id ? item.SelectedColor!.Value : item.Color, item.Centered, _selectedItem == item.Id);
+            DrawString(_menuData, item.Text, item.X, item.Y, _selectedItem == item.Id ? item.SelectedColor!.Value : item.Color, item.Centered, _selectedItem == item.Id);
         }
 
-        Menu.SetData(data);
+        Menu.SetData(_menuData);
     }
 }

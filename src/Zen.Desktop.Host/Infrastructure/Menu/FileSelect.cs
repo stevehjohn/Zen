@@ -25,6 +25,10 @@ public class FileSelect : CharacterOverlayBase
 
     private readonly List<(string FullPath, string Display, bool IsDirectory)> _files = new();
 
+    private readonly Color[] _backgroundData = new Color[Constants.ScreenWidthPixels * Constants.ScreenHeightPixels];
+
+    private readonly Color[] _menuData = new Color[Constants.ScreenWidthPixels * Constants.ScreenHeightPixels];
+
     private int _selectDelay;
 
     private int _top;
@@ -54,6 +58,10 @@ public class FileSelect : CharacterOverlayBase
         GetFiles();
 
         _menuDone = menuDone;
+        
+        Background.GetData(_backgroundData);
+        
+        Menu = new Texture2D(GraphicsDeviceManager.GraphicsDevice, Constants.ScreenWidthPixels, Constants.ScreenHeightPixels);
     }
 
     public void Update()
@@ -180,21 +188,15 @@ public class FileSelect : CharacterOverlayBase
 
     private void DrawFileSelect()
     {
-        var data = new Color[Constants.ScreenWidthPixels * Constants.ScreenHeightPixels];
+        Array.Copy(_backgroundData, _menuData, _backgroundData.Length);
+        
+        DrawWindow(_menuData);
 
-        Background.GetData(data);
+        DrawStaticItems(_menuData);
 
-        DrawWindow(data);
+        DrawFileList(_menuData);
 
-        DrawStaticItems(data);
-
-        DrawFileList(data);
-
-        var screen = new Texture2D(GraphicsDeviceManager.GraphicsDevice, Constants.ScreenWidthPixels, Constants.ScreenHeightPixels);
-
-        screen.SetData(data);
-
-        Menu = screen;
+        Menu.SetData(_menuData);
     }
 
     private void GetFiles()
