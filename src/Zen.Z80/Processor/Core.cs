@@ -146,7 +146,7 @@ public class Core
 
             UpdateR(instruction);
 
-            instruction.Execute(_parameters[..1]);
+            instruction.Execute(_parameters);
 
             instruction.UseCount++;
 
