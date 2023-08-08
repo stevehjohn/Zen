@@ -14,7 +14,7 @@ ToDos, aide memoires, etcetera.
 
 ## Failing Tests
 
-### Raxoft Z80 Documented 
+### Raxoft Z80 Documented
 
 Files: https://github.com/raxoft/z80test
 Explanation: https://github.com/redcode/Z80/wiki/Zilog-Z80-CPU-Test-Suite
