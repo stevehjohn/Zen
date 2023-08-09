@@ -466,6 +466,16 @@ public class Host : Game
                               new Rectangle(0, 0, Constants.ScreenWidthPixels, Constants.CountersPanelHeight), Color.White);
         }
 
+        if (_memoryVisualiser != null)
+        {
+            _memoryVisualiser.Render();
+
+            _spriteBatch.Draw(_memoryVisualiser.View,
+                              new Rectangle(Constants.ScreenWidthPixels * _scaleFactor, 0, Constants.VisualisationPanelWidth * _scaleFactor, Constants.ScreenHeightPixels * _scaleFactor), 
+                              new Rectangle(0, 0, Constants.VisualisationPanelWidth, Constants.ScreenHeightPixels), Color.White);
+
+        }
+
         _spriteBatch.End();
 
         base.Draw(gameTime);
