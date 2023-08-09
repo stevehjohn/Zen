@@ -30,9 +30,9 @@ public class WaveVisualiser
         {
             _scaleFactor = value;
 
-            _data = new Color[Constants.WavePanelWidth * Constants.ScreenHeightPixels];
+            _data = new Color[Constants.VisualisationPanelWidth * Constants.ScreenHeightPixels];
 
-            _waves = new Texture2D(_graphicsDeviceManager.GraphicsDevice, Constants.WavePanelWidth, Constants.ScreenHeightPixels);
+            _waves = new Texture2D(_graphicsDeviceManager.GraphicsDevice, Constants.VisualisationPanelWidth, Constants.ScreenHeightPixels);
         }
     }
 
@@ -46,9 +46,9 @@ public class WaveVisualiser
 
         _scaleFactor = scaleFactor;
 
-        _data = new Color[Constants.WavePanelWidth * Constants.ScreenHeightPixels];
+        _data = new Color[Constants.VisualisationPanelWidth * Constants.ScreenHeightPixels];
 
-        _waves = new Texture2D(_graphicsDeviceManager.GraphicsDevice, Constants.WavePanelWidth, Constants.ScreenHeightPixels);
+        _waves = new Texture2D(_graphicsDeviceManager.GraphicsDevice, Constants.VisualisationPanelWidth, Constants.ScreenHeightPixels);
 
         _buffers = new float[4][];
 
@@ -112,7 +112,7 @@ public class WaveVisualiser
 
     private void RenderChannel(int channel)
     {
-        var width = Constants.WavePanelWidth;
+        var width = Constants.VisualisationPanelWidth;
 
         var height = Constants.ScreenHeightPixels / 4;
 

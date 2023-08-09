@@ -41,7 +41,7 @@ public static class Constants
     public const int SpectrumFramesPerSecond = 50;
 
     /* Wave Visualiser */
-    public const int WavePanelWidth = 200;
+    public const int VisualisationPanelWidth = 200;
 
     /* Counters Visualiser */
     public const int CountersPanelHeight = 24;
