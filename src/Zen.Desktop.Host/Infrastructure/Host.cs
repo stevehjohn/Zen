@@ -47,12 +47,14 @@ public class Host : Game
 
     private CountersVisualiser _countersVisualiser;
 
+    private MemoryVisualiser _memoryVisualiser;
+
     public Host()
     {
         var width = Constants.ScreenWidthPixels * _scaleFactor;
         var height = Constants.ScreenHeightPixels * _scaleFactor;
 
-        if (AppSettings.Instance.Visualisation == Visualisation.Waveforms)
+        if (AppSettings.Instance.Visualisation == Visualisation.Waveforms || AppSettings.Instance.Visualisation == Visualisation.Memory)
         {
             width += Constants.VisualisationPanelWidth * _scaleFactor;
         }
@@ -144,6 +146,11 @@ public class Host : Game
             _motherboard.AyAudio.AySignalHook = _waveVisualiser.ReceiveSignals;
 
             _motherboard.AyAudio.BeeperSignalHook = _waveVisualiser.ReceiveSignal;
+        }
+
+        if (AppSettings.Instance.Visualisation == Visualisation.Memory)
+        {
+            _memoryVisualiser = new MemoryVisualiser(_graphicsDeviceManager, _scaleFactor, _motherboard.Ram);
         }
 
         _vRamAdapter = new VideoRenderer(_motherboard.VideoAdapter.ScreenFrame, _graphicsDeviceManager);
@@ -253,6 +260,8 @@ public class Host : Game
                 _motherboard.AyAudio.AySignalHook = null;
                 _motherboard.AyAudio.BeeperSignalHook = null;
 
+                _memoryVisualiser = null;
+
                 ChangeScale(_scaleFactor);
 
                 break;
@@ -264,6 +273,16 @@ public class Host : Game
                 _waveVisualiser = new WaveVisualiser(_graphicsDeviceManager, _scaleFactor);
                 _motherboard.AyAudio.AySignalHook = _waveVisualiser.ReceiveSignals;
                 _motherboard.AyAudio.BeeperSignalHook = _waveVisualiser.ReceiveSignal;
+
+                ChangeScale(_scaleFactor);
+
+                break;
+
+            case MenuResult.VisualisationMemory:
+                AppSettings.Instance.Visualisation = Visualisation.Memory;
+                AppSettings.Instance.Save();
+
+                _memoryVisualiser = new MemoryVisualiser(_graphicsDeviceManager, _scaleFactor, _motherboard.Ram);
 
                 ChangeScale(_scaleFactor);
 
@@ -323,6 +342,11 @@ public class Host : Game
         if (_waveVisualiser != null)
         {
             _waveVisualiser.ScaleFactor = scale;
+        }
+
+        if (_memoryVisualiser != null)
+        {
+            _memoryVisualiser.ScaleFactor = scale;
         }
 
         AppSettings.Instance.ScaleFactor = _scaleFactor;
