@@ -14,8 +14,8 @@ public enum MenuResult
     ChangeScale,
     SoundOn,
     SoundOff,
-    WaveformOn,
-    WaveformOff,
+    VisualisationOff,
+    VisualisationWaveform,
     CountersOn,
     CountersOff
 }

@@ -244,26 +244,26 @@ public class Host : Game
                 AppSettings.Instance.Save();
 
                 break;
-
-            case MenuResult.WaveformOn:
-                AppSettings.Instance.ViewWaves = true;
-                AppSettings.Instance.Save();
-
-                _waveVisualiser = new WaveVisualiser(_graphicsDeviceManager, _scaleFactor);
-                _motherboard.AyAudio.AySignalHook = _waveVisualiser.ReceiveSignals;
-                _motherboard.AyAudio.BeeperSignalHook = _waveVisualiser.ReceiveSignal;
-
-                ChangeScale(_scaleFactor);
-
-                break;
             
-            case MenuResult.WaveformOff:
+            case MenuResult.VisualisationOff:
                 AppSettings.Instance.ViewWaves = false;
                 AppSettings.Instance.Save();
 
                 _waveVisualiser = null;
                 _motherboard.AyAudio.AySignalHook = null;
                 _motherboard.AyAudio.BeeperSignalHook = null;
+
+                ChangeScale(_scaleFactor);
+
+                break;
+
+            case MenuResult.VisualisationWaveform:
+                AppSettings.Instance.ViewWaves = true;
+                AppSettings.Instance.Save();
+
+                _waveVisualiser = new WaveVisualiser(_graphicsDeviceManager, _scaleFactor);
+                _motherboard.AyAudio.AySignalHook = _waveVisualiser.ReceiveSignals;
+                _motherboard.AyAudio.BeeperSignalHook = _waveVisualiser.ReceiveSignal;
 
                 ChangeScale(_scaleFactor);
 
