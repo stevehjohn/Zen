@@ -52,7 +52,7 @@ public class Host : Game
         var width = Constants.ScreenWidthPixels * _scaleFactor;
         var height = Constants.ScreenHeightPixels * _scaleFactor;
 
-        if (AppSettings.Instance.ViewWaves)
+        if (AppSettings.Instance.Visualisation == Visualisation.Waveforms)
         {
             width += Constants.WavePanelWidth * _scaleFactor;
         }
@@ -137,7 +137,7 @@ public class Host : Game
 
         _countersVisualiser = new CountersVisualiser(_graphicsDeviceManager, Content);
 
-        if (AppSettings.Instance.ViewWaves)
+        if (AppSettings.Instance.Visualisation == Visualisation.Waveforms)
         {
             _waveVisualiser = new WaveVisualiser(_graphicsDeviceManager, _scaleFactor);
 
@@ -246,7 +246,7 @@ public class Host : Game
                 break;
             
             case MenuResult.VisualisationOff:
-                AppSettings.Instance.ViewWaves = false;
+                AppSettings.Instance.Visualisation = Visualisation.Off;
                 AppSettings.Instance.Save();
 
                 _waveVisualiser = null;
@@ -258,7 +258,7 @@ public class Host : Game
                 break;
 
             case MenuResult.VisualisationWaveform:
-                AppSettings.Instance.ViewWaves = true;
+                AppSettings.Instance.Visualisation = Visualisation.Waveforms;
                 AppSettings.Instance.Save();
 
                 _waveVisualiser = new WaveVisualiser(_graphicsDeviceManager, _scaleFactor);
@@ -305,7 +305,7 @@ public class Host : Game
         var width = Constants.ScreenWidthPixels * _scaleFactor;
         var height = Constants.ScreenHeightPixels * _scaleFactor;
 
-        if (AppSettings.Instance.ViewWaves)
+        if (AppSettings.Instance.Visualisation == Visualisation.Waveforms)
         {
             width += Constants.WavePanelWidth * _scaleFactor;
         }
