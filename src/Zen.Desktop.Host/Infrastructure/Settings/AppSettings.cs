@@ -23,7 +23,7 @@ public class AppSettings
 
     public bool Fast { get; set; }
 
-    public bool ViewWaves { get; set; }
+    public Visualisation Visualisation { get; set; }
 
     public bool ViewCounters { get; set; }
 
