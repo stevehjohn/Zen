@@ -324,7 +324,7 @@ public class Host : Game
         var width = Constants.ScreenWidthPixels * _scaleFactor;
         var height = Constants.ScreenHeightPixels * _scaleFactor;
 
-        if (AppSettings.Instance.Visualisation == Visualisation.Waveforms)
+        if (AppSettings.Instance.Visualisation == Visualisation.Waveforms || AppSettings.Instance.Visualisation == Visualisation.Memory)
         {
             width += Constants.VisualisationPanelWidth * _scaleFactor;
         }
