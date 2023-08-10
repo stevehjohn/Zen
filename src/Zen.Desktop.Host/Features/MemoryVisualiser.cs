@@ -17,7 +17,7 @@ public class MemoryVisualiser
 
     private Texture2D _view;
 
-    private ushort _top;
+    private int _top;
 
     public Texture2D View => _view;
 
@@ -45,7 +45,9 @@ public class MemoryVisualiser
 
     public void Render()
     {
-        var count = (ushort) 0;
+        var count = 0;
+
+        _top += 25;
 
         for (var y = 0; y < Constants.VisualisationPanelWidth; y++)
         {
