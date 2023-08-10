@@ -47,6 +47,8 @@ public class MemoryVisualiser
     {
         var count = 0;
 
+        _top += 25;
+
         for (var y = 0; y < Constants.VisualisationPanelWidth; y++)
         {
             byte content = 0;
