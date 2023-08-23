@@ -16,8 +16,8 @@ ToDos, aide memoires, etcetera.
 
 ### Raxoft Z80 Documented
 
-Files: https://github.com/raxoft/z80test
-Explanation: https://github.com/redcode/Z80/wiki/Zilog-Z80-CPU-Test-Suite
+Files: https://github.com/redcode/Z80/wiki/Zilog-Z80-CPU-Test-Suite
+Explanation: https://github.com/raxoft/z80test
 
 All registers, only documented flags.
 
