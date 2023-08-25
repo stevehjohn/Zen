@@ -39,7 +39,7 @@ public class JsonOpcodeEmitter
 
         AddSubset(0xFDCB00);
 
-        var output = JsonSerializer.Serialize(_opCodes, new JsonSerializerOptions{ WriteIndented = true });
+        var output = JsonSerializer.Serialize(_opCodes, new JsonSerializerOptions { WriteIndented = true, DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull });
     }
 
     private void AddSubset(int offset = 0x00)
@@ -91,12 +91,27 @@ public class JsonOpcodeEmitter
 
         var parts = instruction.Mnemonic.Split(' ');
 
+        var operands = new List<OperandMetadata>();
+
+        for (var i = 1; i < parts.Length; i++)
+        {
+            if (parts[i].Contains('n'))
+            {
+                operands.Add(new OperandMetadata { Bytes = instruction.ParameterLength, Immediate = parts[i][0] != '(', Name = $"n{instruction.ParameterLength * 8}" });
+
+                continue;
+            }
+
+            operands.Add(new OperandMetadata { Bytes = null, Immediate = parts[i][0] != '(', Name = parts[i] });
+        }
+
         var metadata = new OpcodeMetadata
                        {
                            BaseMnemonic = parts[0],
                            Mnemonic = instruction.Mnemonic,
                            OpCode = opCodeParts.ToArray(),
-                           OpCodeHex = opCodeHex.ToString().Trim()
+                           OpCodeHex = opCodeHex.ToString().Trim(),
+                           Operands = operands.ToArray()
                        };
 
         _opCodes.Add(metadata);
