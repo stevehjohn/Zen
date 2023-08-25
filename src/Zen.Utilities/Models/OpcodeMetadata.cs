@@ -11,4 +11,8 @@ public class OpcodeMetadata
     public string OpCodeHex { get; set; }
 
     public OperandMetadata[] Operands { get; set; }
+
+    public string ConditionFlag { get; set; }
+
+    public string[] AffectedFlags { get; set; }
 }
