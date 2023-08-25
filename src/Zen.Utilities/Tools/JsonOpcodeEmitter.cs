@@ -1,6 +1,8 @@
 ﻿using System.Text;
+using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Text.Unicode;
 using Moq;
 using Zen.Utilities.Models;
 using Zen.Z80.Implementation;
@@ -146,7 +148,7 @@ public class JsonOpcodeEmitter
                 continue;
             }
 
-            operands.Add(new OperandMetadata { Bytes = null, Immediate = part[0] != '(', Name = part.Replace("(", string.Empty).Replace(")", string.Empty), Type = OperandType.Register });
+            operands.Add(new OperandMetadata { Bytes = null, Immediate = part[0] != '(', Name = part.Replace("(", string.Empty).Replace(")", string.Empty), Type = OperandType.Register, RegisterSizeBytes = part.Length == 2 ? 2 : 1 });
         }
 
         // TODO: Compound operands (eg IX + d)

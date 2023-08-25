@@ -9,4 +9,6 @@ public class OperandMetadata
     public int? Bytes { get; set; }
 
     public OperandType Type { get; set; }
+
+    public int? RegisterSizeBytes { get; set; }
 }
