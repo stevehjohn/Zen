@@ -40,6 +40,8 @@ public class JsonOpcodeEmitter
         AddSubset(0xFDCB00);
 
         var output = JsonSerializer.Serialize(_opCodes, new JsonSerializerOptions { WriteIndented = true, DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull });
+
+        File.WriteAllText("Instructions.json", output);
     }
 
     private void AddSubset(int offset = 0x00)
@@ -104,16 +106,21 @@ public class JsonOpcodeEmitter
         {
             var part = parts[i].Replace(",", string.Empty);
 
+            if (part.StartsWith("0x"))
+            {
+                operands.Add(new OperandMetadata { Name = part, Type = OperandType.Integrated });
+            }
+
             if (part.Contains('n'))
             {
-                operands.Add(new OperandMetadata { Bytes = instruction.ParameterLength, Immediate = part[0] != '(', Name = $"n{instruction.ParameterLength * 8}" });
+                operands.Add(new OperandMetadata { Bytes = instruction.ParameterLength, Immediate = part[0] != '(', Name = $"n{instruction.ParameterLength * 8}", Type = OperandType.Parameter });
 
                 continue;
             }
 
             if (part == "e")
             {
-                operands.Add(new OperandMetadata { Bytes = 1, Name = "e" });
+                operands.Add(new OperandMetadata { Bytes = 1, Name = "e", Type = OperandType.Parameter });
 
                 continue;
             }
@@ -125,10 +132,11 @@ public class JsonOpcodeEmitter
                 continue;
             }
 
-            operands.Add(new OperandMetadata { Bytes = null, Immediate = part[0] != '(', Name = part });
+            operands.Add(new OperandMetadata { Bytes = null, Immediate = part[0] != '(', Name = part.Replace("(", string.Empty).Replace(")", string.Empty), Type = OperandType.Parameter });
         }
 
         // TODO: Compound operands (eg IX + d)
+        // TODO: Affected flags.
 
         var metadata = new OpcodeMetadata
                        {
