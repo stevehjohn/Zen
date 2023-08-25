@@ -1,0 +1,105 @@
+﻿using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using Moq;
+using Zen.Utilities.Models;
+using Zen.Z80.Implementation;
+using Zen.Z80.Interfaces;
+using Zen.Z80.Processor;
+
+namespace Zen.Utilities.Tools;
+
+public class JsonOpcodeEmitter
+{
+    private readonly Instructions _instructions;
+
+    private readonly List<OpcodeMetadata> _opCodes = new();
+
+    // ReSharper disable once ConvertConstructorToMemberInitializers
+    public JsonOpcodeEmitter()
+    {
+        _instructions = new Instructions(new Interface(new Mock<IPortConnector>().Object, new Mock<IRamConnector>().Object), new State());
+    }
+
+    public void Emit()
+    {
+        _opCodes.Clear();
+
+        AddSubset();
+
+        AddSubset(0xCB00);
+
+        AddSubset(0xDD00);
+
+        AddSubset(0xDDCB00);
+
+        AddSubset(0xED00);
+
+        AddSubset(0xFD00);
+
+        AddSubset(0xFDCB00);
+
+        var output = JsonSerializer.Serialize(_opCodes, new JsonSerializerOptions{ WriteIndented = true });
+    }
+
+    private void AddSubset(int offset = 0x00)
+    {
+        for (var i = 0; i < 256; i++)
+        {
+            AddOpcode(offset + i);
+        }
+    }
+
+    private void AddOpcode(int opCode)
+    {
+        Instruction instruction;
+
+        try
+        {
+            instruction = _instructions[opCode];
+        }
+        catch
+        {
+            return;
+        }
+
+        var length = 0;
+
+        var tempOpCode = opCode;
+
+        var opCodeHex = new StringBuilder();
+
+        var opCodeParts = new List<int>();
+
+        if (opCode == 0)
+        {
+            opCodeHex.Append("0x00");
+
+            opCodeParts.Add(0);
+        }
+        else
+        {
+            while (tempOpCode > 0)
+            {
+                opCodeHex.Insert(0, $"{tempOpCode & 0xFF:X2} ");
+
+                opCodeParts.Insert(0, tempOpCode & 0xFF);
+
+                tempOpCode >>= 8;
+
+                length++;
+            }
+
+            opCodeHex.Insert(0, "0x");
+        }
+
+        var metadata = new OpcodeMetadata
+                       {
+                           Mnemonic = instruction.Mnemonic,
+                           OpCode = opCodeParts.ToArray(),
+                           OpCodeHex = opCodeHex.ToString().Trim()
+                       };
+
+        _opCodes.Add(metadata);
+    }
+}
