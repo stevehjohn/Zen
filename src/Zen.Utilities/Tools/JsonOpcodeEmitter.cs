@@ -63,8 +63,6 @@ public class JsonOpcodeEmitter
             return;
         }
 
-        var length = 0;
-
         var tempOpCode = opCode;
 
         var opCodeHex = new StringBuilder();
@@ -86,15 +84,16 @@ public class JsonOpcodeEmitter
                 opCodeParts.Insert(0, tempOpCode & 0xFF);
 
                 tempOpCode >>= 8;
-
-                length++;
             }
 
             opCodeHex.Insert(0, "0x");
         }
 
+        var parts = instruction.Mnemonic.Split(' ');
+
         var metadata = new OpcodeMetadata
                        {
+                           BaseMnemonic = parts[0],
                            Mnemonic = instruction.Mnemonic,
                            OpCode = opCodeParts.ToArray(),
                            OpCodeHex = opCodeHex.ToString().Trim()
