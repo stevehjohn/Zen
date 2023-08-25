@@ -132,7 +132,7 @@ public class JsonOpcodeEmitter
                 continue;
             }
 
-            if (parts[0] is "RET" or "JP" or "JR" or "CALL")
+            if (parts[0] is "RET" or "JP" or "JR" or "CALL" && part[0] != '(')
             {
                 conditionFlag = part;
 
