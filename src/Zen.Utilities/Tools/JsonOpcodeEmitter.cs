@@ -93,28 +93,45 @@ public class JsonOpcodeEmitter
 
         var operands = new List<OperandMetadata>();
 
+        string conditionFlag = null;
+
+        if (parts[0] == "DJNZ")
+        {
+            conditionFlag = "NZ";
+        }
+
         for (var i = 1; i < parts.Length; i++)
         {
-            if (parts[i].Contains('n'))
+            var part = parts[i].Replace(",", string.Empty);
+
+            if (part.Contains('n'))
             {
-                operands.Add(new OperandMetadata { Bytes = instruction.ParameterLength, Immediate = parts[i][0] != '(', Name = $"n{instruction.ParameterLength * 8}" });
+                operands.Add(new OperandMetadata { Bytes = instruction.ParameterLength, Immediate = part[0] != '(', Name = $"n{instruction.ParameterLength * 8}" });
 
                 continue;
             }
 
-            if (parts[i] == "e")
+            if (part == "e")
             {
                 operands.Add(new OperandMetadata { Bytes = 1, Name = "e" });
 
                 continue;
             }
 
-            operands.Add(new OperandMetadata { Bytes = null, Immediate = parts[i][0] != '(', Name = parts[i] });
+            if (parts[0] is "RET" or "JP" or "CALL")
+            {
+                conditionFlag = part;
+
+                continue;
+            }
+
+            operands.Add(new OperandMetadata { Bytes = null, Immediate = part[0] != '(', Name = part });
         }
 
         var metadata = new OpcodeMetadata
                        {
                            BaseMnemonic = parts[0],
+                           ConditionFlag = conditionFlag,
                            Mnemonic = instruction.Mnemonic,
                            OpCode = opCodeParts.ToArray(),
                            OpCodeHex = opCodeHex.ToString().Trim(),
