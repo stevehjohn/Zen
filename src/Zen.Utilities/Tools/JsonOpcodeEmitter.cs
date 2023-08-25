@@ -39,7 +39,12 @@ public class JsonOpcodeEmitter
 
         AddSubset(0xFDCB00);
 
-        var output = JsonSerializer.Serialize(_opCodes, new JsonSerializerOptions { WriteIndented = true, DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull });
+        var output = JsonSerializer.Serialize(_opCodes, new JsonSerializerOptions
+                                                        {
+                                                            WriteIndented = true,
+                                                            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+                                                            Converters = { new JsonStringEnumConverter() }
+                                                        });
 
         File.WriteAllText("Instructions.json", output);
     }
@@ -109,6 +114,8 @@ public class JsonOpcodeEmitter
             if (part.StartsWith("0x"))
             {
                 operands.Add(new OperandMetadata { Name = part, Type = OperandType.Integrated });
+
+                continue;
             }
 
             if (part.Contains('n'))
@@ -132,7 +139,7 @@ public class JsonOpcodeEmitter
                 continue;
             }
 
-            operands.Add(new OperandMetadata { Bytes = null, Immediate = part[0] != '(', Name = part.Replace("(", string.Empty).Replace(")", string.Empty), Type = OperandType.Parameter });
+            operands.Add(new OperandMetadata { Bytes = null, Immediate = part[0] != '(', Name = part.Replace("(", string.Empty).Replace(")", string.Empty), Type = OperandType.Register });
         }
 
         // TODO: Compound operands (eg IX + d)
