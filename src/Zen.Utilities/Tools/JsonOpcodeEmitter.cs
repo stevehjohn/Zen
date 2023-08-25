@@ -128,6 +128,8 @@ public class JsonOpcodeEmitter
             operands.Add(new OperandMetadata { Bytes = null, Immediate = part[0] != '(', Name = part });
         }
 
+        // TODO: Compound operands (eg IX + d)
+
         var metadata = new OpcodeMetadata
                        {
                            BaseMnemonic = parts[0],
