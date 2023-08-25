@@ -6,5 +6,5 @@ public class OperandMetadata
 
     public bool Immediate { get; set; }
 
-    public int Bytes { get; set; }
+    public int? Bytes { get; set; }
 }
