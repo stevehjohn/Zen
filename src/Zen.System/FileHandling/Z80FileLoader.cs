@@ -139,7 +139,7 @@ public class Z80FileLoader : IFileLoader
 
         while (i < data.Length)
         {
-            if (data[i] == 0xED)
+            if (data[i] == 0xED && i + 1 < data.Length)
             {
                 if (data[i + 1] == 0xED)
                 {
