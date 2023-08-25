@@ -7,4 +7,6 @@ public class OperandMetadata
     public bool? Immediate { get; set; }
 
     public int? Bytes { get; set; }
+
+    public OperandType Type { get; set; }
 }
