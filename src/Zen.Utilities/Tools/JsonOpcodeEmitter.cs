@@ -153,7 +153,6 @@ public class JsonOpcodeEmitter
 
         // TODO: Compound operands (eg IX + d)
         // TODO: Affected flags.
-        // TODO: IXl/IXh etc.
         // TODO: Cycles.
 
         var metadata = new OpcodeMetadata
