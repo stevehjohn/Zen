@@ -118,6 +118,13 @@ public class JsonOpcodeEmitter
                 continue;
             }
 
+            if (char.IsNumber(part[0]))
+            {
+                operands.Add(new OperandMetadata { Name = part, Type = OperandType.Integrated });
+
+                continue;
+            }
+
             if (part.Contains('n'))
             {
                 operands.Add(new OperandMetadata { Bytes = instruction.ParameterLength, Immediate = part[0] != '(', Name = $"n{instruction.ParameterLength * 8}", Type = OperandType.Parameter });
