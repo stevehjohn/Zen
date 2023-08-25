@@ -102,6 +102,13 @@ public class JsonOpcodeEmitter
                 continue;
             }
 
+            if (parts[i] == "e")
+            {
+                operands.Add(new OperandMetadata { Bytes = 1, Name = "e" });
+
+                continue;
+            }
+
             operands.Add(new OperandMetadata { Bytes = null, Immediate = parts[i][0] != '(', Name = parts[i] });
         }
 
