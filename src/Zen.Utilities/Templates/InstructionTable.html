@@ -49,12 +49,29 @@
         .code {
             font-family: monospace;
             white-space: pre;
+            display: none;
+            position: absolute;
+            top: 5em;
+            left: 50%;
+            width: auto;
+            transform: translateX(-50%);
+            z-index: 1;
+            background-color: #0a0a0a;
+            color: white;
+            word-wrap: normal;
+            padding: 1em;
+            border-radius: 1em;
+            border: 2px white solid;
         }
     </style>
     <script language="javascript" type="text/javascript">
+        var previousCode = -1;
         function showCode(code) {
-            document.getElementById('code').innerText = code;
-            document.getElementById('code').style.display = 'block';
+            if (previousCode > -1) {
+                document.getElementById(previousCode).style.display = 'none';
+            }
+            document.getElementById(code).style.display = 'block';
+            previousCode = code;
         }
     </script>
 </head>

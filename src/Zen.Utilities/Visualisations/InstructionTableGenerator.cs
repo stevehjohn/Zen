@@ -92,9 +92,9 @@ public class InstructionTableGenerator
 
                     var code = _inspector.GetOpCodeImplementation(opCode);
 
-                    _code.Append($"<div class=\"code\">{code}</div>");
+                    _code.Append($"<div class=\"code\" id=\"{opCode}\" onclick=\"this.style.display = 'none';\">{code}</div>");
 
-                    _output.AppendLine($"    <td class=\"done\" onclick=\"showCode(opCode);\">{instruction.Mnemonic}</td>");
+                    _output.AppendLine($"    <td class=\"done\" onclick=\"showCode({opCode});\">{instruction.Mnemonic}</td>");
                 }
                 catch
                 {
@@ -106,26 +106,5 @@ public class InstructionTableGenerator
         }
 
         _output.AppendLine("</table>");
-    }
-
-    private static string LoadMethodCode()
-    {
-        var files = Directory.EnumerateFiles("../../../../../src/Zen.Z80/Implementation", "Instructions*");
-
-        var data = new StringBuilder();
-
-        foreach (var file in files)
-        {
-            if (! char.IsAsciiLetter(Path.GetFileName(file).Replace("Instructions", string.Empty)[0]))
-            {
-                continue;
-            }
-
-            data.Append(File.ReadAllText(file));
-
-            data.AppendLine();
-        }
-
-        return data.ToString();
     }
 }

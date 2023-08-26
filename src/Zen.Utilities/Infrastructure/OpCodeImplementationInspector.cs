@@ -104,6 +104,22 @@ public class OpCodeImplementationInspector
 
         code.Insert(0, "    public void ");
 
+        var lines = code.ToString().Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
+
+        code.Clear();
+
+        foreach (var line in lines)
+        {
+            if (line.StartsWith(' '))
+            {
+                code.AppendLine(line[4..]);
+            }
+            else
+            {
+                code.AppendLine(line);
+            }
+        }
+
         return code.ToString();
     }
 }
