@@ -74,7 +74,7 @@
                 document.getElementById(previousCode).style.display = 'none';
             }
             if (document.getElementById(code).dataset.lit != 'true') {
-                document.getElementById(code).innerHTML = hljs.highlight(document.getElementById(code).innerHTML, { language: 'csharp' }).value;
+                hljs.highlightElement(document.getElementById(code), { language: 'csharp' });
                 document.getElementById(code).dataset.lit = 'true';
             }
             document.getElementById(code).style.display = 'block';
