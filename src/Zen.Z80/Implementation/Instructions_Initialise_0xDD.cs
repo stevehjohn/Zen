@@ -1,5 +1,6 @@
 ﻿using Zen.Z80.Processor;
 
+// ReSharper disable ConvertClosureToMethodGroup
 // ReSharper disable StringLiteralTypo
 // ReSharper disable InconsistentNaming
 
