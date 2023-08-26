@@ -4,5 +4,6 @@ public enum OperandType
 {
     Integrated,
     Parameter,
-    Register
+    Register,
+    RegisterWithDisplacement
 }
