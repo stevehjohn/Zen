@@ -159,7 +159,7 @@ public class JsonOpcodeEmitter
                 continue;
             }
 
-            operands.Add(new OperandMetadata { Bytes = null, Immediate = part[0] != '(', Name = part.Replace("(", string.Empty).Replace(")", string.Empty), Type = OperandType.Register, RegisterSizeBytes = part.Length == 2 ? 2 : 1 });
+            operands.Add(new OperandMetadata { Bytes = null, Immediate = part[0] != '(', Name = part.Replace("(", string.Empty).Replace(")", string.Empty), Type = OperandType.Register, RegisterSizeBytes = part.Length == 1 ? 1 : 2 });
         }
 
         var method = GetCalledMethod(opCode);
