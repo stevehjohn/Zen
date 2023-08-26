@@ -340,8 +340,9 @@ public class JsonOpcodeEmitter
 
             flag = flag.Replace("Flag.", string.Empty);
 
+#pragma warning disable CS8509 // The switch expression does not handle all possible values of its input type (it is not exhaustive).
             flags.Add(flag switch
-            {
+                      {
                 "Carry" => "C",
                 "AddSubtract" => "N",
                 "ParityOverflow" => "PV",
@@ -351,6 +352,7 @@ public class JsonOpcodeEmitter
                 "Zero" => "Z",
                 "Sign" => "S"
             });
+#pragma warning restore CS8509 // The switch expression does not handle all possible values of its input type (it is not exhaustive).
         }
 
         return flags.ToArray();
