@@ -29,6 +29,10 @@ I did have one issue building on macOS on an M1 processor. Solved by https://sta
 
 <a id="Screenshots" />
 
+## Useful Resources
+
+A JSON definition of the instruction metadata can be found <a href="https://github.com/stevehjohn/Zen/blob/master/Documentation/Instructions.json">here</a>.
+
 ## Screenshots
 
 ![128 Boot Screen](Images/128-boot.png)
