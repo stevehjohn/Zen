@@ -39,17 +39,17 @@ public class InstructionTableGenerator
     {
         AddTable();
 
-        //AddTable(0xCB00);
+        AddTable(0xCB00);
 
-        //AddTable(0xDD00);
+        AddTable(0xDD00);
 
-        //AddTable(0xDDCB00);
+        AddTable(0xDDCB00);
 
-        //AddTable(0xED00);
+        AddTable(0xED00);
 
-        //AddTable(0xFD00);
+        AddTable(0xFD00);
 
-        //AddTable(0xFDCB00);
+        AddTable(0xFDCB00);
     }
 
     private void AddTable(int offset = 0x00)
