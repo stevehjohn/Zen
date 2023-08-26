@@ -17,12 +17,16 @@ public class JsonOpcodeEmitter
 
     private readonly string _initialisationCode;
 
+    private readonly string _methodCode;
+
     // ReSharper disable once ConvertConstructorToMemberInitializers
     public JsonOpcodeEmitter()
     {
         _instructions = new Instructions(new Interface(new Mock<IPortConnector>().Object, new Mock<IRamConnector>().Object), new State());
 
         _initialisationCode = LoadInitialisationCode();
+
+        _methodCode = LoadMethodCode();
     }
 
     public void Emit()
@@ -214,6 +218,27 @@ public class JsonOpcodeEmitter
 
         foreach (var file in files)
         {
+            data.Append(File.ReadAllText(file));
+
+            data.AppendLine();
+        }
+
+        return data.ToString();
+    }
+
+    private static string LoadMethodCode()
+    {
+        var files = Directory.EnumerateFiles("../../../../../src/Zen.Z80/Implementation", "Instructions*");
+
+        var data = new StringBuilder();
+
+        foreach (var file in files)
+        {
+            if (! char.IsAsciiLetter(Path.GetFileName(file).Replace("Instructions", string.Empty)[0]))
+            {
+                continue;
+            }
+
             data.Append(File.ReadAllText(file));
 
             data.AppendLine();
