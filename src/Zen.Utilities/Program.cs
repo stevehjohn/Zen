@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using Zen.Utilities.Tools;
 using Zen.Utilities.Visualisations;
 
 namespace Zen.Utilities
@@ -10,17 +9,17 @@ namespace Zen.Utilities
         public static void Main()
         {
             // TODO: Add CommandLineParser when required...
-            //var generator = new InstructionTableGenerator();
+            var generator = new InstructionTableGenerator();
 
-            //generator.Generate();
+            generator.Generate();
 
             //var codeGenerator = new CodeGenerator();
 
             //codeGenerator.GenerateOpCodeInitialisers();
 
-            var emitter = new JsonOpcodeEmitter();
+            //var emitter = new JsonOpcodeEmitter();
 
-            emitter.Emit();
+            //emitter.Emit();
         }
     }
 }

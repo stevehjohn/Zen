@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
+using Zen.Utilities.Infrastructure;
 using Zen.Z80.Implementation;
 using Zen.Z80.Interfaces;
 using Zen.Z80.Processor;
@@ -11,14 +12,13 @@ namespace Zen.Utilities.Visualisations;
 [ExcludeFromCodeCoverage]
 public class InstructionTableGenerator
 {
-    private readonly Instructions _instructions;
+    private readonly Instructions _instructions = new(new Interface(new Mock<IPortConnector>().Object, new Mock<IRamConnector>().Object), new State());
 
     private readonly StringBuilder _output = new();
 
-    public InstructionTableGenerator()
-    {
-        _instructions = new Instructions(new Interface(new Mock<IPortConnector>().Object, new Mock<IRamConnector>().Object), new State());
-    }
+    private readonly StringBuilder _code = new();
+
+    private readonly OpCodeImplementationInspector _inspector = new();
 
     public void Generate()
     {
@@ -27,6 +27,8 @@ public class InstructionTableGenerator
         var template = File.ReadAllText("Templates\\InstructionTable.html");
 
         template = template.Replace("<!--CONTENT-->", _output.ToString());
+
+        template = template.Replace("<!--CODE-->", _code.ToString());
 
         File.WriteAllText("SupportedOpCodes.html", template);
 
@@ -37,17 +39,17 @@ public class InstructionTableGenerator
     {
         AddTable();
 
-        AddTable(0xCB00);
+        //AddTable(0xCB00);
 
-        AddTable(0xDD00);
+        //AddTable(0xDD00);
 
-        AddTable(0xDDCB00);
+        //AddTable(0xDDCB00);
 
-        AddTable(0xED00);
+        //AddTable(0xED00);
 
-        AddTable(0xFD00);
+        //AddTable(0xFD00);
 
-        AddTable(0xFDCB00);
+        //AddTable(0xFDCB00);
     }
 
     private void AddTable(int offset = 0x00)
@@ -84,9 +86,15 @@ public class InstructionTableGenerator
             {
                 try
                 {
-                    var instruction = _instructions[offset + y * 16 + x];
+                    var opCode = offset + y * 16 + x;
 
-                    _output.AppendLine($"    <td class=\"done\">{instruction.Mnemonic}</td>");
+                    var instruction = _instructions[opCode];
+
+                    var code = _inspector.GetOpCodeImplementation(opCode);
+
+                    _code.Append($"<div class=\"code\">{code}</div>");
+
+                    _output.AppendLine($"    <td class=\"done\" onclick=\"showCode(opCode);\">{instruction.Mnemonic}</td>");
                 }
                 catch
                 {
@@ -98,5 +106,26 @@ public class InstructionTableGenerator
         }
 
         _output.AppendLine("</table>");
+    }
+
+    private static string LoadMethodCode()
+    {
+        var files = Directory.EnumerateFiles("../../../../../src/Zen.Z80/Implementation", "Instructions*");
+
+        var data = new StringBuilder();
+
+        foreach (var file in files)
+        {
+            if (! char.IsAsciiLetter(Path.GetFileName(file).Replace("Instructions", string.Empty)[0]))
+            {
+                continue;
+            }
+
+            data.Append(File.ReadAllText(file));
+
+            data.AppendLine();
+        }
+
+        return data.ToString();
     }
 }
