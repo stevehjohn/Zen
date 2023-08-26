@@ -176,7 +176,8 @@ public class JsonOpcodeEmitter
                            OpCode = opCodeParts.ToArray(),
                            OpCodeHex = opCodeHex.ToString().Trim(),
                            Operands = operands.ToArray(),
-                           Cycles = GetCycles(code)
+                           Cycles = GetCycles(code),
+                           AffectedFlags = GetAffectedFlags(code)
                        };
 
         _opCodes.Add(metadata);
@@ -318,5 +319,26 @@ public class JsonOpcodeEmitter
         var cycles = cyclesCode.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries).Select(int.Parse);
 
         return cycles.ToArray();
+    }
+
+    private static string[] GetAffectedFlags(string code)
+    {
+        var lines = code.Split(new [] { "\r\n", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+
+        var flags = new List<string>();
+
+        foreach (var line in lines)
+        {
+            if (! line.StartsWith("_state[Flag."))
+            {
+                continue;
+            }
+
+            var flag = line.Replace("_state[", string.Empty);
+
+            flag = flag.Substring(0, flag.IndexOf(']'));
+        }
+
+        return flags.ToArray();
     }
 }
