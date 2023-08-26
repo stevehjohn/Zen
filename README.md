@@ -10,6 +10,10 @@ for display output.
 
 This project aims to take the lessons learned from ZXE and build upon them.
 
+## Pre-built Binaries
+
+Releases can be found <a href="https://github.com/stevehjohn/Zen/releases">here</a>.
+
 ## Solution Structure
 
 ### Zen.Desktop.Host
