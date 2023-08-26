@@ -15,4 +15,6 @@ public class OpcodeMetadata
     public string ConditionFlag { get; set; }
 
     public string[] AffectedFlags { get; set; }
+
+    public int[] Cycles { get; set; }
 }

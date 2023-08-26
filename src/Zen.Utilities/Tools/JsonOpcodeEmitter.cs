@@ -167,7 +167,6 @@ public class JsonOpcodeEmitter
         var code = GetMethodCode(method);
 
         // TODO: Affected flags.
-        // TODO: Cycles.
 
         var metadata = new OpcodeMetadata
                        {
@@ -176,7 +175,8 @@ public class JsonOpcodeEmitter
                            Mnemonic = instruction.Mnemonic,
                            OpCode = opCodeParts.ToArray(),
                            OpCodeHex = opCodeHex.ToString().Trim(),
-                           Operands = operands.ToArray()
+                           Operands = operands.ToArray(),
+                           Cycles = GetCycles(code)
                        };
 
         _opCodes.Add(metadata);
@@ -298,5 +298,25 @@ public class JsonOpcodeEmitter
         }
 
         return code.ToString();
+    }
+
+    private static int[] GetCycles(string methodCode)
+    {
+        var cyclesIndex = methodCode.IndexOf(".SetMCycles", StringComparison.InvariantCulture);
+
+        if (cyclesIndex < 0)
+        {
+            return Array.Empty<int>();
+        }
+
+        cyclesIndex = methodCode.IndexOf("(", cyclesIndex, StringComparison.InvariantCulture);
+
+        var cyclesEndIndex = methodCode.IndexOf(")", cyclesIndex, StringComparison.InvariantCulture);
+
+        var cyclesCode = methodCode.Substring(cyclesIndex + 1, cyclesEndIndex - cyclesIndex - 1);
+
+        var cycles = cyclesCode.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries).Select(int.Parse);
+
+        return cycles.ToArray();
     }
 }
