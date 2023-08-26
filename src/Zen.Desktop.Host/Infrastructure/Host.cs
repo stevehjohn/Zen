@@ -4,7 +4,6 @@ using Microsoft.Xna.Framework.Input;
 using System;
 using System.IO;
 using System.Linq;
-using System.Security.Principal;
 using Zen.Common;
 using Zen.Common.Infrastructure;
 using Zen.Desktop.Host.Display;
