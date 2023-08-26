@@ -49,11 +49,11 @@ public class MemoryVisualiser
 
         _top += 25;
 
-        for (var y = 0; y < Constants.VisualisationPanelWidth; y++)
+        for (var y = 0; y < Constants.ScreenHeightPixels; y++)
         {
             byte content = 0;
 
-            for (var x = 0; x < Constants.ScreenHeightPixels; x++)
+            for (var x = 0; x < Constants.VisualisationPanelWidth; x++)
             {
                 if (x % 8 == 0)
                 {
