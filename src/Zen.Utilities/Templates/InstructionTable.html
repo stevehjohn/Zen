@@ -73,7 +73,10 @@
             if (previousCode > -1) {
                 document.getElementById(previousCode).style.display = 'none';
             }
-            document.getElementById(code).innerHTML = hljs.highlight(document.getElementById(code).innerHTML, { language: 'csharp' }).value;
+            if (document.getElementById(code).dataset.lit != 'true') {
+                document.getElementById(code).innerHTML = hljs.highlight(document.getElementById(code).innerHTML, { language: 'csharp' }).value;
+                document.getElementById(code).dataset.lit = 'true';
+            }
             document.getElementById(code).style.display = 'block';
             previousCode = code;
         }

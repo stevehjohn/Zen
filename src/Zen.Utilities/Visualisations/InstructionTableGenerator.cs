@@ -92,7 +92,7 @@ public class InstructionTableGenerator
 
                     var code = _inspector.GetOpCodeImplementation(opCode);
 
-                    _code.Append($"<div class=\"code\" id=\"{opCode}\" onclick=\"this.style.display = 'none';\">{code}</div>");
+                    _code.Append($"<div class=\"code\" id=\"{opCode}\" onclick=\"this.style.display = 'none';\" data-lit=\"false\">{code}</div>");
 
                     _output.AppendLine($"    <td class=\"done\" onclick=\"showCode({opCode});\">{instruction.Mnemonic}</td>");
                 }
