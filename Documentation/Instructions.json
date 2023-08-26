@@ -52,7 +52,7 @@
         "Name": "BC",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "A",
@@ -207,7 +207,7 @@
         "Name": "AF\u0027",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -267,7 +267,7 @@
         "Name": "BC",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -460,7 +460,7 @@
         "Name": "DE",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "A",
@@ -670,7 +670,7 @@
         "Name": "DE",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -1325,7 +1325,7 @@
         "Name": "HL",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -1355,7 +1355,7 @@
         "Name": "HL",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -1385,7 +1385,7 @@
         "Name": "HL",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "n8",
@@ -1855,7 +1855,7 @@
         "Name": "HL",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -2127,7 +2127,7 @@
         "Name": "HL",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -2399,7 +2399,7 @@
         "Name": "HL",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -2671,7 +2671,7 @@
         "Name": "HL",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -2943,7 +2943,7 @@
         "Name": "HL",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -3215,7 +3215,7 @@
         "Name": "HL",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -3271,7 +3271,7 @@
         "Name": "HL",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "B",
@@ -3298,7 +3298,7 @@
         "Name": "HL",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "C",
@@ -3325,7 +3325,7 @@
         "Name": "HL",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "D",
@@ -3352,7 +3352,7 @@
         "Name": "HL",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "E",
@@ -3379,7 +3379,7 @@
         "Name": "HL",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "H",
@@ -3406,7 +3406,7 @@
         "Name": "HL",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "L",
@@ -3446,7 +3446,7 @@
         "Name": "HL",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "A",
@@ -3689,7 +3689,7 @@
         "Name": "HL",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -3961,7 +3961,7 @@
         "Name": "HL",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -4242,7 +4242,7 @@
         "Name": "HL",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -4523,7 +4523,7 @@
         "Name": "HL",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -4807,7 +4807,7 @@
         "Name": "HL",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -5091,7 +5091,7 @@
         "Name": "HL",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -5372,7 +5372,7 @@
         "Name": "HL",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -5656,7 +5656,7 @@
         "Name": "HL",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -5940,7 +5940,7 @@
         "Name": "HL",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -6796,7 +6796,7 @@
         "Name": "SP",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "HL",
@@ -6945,7 +6945,7 @@
         "Name": "HL",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -7650,7 +7650,7 @@
         "Name": "HL",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -7900,7 +7900,7 @@
         "Name": "HL",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -8150,7 +8150,7 @@
         "Name": "HL",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -8412,7 +8412,7 @@
         "Name": "HL",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -8666,7 +8666,7 @@
         "Name": "HL",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -8916,7 +8916,7 @@
         "Name": "HL",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -9166,7 +9166,7 @@
         "Name": "HL",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -9416,7 +9416,7 @@
         "Name": "HL",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -9688,7 +9688,7 @@
         "Name": "HL",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -9963,7 +9963,7 @@
         "Name": "HL",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -10238,7 +10238,7 @@
         "Name": "HL",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -10513,7 +10513,7 @@
         "Name": "HL",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -10788,7 +10788,7 @@
         "Name": "HL",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -11063,7 +11063,7 @@
         "Name": "HL",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -11338,7 +11338,7 @@
         "Name": "HL",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -11613,7 +11613,7 @@
         "Name": "HL",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -11840,7 +11840,7 @@
         "Name": "HL",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -12052,7 +12052,7 @@
         "Name": "HL",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -12264,7 +12264,7 @@
         "Name": "HL",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -12476,7 +12476,7 @@
         "Name": "HL",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -12688,7 +12688,7 @@
         "Name": "HL",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -12900,7 +12900,7 @@
         "Name": "HL",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -13112,7 +13112,7 @@
         "Name": "HL",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -13324,7 +13324,7 @@
         "Name": "HL",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -13536,7 +13536,7 @@
         "Name": "HL",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -13746,7 +13746,7 @@
         "Name": "HL",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -13956,7 +13956,7 @@
         "Name": "HL",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -14166,7 +14166,7 @@
         "Name": "HL",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -14376,7 +14376,7 @@
         "Name": "HL",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -14586,7 +14586,7 @@
         "Name": "HL",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -14796,7 +14796,7 @@
         "Name": "HL",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -15006,7 +15006,7 @@
         "Name": "HL",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -15099,7 +15099,7 @@
         "Name": "BC",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "A",
@@ -15260,7 +15260,7 @@
         "Name": "AF\u0027",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -15322,7 +15322,7 @@
         "Name": "BC",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -15523,7 +15523,7 @@
         "Name": "DE",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "A",
@@ -15741,7 +15741,7 @@
         "Name": "DE",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -15994,7 +15994,7 @@
         "Name": "IXh",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -16023,7 +16023,7 @@
         "Name": "IXh",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -16052,7 +16052,7 @@
         "Name": "IXh",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "n8",
@@ -16214,7 +16214,7 @@
         "Name": "IXl",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -16243,7 +16243,7 @@
         "Name": "IXl",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -16272,7 +16272,7 @@
         "Name": "IXl",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "n8",
@@ -16428,7 +16428,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -16468,7 +16468,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -16508,7 +16508,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "n16",
@@ -16924,7 +16924,7 @@
         "Name": "IXh",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -16960,7 +16960,7 @@
         "Name": "IXl",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -17002,7 +17002,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -17213,7 +17213,7 @@
         "Name": "IXh",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -17249,7 +17249,7 @@
         "Name": "IXl",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -17291,7 +17291,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -17502,7 +17502,7 @@
         "Name": "IXh",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -17538,7 +17538,7 @@
         "Name": "IXl",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -17580,7 +17580,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -17791,7 +17791,7 @@
         "Name": "IXh",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -17827,7 +17827,7 @@
         "Name": "IXl",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -17869,7 +17869,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -17930,7 +17930,7 @@
         "Name": "IXh",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "B",
@@ -17966,7 +17966,7 @@
         "Name": "IXh",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "C",
@@ -18002,7 +18002,7 @@
         "Name": "IXh",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "D",
@@ -18038,7 +18038,7 @@
         "Name": "IXh",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "E",
@@ -18074,13 +18074,13 @@
         "Name": "IXh",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "IXh",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -18110,13 +18110,13 @@
         "Name": "IXh",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "IXl",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -18158,7 +18158,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -18183,7 +18183,7 @@
         "Name": "IXh",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "A",
@@ -18219,7 +18219,7 @@
         "Name": "IXl",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "B",
@@ -18255,7 +18255,7 @@
         "Name": "IXl",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "C",
@@ -18291,7 +18291,7 @@
         "Name": "IXl",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "D",
@@ -18327,7 +18327,7 @@
         "Name": "IXl",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "E",
@@ -18363,13 +18363,13 @@
         "Name": "IXl",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "IXh",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -18399,13 +18399,13 @@
         "Name": "IXl",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "IXl",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -18447,7 +18447,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -18472,7 +18472,7 @@
         "Name": "IXl",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "A",
@@ -18514,7 +18514,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "B",
@@ -18551,7 +18551,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "C",
@@ -18588,7 +18588,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "D",
@@ -18625,7 +18625,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "E",
@@ -18662,7 +18662,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "H",
@@ -18699,7 +18699,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "L",
@@ -18750,7 +18750,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "A",
@@ -18931,7 +18931,7 @@
         "Name": "IXh",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -18967,7 +18967,7 @@
         "Name": "IXl",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -19009,7 +19009,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -19220,7 +19220,7 @@
         "Name": "IXh",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -19256,7 +19256,7 @@
         "Name": "IXl",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -19298,7 +19298,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -19518,7 +19518,7 @@
         "Name": "IXh",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -19554,7 +19554,7 @@
         "Name": "IXl",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -19596,7 +19596,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -19816,7 +19816,7 @@
         "Name": "IXh",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -19852,7 +19852,7 @@
         "Name": "IXl",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -19894,7 +19894,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -20114,7 +20114,7 @@
         "Name": "IXh",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -20150,7 +20150,7 @@
         "Name": "IXl",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -20192,7 +20192,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -20412,7 +20412,7 @@
         "Name": "IXh",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -20448,7 +20448,7 @@
         "Name": "IXl",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -20490,7 +20490,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -20710,7 +20710,7 @@
         "Name": "IXh",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -20746,7 +20746,7 @@
         "Name": "IXl",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -20788,7 +20788,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -21008,7 +21008,7 @@
         "Name": "IXh",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -21044,7 +21044,7 @@
         "Name": "IXl",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -21086,7 +21086,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -21306,7 +21306,7 @@
         "Name": "IXh",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -21342,7 +21342,7 @@
         "Name": "IXl",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -21384,7 +21384,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -22280,7 +22280,7 @@
         "Name": "SP",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "IX",
@@ -22435,7 +22435,7 @@
         "Name": "IX",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -22983,7 +22983,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "B",
@@ -23031,7 +23031,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "C",
@@ -23079,7 +23079,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "D",
@@ -23127,7 +23127,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "E",
@@ -23175,7 +23175,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "H",
@@ -23223,7 +23223,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "L",
@@ -23271,7 +23271,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -23313,7 +23313,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "A",
@@ -23361,7 +23361,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "B",
@@ -23409,7 +23409,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "C",
@@ -23457,7 +23457,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "D",
@@ -23505,7 +23505,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "E",
@@ -23553,7 +23553,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "H",
@@ -23601,7 +23601,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "L",
@@ -23649,7 +23649,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -23691,7 +23691,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "A",
@@ -23739,7 +23739,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "B",
@@ -23787,7 +23787,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "C",
@@ -23835,7 +23835,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "D",
@@ -23883,7 +23883,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "E",
@@ -23931,7 +23931,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "H",
@@ -23979,7 +23979,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "L",
@@ -24027,7 +24027,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -24069,7 +24069,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "A",
@@ -24117,7 +24117,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "B",
@@ -24165,7 +24165,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "C",
@@ -24213,7 +24213,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "D",
@@ -24261,7 +24261,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "E",
@@ -24309,7 +24309,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "H",
@@ -24357,7 +24357,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "L",
@@ -24405,7 +24405,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -24447,7 +24447,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "A",
@@ -24495,7 +24495,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "B",
@@ -24543,7 +24543,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "C",
@@ -24591,7 +24591,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "D",
@@ -24639,7 +24639,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "E",
@@ -24687,7 +24687,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "H",
@@ -24735,7 +24735,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "L",
@@ -24783,7 +24783,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -24825,7 +24825,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "A",
@@ -24873,7 +24873,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "B",
@@ -24921,7 +24921,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "C",
@@ -24969,7 +24969,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "D",
@@ -25017,7 +25017,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "E",
@@ -25065,7 +25065,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "H",
@@ -25113,7 +25113,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "L",
@@ -25161,7 +25161,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -25203,7 +25203,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "A",
@@ -25251,7 +25251,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "B",
@@ -25299,7 +25299,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "C",
@@ -25347,7 +25347,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "D",
@@ -25395,7 +25395,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "E",
@@ -25443,7 +25443,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "H",
@@ -25491,7 +25491,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "L",
@@ -25539,7 +25539,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -25581,7 +25581,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "A",
@@ -25629,7 +25629,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "B",
@@ -25677,7 +25677,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "C",
@@ -25725,7 +25725,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "D",
@@ -25773,7 +25773,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "E",
@@ -25821,7 +25821,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "H",
@@ -25869,7 +25869,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "L",
@@ -25917,7 +25917,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -25959,7 +25959,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "A",
@@ -26011,7 +26011,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -26055,7 +26055,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -26099,7 +26099,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -26143,7 +26143,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -26187,7 +26187,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -26231,7 +26231,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -26275,7 +26275,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -26319,7 +26319,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -26363,7 +26363,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -26407,7 +26407,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -26451,7 +26451,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -26495,7 +26495,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -26539,7 +26539,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -26583,7 +26583,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -26627,7 +26627,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -26671,7 +26671,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -26715,7 +26715,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -26759,7 +26759,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -26803,7 +26803,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -26847,7 +26847,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -26891,7 +26891,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -26935,7 +26935,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -26979,7 +26979,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -27023,7 +27023,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -27067,7 +27067,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -27111,7 +27111,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -27155,7 +27155,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -27199,7 +27199,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -27243,7 +27243,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -27287,7 +27287,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -27331,7 +27331,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -27375,7 +27375,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -27419,7 +27419,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -27463,7 +27463,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -27507,7 +27507,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -27551,7 +27551,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -27595,7 +27595,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -27639,7 +27639,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -27683,7 +27683,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -27727,7 +27727,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -27771,7 +27771,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -27815,7 +27815,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -27859,7 +27859,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -27903,7 +27903,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -27947,7 +27947,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -27991,7 +27991,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -28035,7 +28035,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -28079,7 +28079,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -28123,7 +28123,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -28167,7 +28167,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -28211,7 +28211,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -28255,7 +28255,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -28299,7 +28299,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -28343,7 +28343,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -28387,7 +28387,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -28431,7 +28431,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -28475,7 +28475,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -28519,7 +28519,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -28563,7 +28563,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -28607,7 +28607,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -28651,7 +28651,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -28695,7 +28695,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -28739,7 +28739,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -28783,7 +28783,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -28827,7 +28827,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "B",
@@ -28870,7 +28870,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "C",
@@ -28913,7 +28913,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "D",
@@ -28956,7 +28956,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "E",
@@ -28999,7 +28999,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "H",
@@ -29042,7 +29042,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "L",
@@ -29085,7 +29085,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -29122,7 +29122,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "A",
@@ -29165,7 +29165,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "B",
@@ -29208,7 +29208,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "C",
@@ -29251,7 +29251,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "D",
@@ -29294,7 +29294,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "E",
@@ -29337,7 +29337,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "H",
@@ -29380,7 +29380,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "L",
@@ -29423,7 +29423,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -29460,7 +29460,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "A",
@@ -29503,7 +29503,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "B",
@@ -29546,7 +29546,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "C",
@@ -29589,7 +29589,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "D",
@@ -29632,7 +29632,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "E",
@@ -29675,7 +29675,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "H",
@@ -29718,7 +29718,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "L",
@@ -29761,7 +29761,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -29798,7 +29798,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "A",
@@ -29841,7 +29841,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "B",
@@ -29884,7 +29884,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "C",
@@ -29927,7 +29927,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "D",
@@ -29970,7 +29970,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "E",
@@ -30013,7 +30013,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "H",
@@ -30056,7 +30056,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "L",
@@ -30099,7 +30099,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -30136,7 +30136,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "A",
@@ -30179,7 +30179,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "B",
@@ -30222,7 +30222,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "C",
@@ -30265,7 +30265,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "D",
@@ -30308,7 +30308,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "E",
@@ -30351,7 +30351,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "H",
@@ -30394,7 +30394,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "L",
@@ -30437,7 +30437,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -30474,7 +30474,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "A",
@@ -30517,7 +30517,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "B",
@@ -30560,7 +30560,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "C",
@@ -30603,7 +30603,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "D",
@@ -30646,7 +30646,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "E",
@@ -30689,7 +30689,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "H",
@@ -30732,7 +30732,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "L",
@@ -30775,7 +30775,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -30812,7 +30812,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "A",
@@ -30855,7 +30855,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "B",
@@ -30898,7 +30898,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "C",
@@ -30941,7 +30941,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "D",
@@ -30984,7 +30984,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "E",
@@ -31027,7 +31027,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "H",
@@ -31070,7 +31070,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "L",
@@ -31113,7 +31113,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -31150,7 +31150,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "A",
@@ -31193,7 +31193,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "B",
@@ -31236,7 +31236,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "C",
@@ -31279,7 +31279,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "D",
@@ -31322,7 +31322,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "E",
@@ -31365,7 +31365,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "H",
@@ -31408,7 +31408,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "L",
@@ -31451,7 +31451,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -31488,7 +31488,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "A",
@@ -31531,7 +31531,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "B",
@@ -31574,7 +31574,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "C",
@@ -31617,7 +31617,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "D",
@@ -31660,7 +31660,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "E",
@@ -31703,7 +31703,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "H",
@@ -31746,7 +31746,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "L",
@@ -31789,7 +31789,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -31826,7 +31826,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "A",
@@ -31869,7 +31869,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "B",
@@ -31912,7 +31912,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "C",
@@ -31955,7 +31955,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "D",
@@ -31998,7 +31998,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "E",
@@ -32041,7 +32041,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "H",
@@ -32084,7 +32084,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "L",
@@ -32127,7 +32127,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -32164,7 +32164,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "A",
@@ -32207,7 +32207,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "B",
@@ -32250,7 +32250,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "C",
@@ -32293,7 +32293,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "D",
@@ -32336,7 +32336,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "E",
@@ -32379,7 +32379,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "H",
@@ -32422,7 +32422,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "L",
@@ -32465,7 +32465,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -32502,7 +32502,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "A",
@@ -32545,7 +32545,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "B",
@@ -32588,7 +32588,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "C",
@@ -32631,7 +32631,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "D",
@@ -32674,7 +32674,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "E",
@@ -32717,7 +32717,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "H",
@@ -32760,7 +32760,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "L",
@@ -32803,7 +32803,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -32840,7 +32840,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "A",
@@ -32883,7 +32883,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "B",
@@ -32926,7 +32926,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "C",
@@ -32969,7 +32969,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "D",
@@ -33012,7 +33012,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "E",
@@ -33055,7 +33055,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "H",
@@ -33098,7 +33098,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "L",
@@ -33141,7 +33141,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -33178,7 +33178,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "A",
@@ -33221,7 +33221,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "B",
@@ -33264,7 +33264,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "C",
@@ -33307,7 +33307,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "D",
@@ -33350,7 +33350,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "E",
@@ -33393,7 +33393,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "H",
@@ -33436,7 +33436,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "L",
@@ -33479,7 +33479,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -33516,7 +33516,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "A",
@@ -33559,7 +33559,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "B",
@@ -33602,7 +33602,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "C",
@@ -33645,7 +33645,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "D",
@@ -33688,7 +33688,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "E",
@@ -33731,7 +33731,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "H",
@@ -33774,7 +33774,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "L",
@@ -33817,7 +33817,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -33854,7 +33854,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "A",
@@ -33897,7 +33897,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "B",
@@ -33940,7 +33940,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "C",
@@ -33983,7 +33983,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "D",
@@ -34026,7 +34026,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "E",
@@ -34069,7 +34069,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "H",
@@ -34112,7 +34112,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "L",
@@ -34155,7 +34155,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -34192,7 +34192,7 @@
         "Name": "IX \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "A",
@@ -34267,7 +34267,7 @@
         "Name": "BC",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "A",
@@ -34428,7 +34428,7 @@
         "Name": "AF\u0027",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -34490,7 +34490,7 @@
         "Name": "BC",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -34691,7 +34691,7 @@
         "Name": "DE",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "A",
@@ -34909,7 +34909,7 @@
         "Name": "DE",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -35590,7 +35590,7 @@
         "Name": "HL",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -35621,7 +35621,7 @@
         "Name": "HL",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -35652,7 +35652,7 @@
         "Name": "HL",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "n8",
@@ -35922,7 +35922,7 @@
         "Name": "C",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -35953,7 +35953,7 @@
         "Name": "C",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "B",
@@ -36162,7 +36162,7 @@
         "Name": "C",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -36193,7 +36193,7 @@
         "Name": "C",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "C",
@@ -36402,7 +36402,7 @@
         "Name": "C",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -36433,7 +36433,7 @@
         "Name": "C",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "D",
@@ -36642,7 +36642,7 @@
         "Name": "C",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -36673,7 +36673,7 @@
         "Name": "C",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "E",
@@ -36882,7 +36882,7 @@
         "Name": "C",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -36913,7 +36913,7 @@
         "Name": "C",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "H",
@@ -37112,7 +37112,7 @@
         "Name": "C",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -37143,7 +37143,7 @@
         "Name": "C",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "L",
@@ -37336,7 +37336,7 @@
         "Name": "C",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -37367,7 +37367,7 @@
         "Name": "C",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "0",
@@ -37546,7 +37546,7 @@
         "Name": "C",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -37577,7 +37577,7 @@
         "Name": "C",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "A",
@@ -38002,7 +38002,7 @@
         "Name": "HL",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -38291,7 +38291,7 @@
         "Name": "HL",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -38580,7 +38580,7 @@
         "Name": "HL",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -38872,7 +38872,7 @@
         "Name": "HL",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -39120,7 +39120,7 @@
         "Name": "HL",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -39365,7 +39365,7 @@
         "Name": "HL",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -39620,7 +39620,7 @@
         "Name": "HL",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -39874,7 +39874,7 @@
         "Name": "HL",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -40767,7 +40767,7 @@
         "Name": "SP",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "HL",
@@ -40922,7 +40922,7 @@
         "Name": "HL",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -41506,7 +41506,7 @@
         "Name": "BC",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "A",
@@ -41667,7 +41667,7 @@
         "Name": "AF\u0027",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -41729,7 +41729,7 @@
         "Name": "BC",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -41930,7 +41930,7 @@
         "Name": "DE",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "A",
@@ -42148,7 +42148,7 @@
         "Name": "DE",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -42401,7 +42401,7 @@
         "Name": "IYh",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -42430,7 +42430,7 @@
         "Name": "IYh",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -42459,7 +42459,7 @@
         "Name": "IYh",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "n8",
@@ -42621,7 +42621,7 @@
         "Name": "IYl",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -42650,7 +42650,7 @@
         "Name": "IYl",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -42679,7 +42679,7 @@
         "Name": "IYl",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "n8",
@@ -42835,7 +42835,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -42875,7 +42875,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -42915,7 +42915,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "n16",
@@ -43331,7 +43331,7 @@
         "Name": "IYh",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -43367,7 +43367,7 @@
         "Name": "IYl",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -43409,7 +43409,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -43620,7 +43620,7 @@
         "Name": "IYh",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -43656,7 +43656,7 @@
         "Name": "IYl",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -43698,7 +43698,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -43909,7 +43909,7 @@
         "Name": "IYh",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -43945,7 +43945,7 @@
         "Name": "IYl",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -43987,7 +43987,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -44198,7 +44198,7 @@
         "Name": "IYh",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -44234,7 +44234,7 @@
         "Name": "IYl",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -44276,7 +44276,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -44337,7 +44337,7 @@
         "Name": "IYh",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "B",
@@ -44373,7 +44373,7 @@
         "Name": "IYh",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "C",
@@ -44409,7 +44409,7 @@
         "Name": "IYh",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "D",
@@ -44445,7 +44445,7 @@
         "Name": "IYh",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "E",
@@ -44481,13 +44481,13 @@
         "Name": "IYh",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "IYh",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -44517,13 +44517,13 @@
         "Name": "IYh",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "IYl",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -44565,7 +44565,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -44590,7 +44590,7 @@
         "Name": "IYh",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "A",
@@ -44626,7 +44626,7 @@
         "Name": "IYl",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "B",
@@ -44662,7 +44662,7 @@
         "Name": "IYl",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "C",
@@ -44698,7 +44698,7 @@
         "Name": "IYl",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "D",
@@ -44734,7 +44734,7 @@
         "Name": "IYl",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "E",
@@ -44770,13 +44770,13 @@
         "Name": "IYl",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "IYh",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -44806,13 +44806,13 @@
         "Name": "IYl",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "IYl",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -44854,7 +44854,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -44879,7 +44879,7 @@
         "Name": "IYl",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "A",
@@ -44921,7 +44921,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "B",
@@ -44958,7 +44958,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "C",
@@ -44995,7 +44995,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "D",
@@ -45032,7 +45032,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "E",
@@ -45069,7 +45069,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "H",
@@ -45106,7 +45106,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "L",
@@ -45157,7 +45157,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "A",
@@ -45338,7 +45338,7 @@
         "Name": "IYh",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -45374,7 +45374,7 @@
         "Name": "IYl",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -45416,7 +45416,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -45627,7 +45627,7 @@
         "Name": "IYh",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -45663,7 +45663,7 @@
         "Name": "IYl",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -45705,7 +45705,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -45925,7 +45925,7 @@
         "Name": "IYh",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -45961,7 +45961,7 @@
         "Name": "IYl",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -46003,7 +46003,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -46223,7 +46223,7 @@
         "Name": "IYh",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -46259,7 +46259,7 @@
         "Name": "IYl",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -46301,7 +46301,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -46521,7 +46521,7 @@
         "Name": "IYh",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -46557,7 +46557,7 @@
         "Name": "IYl",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -46599,7 +46599,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -46819,7 +46819,7 @@
         "Name": "IYh",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -46855,7 +46855,7 @@
         "Name": "IYl",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -46897,7 +46897,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -47117,7 +47117,7 @@
         "Name": "IYh",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -47153,7 +47153,7 @@
         "Name": "IYl",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -47195,7 +47195,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -47415,7 +47415,7 @@
         "Name": "IYh",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -47451,7 +47451,7 @@
         "Name": "IYl",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -47493,7 +47493,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -47713,7 +47713,7 @@
         "Name": "IYh",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -47749,7 +47749,7 @@
         "Name": "IYl",
         "Immediate": true,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -47791,7 +47791,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -48687,7 +48687,7 @@
         "Name": "SP",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "IY",
@@ -48842,7 +48842,7 @@
         "Name": "IY",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -49390,7 +49390,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "B",
@@ -49438,7 +49438,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "C",
@@ -49486,7 +49486,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "D",
@@ -49534,7 +49534,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "E",
@@ -49582,7 +49582,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "H",
@@ -49630,7 +49630,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "L",
@@ -49678,7 +49678,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -49720,7 +49720,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "A",
@@ -49768,7 +49768,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "B",
@@ -49816,7 +49816,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "C",
@@ -49864,7 +49864,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "D",
@@ -49912,7 +49912,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "E",
@@ -49960,7 +49960,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "H",
@@ -50008,7 +50008,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "L",
@@ -50056,7 +50056,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -50098,7 +50098,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "A",
@@ -50146,7 +50146,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "B",
@@ -50194,7 +50194,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "C",
@@ -50242,7 +50242,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "D",
@@ -50290,7 +50290,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "E",
@@ -50338,7 +50338,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "H",
@@ -50386,7 +50386,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "L",
@@ -50434,7 +50434,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -50476,7 +50476,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "A",
@@ -50524,7 +50524,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "B",
@@ -50572,7 +50572,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "C",
@@ -50620,7 +50620,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "D",
@@ -50668,7 +50668,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "E",
@@ -50716,7 +50716,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "H",
@@ -50764,7 +50764,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "L",
@@ -50812,7 +50812,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -50854,7 +50854,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "A",
@@ -50902,7 +50902,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "B",
@@ -50950,7 +50950,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "C",
@@ -50998,7 +50998,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "D",
@@ -51046,7 +51046,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "E",
@@ -51094,7 +51094,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "H",
@@ -51142,7 +51142,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "L",
@@ -51190,7 +51190,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -51232,7 +51232,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "A",
@@ -51280,7 +51280,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "B",
@@ -51328,7 +51328,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "C",
@@ -51376,7 +51376,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "D",
@@ -51424,7 +51424,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "E",
@@ -51472,7 +51472,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "H",
@@ -51520,7 +51520,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "L",
@@ -51568,7 +51568,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -51610,7 +51610,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "A",
@@ -51658,7 +51658,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "B",
@@ -51706,7 +51706,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "C",
@@ -51754,7 +51754,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "D",
@@ -51802,7 +51802,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "E",
@@ -51850,7 +51850,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "H",
@@ -51898,7 +51898,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "L",
@@ -51946,7 +51946,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -51988,7 +51988,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "A",
@@ -52036,7 +52036,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "B",
@@ -52084,7 +52084,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "C",
@@ -52132,7 +52132,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "D",
@@ -52180,7 +52180,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "E",
@@ -52228,7 +52228,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "H",
@@ -52276,7 +52276,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "L",
@@ -52324,7 +52324,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -52366,7 +52366,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "A",
@@ -52418,7 +52418,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -52462,7 +52462,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -52506,7 +52506,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -52550,7 +52550,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -52594,7 +52594,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -52638,7 +52638,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -52682,7 +52682,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -52726,7 +52726,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -52770,7 +52770,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -52814,7 +52814,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -52858,7 +52858,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -52902,7 +52902,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -52946,7 +52946,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -52990,7 +52990,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -53034,7 +53034,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -53078,7 +53078,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -53122,7 +53122,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -53166,7 +53166,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -53210,7 +53210,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -53254,7 +53254,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -53298,7 +53298,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -53342,7 +53342,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -53386,7 +53386,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -53430,7 +53430,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -53474,7 +53474,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -53518,7 +53518,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -53562,7 +53562,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -53606,7 +53606,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -53650,7 +53650,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -53694,7 +53694,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -53738,7 +53738,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -53782,7 +53782,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -53826,7 +53826,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -53870,7 +53870,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -53914,7 +53914,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -53958,7 +53958,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -54002,7 +54002,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -54046,7 +54046,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -54090,7 +54090,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -54134,7 +54134,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -54178,7 +54178,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -54222,7 +54222,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -54266,7 +54266,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -54310,7 +54310,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -54354,7 +54354,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -54398,7 +54398,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -54442,7 +54442,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -54486,7 +54486,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -54530,7 +54530,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -54574,7 +54574,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -54618,7 +54618,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -54662,7 +54662,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -54706,7 +54706,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -54750,7 +54750,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -54794,7 +54794,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -54838,7 +54838,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -54882,7 +54882,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -54926,7 +54926,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -54970,7 +54970,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -55014,7 +55014,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -55058,7 +55058,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -55102,7 +55102,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -55146,7 +55146,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -55190,7 +55190,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [
@@ -55234,7 +55234,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "B",
@@ -55277,7 +55277,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "C",
@@ -55320,7 +55320,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "D",
@@ -55363,7 +55363,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "E",
@@ -55406,7 +55406,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "H",
@@ -55449,7 +55449,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "L",
@@ -55492,7 +55492,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -55529,7 +55529,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "A",
@@ -55572,7 +55572,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "B",
@@ -55615,7 +55615,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "C",
@@ -55658,7 +55658,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "D",
@@ -55701,7 +55701,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "E",
@@ -55744,7 +55744,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "H",
@@ -55787,7 +55787,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "L",
@@ -55830,7 +55830,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -55867,7 +55867,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "A",
@@ -55910,7 +55910,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "B",
@@ -55953,7 +55953,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "C",
@@ -55996,7 +55996,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "D",
@@ -56039,7 +56039,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "E",
@@ -56082,7 +56082,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "H",
@@ -56125,7 +56125,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "L",
@@ -56168,7 +56168,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -56205,7 +56205,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "A",
@@ -56248,7 +56248,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "B",
@@ -56291,7 +56291,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "C",
@@ -56334,7 +56334,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "D",
@@ -56377,7 +56377,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "E",
@@ -56420,7 +56420,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "H",
@@ -56463,7 +56463,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "L",
@@ -56506,7 +56506,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -56543,7 +56543,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "A",
@@ -56586,7 +56586,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "B",
@@ -56629,7 +56629,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "C",
@@ -56672,7 +56672,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "D",
@@ -56715,7 +56715,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "E",
@@ -56758,7 +56758,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "H",
@@ -56801,7 +56801,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "L",
@@ -56844,7 +56844,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -56881,7 +56881,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "A",
@@ -56924,7 +56924,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "B",
@@ -56967,7 +56967,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "C",
@@ -57010,7 +57010,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "D",
@@ -57053,7 +57053,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "E",
@@ -57096,7 +57096,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "H",
@@ -57139,7 +57139,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "L",
@@ -57182,7 +57182,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -57219,7 +57219,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "A",
@@ -57262,7 +57262,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "B",
@@ -57305,7 +57305,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "C",
@@ -57348,7 +57348,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "D",
@@ -57391,7 +57391,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "E",
@@ -57434,7 +57434,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "H",
@@ -57477,7 +57477,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "L",
@@ -57520,7 +57520,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -57557,7 +57557,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "A",
@@ -57600,7 +57600,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "B",
@@ -57643,7 +57643,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "C",
@@ -57686,7 +57686,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "D",
@@ -57729,7 +57729,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "E",
@@ -57772,7 +57772,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "H",
@@ -57815,7 +57815,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "L",
@@ -57858,7 +57858,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -57895,7 +57895,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "A",
@@ -57938,7 +57938,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "B",
@@ -57981,7 +57981,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "C",
@@ -58024,7 +58024,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "D",
@@ -58067,7 +58067,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "E",
@@ -58110,7 +58110,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "H",
@@ -58153,7 +58153,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "L",
@@ -58196,7 +58196,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -58233,7 +58233,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "A",
@@ -58276,7 +58276,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "B",
@@ -58319,7 +58319,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "C",
@@ -58362,7 +58362,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "D",
@@ -58405,7 +58405,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "E",
@@ -58448,7 +58448,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "H",
@@ -58491,7 +58491,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "L",
@@ -58534,7 +58534,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -58571,7 +58571,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "A",
@@ -58614,7 +58614,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "B",
@@ -58657,7 +58657,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "C",
@@ -58700,7 +58700,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "D",
@@ -58743,7 +58743,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "E",
@@ -58786,7 +58786,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "H",
@@ -58829,7 +58829,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "L",
@@ -58872,7 +58872,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -58909,7 +58909,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "A",
@@ -58952,7 +58952,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "B",
@@ -58995,7 +58995,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "C",
@@ -59038,7 +59038,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "D",
@@ -59081,7 +59081,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "E",
@@ -59124,7 +59124,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "H",
@@ -59167,7 +59167,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "L",
@@ -59210,7 +59210,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -59247,7 +59247,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "A",
@@ -59290,7 +59290,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "B",
@@ -59333,7 +59333,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "C",
@@ -59376,7 +59376,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "D",
@@ -59419,7 +59419,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "E",
@@ -59462,7 +59462,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "H",
@@ -59505,7 +59505,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "L",
@@ -59548,7 +59548,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -59585,7 +59585,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "A",
@@ -59628,7 +59628,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "B",
@@ -59671,7 +59671,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "C",
@@ -59714,7 +59714,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "D",
@@ -59757,7 +59757,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "E",
@@ -59800,7 +59800,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "H",
@@ -59843,7 +59843,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "L",
@@ -59886,7 +59886,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -59923,7 +59923,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "A",
@@ -59966,7 +59966,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "B",
@@ -60009,7 +60009,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "C",
@@ -60052,7 +60052,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "D",
@@ -60095,7 +60095,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "E",
@@ -60138,7 +60138,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "H",
@@ -60181,7 +60181,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "L",
@@ -60224,7 +60224,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -60261,7 +60261,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "A",
@@ -60304,7 +60304,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "B",
@@ -60347,7 +60347,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "C",
@@ -60390,7 +60390,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "D",
@@ -60433,7 +60433,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "E",
@@ -60476,7 +60476,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "H",
@@ -60519,7 +60519,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "L",
@@ -60562,7 +60562,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       }
     ],
     "AffectedFlags": [],
@@ -60599,7 +60599,7 @@
         "Name": "IY \u002B d",
         "Immediate": false,
         "Type": "Register",
-        "RegisterSizeBytes": 1
+        "RegisterSizeBytes": 2
       },
       {
         "Name": "A",
