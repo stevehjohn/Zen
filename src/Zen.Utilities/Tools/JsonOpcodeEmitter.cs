@@ -337,6 +337,20 @@ public class JsonOpcodeEmitter
             var flag = line.Replace("_state[", string.Empty);
 
             flag = flag.Substring(0, flag.IndexOf(']'));
+
+            flag = flag.Replace("Flag.", string.Empty);
+
+            flags.Add(flag switch
+            {
+                "Carry" => "C",
+                "AddSubtract" => "N",
+                "ParityOverflow" => "PV",
+                "X1" => "X",
+                "HalfCarry" => "H",
+                "X2" => "X2",
+                "Zero" => "Z",
+                "Sign" => "S"
+            });
         }
 
         return flags.ToArray();
