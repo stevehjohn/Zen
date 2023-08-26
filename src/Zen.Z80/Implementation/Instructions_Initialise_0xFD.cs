@@ -1,5 +1,6 @@
 ﻿using Zen.Z80.Processor;
 
+// ReSharper disable ConvertClosureToMethodGroup
 // ReSharper disable StringLiteralTypo
 // ReSharper disable InconsistentNaming
 
@@ -41,7 +42,7 @@ public partial class Instructions
 
         _instructions.Add(0x00FD0F, new Instruction(_ => RRCA(), "RRCA", 0x00FD0F, 0, 4));
 
-        _instructions.Add(0x00FD10, new Instruction(DJNZ_e, "DJNZ e", 0x00FD10, 1, 4));
+        _instructions.Add(0x00FD10, new Instruction(p => DJNZ_e(p), "DJNZ e", 0x00FD10, 1, 4));
 
         _instructions.Add(0x00FD11, new Instruction(p => LD_RR_nn(RegisterPair.DE, p), "LD DE, nn", 0x00FD11, 2, 4));
 
@@ -57,7 +58,7 @@ public partial class Instructions
 
         _instructions.Add(0x00FD17, new Instruction(_ => RLA(), "RLA", 0x00FD17, 0, 4));
 
-        _instructions.Add(0x00FD18, new Instruction(JR_e, "JR e", 0x00FD18, 1, 4));
+        _instructions.Add(0x00FD18, new Instruction(p => JR_e(p), "JR e", 0x00FD18, 1, 4));
 
         _instructions.Add(0x00FD19, new Instruction(_ => ADD_RR_RR(RegisterPair.IY, RegisterPair.DE), "ADD IY, DE", 0x00FD19, 0, 4));
 
@@ -399,7 +400,7 @@ public partial class Instructions
 
         _instructions.Add(0x00FDC2, new Instruction(p => JP_F_nn(Flag.Zero, p, true), "JP NZ, nn", 0x00FDC2, 2, 4));
 
-        _instructions.Add(0x00FDC3, new Instruction(JP_nn, "JP nn", 0x00FDC3, 2, 4));
+        _instructions.Add(0x00FDC3, new Instruction(p => JP_nn(p), "JP nn", 0x00FDC3, 2, 4));
 
         _instructions.Add(0x00FDC4, new Instruction(p => CALL_F_nn(Flag.Zero, p, true), "CALL NZ, nn", 0x00FDC4, 2, 4));
 
@@ -419,7 +420,7 @@ public partial class Instructions
 
         _instructions.Add(0x00FDCC, new Instruction(p => CALL_F_nn(Flag.Zero, p), "CALL Z, nn", 0x00FDCC, 2, 4));
 
-        _instructions.Add(0x00FDCD, new Instruction(CALL_nn, "CALL nn", 0x00FDCD, 2, 4));
+        _instructions.Add(0x00FDCD, new Instruction(p => CALL_nn(p), "CALL nn", 0x00FDCD, 2, 4));
 
         _instructions.Add(0x00FDCE, new Instruction(p => ADC_R_n(Register.A, p), "ADC A, n", 0x00FDCE, 1, 4));
 

@@ -228,7 +228,7 @@ public class JsonOpcodeEmitter
 
         var lambdaIndex = _initialisationCode.IndexOf("=>", initialisationIndex, StringComparison.InvariantCultureIgnoreCase);
 
-        var 
+        //var 
 
         return "";
     }
