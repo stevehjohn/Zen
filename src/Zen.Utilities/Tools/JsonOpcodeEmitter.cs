@@ -98,7 +98,7 @@ public class JsonOpcodeEmitter
             opCodeHex.Insert(0, "0x");
         }
 
-        var parts = instruction.Mnemonic.Split(' ');
+        var parts = SplitMnemonic(instruction.Mnemonic);
 
         var operands = new List<OperandMetadata>();
 
@@ -141,6 +141,11 @@ public class JsonOpcodeEmitter
                 continue;
             }
 
+            if (part.Contains('+'))
+            {
+                operands.Add(new OperandMetadata { Bytes = 1, Name = part, Type = OperandType.RegisterWithDisplacement, Immediate = false });
+            }
+
             if (parts[0] is "RET" or "JP" or "JR" or "CALL" && part[0] != '(')
             {
                 conditionFlag = part;
@@ -166,5 +171,35 @@ public class JsonOpcodeEmitter
                        };
 
         _opCodes.Add(metadata);
+    }
+
+    private static string[] SplitMnemonic(string mnemonic)
+    {
+        var parts = mnemonic.Split(' ');
+
+        if (! mnemonic.Contains('+'))
+        {
+            return parts;
+        }
+
+        var returnParts = new List<string>();
+
+        for (var i = 0; i < parts.Length; i++)
+        {
+            var part = parts[i];
+
+            if (! part.StartsWith('('))
+            {
+                returnParts.Add(part);
+
+                continue;
+            }
+
+            returnParts.Add($"{part} {parts[i + 1]} {parts[i + 2]}");
+
+            i += 2;
+        }
+
+        return returnParts.ToArray();
     }
 }
