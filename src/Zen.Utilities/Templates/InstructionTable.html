@@ -3,7 +3,10 @@
 <head>
     <meta charset="utf-8"/>
     <title>Currently Implemented Instructions</title>
-    <style type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/csharp.min.js">
+    </script>    <style type="text/css">
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200&display=swap');
 
         body {
@@ -70,6 +73,7 @@
             if (previousCode > -1) {
                 document.getElementById(previousCode).style.display = 'none';
             }
+            document.getElementById(code).innerHTML = hljs.highlight(document.getElementById(code).innerHTML, { language: 'csharp' }).value;
             document.getElementById(code).style.display = 'block';
             previousCode = code;
         }
