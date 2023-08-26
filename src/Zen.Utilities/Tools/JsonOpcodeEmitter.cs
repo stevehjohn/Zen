@@ -156,7 +156,6 @@ public class JsonOpcodeEmitter
             operands.Add(new OperandMetadata { Bytes = null, Immediate = part[0] != '(', Name = part.Replace("(", string.Empty).Replace(")", string.Empty), Type = OperandType.Register, RegisterSizeBytes = part.Length == 2 ? 2 : 1 });
         }
 
-        // TODO: Compound operands (eg IX + d)
         // TODO: Affected flags.
         // TODO: Cycles.
 
