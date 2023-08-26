@@ -15,10 +15,14 @@ public class JsonOpcodeEmitter
 
     private readonly List<OpcodeMetadata> _opCodes = new();
 
+    private readonly string _initialisationCode;
+
     // ReSharper disable once ConvertConstructorToMemberInitializers
     public JsonOpcodeEmitter()
     {
         _instructions = new Instructions(new Interface(new Mock<IPortConnector>().Object, new Mock<IRamConnector>().Object), new State());
+
+        _initialisationCode = LoadInitialisationCode();
     }
 
     public void Emit()
@@ -154,6 +158,8 @@ public class JsonOpcodeEmitter
             operands.Add(new OperandMetadata { Bytes = null, Immediate = part[0] != '(', Name = part.Replace("(", string.Empty).Replace(")", string.Empty), Type = OperandType.Register, RegisterSizeBytes = part.Length == 2 ? 2 : 1 });
         }
 
+        var method = GetCalledMethod(opCode);
+
         // TODO: Affected flags.
         // TODO: Cycles.
 
@@ -198,5 +204,32 @@ public class JsonOpcodeEmitter
         }
 
         return returnParts.ToArray();
+    }
+
+    private static string LoadInitialisationCode()
+    {
+        var files = Directory.EnumerateFiles("../../../../../src/Zen.Z80/Implementation", "Instructions_Initialise_*");
+
+        var data = new StringBuilder();
+
+        foreach (var file in files)
+        {
+            data.Append(File.ReadAllText(file));
+
+            data.AppendLine();
+        }
+
+        return data.ToString();
+    }
+
+    private string GetCalledMethod(int opCode)
+    {
+        var initialisationIndex = _initialisationCode.IndexOf($"0x{opCode:X6}", StringComparison.InvariantCultureIgnoreCase);
+
+        var lambdaIndex = _initialisationCode.IndexOf("=>", initialisationIndex, StringComparison.InvariantCultureIgnoreCase);
+
+        var 
+
+        return "";
     }
 }
