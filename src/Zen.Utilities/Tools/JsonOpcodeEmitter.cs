@@ -164,6 +164,8 @@ public class JsonOpcodeEmitter
 
         var method = GetCalledMethod(opCode);
 
+        var code = GetMethodCode(method);
+
         // TODO: Affected flags.
         // TODO: Cycles.
 
@@ -260,5 +262,41 @@ public class JsonOpcodeEmitter
         methodString = methodString.Replace("=>", string.Empty);
 
         return methodString.Trim();
+    }
+
+    private string GetMethodCode(string methodName)
+    {
+        var index = _methodCode.IndexOf(methodName, StringComparison.InvariantCulture);
+
+        var braceCount = -1;
+
+        var code = new StringBuilder();
+        
+        while (braceCount != 0)
+        {
+            var character = _methodCode[index];
+
+            if (character == '{')
+            {
+                if (braceCount == -1)
+                {
+                    braceCount = 1;
+                }
+                else
+                {
+                    braceCount++;
+                }
+            }
+            else if (character == '}')
+            {
+                braceCount--;
+            }
+
+            code.Append(character);
+
+            index++;
+        }
+
+        return code.ToString();
     }
 }
