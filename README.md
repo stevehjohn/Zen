@@ -33,6 +33,8 @@ I did have one issue building on macOS on an M1 processor. Solved by https://sta
 
 A JSON definition of the instruction metadata can be found <a href="https://github.com/stevehjohn/Zen/blob/master/Documentation/Instructions.json">here</a>.
 
+A table of supported opcodes can be found <a href="https://stevehjohn.github.io/Zen/SupportedOpCodes.html">here</a>.
+
 ## Screenshots
 
 ![128 Boot Screen](Images/128-boot.png)
