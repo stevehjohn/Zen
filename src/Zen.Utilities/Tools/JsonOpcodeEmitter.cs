@@ -166,8 +166,6 @@ public class JsonOpcodeEmitter
 
         var code = GetMethodCode(method);
 
-        // TODO: Affected flags.
-
         var metadata = new OpcodeMetadata
                        {
                            BaseMnemonic = parts[0],
