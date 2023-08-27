@@ -77,7 +77,7 @@
                 document.getElementById(previousCode).style.display = 'none';
             }
             if (document.getElementById(code).dataset.lit != 'true') {
-                hljs.highlightElement(document.getElementById(code), { language: 'csharp' });
+                hljs.highlightElement(document.getElementById(code), { language: 'cs', ignoreIllegals: true });
                 document.getElementById(code).dataset.lit = 'true';
             }
             document.getElementById(code).style.display = 'block';
