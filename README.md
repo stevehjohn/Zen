@@ -35,13 +35,13 @@ I did have one issue building on macOS on an M1 processor. Solved by https://sta
 - `brew install freeimage`
 - `sudo ln -s /opt/homebrew/Cellar/freeimage/3.18.0/lib/libfreeimage.dylib /usr/local/lib/libfreeimage`
 
-<a id="Screenshots" />
-
 ## Useful Resources
 
 A JSON definition of the instruction metadata can be found <a href="https://github.com/stevehjohn/Zen/blob/master/Documentation/Instructions.json">here</a>.
 
 A table of supported opcodes can be found <a href="https://stevehjohn.github.io/Zen/SupportedOpCodes.html">here</a>.
+
+<a id="Screenshots" />
 
 ## Screenshots
 
