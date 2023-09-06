@@ -230,7 +230,6 @@ public class Core
         switch (_state.InterruptMode)
         {
             case InterruptMode.IM0:
-                // TODO: Get instruction opcode from bus.
                 PushProgramCounter();
 
                 _state.ProgramCounter = 0x38;
@@ -249,7 +248,6 @@ public class Core
             case InterruptMode.IM2:
                 PushProgramCounter();
 
-                // TODO: Get 0xFF from bus.
                 var address = (ushort) ((_state[Register.I] << 8) | 0xFF);
 
                 _state.ProgramCounter = (ushort) (_interface.ReadFromMemory(address) | (_interface.ReadFromMemory((ushort) (address + 1)) << 8));
