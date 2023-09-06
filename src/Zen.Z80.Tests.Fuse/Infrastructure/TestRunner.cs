@@ -129,7 +129,7 @@ public class TestRunner
             {
                 processor.ExecuteCycle();
 
-                tStates += (int) _state.ClockCycles;
+                tStates += _state.ClockCycles;
             }
         }
         catch (OpCodeNotFoundException)
