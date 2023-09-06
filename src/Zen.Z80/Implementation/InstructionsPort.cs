@@ -1,7 +1,6 @@
 ﻿// ReSharper disable InconsistentNaming
 // ReSharper disable IdentifierTypo
 
-using System;
 using Zen.Common.Extensions;
 using Zen.Z80.Processor;
 
