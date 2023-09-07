@@ -62,7 +62,7 @@ public class VideoRenderer
                         ? pixel & 0b0000_0111
                         : (pixel & 0b0011_1000) >> 3;
 
-        var intensity = (pixel & 0b0000_0001_0000_0000) > 0 ? 0xFF : 0xC0;
+        var intensity = (pixel & 0b0000_0001_0000_0000) > 0 ? 0xFF : 0xD8;
         
         return color switch
         {
