@@ -66,29 +66,29 @@ public class VideoRenderer
         {
             return color switch
             {
-                0 => Color.Black,
-                1 => Color.Blue,
-                2 => Color.Red,
-                3 => Color.Magenta,
+                0 => Color.FromNonPremultiplied(0, 0, 0, 255),
+                1 => Color.FromNonPremultiplied(0, 0, 255, 255),
+                2 => Color.FromNonPremultiplied(255, 0, 0, 255),
+                3 => Color.FromNonPremultiplied(255, 0, 255, 255),
                 4 => Color.FromNonPremultiplied(0, 200, 0, 255),
-                5 => Color.Cyan,
-                6 => Color.Yellow,
-                7 => Color.White,
-                _ => Color.Black
+                5 => Color.FromNonPremultiplied(0, 255, 255, 255),
+                6 => Color.FromNonPremultiplied(255, 255, 0, 255),
+                7 => Color.FromNonPremultiplied(255, 255, 255, 255),
+                _ => Color.FromNonPremultiplied(0, 0, 0, 255)
             };
         }
 
         return color switch
         {
-            0 => Color.Black,
-            1 => Color.DarkBlue,
+            0 => Color.FromNonPremultiplied(0, 0, 0, 255),
+            1 => Color.FromNonPremultiplied(0, 0, 192, 255),
             2 => Color.FromNonPremultiplied(192, 0, 0, 255),
-            3 => Color.DarkMagenta,
-            4 => Color.Green,
-            5 => Color.DarkCyan,
-            6 => Color.FromNonPremultiplied(204, 204, 0, 255),
-            7 => Color.LightGray,
-            _ => Color.Black
+            3 => Color.FromNonPremultiplied(192, 0, 192, 255),
+            4 => Color.FromNonPremultiplied(0, 192, 0, 255),
+            5 => Color.FromNonPremultiplied(0, 192, 192, 255),
+            6 => Color.FromNonPremultiplied(192, 192, 0, 255),
+            7 => Color.FromNonPremultiplied(192, 192, 192, 255),
+            _ => Color.FromNonPremultiplied(0, 0, 0, 255)
         };
     }
 }
