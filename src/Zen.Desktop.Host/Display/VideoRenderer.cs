@@ -62,32 +62,17 @@ public class VideoRenderer
                         ? pixel & 0b0000_0111
                         : (pixel & 0b0011_1000) >> 3;
 
-        if ((pixel & 0b0000_0001_0000_0000) > 0)
-        {
-            return color switch
-            {
-                0 => Color.FromNonPremultiplied(0, 0, 0, 255),
-                1 => Color.FromNonPremultiplied(0, 0, 255, 255),
-                2 => Color.FromNonPremultiplied(255, 0, 0, 255),
-                3 => Color.FromNonPremultiplied(255, 0, 255, 255),
-                4 => Color.FromNonPremultiplied(0, 200, 0, 255),
-                5 => Color.FromNonPremultiplied(0, 255, 255, 255),
-                6 => Color.FromNonPremultiplied(255, 255, 0, 255),
-                7 => Color.FromNonPremultiplied(255, 255, 255, 255),
-                _ => Color.FromNonPremultiplied(0, 0, 0, 255)
-            };
-        }
-
+        var intensity = (pixel & 0b0000_0001_0000_0000) > 0 ? 0xFF : 0xC0;
+        
         return color switch
         {
-            0 => Color.FromNonPremultiplied(0, 0, 0, 255),
-            1 => Color.FromNonPremultiplied(0, 0, 192, 255),
-            2 => Color.FromNonPremultiplied(192, 0, 0, 255),
-            3 => Color.FromNonPremultiplied(192, 0, 192, 255),
-            4 => Color.FromNonPremultiplied(0, 192, 0, 255),
-            5 => Color.FromNonPremultiplied(0, 192, 192, 255),
-            6 => Color.FromNonPremultiplied(192, 192, 0, 255),
-            7 => Color.FromNonPremultiplied(192, 192, 192, 255),
+            1 => Color.FromNonPremultiplied(0, 0, intensity, 255),
+            2 => Color.FromNonPremultiplied(intensity, 0, 0, 255),
+            3 => Color.FromNonPremultiplied(intensity, 0, intensity, 255),
+            4 => Color.FromNonPremultiplied(0, intensity, 0, 255),
+            5 => Color.FromNonPremultiplied(0, intensity, intensity, 255),
+            6 => Color.FromNonPremultiplied(intensity, intensity, 0, 255),
+            7 => Color.FromNonPremultiplied(intensity, intensity, intensity, 255),
             _ => Color.FromNonPremultiplied(0, 0, 0, 255)
         };
     }
