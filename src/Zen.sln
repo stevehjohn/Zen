@@ -24,33 +24,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zen.System", "Zen.System\Zen.System.csproj", "{237C82AF-C844-4134-B945-C0851D1D4B06}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Rom Images", "Rom Images", "{86BDD74D-2A78-4672-AAE1-88B896D75ED8}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ZX Spectrum 48K", "ZX Spectrum 48K", "{AE30155C-CA4E-4370-88A4-E905AA81672F}"
-	ProjectSection(SolutionItems) = preProject
-		..\Rom Images\ZX Spectrum 48K\image-0.rom = ..\Rom Images\ZX Spectrum 48K\image-0.rom
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ZX Spectrum 128", "ZX Spectrum 128", "{416307A8-8FB6-44D5-A8B8-76B3D41F212B}"
-	ProjectSection(SolutionItems) = preProject
-		..\Rom Images\ZX Spectrum 128\image-0.rom = ..\Rom Images\ZX Spectrum 128\image-0.rom
-		..\Rom Images\ZX Spectrum 128\image-1.rom = ..\Rom Images\ZX Spectrum 128\image-1.rom
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ZX Spectrum +2", "ZX Spectrum +2", "{7744372E-AF0B-4D3A-B306-D58A63AF36D5}"
-	ProjectSection(SolutionItems) = preProject
-		..\Rom Images\ZX Spectrum +2\image-0.rom = ..\Rom Images\ZX Spectrum +2\image-0.rom
-		..\Rom Images\ZX Spectrum +2\image-1.rom = ..\Rom Images\ZX Spectrum +2\image-1.rom
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ZX Spectrum +3", "ZX Spectrum +3", "{EF1F1ACE-69DB-4E9E-BC43-36CF0F7A7DC9}"
-	ProjectSection(SolutionItems) = preProject
-		..\Rom Images\ZX Spectrum +3\image-0.rom = ..\Rom Images\ZX Spectrum +3\image-0.rom
-		..\Rom Images\ZX Spectrum +3\image-1.rom = ..\Rom Images\ZX Spectrum +3\image-1.rom
-		..\Rom Images\ZX Spectrum +3\image-2.rom = ..\Rom Images\ZX Spectrum +3\image-2.rom
-		..\Rom Images\ZX Spectrum +3\image-3.rom = ..\Rom Images\ZX Spectrum +3\image-3.rom
-	EndProjectSection
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zen.Z80.Tests", "Zen.Z80.Tests\Zen.Z80.Tests.csproj", "{7F667252-5C9D-4A9A-8D76-F4FCDF00E3FE}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zen.Common", "Zen.Common\Zen.Common.csproj", "{7317365A-3466-4E2E-8C35-B71025839B35}"
@@ -104,12 +77,6 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{AE30155C-CA4E-4370-88A4-E905AA81672F} = {86BDD74D-2A78-4672-AAE1-88B896D75ED8}
-		{416307A8-8FB6-44D5-A8B8-76B3D41F212B} = {86BDD74D-2A78-4672-AAE1-88B896D75ED8}
-		{7744372E-AF0B-4D3A-B306-D58A63AF36D5} = {86BDD74D-2A78-4672-AAE1-88B896D75ED8}
-		{EF1F1ACE-69DB-4E9E-BC43-36CF0F7A7DC9} = {86BDD74D-2A78-4672-AAE1-88B896D75ED8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D017ADAC-68FC-44BB-A2DF-CD7402B243CB}
