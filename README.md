@@ -14,6 +14,8 @@ This project aims to take the lessons learned from ZXE and build upon them.
 
 Releases can be found <a href="https://github.com/stevehjohn/Zen/releases">here</a>.
 
+Press <kbd>Tab</kbd> for the menu once running.
+
 For macOS, extract the files somewhere and execute with `./Zen.Desktop.Host`.
 
 For Windows, extract the files somewhere and run `Zen.Desktop.Host.exe`.
