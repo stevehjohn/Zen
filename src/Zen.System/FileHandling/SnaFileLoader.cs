@@ -44,7 +44,7 @@ public class SnaFileLoader : IFileLoader
 
         if ((page & 0x16) > 0)
         {
-            var rom = File.ReadAllBytes("../../../../../Rom Images/ZX Spectrum 128/image-1.rom");
+            var rom = File.ReadAllBytes("Rom Images/ZX Spectrum 128/image-1.rom");
 
             _ram.LoadRom(rom);
         }
