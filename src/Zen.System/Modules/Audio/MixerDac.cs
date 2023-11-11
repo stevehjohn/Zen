@@ -44,6 +44,18 @@ public class MixerDac
 
     private byte _channelCVolume;
 
+    private bool _lastChannelAValue;
+
+    private bool _lastChannelBValue;
+
+    private bool _lastChannelCValue;
+    
+    private int _channelACycles;
+
+    private int _channelBCycles;
+
+    private int _channelCCycles;
+
     private readonly EnvelopeGenerator _envelopeGenerator = new();
 
     public void GetChannelSignals(float[] buffer, bool channelAValue, bool channelBValue, bool channelCValue, bool noiseValue)
@@ -52,14 +64,39 @@ public class MixerDac
         channelBValue = (channelBValue | ! ToneBOn) & (noiseValue | ! NoiseBOn);
         channelCValue = (channelCValue | ! ToneCOn) & (noiseValue | ! NoiseCOn);
 
+        if (_lastChannelAValue != channelAValue)
+        {
+            _lastChannelAValue = channelAValue;
+
+            _channelACycles = 0;
+        }
+
+        if (_lastChannelBValue != channelBValue)
+        {
+            _lastChannelBValue = channelBValue;
+
+            _channelBCycles = 0;
+        }
+
+        if (_lastChannelCValue != channelCValue)
+        {
+            _lastChannelCValue = channelCValue;
+
+            _channelCCycles = 0;
+        }
+
         var envelopeVolume = EnvelopeGenerator.GetNextValue();
 
-        buffer[0] = NormaliseVolume((byte) ((channelAValue ? 1 : 0) * (ChannelAEnvelopeOn ? envelopeVolume : _channelAVolume))) * Constants.ChannelAmplitude;
-        buffer[1] = NormaliseVolume((byte) ((channelBValue ? 1 : 0) * (ChannelBEnvelopeOn ? envelopeVolume : _channelBVolume))) * Constants.ChannelAmplitude;
-        buffer[2] = NormaliseVolume((byte) ((channelCValue ? 1 : 0) * (ChannelCEnvelopeOn ? envelopeVolume : _channelCVolume))) * Constants.ChannelAmplitude;
+        buffer[0] = NormaliseVolume((byte) ((channelAValue ? 1 : 0) * (ChannelAEnvelopeOn ? envelopeVolume : _channelAVolume)), _channelACycles) * Constants.ChannelAmplitude;
+        buffer[1] = NormaliseVolume((byte) ((channelBValue ? 1 : 0) * (ChannelBEnvelopeOn ? envelopeVolume : _channelBVolume)), _channelBCycles) * Constants.ChannelAmplitude;
+        buffer[2] = NormaliseVolume((byte) ((channelCValue ? 1 : 0) * (ChannelCEnvelopeOn ? envelopeVolume : _channelCVolume)), _channelCCycles) * Constants.ChannelAmplitude;
+
+        _channelACycles++;
+        _channelBCycles++;
+        _channelCCycles++;
     }
 
-    private static float NormaliseVolume(byte volume)
+    private static float NormaliseVolume(byte volume, int cycle)
     {
         var result = volume switch
         {
@@ -79,6 +116,15 @@ public class MixerDac
             14 => 0.8186f,
             15 => 1.0000f,
             _ => 0f
+        };
+        
+        result *= cycle switch
+        {
+            >= 0 and < 5 => 1f,
+            >= 5 and < 10 => 0.95f,
+            >= 10 and < 20 => 0.9f,
+            >= 20 and < 40 => 0.85f,
+            _ => 0.875f
         };
 
         return result;
