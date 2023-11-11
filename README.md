@@ -47,13 +47,12 @@ A table of supported opcodes can be found <a href="https://stevehjohn.github.io/
 
 ## Screenshots
 
-![128 Boot Screen](Images/128-boot.png)
+![Batman with Waveform Visualiser](Images/batman-waveform.png)
 
 ![Treasure Island Dizzy](Images/dizzy.png)
-
-![Batman with Waveform Visualiser](Images/batman-waveform.png)
 
 ![Robocop with Waveform Visualiser](Images/robocop.png)
 
 ![Robocop with System Menu](Images/robocop-menu.png)
 
+![128 Boot Screen](Images/128-boot.png)
