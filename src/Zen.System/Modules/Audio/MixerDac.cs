@@ -123,8 +123,8 @@ public class MixerDac
             >= 0 and < 5 => 1f,
             >= 5 and < 10 => 0.95f,
             >= 10 and < 20 => 0.9f,
-            >= 20 and < 40 => 0.85f,
-            _ => 0.875f
+            >= 20 and < 40 => 0.875f,
+            _ => 0.85f
         };
 
         return result;
