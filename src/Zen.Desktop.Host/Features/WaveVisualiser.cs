@@ -126,7 +126,22 @@ public class WaveVisualiser
 
         var color = channel == 3 ? Color.Blue : Color.Green;
 
-        for (var x = 0; x < width; x++)
+        var highPoint = 0;
+
+        var highValue = 0f;
+        
+        for (var i = 0; i < length; i++)
+        {
+            if (buffer[i] > highValue)
+            {
+                highValue = buffer[i];
+                highPoint = i;
+            }
+        }
+
+        var x = highPoint;
+
+        do
         {
             var dataPoint = buffer[(int) (x * ((float) length / width))];
 
@@ -146,6 +161,13 @@ public class WaveVisualiser
             }
 
             lastOffset = offset;
-        }
+
+            x++;
+
+            if (x > length)
+            {
+                x = 0;
+            }
+        } while (x != highPoint);
     }
 }
