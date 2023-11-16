@@ -12,15 +12,15 @@ public class WaveVisualiser
     // ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
     private readonly GraphicsDeviceManager _graphicsDeviceManager;
 
-    private Color[] _data;
+    private readonly Color[] _data;
 
     private readonly float[][] _buffers;
+
+    private readonly Texture2D _waves;
 
     private int _bufferPosition;
 
     private int _beeperBufferPosition;
-
-    private readonly Texture2D _waves;
 
     private bool _rendering;
 
