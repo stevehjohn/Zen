@@ -141,7 +141,7 @@ public class Host : Game
 
         if (AppSettings.Instance.Visualisation == Visualisation.Waveforms)
         {
-            _waveVisualiser = new WaveVisualiser(_graphicsDeviceManager, _scaleFactor);
+            _waveVisualiser = new WaveVisualiser(_graphicsDeviceManager);
 
             _motherboard.AyAudio.AySignalHook = _waveVisualiser.ReceiveSignals;
 
@@ -270,7 +270,7 @@ public class Host : Game
                 AppSettings.Instance.Visualisation = Visualisation.Waveforms;
                 AppSettings.Instance.Save();
 
-                _waveVisualiser = new WaveVisualiser(_graphicsDeviceManager, _scaleFactor);
+                _waveVisualiser = new WaveVisualiser(_graphicsDeviceManager);
                 _motherboard.AyAudio.AySignalHook = _waveVisualiser.ReceiveSignals;
                 _motherboard.AyAudio.BeeperSignalHook = _waveVisualiser.ReceiveSignal;
 
@@ -338,11 +338,6 @@ public class Host : Game
         _graphicsDeviceManager.PreferredBackBufferHeight = height;
 
         _graphicsDeviceManager.ApplyChanges();
-
-        if (_waveVisualiser != null)
-        {
-            _waveVisualiser.ScaleFactor = scale;
-        }
 
         if (_memoryVisualiser != null)
         {

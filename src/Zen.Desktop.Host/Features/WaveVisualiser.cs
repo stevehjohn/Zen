@@ -9,6 +9,7 @@ public class WaveVisualiser
 {
     private const int BufferSize = System.Modules.Audio.Constants.SampleRate / Constants.SpectrumFramesPerSecond;
 
+    // ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
     private readonly GraphicsDeviceManager _graphicsDeviceManager;
 
     private Color[] _data;
@@ -19,32 +20,15 @@ public class WaveVisualiser
 
     private int _beeperBufferPosition;
 
-    private Texture2D _waves;
-
-    private int _scaleFactor;
-
-    public int ScaleFactor
-    {
-        get => _scaleFactor;
-        set
-        {
-            _scaleFactor = value;
-
-            _data = new Color[Constants.VisualisationPanelWidth * Constants.ScreenHeightPixels];
-
-            _waves = new Texture2D(_graphicsDeviceManager.GraphicsDevice, Constants.VisualisationPanelWidth, Constants.ScreenHeightPixels);
-        }
-    }
+    private readonly Texture2D _waves;
 
     private bool _rendering;
 
     public Texture2D Waves => _waves;
 
-    public WaveVisualiser(GraphicsDeviceManager graphicsDeviceManager, int scaleFactor)
+    public WaveVisualiser(GraphicsDeviceManager graphicsDeviceManager)
     {
         _graphicsDeviceManager = graphicsDeviceManager;
-
-        _scaleFactor = scaleFactor;
 
         _data = new Color[Constants.VisualisationPanelWidth * Constants.ScreenHeightPixels];
 
