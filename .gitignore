@@ -295,3 +295,5 @@ lambdas/.serverless/
 .DS_Store
 
 Game Images/
+
+.mgstats
