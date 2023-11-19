@@ -33,8 +33,10 @@ Press <kbd>Tab</kbd> for the menu once running.
 Open `Zen.Desktop.Host.sln` and build it with your favourite tool(s).
 
 I did have one issue building on macOS on an M1 processor. Solved by https://stackoverflow.com/a/74317078.
+You may or may not need to do the second step. On my M1 MacBook, I didn't need to, but on my new M3 MacBook, I did.
 
 - `brew install freeimage`
+- `mkdir /usr/local/lib`
 - `sudo ln -s /opt/homebrew/Cellar/freeimage/3.18.0/lib/libfreeimage.dylib /usr/local/lib/libfreeimage`
 
 ## Useful Resources
