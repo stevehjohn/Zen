@@ -43,7 +43,7 @@ You may or may not need to do the second step. On my M1 MacBook, I didn't need t
 
 A JSON definition of the instruction metadata can be found <a href="https://github.com/stevehjohn/Zen/blob/master/Documentation/Instructions.json">here</a>.
 
-A table of supported opcodes can be found <a href="https://stevehjohn.github.io/Zen/SupportedOpCodes.html">here</a>.
+A table of supported opcodes can be found <a href="https://stevehjohn.github.io/Zen/SupportedOpCodes.html">here</a>. Click on the opcode to see the source code of the implementation.
 
 <a id="Screenshots" />
 
