@@ -2,6 +2,8 @@
 
 A Z80/ZX Spectrum emulator. This is an evolution of my previous project <a href="https://github.com/stevehjohn/ZXE">ZXE</a>.
 
+The Z80 is properly decoupled from the Spectrum emulation, so can be reused in other projects requiring Z80 emulation.
+
 See screenshots <a href="#screenshots">below</a>.
 
 While ZXE was certainly "good enough" (it runs most games I've tried, and emulates the main Spectrum model lineup), some architectural
