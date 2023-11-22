@@ -16,7 +16,6 @@ public enum MenuResult
     SoundOff,
     VisualisationOff,
     VisualisationWaveform,
-    VisualisationMemory,
     CountersOn,
     CountersOff
 }

@@ -47,14 +47,12 @@ public class Host : Game
 
     private CountersVisualiser _countersVisualiser;
 
-    private MemoryVisualiser _memoryVisualiser;
-
     public Host()
     {
         var width = Constants.ScreenWidthPixels * _scaleFactor;
         var height = Constants.ScreenHeightPixels * _scaleFactor;
 
-        if (AppSettings.Instance.Visualisation == Visualisation.Waveforms || AppSettings.Instance.Visualisation == Visualisation.Memory)
+        if (AppSettings.Instance.Visualisation == Visualisation.Waveforms)
         {
             width += Constants.VisualisationPanelWidth * _scaleFactor;
         }
@@ -146,11 +144,6 @@ public class Host : Game
             _motherboard.AyAudio.AySignalHook = _waveVisualiser.ReceiveSignals;
 
             _motherboard.AyAudio.BeeperSignalHook = _waveVisualiser.ReceiveSignal;
-        }
-
-        if (AppSettings.Instance.Visualisation == Visualisation.Memory)
-        {
-            _memoryVisualiser = new MemoryVisualiser(_graphicsDeviceManager, _scaleFactor, _motherboard.Ram);
         }
 
         _vRamAdapter = new VideoRenderer(_motherboard.VideoAdapter.ScreenFrame, _graphicsDeviceManager);
@@ -260,8 +253,6 @@ public class Host : Game
                 _motherboard.AyAudio.AySignalHook = null;
                 _motherboard.AyAudio.BeeperSignalHook = null;
 
-                _memoryVisualiser = null;
-
                 ChangeScale(_scaleFactor);
 
                 break;
@@ -273,16 +264,6 @@ public class Host : Game
                 _waveVisualiser = new WaveVisualiser(_graphicsDeviceManager);
                 _motherboard.AyAudio.AySignalHook = _waveVisualiser.ReceiveSignals;
                 _motherboard.AyAudio.BeeperSignalHook = _waveVisualiser.ReceiveSignal;
-
-                ChangeScale(_scaleFactor);
-
-                break;
-
-            case MenuResult.VisualisationMemory:
-                AppSettings.Instance.Visualisation = Visualisation.Memory;
-                AppSettings.Instance.Save();
-
-                _memoryVisualiser = new MemoryVisualiser(_graphicsDeviceManager, _scaleFactor, _motherboard.Ram);
 
                 ChangeScale(_scaleFactor);
 
@@ -324,7 +305,7 @@ public class Host : Game
         var width = Constants.ScreenWidthPixels * _scaleFactor;
         var height = Constants.ScreenHeightPixels * _scaleFactor;
 
-        if (AppSettings.Instance.Visualisation == Visualisation.Waveforms || AppSettings.Instance.Visualisation == Visualisation.Memory)
+        if (AppSettings.Instance.Visualisation == Visualisation.Waveforms)
         {
             width += Constants.VisualisationPanelWidth * _scaleFactor;
         }
@@ -338,11 +319,6 @@ public class Host : Game
         _graphicsDeviceManager.PreferredBackBufferHeight = height;
 
         _graphicsDeviceManager.ApplyChanges();
-
-        if (_memoryVisualiser != null)
-        {
-            _memoryVisualiser.ScaleFactor = scale;
-        }
 
         AppSettings.Instance.ScaleFactor = _scaleFactor;
         AppSettings.Instance.Save();
@@ -459,16 +435,6 @@ public class Host : Game
             _spriteBatch.Draw(_countersVisualiser.RenderPanel(), 
                               new Rectangle(0, Constants.ScreenHeightPixels * _scaleFactor, Constants.ScreenWidthPixels * _scaleFactor, Constants.CountersPanelHeight * _scaleFactor), 
                               new Rectangle(0, 0, Constants.ScreenWidthPixels, Constants.CountersPanelHeight), Color.White);
-        }
-
-        if (_memoryVisualiser != null)
-        {
-            _memoryVisualiser.Render();
-
-            _spriteBatch.Draw(_memoryVisualiser.View,
-                              new Rectangle(Constants.ScreenWidthPixels * _scaleFactor, 0, Constants.VisualisationPanelWidth * _scaleFactor, Constants.ScreenHeightPixels * _scaleFactor), 
-                              new Rectangle(0, 0, Constants.VisualisationPanelWidth, Constants.ScreenHeightPixels), Color.White);
-
         }
 
         _spriteBatch.End();
