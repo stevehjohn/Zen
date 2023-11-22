@@ -31,9 +31,6 @@ public class VisualisationMenu : MenuBase
             case 2:
                 return (MenuResult.VisualisationWaveform, null, null);
 
-            case 3:
-                return (MenuResult.VisualisationMemory, null, null);
-
             default:
                 return (MenuResult.NewMenu, new MainMenu(), null);
         }

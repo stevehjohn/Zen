@@ -3,6 +3,5 @@
 public enum Visualisation
 {
     Off,
-    Waveforms,
-    Memory
+    Waveforms
 }
