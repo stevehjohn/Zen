@@ -4,6 +4,12 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Title>Zen.Z80</Title>
+    <Authors>Stevo John</Authors>
+    <Description>A dotnet Z80 emulator implementation.</Description>
+    <Copyright>MIT</Copyright>
+    <RepositoryUrl>https://github.com/stevehjohn/Zen</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
@@ -14,5 +20,9 @@
   <ItemGroup>
     <ProjectReference Include="..\Zen.Common\Zen.Common.csproj" />
   </ItemGroup>
-
+  
+  <PropertyGroup>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+  </PropertyGroup>
+  
 </Project>
