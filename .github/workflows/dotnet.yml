@@ -26,3 +26,5 @@ jobs:
       run: dotnet build --no-restore src/Zen.sln
     - name: Test
       run: dotnet test --no-build --verbosity normal src/Zen.sln
+    - name: Publish the package to GPR
+      run: dotnet nuget push src/Zen.Desktop.Host/bin/Release/*.nupkg
