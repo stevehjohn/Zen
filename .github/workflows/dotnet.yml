@@ -29,4 +29,4 @@ jobs:
     - name: Publish the package to NuGet
       run: dotnet nuget push src/Zen.Z80/bin/Release/*.nupkg -k ${{secrets.NUGET_KEY}} -s https://api.nuget.org/v3/index.json --skip-duplicate
     - name: Publish the package to GitHub
-      run: dotnet nuget push src/Zen.Z80/bin/Release/*.nupkg -k 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 -s https://nuget.pkg.github.com/stevehjohn/index.json --skip-duplicate
+      run: dotnet nuget push src/Zen.Z80/bin/Release/*.nupkg -k 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 -s https://nuget.pkg.github.com/stevehjohn/index.json --skip-duplicate
