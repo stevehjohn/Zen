@@ -16,9 +16,6 @@
     <None Remove="Zen.Desktop.Host.v3.ncrunchproject" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="icon.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Icon.bmp" />
     <EmbeddedResource Include="Icon.ico" />
   </ItemGroup>
