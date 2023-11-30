@@ -23,7 +23,6 @@ public class VideoRenderer
 
     public ushort[] ScreenFrame
     {
-        get => _screenFrame;
         set => _screenFrame = value;
     }
 
