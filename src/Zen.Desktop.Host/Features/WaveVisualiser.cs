@@ -161,6 +161,11 @@ public class WaveVisualiser
                 source += buffer.Length;
             }
 
+            if (source >= buffer.Length)
+            {
+                source -= buffer.Length;
+            }
+
             result[i] = buffer[source];
         }
         
