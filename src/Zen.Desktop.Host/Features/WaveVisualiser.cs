@@ -168,7 +168,12 @@ public class WaveVisualiser
 
             result[i] = buffer[source];
         }
-        
+
+        for (var i = 0; i < buffer.Length / 2; i++)
+        {
+            result[i] = result[buffer.Length - 1 - i];
+        }
+
         return result;
     }
 }
