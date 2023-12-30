@@ -150,7 +150,12 @@ public class WaveVisualiser
 
         var result = new float[buffer.Length];
 
-        var offset = buffer.Length / 2 - highIndex;
+        var offset = buffer.Length - highIndex + 1;
+
+        if (offset >= buffer.Length)
+        {
+            offset -= buffer.Length;
+        }
 
         for (var i = 0; i < buffer.Length; i++)
         {
@@ -167,11 +172,6 @@ public class WaveVisualiser
             }
 
             result[i] = buffer[source];
-        }
-
-        for (var i = 0; i < buffer.Length / 2; i++)
-        {
-            result[i] = result[buffer.Length - 1 - i];
         }
 
         return result;
