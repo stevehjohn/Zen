@@ -150,7 +150,7 @@ public class WaveVisualiser
 
         var result = new float[buffer.Length];
 
-        var offset = buffer.Length - highIndex + 1;
+        var offset = buffer.Length / 2 - highIndex + 1;
 
         if (offset >= buffer.Length)
         {
