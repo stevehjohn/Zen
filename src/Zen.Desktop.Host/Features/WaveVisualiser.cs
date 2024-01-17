@@ -138,6 +138,10 @@ public class WaveVisualiser
 
         var highIndex = 0;
         
+        var low = float.MaxValue;
+
+        var lowIndex = 0;
+        
         for (var i = 0; i < buffer.Length; i++)
         {
             if (buffer[i] > high)
@@ -146,11 +150,20 @@ public class WaveVisualiser
 
                 highIndex = i;
             }
+            
+            if (buffer[i] < low)
+            {
+                low = buffer[i];
+
+                lowIndex = i;
+            }
         }
 
+        var delta = Math.Abs((highIndex - lowIndex) / 2);
+        
         var result = new float[buffer.Length];
 
-        var offset = buffer.Length / 2 - highIndex + 1;
+        var offset = buffer.Length / 2 - highIndex - delta + 1;
 
         if (offset >= buffer.Length)
         {
