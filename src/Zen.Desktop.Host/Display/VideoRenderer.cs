@@ -9,7 +9,7 @@ public class VideoRenderer
 {
     private const int FlashFrames = 20;
 
-    private  ushort[] _screenFrame;
+    private ushort[] _screenFrame;
 
     private readonly Texture2D _display;
 
