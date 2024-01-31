@@ -44,6 +44,11 @@ public class WillyBot : IProcessorHook
                 state[Register.A] = 16;
                 
                 break;
+            
+            case 0x8636:
+                state[Flag.Zero] = false;
+                
+                break;
         }
     }
 }
