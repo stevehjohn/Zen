@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using Zen.Common;
 using Zen.Z80.Interfaces;
 using Zen.Z80.Processor;
 
@@ -17,6 +19,8 @@ public class WillyBot : IProcessorHook
     
     private HashSet<(Move Move, int Cycle)> _dangerMoves;
 
+    private int[,] _visitCounts;
+    
     private readonly MapCell[,] _map = new MapCell[32, 16];
     
     public bool Activate(State state)
@@ -41,8 +45,11 @@ public class WillyBot : IProcessorHook
             case 0x8D07:
             case 0x88FF:
                 // Dead
-                _dangerMoves.Add((_moves.Last().Move, _moves.Last().Cycle));
-                
+                if (_moves.Count > 0)
+                {
+                    _dangerMoves.Add((_moves.Last().Move, _moves.Last().Cycle));
+                }
+
                 RestartLevel();
                 
                 break;
@@ -138,8 +145,54 @@ public class WillyBot : IProcessorHook
 
     private void GenerateNextMove(int x, int y)
     {
-        _move = Move.None;
+        var moves = new List<(Move Move, int Count, int Weight)>();
 
+        if (x > 8)
+        {
+            moves.Add((Move.Left, _visitCounts[x - 2, y], 1));
+            moves.Add((Move.UpLeft, _visitCounts[x - 2, y - 4], 2));
+        }
+
+        if (x < 238)
+        {
+            moves.Add((Move.Right, _visitCounts[x + 2, y], 1));
+            moves.Add((Move.UpRight, _visitCounts[x + 2, y - 4], 2));
+        }
+        
+        moves.Add((Move.Up, _visitCounts[x, y - 4], 3));
+
+        moves = moves.OrderBy(m => m.Count).ThenBy(m => m.Weight).ToList();
+        
+        while (_dangerMoves.Contains((moves.First().Move, _cycle)))
+        {
+            moves.RemoveAt(0);
+        }
+
+        _move = moves.First().Move;
+
+        switch (_move)
+        {
+            case Move.Left:
+                _visitCounts[x - 2, y]++;
+                break;
+            
+            case Move.Right:
+                _visitCounts[x + 2, y]++;
+                break;
+            
+            case Move.UpLeft:
+                _visitCounts[x - 2, y - 4]++;
+                break;
+            
+            case Move.UpRight:
+                _visitCounts[x + 2, y - 4]++;
+                break;
+            
+            case Move.Up:
+                _visitCounts[x, y - 4]++;
+                break;
+        }
+        
         _moves.Add((_move, _cycle));
     }
 
@@ -155,6 +208,8 @@ public class WillyBot : IProcessorHook
     private void RestartLevel()
     {
         _moves = [];
+
+        _visitCounts = new int[Constants.PaperWidthPixels, Constants.PaperHeightPixels];
         
         _cycle = 0;
     }
