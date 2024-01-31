@@ -13,6 +13,8 @@ public class WillyBot : IProcessorHook
 
     private Move _move = Move.None;
 
+    private Move _lastMove;
+    
     private int _moveCycle;
 
     private int[,] _visitCount = new int[256, 192];
@@ -41,7 +43,7 @@ public class WillyBot : IProcessorHook
             case 0x8D07:
             case 0x88FF:
                 // Dead
-                _dangerMoves.Add((_move, _moveCycle));
+                _dangerMoves.Add((_lastMove, _moveCycle));
                 
                 _visitCount = new int[256, 192];
                 
@@ -150,8 +152,6 @@ public class WillyBot : IProcessorHook
 
     private void GenerateNextMove(int x, int y)
     {
-        _visitCount[x, y]++;
-        
         var possible = new List<(Move Move, int Count)>();
 
         if (x > 8)
@@ -177,6 +177,31 @@ public class WillyBot : IProcessorHook
 
         _move = possible.First().Move;
 
+        _lastMove = _move;
+        
         _moveCycle = _cycle;
+        
+        switch (_move)
+        {
+            case Move.Left:
+                _visitCount[x - 2, y]++;
+                break;
+            
+            case Move.Right:
+                _visitCount[x + 2, y]++;
+                break;
+            
+            case Move.UpLeft:
+                _visitCount[x - 2, y - 4]++;
+                break;
+            
+            case Move.UpRight:
+                _visitCount[x + 2, y - 4]++;
+                break;
+            
+            case Move.Up:
+                _visitCount[x, y - 4]++;
+                break;
+        }
     }
 }
