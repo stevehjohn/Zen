@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Zen.Z80.Interfaces;
 using Zen.Z80.Processor;
 
@@ -12,15 +13,11 @@ public class WillyBot : IProcessorHook
 
     private Move _move = Move.None;
 
-    private Move _lastMove;
-    
-    private int _moveCycle;
-
     private List<(Move Move, int Cycle)> _moves;
     
     private HashSet<(Move Move, int Cycle)> _dangerMoves;
 
-    private MapCell[,] _map = new MapCell[32, 16];
+    private readonly MapCell[,] _map = new MapCell[32, 16];
     
     public bool Activate(State state)
     {
@@ -44,7 +41,7 @@ public class WillyBot : IProcessorHook
             case 0x8D07:
             case 0x88FF:
                 // Dead
-                _dangerMoves.Add((_lastMove, _moveCycle));
+                _dangerMoves.Add((_moves.Last().Move, _moves.Last().Cycle));
                 
                 RestartLevel();
                 
@@ -142,10 +139,8 @@ public class WillyBot : IProcessorHook
     private void GenerateNextMove(int x, int y)
     {
         _move = Move.None;
-        
-        _moveCycle = _cycle;
-        
-        _moves.Add((_move, _moveCycle));
+
+        _moves.Add((_move, _cycle));
     }
 
     private void StartLevel(Interface @interface)
