@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using Zen.Z80.Interfaces;
 using Zen.Z80.Processor;
 
@@ -12,6 +14,8 @@ public class WillyBot : IProcessorHook
     private byte _direction;
 
     private bool _jump;
+
+    private int[,] _visitCount = new int[256, 192];
     
     public bool Activate(State state)
     {
@@ -44,7 +48,9 @@ public class WillyBot : IProcessorHook
                 _level++;
 
                 _cycle = 0;
-                
+
+                _visitCount = new int[256, 192];
+
                 break;
             
             case 0x85CC:
@@ -69,6 +75,8 @@ public class WillyBot : IProcessorHook
                 _level = 1;
 
                 _cycle = 0;
+
+                _visitCount = new int[256, 192];
 
                 state[Flag.Zero] = false;
 
@@ -107,6 +115,52 @@ public class WillyBot : IProcessorHook
 
     private void GenerateNextMove(int x, int y)
     {
+        _visitCount[x, y]++;
+        
+        var possible = new List<(Move Move, int Count)>();
 
+        if (x > 8)
+        {
+            possible.Add((Move.Left, _visitCount[x - 2, y]));
+            possible.Add((Move.UpLeft, _visitCount[x - 2, y - 4]));
+        }
+
+        if (x < 238)
+        {
+            possible.Add((Move.Right, _visitCount[x + 2, y]));
+            possible.Add((Move.UpRight, _visitCount[x + 2, y - 4]));
+        }
+        
+        possible.Add((Move.Up, _visitCount[x, y - 4]));
+
+        var move = possible.MinBy(p => p.Count).Move;
+
+        switch (move)
+        {
+            case Move.Left:
+                _direction = 2;
+                _jump = false;
+                break;
+            
+            case Move.Right:
+                _direction = 1;
+                _jump = false;
+                break;
+            
+            case Move.UpLeft:
+                _direction = 2;
+                _jump = true;
+                break;
+            
+            case Move.UpRight:
+                _direction = 1;
+                _jump = true;
+                break;
+            
+            case Move.Up:
+                _direction = 0;
+                _jump = true;
+                break;
+        }
     }
 }
