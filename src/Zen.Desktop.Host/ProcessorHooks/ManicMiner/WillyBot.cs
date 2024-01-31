@@ -23,7 +23,7 @@ public class WillyBot : IProcessorHook
     
     private readonly MapCell[,] _map = new MapCell[32, 16];
 
-    private List<(int X, int Y)> _keys = [];
+    private readonly List<(int X, int Y)> _keys = [];
     
     public bool Activate(State state)
     {
