@@ -137,6 +137,11 @@ public class WillyBot : IProcessorHook
         }
     }
 
+    private void GenerateNextMove(int x, int y)
+    {
+        _moveCycle = _cycle;
+    }
+
     private void StartLevel(Interface @interface)
     {
         _dangerMoves = [];
@@ -178,10 +183,5 @@ public class WillyBot : IProcessorHook
             0x05 => MapCell.Hazard,
             _ => MapCell.Empty
         };
-    }
-
-    private void GenerateNextMove(int x, int y)
-    {
-        _moveCycle = _cycle;
     }
 }
