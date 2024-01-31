@@ -1,5 +1,5 @@
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using Zen.Z80.Interfaces;
 using Zen.Z80.Processor;
 
@@ -17,9 +17,9 @@ public class WillyBot : IProcessorHook
     
     private int _moveCycle;
 
-    private int[,] _visitCount = new int[256, 192];
+    private HashSet<(Move Move, int Cycle)> _dangerMoves;
 
-    private readonly HashSet<(Move, int)> _dangerMoves = [];
+    private MapCell[,] _map = new MapCell[32, 16];
     
     public bool Activate(State state)
     {
@@ -43,13 +43,7 @@ public class WillyBot : IProcessorHook
             case 0x8D07:
             case 0x88FF:
                 // Dead
-                _dangerMoves.Add((_lastMove, _moveCycle));
-                
-                _visitCount = new int[256, 192];
-                
-                _cycle = 0;
-
-                _move = Move.None;
+                RestartLevel();
                 
                 break;
             
@@ -57,11 +51,7 @@ public class WillyBot : IProcessorHook
                 // Level complete
                 _level++;
 
-                _cycle = 0;
-
-                _visitCount = new int[256, 192];
-                
-                _dangerMoves.Clear();
+                StartLevel(@interface);
 
                 break;
             
@@ -109,12 +99,8 @@ public class WillyBot : IProcessorHook
                 // Start game
                 _level = 1;
 
-                _cycle = 0;
-
-                _visitCount = new int[256, 192];
+                StartLevel(@interface);
                 
-                _dangerMoves.Clear();
-
                 state[Flag.Zero] = false;
 
                 break;
@@ -144,64 +130,58 @@ public class WillyBot : IProcessorHook
                     GenerateNextMove(x, y);
                 }
 
+                Console.WriteLine($"{x}, {y}");
+                
                 _cycle++;
 
                 break;
         }
     }
 
+    private void StartLevel(Interface @interface)
+    {
+        _dangerMoves = [];
+
+        ParseMap(@interface);
+        
+        RestartLevel();
+    }
+
+    private void RestartLevel()
+    {
+        _cycle = 0;
+    }
+
+    private void ParseMap(Interface @interface)
+    {
+        var start = 0xA000 + 0x1000 * _level;
+
+        for (var y = 0; y < 16; y++)
+        {
+            for (var x = 0; x < 32; x++)
+            {
+                _map[x, y] = ParseTile(@interface, (ushort) (start + y * 32 + x));
+            }
+        }
+    }
+
+    private MapCell ParseTile(Interface @interface, ushort location)
+    {
+        var data = @interface.ReadFromMemory(location);
+
+        return data switch
+        {
+            0x42 => MapCell.Floor,
+            0x02 => MapCell.Floor,
+            0x16 => MapCell.Wall,
+            0x04 => MapCell.Floor,
+            0x44 => MapCell.Hazard,
+            0x05 => MapCell.Hazard,
+            _ => MapCell.Empty
+        };
+    }
+
     private void GenerateNextMove(int x, int y)
     {
-        var possible = new List<(Move Move, int Count)>();
-
-        if (x > 8)
-        {
-            possible.Add((Move.Left, _visitCount[x - 2, y]));
-            possible.Add((Move.UpLeft, _visitCount[x - 2, y - 4]));
-        }
-
-        if (x < 238)
-        {
-            possible.Add((Move.Right, _visitCount[x + 2, y]));
-            possible.Add((Move.UpRight, _visitCount[x + 2, y - 4]));
-        }
-        
-        possible.Add((Move.Up, _visitCount[x, y - 4]));
-
-        possible = possible.OrderBy(p => p.Count).ToList();
-
-        while (_dangerMoves.Contains((possible.First().Move, _cycle)))
-        {
-            possible.RemoveAt(0);
-        }
-
-        _move = possible.First().Move;
-
-        _lastMove = _move;
-        
-        _moveCycle = _cycle;
-        
-        switch (_move)
-        {
-            case Move.Left:
-                _visitCount[x - 2, y]++;
-                break;
-            
-            case Move.Right:
-                _visitCount[x + 2, y]++;
-                break;
-            
-            case Move.UpLeft:
-                _visitCount[x - 2, y - 4]++;
-                break;
-            
-            case Move.UpRight:
-                _visitCount[x + 2, y - 4]++;
-                break;
-            
-            case Move.Up:
-                _visitCount[x, y - 4]++;
-                break;
-        }
     }
 }
