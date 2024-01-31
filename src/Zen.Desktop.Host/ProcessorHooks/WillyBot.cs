@@ -1,4 +1,3 @@
-using System;
 using Zen.Z80.Interfaces;
 using Zen.Z80.Processor;
 
@@ -15,7 +14,7 @@ public class WillyBot : IProcessorHook
     private byte _direction;
 
     private bool _jump;
-    
+
     public bool Activate(State state)
     {
         return false;
@@ -86,15 +85,23 @@ public class WillyBot : IProcessorHook
             
             case 0x870E:
                 // Main loop
-                Console.WriteLine($"{@interface.ReadFromMemory(0x8068)},{@interface.ReadFromMemory(0x806C)},{@interface.ReadFromMemory(0x8069)}");
+                var cell = @interface.ReadFromMemory(0x806C) + (@interface.ReadFromMemory(0x806D) << 8) - 0x5C00;
 
-                GenerateNextMove();
+                var y = @interface.ReadFromMemory(0x8068) / 2;
+
+                var x = cell % 32 * 8;
+
+                var frame = @interface.ReadFromMemory(0x8069);
+
+                x += frame * 2;
+
+                GenerateNextMove(x, y);
                 
                 break;
         }
     }
 
-    private void GenerateNextMove()
+    private void GenerateNextMove(int x, int y)
     {
         _jump = true;
         
