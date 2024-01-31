@@ -1,7 +1,7 @@
 using Zen.Z80.Interfaces;
 using Zen.Z80.Processor;
 
-namespace Zen.Desktop.Host.ProcessorHooks;
+namespace Zen.Desktop.Host.ProcessorHooks.ManicMiner;
 
 public class WillyBot : IProcessorHook
 {

@@ -11,6 +11,7 @@ using Zen.Desktop.Host.Features;
 using Zen.Desktop.Host.Infrastructure.Menu;
 using Zen.Desktop.Host.Infrastructure.Settings;
 using Zen.Desktop.Host.ProcessorHooks;
+using Zen.Desktop.Host.ProcessorHooks.ManicMiner;
 using Zen.System;
 using Zen.System.FileHandling;
 using Zen.System.FileHandling.Interfaces;
