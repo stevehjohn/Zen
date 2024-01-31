@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using Zen.Z80.Interfaces;
 using Zen.Z80.Processor;
 
@@ -13,6 +15,17 @@ public class WillyBot : IProcessorHook
 
     private bool _jump;
 
+    private readonly Dictionary<Move, HashSet<int>> _cycleMoves = [];
+
+    public WillyBot()
+    {
+        _cycleMoves.Add(Move.Left, []);
+        _cycleMoves.Add(Move.Right, []);
+        _cycleMoves.Add(Move.UpLeft, []);
+        _cycleMoves.Add(Move.UpRight, []);
+        _cycleMoves.Add(Move.Up, []);
+    }
+    
     public bool Activate(State state)
     {
         return false;
@@ -54,13 +67,13 @@ public class WillyBot : IProcessorHook
             
             case 0x8C2F:
                 // Left, right
-                //state[Register.A] = _direction;
+                state[Register.A] = _direction;
                 
                 break;
             
             case 0x8C77:
                 // Jump
-                //state[Register.A] = (byte) (_jump ? 16 : 0);
+                state[Register.A] = (byte) (_jump ? 16 : 0);
                 
                 break;
             
@@ -99,14 +112,69 @@ public class WillyBot : IProcessorHook
                     GenerateNextMove(x, y);
                 }
 
+                _cycle++;
+
                 break;
         }
     }
 
     private void GenerateNextMove(int x, int y)
     {
-        _jump = true;
+        if (x > 8 && ! _cycleMoves[Move.Left].Contains(_cycle))
+        {
+            _cycleMoves[Move.Left].Add(_cycle);
         
-        _direction = 1;
+            _direction = 2;
+
+            _jump = false;
+            
+            return;
+        }
+
+        if (x < 238 && ! _cycleMoves[Move.Right].Contains(_cycle))
+        {
+            _cycleMoves[Move.Right].Add(_cycle);
+        
+            _direction = 1;
+
+            _jump = false;
+            
+            return;
+        }
+
+        if (x > 8 && ! _cycleMoves[Move.UpLeft].Contains(_cycle))
+        {
+            _cycleMoves[Move.UpLeft].Add(_cycle);
+        
+            _direction = 2;
+
+            _jump = true;
+            
+            return;
+        }
+
+        if (x < 238 && ! _cycleMoves[Move.UpRight].Contains(_cycle))
+        {
+            _cycleMoves[Move.UpRight].Add(_cycle);
+        
+            _direction = 1;
+
+            _jump = true;
+            
+            return;
+        }
+
+        if (! _cycleMoves[Move.Up].Contains(_cycle))
+        {
+            _direction = 0;
+
+            _jump = true;
+            
+            return;
+        }
+
+        _direction = 0;
+
+        _jump = false;
     }
 }
