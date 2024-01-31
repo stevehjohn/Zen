@@ -1,3 +1,4 @@
+using System;
 using Zen.Z80.Interfaces;
 using Zen.Z80.Processor;
 
@@ -55,13 +56,13 @@ public class WillyBot : IProcessorHook
             
             case 0x8C2F:
                 // Left, right
-                state[Register.A] = _direction;
+                //state[Register.A] = _direction;
                 
                 break;
             
             case 0x8C77:
                 // Jump
-                state[Register.A] = (byte) (_jump ? 16 : 0);
+                //state[Register.A] = (byte) (_jump ? 16 : 0);
                 
                 break;
             
@@ -85,6 +86,8 @@ public class WillyBot : IProcessorHook
             
             case 0x870E:
                 // Main loop
+                Console.WriteLine($"{@interface.ReadFromMemory(0x8068)},{@interface.ReadFromMemory(0x806C)},{@interface.ReadFromMemory(0x8069)}");
+
                 GenerateNextMove();
                 
                 break;
@@ -93,8 +96,8 @@ public class WillyBot : IProcessorHook
 
     private void GenerateNextMove()
     {
-        //_jump = true;
-
+        _jump = true;
+        
         _direction = 1;
     }
 }
