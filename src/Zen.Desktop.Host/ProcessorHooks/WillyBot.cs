@@ -35,11 +35,13 @@ public class WillyBot : IProcessorHook
                 break;
             
             case 0x8C2F:
+                // Left, right
                 state[Register.A] = 1;
                 
                 break;
             
             case 0x8C77:
+                // Jump
                 state[Register.A] = 16;
                 
                 break;
