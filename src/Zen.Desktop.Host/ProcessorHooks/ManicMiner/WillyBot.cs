@@ -169,12 +169,12 @@ public class WillyBot : IProcessorHook
         
         moves = moves.OrderBy(m => m.Heuristic).ToList();
 
-        foreach (var move in moves)
-        {
-            Console.WriteLine($"{move.Move}: {move.Heuristic}");
-        }
-        
-        Console.WriteLine();
+        // foreach (var move in moves)
+        // {
+        //     Console.WriteLine($"{move.Move}: {move.Heuristic}");
+        // }
+        //
+        // Console.WriteLine();
         
         while (_dangerMoves.Contains((moves.First().Move, _cycle)))
         {
@@ -253,10 +253,10 @@ public class WillyBot : IProcessorHook
             }
         }
         
-        // _keys.Add((0, 9));
-        // _keys.Add((0, 29));
-        // _keys.Add((1, 16));
-        // _keys.Add((4, 24));
+        // _keys.Add((9 * 8, 0));
+        // _keys.Add((29 * 8, 0));
+        // _keys.Add((16 * 8, 1 * 8));
+        // _keys.Add((24 * 8, 4 * 8));
         _keys.Add((30 * 8, 6 * 8));
     }
 
