@@ -11,11 +11,13 @@ public class WillyBot : IProcessorHook
 
     private int _cycle;
 
-    private byte _direction;
+    private Move _move;
 
-    private bool _jump;
+    private int _moveCycle;
 
     private int[,] _visitCount = new int[256, 192];
+
+    private readonly HashSet<(Move, int)> _dangerMoves = [];
     
     public bool Activate(State state)
     {
@@ -39,6 +41,10 @@ public class WillyBot : IProcessorHook
             case 0x8D07:
             case 0x88FF:
                 // Dead
+                _dangerMoves.Add((_move, _moveCycle));
+                
+                _visitCount = new int[256, 192];
+                
                 _cycle = 0;
                 
                 break;
@@ -50,6 +56,8 @@ public class WillyBot : IProcessorHook
                 _cycle = 0;
 
                 _visitCount = new int[256, 192];
+                
+                _dangerMoves.Clear();
 
                 break;
             
@@ -60,13 +68,34 @@ public class WillyBot : IProcessorHook
             
             case 0x8C2F:
                 // Left, right
-                state[Register.A] = _direction;
+                if (_move == Move.Left || _move == Move.UpLeft)
+                {
+                    state[Register.A] = 2;
+                    
+                    return;
+                }
                 
+                if (_move == Move.Right || _move == Move.UpRight)
+                {
+                    state[Register.A] = 1;
+                    
+                    return;
+                }
+
+                state[Register.A] = 0;
+
                 break;
             
             case 0x8C77:
                 // Jump
-                state[Register.A] = (byte) (_jump ? 16 : 0);
+                if (_move == Move.Up || _move == Move.UpLeft || _move == Move.UpRight)
+                {
+                    state[Register.A] = 16;
+                    
+                    return;
+                }
+
+                state[Register.A] = 0;
                 
                 break;
             
@@ -77,6 +106,8 @@ public class WillyBot : IProcessorHook
                 _cycle = 0;
 
                 _visitCount = new int[256, 192];
+                
+                _dangerMoves.Clear();
 
                 state[Flag.Zero] = false;
 
@@ -102,12 +133,12 @@ public class WillyBot : IProcessorHook
 
                 var grounded = @interface.ReadFromMemory(0x806B) == 0;
 
+                _cycle++;
+
                 if (grounded)
                 {
                     GenerateNextMove(x, y);
                 }
-
-                _cycle++;
 
                 break;
         }
@@ -133,34 +164,15 @@ public class WillyBot : IProcessorHook
         
         possible.Add((Move.Up, _visitCount[x, y - 4]));
 
-        var move = possible.MinBy(p => p.Count).Move;
+        possible = possible.OrderBy(p => p.Count).ToList();
 
-        switch (move)
+        while (_dangerMoves.Contains((possible.First().Move, _cycle)))
         {
-            case Move.Left:
-                _direction = 2;
-                _jump = false;
-                break;
-            
-            case Move.Right:
-                _direction = 1;
-                _jump = false;
-                break;
-            
-            case Move.UpLeft:
-                _direction = 2;
-                _jump = true;
-                break;
-            
-            case Move.UpRight:
-                _direction = 1;
-                _jump = true;
-                break;
-            
-            case Move.Up:
-                _direction = 0;
-                _jump = true;
-                break;
+            possible.RemoveAt(0);
         }
+
+        _move = possible.First().Move;
+
+        _moveCycle = _cycle;
     }
 }
