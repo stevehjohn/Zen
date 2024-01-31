@@ -1,3 +1,4 @@
+using System;
 using Zen.Z80.Interfaces;
 using Zen.Z80.Processor;
 
@@ -30,6 +31,7 @@ public class WillyBot : IProcessorHook
         switch (state.ProgramCounter)
         {
             case 0x8D07:
+            case 0x88FF:
                 // Dead
                 _iteration++;
 
@@ -92,7 +94,7 @@ public class WillyBot : IProcessorHook
 
     private void GenerateNextMove()
     {
-        _jump = true;
+        //_jump = true;
 
         _direction = 1;
     }
