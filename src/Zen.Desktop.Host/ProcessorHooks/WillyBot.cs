@@ -1,7 +1,6 @@
 using System;
 using Zen.Z80.Interfaces;
 using Zen.Z80.Processor;
-using NotImplementedException = System.NotImplementedException;
 
 namespace Zen.Desktop.Host.ProcessorHooks;
 
@@ -33,6 +32,16 @@ public class WillyBot : IProcessorHook
             
             case 0x85CC:
                 Console.WriteLine("Title Screen");
+                
+                break;
+            
+            case 0x8C2F:
+                state[Register.A] = 1;
+                
+                break;
+            
+            case 0x8C77:
+                state[Register.A] = 16;
                 
                 break;
         }
