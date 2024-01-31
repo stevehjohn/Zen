@@ -16,6 +16,8 @@ public class WillyBot : IProcessorHook
     
     private int _moveCycle;
 
+    private List<(Move Move, int Cycle)> _moves;
+    
     private HashSet<(Move Move, int Cycle)> _dangerMoves;
 
     private MapCell[,] _map = new MapCell[32, 16];
@@ -139,7 +141,11 @@ public class WillyBot : IProcessorHook
 
     private void GenerateNextMove(int x, int y)
     {
+        _move = Move.None;
+        
         _moveCycle = _cycle;
+        
+        _moves.Add((_move, _moveCycle));
     }
 
     private void StartLevel(Interface @interface)
@@ -153,6 +159,8 @@ public class WillyBot : IProcessorHook
 
     private void RestartLevel()
     {
+        _moves = [];
+        
         _cycle = 0;
     }
 
