@@ -144,6 +144,11 @@ public class WillyBot : IProcessorHook
                 _cycle++;
 
                 break;
+            
+            case 0x8F82:
+                _keys.RemoveAt(0);
+                
+                break;
         }
     }
 
@@ -212,11 +217,10 @@ public class WillyBot : IProcessorHook
     private int CalculateHeuristic(int x, int y)
     {
         var value = 0;
-        
-        foreach (var key in _keys)
-        {
-            value += Math.Abs(x - key.X) + Math.Abs(y - key.Y) * (_visitCounts[x, y] + 1);
-        }
+
+        var key = _keys[0];
+
+        value += Math.Abs(x - key.X) + Math.Abs(y - key.Y) * (_visitCounts[x, y] + 1);
 
         return value;
     }
@@ -237,6 +241,8 @@ public class WillyBot : IProcessorHook
         _visitCounts = new int[Constants.PaperWidthPixels, Constants.PaperHeightPixels];
         
         _cycle = 0;
+ 
+        PlaceKeys();
     }
 
     private void ParseMap(Interface @interface)
@@ -252,12 +258,17 @@ public class WillyBot : IProcessorHook
                 _map[x, y] = tile;
             }
         }
+    }
+
+    private void PlaceKeys()
+    {
+        _keys.Clear();
         
-        // _keys.Add((9 * 8, 0));
-        // _keys.Add((29 * 8, 0));
-        // _keys.Add((16 * 8, 1 * 8));
-        // _keys.Add((24 * 8, 4 * 8));
         _keys.Add((30 * 8, 6 * 8));
+        _keys.Add((9 * 8, 0));
+        _keys.Add((16 * 8, 1 * 8));
+        _keys.Add((24 * 8, 4 * 8));
+        _keys.Add((29 * 8, 0));
     }
 
     private static MapCell ParseTile(Interface @interface, ushort location)
