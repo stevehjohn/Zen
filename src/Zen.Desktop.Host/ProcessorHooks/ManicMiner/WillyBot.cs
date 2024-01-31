@@ -13,17 +13,6 @@ public class WillyBot : IProcessorHook
     private byte _direction;
 
     private bool _jump;
-
-    private readonly Dictionary<Move, HashSet<int>> _cycleMoves = [];
-
-    public WillyBot()
-    {
-        _cycleMoves.Add(Move.Left, []);
-        _cycleMoves.Add(Move.Right, []);
-        _cycleMoves.Add(Move.UpLeft, []);
-        _cycleMoves.Add(Move.UpRight, []);
-        _cycleMoves.Add(Move.Up, []);
-    }
     
     public bool Activate(State state)
     {
@@ -119,61 +108,6 @@ public class WillyBot : IProcessorHook
 
     private void GenerateNextMove(int x, int y)
     {
-        if (x > 8 && ! _cycleMoves[Move.Left].Contains(_cycle))
-        {
-            _cycleMoves[Move.Left].Add(_cycle);
-        
-            _direction = 2;
 
-            _jump = false;
-            
-            return;
-        }
-
-        if (x < 238 && ! _cycleMoves[Move.Right].Contains(_cycle))
-        {
-            _cycleMoves[Move.Right].Add(_cycle);
-        
-            _direction = 1;
-
-            _jump = false;
-            
-            return;
-        }
-
-        if (x > 8 && ! _cycleMoves[Move.UpLeft].Contains(_cycle))
-        {
-            _cycleMoves[Move.UpLeft].Add(_cycle);
-        
-            _direction = 2;
-
-            _jump = true;
-            
-            return;
-        }
-
-        if (x < 238 && ! _cycleMoves[Move.UpRight].Contains(_cycle))
-        {
-            _cycleMoves[Move.UpRight].Add(_cycle);
-        
-            _direction = 1;
-
-            _jump = true;
-            
-            return;
-        }
-
-        if (! _cycleMoves[Move.Up].Contains(_cycle))
-        {
-            _direction = 0;
-
-            _jump = true;
-            
-            return;
-        }
-
-        _direction = 0;
-
-        _jump = false;
     }
 }
