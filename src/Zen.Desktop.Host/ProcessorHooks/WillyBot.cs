@@ -48,6 +48,11 @@ public class WillyBot : IProcessorHook
             
             case 0x9312:
                 state[Flag.Zero] = false;
+
+                break;
+            
+            case 0x8938:
+                @interface.WriteToMemory(0x8457, 3);
                 
                 break;
         }
