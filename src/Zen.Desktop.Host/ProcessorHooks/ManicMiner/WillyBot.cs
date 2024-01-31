@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using Zen.Common;
 using Zen.Z80.Interfaces;
 using Zen.Z80.Processor;
 
@@ -11,7 +13,7 @@ public class WillyBot : IProcessorHook
 
     private int _cycle;
 
-    private Move _move;
+    private Move _move = Move.None;
 
     private int _moveCycle;
 
@@ -46,6 +48,8 @@ public class WillyBot : IProcessorHook
                 _visitCount = new int[256, 192];
                 
                 _cycle = 0;
+
+                _move = Move.None;
                 
                 break;
             
@@ -85,20 +89,22 @@ public class WillyBot : IProcessorHook
                 state[Register.A] = 0;
 
                 break;
-            
+
             case 0x8C77:
                 // Jump
                 if (_move == Move.Up || _move == Move.UpLeft || _move == Move.UpRight)
                 {
                     state[Register.A] = 16;
-                    
-                    return;
+                }
+                else
+                {
+                    state[Register.A] = 0;
                 }
 
-                state[Register.A] = 0;
-                
+                _move = Move.None;
+
                 break;
-            
+
             case 0x9312:
                 // Start game
                 _level = 1;
@@ -133,12 +139,12 @@ public class WillyBot : IProcessorHook
 
                 var grounded = @interface.ReadFromMemory(0x806B) == 0;
 
-                _cycle++;
-
                 if (grounded)
                 {
                     GenerateNextMove(x, y);
                 }
+
+                _cycle++;
 
                 break;
         }
