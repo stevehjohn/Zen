@@ -8,6 +8,12 @@ public class WillyBot : IProcessorHook
     private int _level;
 
     private int _iteration;
+
+    private int _cycle;
+
+    private byte _direction;
+
+    private bool _jump;
     
     public bool Activate(State state)
     {
@@ -25,6 +31,9 @@ public class WillyBot : IProcessorHook
         {
             case 0x8D07:
                 // Dead
+                _iteration++;
+
+                _cycle = 0;
                 
                 break;
             
@@ -33,6 +42,8 @@ public class WillyBot : IProcessorHook
                 _level++;
 
                 _iteration = 0;
+
+                _cycle = 0;
                 
                 break;
             
@@ -43,13 +54,13 @@ public class WillyBot : IProcessorHook
             
             case 0x8C2F:
                 // Left, right
-                state[Register.A] = 1;
+                state[Register.A] = _direction;
                 
                 break;
             
             case 0x8C77:
                 // Jump
-                state[Register.A] = 16;
+                state[Register.A] = (byte) (_jump ? 16 : 0);
                 
                 break;
             
@@ -58,6 +69,8 @@ public class WillyBot : IProcessorHook
                 _level = 1;
 
                 _iteration = 0;
+
+                _cycle = 0;
 
                 state[Flag.Zero] = false;
 
@@ -79,5 +92,8 @@ public class WillyBot : IProcessorHook
 
     private void GenerateNextMove()
     {
+        _jump = true;
+
+        _direction = 1;
     }
 }
