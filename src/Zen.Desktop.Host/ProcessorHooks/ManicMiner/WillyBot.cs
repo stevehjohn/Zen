@@ -42,6 +42,8 @@ public class WillyBot : IProcessorHook
             case 0x8D07:
             case 0x88FF:
                 // Dead
+                _dangerMoves.Add((_lastMove, _moveCycle));
+                
                 RestartLevel();
                 
                 break;
@@ -180,5 +182,6 @@ public class WillyBot : IProcessorHook
 
     private void GenerateNextMove(int x, int y)
     {
+        _moveCycle = _cycle;
     }
 }
