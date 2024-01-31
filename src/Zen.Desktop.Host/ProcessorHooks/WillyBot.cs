@@ -21,17 +21,17 @@ public class WillyBot : IProcessorHook
         switch (state.ProgramCounter)
         {
             case 0x8D07:
-                Console.WriteLine("Dead");
+                // Dead
                 
                 break;
             
             case 0x9028:
-                Console.WriteLine("Level Complete");
+                // Level complete
                 
                 break;
             
             case 0x85CC:
-                Console.WriteLine("Title Screen");
+                // Title screen
                 
                 break;
             
@@ -45,7 +45,7 @@ public class WillyBot : IProcessorHook
                 
                 break;
             
-            case 0x8636:
+            case 0x9312:
                 state[Flag.Zero] = false;
                 
                 break;
