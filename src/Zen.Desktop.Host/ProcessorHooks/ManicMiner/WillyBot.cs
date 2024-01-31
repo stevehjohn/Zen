@@ -129,8 +129,6 @@ public class WillyBot : IProcessorHook
                 {
                     GenerateNextMove(x, y);
                 }
-
-                Console.WriteLine($"{x}, {y}");
                 
                 _cycle++;
 
