@@ -10,6 +10,7 @@ using Zen.Desktop.Host.Display;
 using Zen.Desktop.Host.Features;
 using Zen.Desktop.Host.Infrastructure.Menu;
 using Zen.Desktop.Host.Infrastructure.Settings;
+using Zen.Desktop.Host.ProcessorHooks;
 using Zen.System;
 using Zen.System.FileHandling;
 using Zen.System.FileHandling.Interfaces;
@@ -106,6 +107,8 @@ public class Host : Game
 
             _motherboard.AyAudio.BeeperSignalHook = _waveVisualiser.ReceiveSignal;
         }
+        
+        _motherboard.AddProcessorHook(new WillyBot());
     }
 
     protected override void OnActivated(object sender, EventArgs args)

@@ -106,6 +106,11 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
                   };
     }
 
+    public void AddProcessorHook(IProcessorHook hook)
+    {
+        _core.AddHook(hook);
+    }
+
     public void AddPeripheral(IPeripheral peripheral)
     {
         _peripherals.Add(peripheral);
