@@ -27,6 +27,11 @@ public class WillyBot : IProcessorHook
 
     public void PassiveCycle(State state, Interface @interface)
     {
+        if (_level > 20)
+        {
+            return;
+        }
+
         switch (state.ProgramCounter)
         {
             case 0x8D07:
