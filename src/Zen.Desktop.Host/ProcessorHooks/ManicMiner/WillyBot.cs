@@ -93,14 +93,17 @@ public class WillyBot : IProcessorHook
                 x += frame * 2;
 
                 var grounded = @interface.ReadFromMemory(0x806B) == 0;
-                
-                GenerateNextMove(x, y, grounded);
-                
+
+                if (grounded)
+                {
+                    GenerateNextMove(x, y);
+                }
+
                 break;
         }
     }
 
-    private void GenerateNextMove(int x, int y, bool grounded)
+    private void GenerateNextMove(int x, int y)
     {
         _jump = true;
         
