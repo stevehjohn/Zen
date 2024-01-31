@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Zen.Z80.Interfaces;
 using Zen.Z80.Processor;
 
