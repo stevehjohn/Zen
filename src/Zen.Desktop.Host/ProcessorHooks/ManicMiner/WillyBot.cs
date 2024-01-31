@@ -7,8 +7,6 @@ public class WillyBot : IProcessorHook
 {
     private int _level;
 
-    private int _iteration;
-
     private int _cycle;
 
     private byte _direction;
@@ -37,8 +35,6 @@ public class WillyBot : IProcessorHook
             case 0x8D07:
             case 0x88FF:
                 // Dead
-                _iteration++;
-
                 _cycle = 0;
                 
                 break;
@@ -46,8 +42,6 @@ public class WillyBot : IProcessorHook
             case 0x9028:
                 // Level complete
                 _level++;
-
-                _iteration = 0;
 
                 _cycle = 0;
                 
@@ -73,8 +67,6 @@ public class WillyBot : IProcessorHook
             case 0x9312:
                 // Start game
                 _level = 1;
-
-                _iteration = 0;
 
                 _cycle = 0;
 
