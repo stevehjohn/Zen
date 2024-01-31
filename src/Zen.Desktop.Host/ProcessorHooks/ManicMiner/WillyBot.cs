@@ -162,7 +162,7 @@ public class WillyBot : IProcessorHook
         }
     }
 
-    private MapCell ParseTile(Interface @interface, ushort location)
+    private static MapCell ParseTile(Interface @interface, ushort location)
     {
         var data = @interface.ReadFromMemory(location);
 
