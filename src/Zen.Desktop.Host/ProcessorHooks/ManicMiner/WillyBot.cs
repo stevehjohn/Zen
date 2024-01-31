@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Zen.Common;
@@ -21,6 +22,8 @@ public class WillyBot : IProcessorHook
     private int[,] _visitCounts;
     
     private readonly MapCell[,] _map = new MapCell[32, 16];
+
+    private List<(int X, int Y)> _keys = [];
     
     public bool Activate(State state)
     {
@@ -130,7 +133,9 @@ public class WillyBot : IProcessorHook
                 x += frame * 2;
 
                 var grounded = @interface.ReadFromMemory(0x806B) == 0;
-
+                
+                _visitCounts[x, y]++;
+                
                 if (grounded)
                 {
                     GenerateNextMove(x, y);
@@ -144,23 +149,32 @@ public class WillyBot : IProcessorHook
 
     private void GenerateNextMove(int x, int y)
     {
-        var moves = new List<(Move Move, int Count, int Weight)>();
+        _visitCounts[x, y]++;
+        
+        var moves = new List<(Move Move, int Heuristic)>();
 
         if (x > 8)
         {
-            moves.Add((Move.Left, _visitCounts[x - 2, y], 1));
-            moves.Add((Move.UpLeft, _visitCounts[x - 2, y - 4], 2));
+            moves.Add((Move.Left, CalculateHeuristic(x - 2, y) * 2));
+            moves.Add((Move.UpLeft, CalculateHeuristic(x - 2, y - 4)));
         }
 
         if (x < 238)
         {
-            moves.Add((Move.Right, _visitCounts[x + 2, y], 1));
-            moves.Add((Move.UpRight, _visitCounts[x + 2, y - 4], 2));
+            moves.Add((Move.Right, CalculateHeuristic(x + 2, y) * 2));
+            moves.Add((Move.UpRight, CalculateHeuristic(x + 2, y - 4)));
         }
         
-        moves.Add((Move.Up, _visitCounts[x, y - 4], 3));
+        moves.Add((Move.Up, CalculateHeuristic(x, y - 4)));
+        
+        moves = moves.OrderBy(m => m.Heuristic).ToList();
 
-        moves = moves.OrderBy(m => m.Count).ThenBy(m => m.Weight).ToList();
+        foreach (var move in moves)
+        {
+            Console.WriteLine($"{move.Move}: {move.Heuristic}");
+        }
+        
+        Console.WriteLine();
         
         while (_dangerMoves.Contains((moves.First().Move, _cycle)))
         {
@@ -168,7 +182,7 @@ public class WillyBot : IProcessorHook
         }
 
         _move = moves.First().Move;
-
+        
         switch (_move)
         {
             case Move.Left:
@@ -193,6 +207,18 @@ public class WillyBot : IProcessorHook
         }
         
         _moves.Add((_move, _cycle));
+    }
+
+    private int CalculateHeuristic(int x, int y)
+    {
+        var value = 0;
+        
+        foreach (var key in _keys)
+        {
+            value += Math.Abs(x - key.X) + Math.Abs(y - key.Y) * (_visitCounts[x, y] + 1);
+        }
+
+        return value;
     }
 
     private void StartLevel(Interface @interface)
@@ -221,9 +247,17 @@ public class WillyBot : IProcessorHook
         {
             for (var x = 0; x < 32; x++)
             {
-                _map[x, y] = ParseTile(@interface, (ushort) (start + y * 32 + x));
+                var tile = ParseTile(@interface, (ushort) (start + y * 32 + x));
+                
+                _map[x, y] = tile;
             }
         }
+        
+        // _keys.Add((0, 9));
+        // _keys.Add((0, 29));
+        // _keys.Add((1, 16));
+        // _keys.Add((4, 24));
+        _keys.Add((30 * 8, 6 * 8));
     }
 
     private static MapCell ParseTile(Interface @interface, ushort location)
