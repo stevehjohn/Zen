@@ -28,6 +28,13 @@ public class RoutePlanner
                 return node.Moves;
             }
 
+            var key = CheckKey(node.X, node.Y);
+
+            if (key.X != -1)
+            {
+                node.Keys.Add((key.X, key.Y));
+            }
+
             var moves = GetMoves(node.X, node.Y);
             
             foreach (var move in moves)
@@ -37,6 +44,38 @@ public class RoutePlanner
         }
 
         return null;
+    }
+
+    private (int X, int Y) CheckKey(int x, int y)
+    {
+        var cellX = x / 8;
+
+        var cellY = y / 8;
+
+        if (_levelData.Keys.Contains((cellX, cellY)))
+        {
+            return (cellX, cellY);
+        }
+
+        if (_levelData.Keys.Contains((cellX, cellY + 1)))
+        {
+            return (cellX, cellY);
+        }
+
+        if (x % 8 != 0)
+        {
+            if (_levelData.Keys.Contains((cellX + 1, cellY)))
+            {
+                return (cellX + 1, cellY);
+            }
+
+            if (_levelData.Keys.Contains((cellX + 1, cellY + 1)))
+            {
+                return (cellX + 1, cellY);
+            }
+        }
+
+        return (-1, -1);
     }
 
     private bool IsComplete((int X, int Y, List<Move> Moves, HashSet<(int X, int Y)> Keys, int Steps) node)
