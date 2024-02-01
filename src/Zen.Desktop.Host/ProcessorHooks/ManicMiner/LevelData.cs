@@ -87,6 +87,8 @@ public class LevelData
 
         var location = (msb << 8) + lsb;
 
+        location -= 0x5c00;
+
         Start = (location % 32, location / 32); 
     }
 
@@ -99,6 +101,8 @@ public class LevelData
         var msb = _interface.ReadFromMemory((ushort) start);
 
         var location = (msb << 8) + lsb;
+
+        location -= 0x5c00;
 
         End = (location % 32, location / 32); 
     }
