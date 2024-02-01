@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Zen.Z80.Interfaces;
 using Zen.Z80.Processor;
 
@@ -8,6 +9,10 @@ public class WillyBot : IProcessorHook
     private int _level;
 
     private RoutePlanner _routePlanner;
+
+    private Queue<Move> _route;
+
+    private Move _move;
     
     public bool Activate(State state)
     {
@@ -32,7 +37,7 @@ public class WillyBot : IProcessorHook
             case 0x88FF:
                 // Dead
 
-                RestartLevel(@interface);
+                RestartLevel();
                 
                 break;
             
@@ -51,11 +56,36 @@ public class WillyBot : IProcessorHook
             
             case 0x8C2F:
                 // Left, right
+                if (_move == Move.Left || _move == Move.UpLeft)
+                {
+                    state[Register.A] = 2;
+                    
+                    return;
+                }
+                
+                if (_move == Move.Right || _move == Move.UpRight)
+                {
+                    state[Register.A] = 1;
+                    
+                    return;
+                }
+
+                state[Register.A] = 0;
 
                 break;
 
             case 0x8C77:
                 // Jump, called after left, right in a given cycle
+                if (_move == Move.Up || _move == Move.UpLeft || _move == Move.UpRight)
+                {
+                    state[Register.A] = 16;
+                }
+                else
+                {
+                    state[Register.A] = 0;
+                }
+
+                _move = Move.None;
 
                 break;
 
@@ -88,7 +118,12 @@ public class WillyBot : IProcessorHook
                 x += frame * 2;
 
                 var grounded = @interface.ReadFromMemory(0x806B) == 0;
-                
+
+                if (grounded)
+                {
+                    _move = _route.Dequeue();
+                }
+
                 break;
         }
     }
@@ -97,12 +132,15 @@ public class WillyBot : IProcessorHook
     {
         _routePlanner = new RoutePlanner(_level, @interface);
         
-        _routePlanner.GetRoutes();
+        _routePlanner.GetRoute().ForEach(m => _route.Enqueue(m));
         
-        RestartLevel(@interface);
+        RestartLevel();
     }
 
-    private void RestartLevel(Interface @interface)
+    private void RestartLevel()
     {
+        _route.Clear();
+        
+        _routePlanner.GetRoute().ForEach(m => _route.Enqueue(m));
     }
 }
