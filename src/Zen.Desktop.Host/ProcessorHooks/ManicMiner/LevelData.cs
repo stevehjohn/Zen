@@ -96,8 +96,7 @@ public class LevelData
 
         var location = (msb << 8) + lsb;
 
-        // + 1 == where Willy's feet are
-        Start = (location % 32, location / 32 + 1); 
+        Start = (location % 32, location / 32); 
     }
 
     private void FindEnd()
