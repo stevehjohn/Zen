@@ -7,7 +7,7 @@ public class RoutePlanner
 {
     private readonly LevelData _levelData;
 
-    private readonly PriorityQueue<(int X, int Y, List<Move> Moves, int Steps), int> _queue = new();
+    private readonly PriorityQueue<(int X, int Y, List<Move> Moves, HashSet<(int X, int Y)> Keys, int Steps), int> _queue = new();
     
     public RoutePlanner(int level, Interface @interface)
     {
@@ -16,7 +16,7 @@ public class RoutePlanner
 
     public void Initialise()
     {
-        _queue.Enqueue((_levelData.Start.X * 8, _levelData.Start.Y * 8, [], 0), 0);
+        _queue.Enqueue((_levelData.Start.X * 8, _levelData.Start.Y * 8, [], [], 0), 0);
     }
 
     public List<Move> GetNextRoute()
@@ -32,15 +32,20 @@ public class RoutePlanner
             
             foreach (var move in moves)
             {
-                _queue.Enqueue((move.X, move.Y, [..node.Moves, move.Move], node.Steps + 1), node.Steps + 1);
+                _queue.Enqueue((move.X, move.Y, [..node.Moves, move.Move], node.Keys, node.Steps + 1), node.Steps + 1);
             }
         }
 
         return null;
     }
 
-    private bool IsComplete((int X, int Y, List<Move> Moves, int Steps) node)
+    private bool IsComplete((int X, int Y, List<Move> Moves, HashSet<(int X, int Y)> Keys, int Steps) node)
     {
+        if (node.Keys.Count < _levelData.Keys.Count)
+        {
+            return false;
+        }
+
         return false;
     }
 
