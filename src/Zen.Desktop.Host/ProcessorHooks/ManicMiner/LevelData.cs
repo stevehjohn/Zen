@@ -6,13 +6,13 @@ namespace Zen.Desktop.Host.ProcessorHooks.ManicMiner;
 
 public class LevelData
 {
-    private readonly MapCell[,] _map = new MapCell[32, 16];
+    public MapCell[,] Map { get; } = new MapCell[32, 16];
 
-    private readonly List<(int X, int Y)> _keys = [];
+    public List<(int X, int Y)> Keys { get; } = [];
 
-    private (int X, int Y) _start;
+    public (int X, int Y) Start { get; private set; }
 
-    private (int X, int Y) _end;
+    public (int X, int Y) End { get; private set; }
     
     private readonly int _level;
 
@@ -50,7 +50,7 @@ public class LevelData
                 
                 Console.Write((int) tile);
                 
-                _map[x, y] = tile;
+                Map[x, y] = tile;
             }
             
             Console.WriteLine();
@@ -59,7 +59,7 @@ public class LevelData
 
     private void PlaceKeys()
     {
-        _keys.Clear();
+        Keys.Clear();
 
         var start = 0xB276 + 0x0400 * (_level - 1);
 
@@ -79,7 +79,7 @@ public class LevelData
 
                 var position = (location % 32, location / 32); 
                 
-                _keys.Add(position);
+                Keys.Add(position);
                 
                 Console.WriteLine(position);
             }
@@ -96,7 +96,7 @@ public class LevelData
 
         var location = (msb << 8) + lsb;
 
-        _start = (location % 32, location / 32); 
+        Start = (location % 32, location / 32); 
     }
 
     private void FindEnd()
@@ -109,7 +109,7 @@ public class LevelData
 
         var location = (msb << 8) + lsb;
 
-        _end = (location % 32, location / 32); 
+        End = (location % 32, location / 32); 
     }
 
     private MapCell ParseTile(ushort location)
