@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Zen.Z80.Interfaces;
 using Zen.Z80.Processor;
@@ -107,21 +108,23 @@ public class WillyBot : IProcessorHook
             
             case 0x870E:
                 // Main loop
-                // var cell = @interface.ReadFromMemory(0x806C) + (@interface.ReadFromMemory(0x806D) << 8) - 0x5C00;
-                //
-                // var y = @interface.ReadFromMemory(0x8068) / 2;
-                //
-                // var x = cell % 32 * 8;
-                //
-                // var frame = @interface.ReadFromMemory(0x8069);
-                //
-                // x += frame * 2;
+                var cell = @interface.ReadFromMemory(0x806C) + (@interface.ReadFromMemory(0x806D) << 8) - 0x5C00;
+                
+                var y = @interface.ReadFromMemory(0x8068) / 2;
+                
+                var x = cell % 32 * 8;
+                
+                var frame = @interface.ReadFromMemory(0x8069);
+                
+                x += frame * 2;
 
+                Console.WriteLine($"{x}, {y}");
+                
                 var grounded = @interface.ReadFromMemory(0x806B) == 0;
 
                 if (grounded)
                 {
-                    _move = _route.Dequeue();
+                    //_move = _route.Dequeue();
                 }
 
                 break;
@@ -132,9 +135,9 @@ public class WillyBot : IProcessorHook
     {
         _routePlanner = new RoutePlanner(_level, @interface);
         
-        _routePlanner.Initialise();
+        //_routePlanner.Initialise();
         
-        RestartLevel();
+        //RestartLevel();
     }
 
     private void RestartLevel()
