@@ -14,6 +14,14 @@ public class RoutePlanner
 
     public List<Move> GetRoute()
     {
+        var queue = new PriorityQueue<(int X, int Y), int>();
+        
+        queue.Enqueue((_levelData.Start.X * 8, _levelData.Start.Y * 8), 0);
+
+        while (queue.TryDequeue(out var position, out _))
+        {
+        }
+
         return null;
     }
 }
