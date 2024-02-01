@@ -12,6 +12,8 @@ public class RoutePlanner
 
     private (int X, int Y) _start;
 
+    private (int X, int Y) _end;
+    
     private readonly int _level;
 
     private readonly Interface _interface;
@@ -30,6 +32,8 @@ public class RoutePlanner
         PlaceKeys();
         
         FindStart();
+        
+        FindEnd();
     }
 
     private void ParseMap()
@@ -91,6 +95,19 @@ public class RoutePlanner
         var location = (msb << 8) + lsb;
 
         _start = (location % 32, location / 32); 
+    }
+
+    private void FindEnd()
+    {
+        var start = 0xB2B0 + 0x0400 * (_level - 1);
+        
+        var lsb = _interface.ReadFromMemory((ushort) start);
+
+        var msb = _interface.ReadFromMemory((ushort) start);
+
+        var location = (msb << 8) + lsb;
+
+        _end = (location % 32, location / 32); 
     }
 
     private MapCell ParseTile(ushort location)
