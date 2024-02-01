@@ -46,16 +46,177 @@ public class RoutePlanner
             return false;
         }
 
+        var x = node.X / 8;
+
+        var y = node.Y / 8;
+
+        if (x >= _levelData.End.X && x <= _levelData.End.X + 1 && y >= _levelData.End.Y && y <= _levelData.End.Y + 1)
+        {
+            return true;
+        }
+
         return false;
     }
 
     private List<(Move Move, int X, int Y)> GetMoves(int x, int y)
     {
-        return null;
+        var moves = new List<(Move, int X, int Y)>();
+
+        if (TryWalk(x, y, -2))
+        {
+            moves.Add((Move.Left, x - 2, y));
+        }
+
+        if (TryWalk(x, y, 2))
+        {
+            moves.Add((Move.Left, x + 2, y));
+        }
+
+        var jump = TryJump(x, y, -2);
+
+        if (jump.Safe)
+        {
+            moves.Add((Move.UpLeft, jump.X, jump.Y));
+        }
+
+        jump = TryJump(x, y, 2);
+
+        if (jump.Safe)
+        {
+            moves.Add((Move.UpLeft, jump.X, jump.Y));
+        }
+
+        return moves;
     }
 
-    private bool IsMoveSafe(int x, int y)
+    private bool TryWalk(int x, int y, int dX)
     {
+        x += dX;
+        
+        if (x < 8 || x > 238)
+        {
+            return false;
+        }
+
+        return CheckSafe(x, y) && CheckOpen(x, y);
+    }
+
+    private (bool Safe, int X, int Y) TryJump(int x, int y, int dX)
+    {
+        var velocities = new[] {4, 4, 3, 3, 2, 2, 1, 1, 0, 0, 0, -1, -1, -1, -2, -2, -3, -3, -4, -4};
+        
+        for (var i = 0; i < velocities.Length; i++)
+        {
+            var velocity = velocities[i];
+            
+            if (! CheckSafe(x + dX, y + velocity))
+            {
+                return (false, -1, -1);
+            }
+
+            if (CheckOpen(x + dX, y + velocity))
+            {
+                y += velocity;
+
+                if (i < velocities.Length - 1)
+                {
+                    x += dX;
+                }
+            }
+
+            if (velocity < 0 && CheckLanded(x, y))
+            {
+                return (true, x, y);
+            }
+        }
+
+        while (! CheckLanded(x, y))
+        {
+            if (! CheckSafe(x, y))
+            {
+                return (false, -1, -1);
+            }
+
+            y -= 4;
+        }
+
+        return (true, x, y);
+    }
+
+    private bool CheckLanded(int x, int y)
+    {
+        var cell = _levelData.Map[x / 8, y / 8 + 1];
+
+        if (cell == MapCell.Floor || cell == MapCell.Wall)
+        {
+            return true;
+        }
+
+        if (x % 8 != 0)
+        {
+            cell = _levelData.Map[x / 8 + 1, y / 8 + 1];
+
+            if (cell == MapCell.Floor || cell == MapCell.Wall)
+            {
+                return true;
+            }
+        }
+
         return false;
+    }
+
+    private bool CheckSafe(int x, int y)
+    {
+        var cell = _levelData.Map[x / 8, y / 8];
+
+        if (cell == MapCell.Hazard)
+        {
+            return false;
+        }
+
+        cell = _levelData.Map[x / 8, y / 8 + 1];
+
+        if (cell == MapCell.Hazard)
+        {
+            return false;
+        }
+
+        if (x % 8 != 0)
+        {
+            cell = _levelData.Map[x / 8 + 1, y / 8];
+
+            if (cell == MapCell.Hazard)
+            {
+                return false;
+            }
+
+            cell = _levelData.Map[x / 8 + 1, y / 8 + 1];
+
+            if (cell == MapCell.Hazard)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private bool CheckOpen(int x, int y)
+    {
+        var cell = _levelData.Map[x / 8, y / 8];
+
+        if (cell == MapCell.Wall)
+        {
+            return false;
+        }
+
+        cell = _levelData.Map[x / 8, y / 8 + 1];
+
+        if (cell == MapCell.Wall)
+        {
+            return false;
+        }
+
+        return true;
     }
 }
