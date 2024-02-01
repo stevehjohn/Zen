@@ -272,14 +272,16 @@ public class WillyBot : IProcessorHook
 
         for (var i = 0; i < 5; i++)
         {
-            var msb = @interface.ReadFromMemory((ushort) (start + i * 5));
+            var lsb = @interface.ReadFromMemory((ushort) (start + i * 5));
 
-            if (msb < 0xFF)
+            if (lsb < 0xFF)
             {
-                var lsb = @interface.ReadFromMemory((ushort) (start + 1 + i * 5));
+                var msb = @interface.ReadFromMemory((ushort) (start + 1 + i * 5));
 
-                var location = msb << 8 + lsb;
+                var location = (msb << 8) + lsb;
 
+                Console.WriteLine($"{msb:X2} {lsb:X2} {location:X4}");
+                
                 location -= 0x5C00;
 
                 var position = (location % 32, location / 32); 
