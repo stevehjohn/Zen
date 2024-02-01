@@ -10,7 +10,7 @@ public class WillyBot : IProcessorHook
 
     private RoutePlanner _routePlanner;
 
-    private Queue<Move> _route;
+    private readonly Queue<Move> _route = new();
 
     private Move _move;
     
@@ -132,6 +132,8 @@ public class WillyBot : IProcessorHook
     {
         _routePlanner = new RoutePlanner(_level, @interface);
         
+        _routePlanner.Initialise();
+        
         RestartLevel();
     }
 
@@ -139,14 +141,6 @@ public class WillyBot : IProcessorHook
     {
         _route.Clear();
         
-        EnqueueRoute();
-    }
-
-    private void EnqueueRoute()
-    {
-        _route.Clear();
-
-        var route = _routePlanner.GetRoute();
-        _routePlanner.GetRoute().ForEach(m => _route.Enqueue(m));
+        _routePlanner.GetNextRoute().ForEach(m => _route.Enqueue(m));
     }
 }
