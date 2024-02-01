@@ -7,7 +7,7 @@ public class WillyBot : IProcessorHook
 {
     private int _level;
 
-    private LevelData _levelData;
+    private RoutePlanner _routePlanner;
     
     public bool Activate(State state)
     {
@@ -95,6 +95,10 @@ public class WillyBot : IProcessorHook
 
     private void StartLevel(Interface @interface)
     {
+        _routePlanner = new RoutePlanner(_level, @interface);
+        
+        _routePlanner.GetRoutes();
+        
         RestartLevel(@interface);
     }
 
