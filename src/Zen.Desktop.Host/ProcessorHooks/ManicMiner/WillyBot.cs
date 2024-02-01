@@ -132,6 +132,8 @@ public class WillyBot : IProcessorHook
     {
         _routePlanner = new RoutePlanner(_level, @interface);
         
+        _route.Clear();
+        
         _routePlanner.GetRoute().ForEach(m => _route.Enqueue(m));
         
         RestartLevel();
