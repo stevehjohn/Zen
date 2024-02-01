@@ -52,7 +52,7 @@ public class WillyBot : IProcessorHook
                     _dangerMoves.Add((_moves.Last().Move, _moves.Last().Cycle));
                 }
 
-                RestartLevel();
+                RestartLevel(@interface);
                 
                 break;
             
@@ -231,10 +231,10 @@ public class WillyBot : IProcessorHook
 
         ParseMap(@interface);
         
-        RestartLevel();
+        RestartLevel(@interface);
     }
 
-    private void RestartLevel()
+    private void RestartLevel(Interface @interface)
     {
         _moves = [];
 
@@ -242,7 +242,7 @@ public class WillyBot : IProcessorHook
         
         _cycle = 0;
  
-        PlaceKeys();
+        PlaceKeys(@interface);
     }
 
     private void ParseMap(Interface @interface)
@@ -264,15 +264,31 @@ public class WillyBot : IProcessorHook
         }
     }
 
-    private void PlaceKeys()
+    private void PlaceKeys(Interface @interface)
     {
         _keys.Clear();
-        
-        _keys.Add((30 * 8, 6 * 8));
-        _keys.Add((9 * 8, 0));
-        _keys.Add((16 * 8, 1 * 8));
-        _keys.Add((24 * 8, 4 * 8));
-        _keys.Add((29 * 8, 0));
+
+        var start = 0xB276 + 0x0400 * (_level - 1);
+
+        for (var i = 0; i < 5; i++)
+        {
+            var msb = @interface.ReadFromMemory((ushort) (start + i * 5));
+
+            if (msb < 0xFF)
+            {
+                var lsb = @interface.ReadFromMemory((ushort) (start + 1 + i * 5));
+
+                var location = msb << 8 + lsb;
+
+                location -= 0x5C00;
+
+                var position = (location % 32, location / 32); 
+                
+                _keys.Add(position);
+                
+                Console.WriteLine(position);
+            }
+        }
     }
 
     private static MapCell ParseTile(Interface @interface, ushort location)
