@@ -24,6 +24,8 @@ public class WillyBot : IProcessorHook
     private readonly MapCell[,] _map = new MapCell[32, 16];
 
     private readonly List<(int X, int Y)> _keys = [];
+
+    private (int X, int Y) _start;
     
     public bool Activate(State state)
     {
@@ -231,6 +233,8 @@ public class WillyBot : IProcessorHook
 
         ParseMap(@interface);
         
+        FindStart(@interface);
+        
         RestartLevel(@interface);
     }
 
@@ -291,6 +295,19 @@ public class WillyBot : IProcessorHook
                 Console.WriteLine(position);
             }
         }
+    }
+
+    private void FindStart(Interface @interface)
+    {
+        var start = 0xB26C + 0x0400 * (_level - 1);
+        
+        var lsb = @interface.ReadFromMemory((ushort) start);
+
+        var msb = @interface.ReadFromMemory((ushort) start);
+
+        var location = (msb << 8) + lsb;
+
+        _start = (location % 32, location / 32); 
     }
 
     private static MapCell ParseTile(Interface @interface, ushort location)
