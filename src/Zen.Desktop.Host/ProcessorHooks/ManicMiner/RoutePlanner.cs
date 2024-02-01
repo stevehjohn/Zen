@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Zen.Z80.Processor;
 
@@ -7,7 +8,7 @@ public class RoutePlanner
 {
     private readonly LevelData _levelData;
 
-    private readonly PriorityQueue<(int X, int Y, List<Move> Moves, HashSet<(int X, int Y)> Keys, int Steps), int> _queue = new();
+    private readonly PriorityQueue<(int X, int Y, List<Move> Moves, HashSet<(int X, int Y)> Keys, HashSet<(int X, int Y)> Visited, int Steps), int> _queue = new();
     
     public RoutePlanner(int level, Interface @interface)
     {
@@ -16,7 +17,7 @@ public class RoutePlanner
 
     public void Initialise()
     {
-        _queue.Enqueue((_levelData.Start.X * 8, _levelData.Start.Y * 8, [], [], 0), 0);
+        _queue.Enqueue((_levelData.Start.X * 8, _levelData.Start.Y * 8, [], [], [], 0), 0);
     }
 
     public List<Move> GetNextRoute()
@@ -33,13 +34,15 @@ public class RoutePlanner
             if (key.X != -1)
             {
                 node.Keys.Add((key.X, key.Y));
+                
+                Console.WriteLine($"{node.Keys.Count}");
             }
 
             var moves = GetMoves(node.X, node.Y);
             
             foreach (var move in moves)
             {
-                _queue.Enqueue((move.X, move.Y, [..node.Moves, move.Move], node.Keys, node.Steps + 1), node.Steps + 1);
+                _queue.Enqueue((move.X, move.Y, [..node.Moves, move.Move], node.Keys, [..node.Visited, (move.X, move.Y)], node.Steps + 1), node.Steps + 1);
             }
         }
 
@@ -78,7 +81,7 @@ public class RoutePlanner
         return (-1, -1);
     }
 
-    private bool IsComplete((int X, int Y, List<Move> Moves, HashSet<(int X, int Y)> Keys, int Steps) node)
+    private bool IsComplete((int X, int Y, List<Move> Moves, HashSet<(int X, int Y)> Keys, HashSet<(int X, int Y)> Visited, int Steps) node)
     {
         if (node.Keys.Count < _levelData.Keys.Count)
         {
