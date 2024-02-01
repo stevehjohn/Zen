@@ -83,7 +83,7 @@ public class LevelData
         
         var lsb = _interface.ReadFromMemory((ushort) start);
 
-        var msb = _interface.ReadFromMemory((ushort) start);
+        var msb = _interface.ReadFromMemory((ushort) (start + 1));
 
         var location = (msb << 8) + lsb;
 
@@ -98,7 +98,7 @@ public class LevelData
         
         var lsb = _interface.ReadFromMemory((ushort) start);
 
-        var msb = _interface.ReadFromMemory((ushort) start);
+        var msb = _interface.ReadFromMemory((ushort) (start + 1));
 
         var location = (msb << 8) + lsb;
 
