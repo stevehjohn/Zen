@@ -247,7 +247,7 @@ public class WillyBot : IProcessorHook
 
     private void ParseMap(Interface @interface)
     {
-        var start = 0xA000 + 0x1000 * _level;
+        var start = 0xB000 + 0x0400 * (_level - 1);
 
         for (var y = 0; y < 16; y++)
         {
@@ -255,8 +255,12 @@ public class WillyBot : IProcessorHook
             {
                 var tile = ParseTile(@interface, (ushort) (start + y * 32 + x));
                 
+                Console.Write((int) tile);
+                
                 _map[x, y] = tile;
             }
+            
+            Console.WriteLine();
         }
     }
 
