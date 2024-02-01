@@ -107,15 +107,15 @@ public class WillyBot : IProcessorHook
             
             case 0x870E:
                 // Main loop
-                var cell = @interface.ReadFromMemory(0x806C) + (@interface.ReadFromMemory(0x806D) << 8) - 0x5C00;
-
-                var y = @interface.ReadFromMemory(0x8068) / 2;
-
-                var x = cell % 32 * 8;
-
-                var frame = @interface.ReadFromMemory(0x8069);
-
-                x += frame * 2;
+                // var cell = @interface.ReadFromMemory(0x806C) + (@interface.ReadFromMemory(0x806D) << 8) - 0x5C00;
+                //
+                // var y = @interface.ReadFromMemory(0x8068) / 2;
+                //
+                // var x = cell % 32 * 8;
+                //
+                // var frame = @interface.ReadFromMemory(0x8069);
+                //
+                // x += frame * 2;
 
                 var grounded = @interface.ReadFromMemory(0x806B) == 0;
 
@@ -132,10 +132,6 @@ public class WillyBot : IProcessorHook
     {
         _routePlanner = new RoutePlanner(_level, @interface);
         
-        _route.Clear();
-        
-        _routePlanner.GetRoute().ForEach(m => _route.Enqueue(m));
-        
         RestartLevel();
     }
 
@@ -143,6 +139,14 @@ public class WillyBot : IProcessorHook
     {
         _route.Clear();
         
+        EnqueueRoute();
+    }
+
+    private void EnqueueRoute()
+    {
+        _route.Clear();
+
+        var route = _routePlanner.GetRoute();
         _routePlanner.GetRoute().ForEach(m => _route.Enqueue(m));
     }
 }
