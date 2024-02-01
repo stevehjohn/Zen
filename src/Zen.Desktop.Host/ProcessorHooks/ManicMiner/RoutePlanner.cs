@@ -42,6 +42,13 @@ public class RoutePlanner
             
             foreach (var move in moves)
             {
+                var visited = node.Visited.Contains((move.X, move.Y));
+
+                if (visited)
+                {
+                    continue;
+                }
+
                 _queue.Enqueue((move.X, move.Y, [..node.Moves, move.Move], node.Keys, [..node.Visited, (move.X, move.Y)], node.Steps + 1), node.Steps + 1);
             }
         }
