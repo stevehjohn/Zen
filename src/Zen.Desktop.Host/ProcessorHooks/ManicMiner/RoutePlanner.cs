@@ -103,7 +103,7 @@ public class RoutePlanner
 
     private (bool Safe, int X, int Y) TryJump(int x, int y, int dX)
     {
-        var velocities = new[] {-4, -4, -3, -3, -2, -2, -1, -1, 0, 0, 0, 1, 1, 1, 2, 2, 3, 3, 4, 4};
+        var velocities = new[] {-4, -4, -3, -3, -2, -2, -1, -1, 0, 0, 0, 1, 1, 2, 2, 3, 3, 4, 4};
         
         for (var i = 0; i < velocities.Length; i++)
         {
