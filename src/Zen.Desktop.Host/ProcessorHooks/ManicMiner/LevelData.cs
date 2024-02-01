@@ -48,12 +48,8 @@ public class LevelData
             {
                 var tile = ParseTile((ushort) (start + y * 32 + x));
                 
-                Console.Write((int) tile);
-                
                 Map[x, y] = tile;
             }
-            
-            Console.WriteLine();
         }
     }
 
@@ -73,15 +69,11 @@ public class LevelData
 
                 var location = (msb << 8) + lsb;
 
-                Console.WriteLine($"{msb:X2} {lsb:X2} {location:X4}");
-                
                 location -= 0x5C00;
 
                 var position = (location % 32, location / 32); 
                 
                 Keys.Add(position);
-                
-                Console.WriteLine(position);
             }
         }
     }
