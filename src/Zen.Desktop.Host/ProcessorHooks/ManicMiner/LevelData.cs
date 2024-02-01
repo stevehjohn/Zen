@@ -4,7 +4,7 @@ using Zen.Z80.Processor;
 
 namespace Zen.Desktop.Host.ProcessorHooks.ManicMiner;
 
-public class RoutePlanner
+public class LevelData
 {
     private readonly MapCell[,] _map = new MapCell[32, 16];
 
@@ -18,14 +18,16 @@ public class RoutePlanner
 
     private readonly Interface _interface;
 
-    public RoutePlanner(int level, Interface @interface)
+    public LevelData(int level, Interface @interface)
     {
         _level = level;
 
         _interface = @interface;
+        
+        GetLevelData();
     }
     
-    public void PlanRoute()
+    private void GetLevelData()
     {
         ParseMap();
         
