@@ -34,8 +34,6 @@ public class RoutePlanner
             if (key.X != -1)
             {
                 node.Keys.Add((key.X, key.Y));
-                
-                Console.WriteLine($"{node.Keys.Count}");
             }
 
             var moves = GetMoves(node.X, node.Y);
