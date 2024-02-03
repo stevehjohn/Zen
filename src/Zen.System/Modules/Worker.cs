@@ -16,7 +16,7 @@ public class Worker : IDisposable
 
     private readonly Interface _interface;
 
-    private readonly VideoModulator _videoAdapter;
+    private readonly VideoModulator _videoModulator;
 
     private readonly AyAudio _ayAudio;
 
@@ -30,11 +30,11 @@ public class Worker : IDisposable
 
     public bool Fast { get; set; }
 
-    public Worker(Interface @interface, VideoModulator videoAdapter, AyAudio ayAudio)
+    public Worker(Interface @interface, VideoModulator videoModulator, AyAudio ayAudio)
     {
         _interface = @interface;
 
-        _videoAdapter = videoAdapter;
+        _videoModulator = videoModulator;
 
         _ayAudio = ayAudio;
 
@@ -98,7 +98,7 @@ public class Worker : IDisposable
                 {
                     var frameCycles = 0;
 
-                    _videoAdapter.StartFrame();
+                    _videoModulator.StartFrame();
 
                     while (frameCycles < Constants.FrameCycles)
                     {
@@ -121,7 +121,7 @@ public class Worker : IDisposable
 
                             if (cycles[i] > 0)
                             {
-                                _videoAdapter.CycleComplete(frameCycles);
+                                _videoModulator.CycleComplete(frameCycles);
                             }
                         }
                     }
@@ -158,14 +158,14 @@ public class Worker : IDisposable
     {
         if (mcycle < 6 && opCycles[mcycle + 1] == 0 && _vramChanges[1].Address != -1)
         {
-            _videoAdapter.ApplyRamChange(_vramChanges[1].Address, _vramChanges[1].Data);
+            _videoModulator.ApplyRamChange(_vramChanges[1].Address, _vramChanges[1].Data);
 
             return GetContention(frameCycles);
         }
 
         if (mcycle < 5 && opCycles[mcycle + 2] == 0 && _vramChanges[0].Address != -1)
         {
-            _videoAdapter.ApplyRamChange(_vramChanges[0].Address, _vramChanges[0].Data);
+            _videoModulator.ApplyRamChange(_vramChanges[0].Address, _vramChanges[0].Data);
 
             return GetContention(frameCycles);
         }
