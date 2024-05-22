@@ -102,7 +102,7 @@ public class WaveVisualiser
 
         var axis = channel == 3 ? height * width * channel + height * width / 2 : height * width * (channel + 1) - width;
 
-        var buffer = CentreChannel(_buffers[channel]);
+        var buffer = _buffers[channel];
 
         var length = buffer.Length;
 
@@ -130,63 +130,5 @@ public class WaveVisualiser
 
             lastOffset = offset;
         }
-    }
-
-    private static float[] CentreChannel(float[] buffer)
-    {
-        var high = float.MinValue;
-
-        var highIndex = 0;
-        
-        var low = float.MaxValue;
-
-        var lowIndex = 0;
-        
-        for (var i = 0; i < buffer.Length; i++)
-        {
-            if (buffer[i] > high)
-            {
-                high = buffer[i];
-
-                highIndex = i;
-            }
-            
-            if (buffer[i] < low)
-            {
-                low = buffer[i];
-
-                lowIndex = i;
-            }
-        }
-
-        var delta = Math.Abs((highIndex - lowIndex) / 2);
-        
-        var result = new float[buffer.Length];
-
-        var offset = buffer.Length / 2 - highIndex - delta + 1;
-
-        if (offset >= buffer.Length)
-        {
-            offset -= buffer.Length;
-        }
-
-        for (var i = 0; i < buffer.Length; i++)
-        {
-            var source = i - offset;
-
-            if (source < 0)
-            {
-                source += buffer.Length;
-            }
-
-            if (source >= buffer.Length)
-            {
-                source -= buffer.Length;
-            }
-
-            result[i] = buffer[source];
-        }
-
-        return result;
     }
 }
