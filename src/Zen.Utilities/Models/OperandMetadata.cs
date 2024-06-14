@@ -1,4 +1,6 @@
-﻿namespace Zen.Utilities.Models;
+﻿// ReSharper disable UnusedAutoPropertyAccessor.Global - JSON serialiser uses them
+
+namespace Zen.Utilities.Models;
 
 public class OperandMetadata
 {
