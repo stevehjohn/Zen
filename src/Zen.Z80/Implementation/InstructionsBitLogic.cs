@@ -7,7 +7,7 @@ namespace Zen.Z80.Implementation;
 
 public partial class Instructions
 {
-    public void BIT_b_aRRd(byte bit, RegisterPair source, byte[] parameters)
+    private void BIT_b_aRRd(byte bit, RegisterPair source, byte[] parameters)
     {
         unchecked
         {
@@ -33,8 +33,8 @@ public partial class Instructions
 
         _state.SetMCycles(4, 4, 3, 5, 4);
     }
-    
-    public void BIT_b_aRR(byte bit, RegisterPair source)
+
+    private void BIT_b_aRR(byte bit, RegisterPair source)
     {
         unchecked
         {
@@ -56,8 +56,8 @@ public partial class Instructions
 
         _state.SetMCycles(4, 4, 4);
     }
-    
-    public void BIT_b_R(byte bit, Register source)
+
+    private void BIT_b_R(byte bit, Register source)
     {
         unchecked
         {
@@ -77,8 +77,8 @@ public partial class Instructions
 
         _state.SetMCycles(4, 4);
     }
-    
-    public void CCF()
+
+    private void CCF()
     {
         unchecked
         {
@@ -98,8 +98,8 @@ public partial class Instructions
 
         _state.SetMCycles(4);
     }
-    
-    public void CPL()
+
+    private void CPL()
     {
         unchecked
         {
@@ -120,7 +120,7 @@ public partial class Instructions
         _state.SetMCycles(4);
     }
 
-    public void DAA()
+    private void DAA()
     {
         unchecked
         {
@@ -184,7 +184,7 @@ public partial class Instructions
         _state.SetMCycles(4);
     }
 
-    public void RES_b_aRRd(byte bit, RegisterPair source, byte[] parameters)
+    private void RES_b_aRRd(byte bit, RegisterPair source, byte[] parameters)
     {
         unchecked
         {
@@ -206,7 +206,7 @@ public partial class Instructions
         _state.SetMCycles(4, 4, 3, 5, 4, 3);
     }
 
-    public void RES_b_aRRd_R(byte bit, RegisterPair source, byte[] parameters, Register target)
+    private void RES_b_aRRd_R(byte bit, RegisterPair source, byte[] parameters, Register target)
     {
         unchecked
         {
@@ -230,7 +230,7 @@ public partial class Instructions
         _state.SetMCycles(4, 4, 3, 5, 4, 3);
     }
 
-    public void RES_b_aRR(byte bit, RegisterPair source)
+    private void RES_b_aRR(byte bit, RegisterPair source)
     {
         unchecked
         {
@@ -249,8 +249,8 @@ public partial class Instructions
 
         _state.SetMCycles(4, 4, 4, 3);
     }
-    
-    public void RES_b_R(byte bit, Register source)
+
+    private void RES_b_R(byte bit, Register source)
     {
         unchecked
         {
@@ -265,8 +265,8 @@ public partial class Instructions
 
         _state.SetMCycles(4, 4);
     }
-        
-    public void SCF()
+
+    private void SCF()
     {
         unchecked
         {
@@ -285,7 +285,7 @@ public partial class Instructions
         _state.SetMCycles(4);
     }
 
-    public void SET_b_aRR(byte bit, RegisterPair source)
+    private void SET_b_aRR(byte bit, RegisterPair source)
     {
         unchecked
         {
@@ -305,7 +305,7 @@ public partial class Instructions
         _state.SetMCycles(4, 4, 4, 3);
     }
 
-    public void SET_b_aRRd(byte bit, RegisterPair source, byte[] parameters)
+    private void SET_b_aRRd(byte bit, RegisterPair source, byte[] parameters)
     {
         unchecked
         {
@@ -327,7 +327,7 @@ public partial class Instructions
         _state.SetMCycles(4, 4, 3, 5, 4, 3);
     }
 
-    public void SET_b_aRRd_R(byte bit, RegisterPair source, byte[] parameters, Register target)
+    private void SET_b_aRRd_R(byte bit, RegisterPair source, byte[] parameters, Register target)
     {
         unchecked
         {
@@ -350,8 +350,8 @@ public partial class Instructions
 
         _state.SetMCycles(4, 4, 3, 5, 4, 3);
     }
-        
-    public void SET_b_R(byte bit, Register source)
+
+    private void SET_b_R(byte bit, Register source)
     {
         unchecked
         {
