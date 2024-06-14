@@ -7,7 +7,7 @@ namespace Zen.Z80.Implementation;
 
 public partial class Instructions
 {
-    public void Initialise0xDDCB()
+    private void Initialise0xDDCB()
     {
         _instructions.Add(0xDDCB00, new Instruction(p => RLC_aRRd_R(RegisterPair.IX, p, Register.B), "RLC (IX + d), B", 0xDDCB00, 1));
 

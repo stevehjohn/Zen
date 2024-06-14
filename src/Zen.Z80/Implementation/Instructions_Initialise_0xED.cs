@@ -8,7 +8,7 @@ namespace Zen.Z80.Implementation;
 
 public partial class Instructions
 {
-    public void Initialise0xED()
+    private void Initialise0xED()
     {
         _instructions.Add(0x00ED00, new Instruction(_ => NOP(), "NOP", 0x00ED00, 0, 4));
 
