@@ -4,7 +4,7 @@ using Zen.Utilities.Visualisations;
 namespace Zen.Utilities
 {
     [ExcludeFromCodeCoverage]
-    public class Program
+    public static class Program
     {
         public static void Main()
         {
