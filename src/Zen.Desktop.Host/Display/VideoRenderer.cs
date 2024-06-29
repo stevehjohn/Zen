@@ -92,7 +92,7 @@ public class VideoRenderer
             2 => Color.FromNonPremultiplied(intensity ? 255 : 136, intensity ? 119 : 0,  intensity ? 119 : 0, 255),
             3 => Color.FromNonPremultiplied(204, 68, 204, 255),
             4 => Color.FromNonPremultiplied(intensity ? 170 : 0, intensity ? 255 : 204, intensity ? 102 : 85, 255),
-            5 => Color.FromNonPremultiplied(0, 255, 255, 255),
+            5 => Color.FromNonPremultiplied(intensity ? 170 : 0, intensity ? 255 : 139, intensity ? 238 : 139, 255),
             6 => Color.FromNonPremultiplied(intensity ? 221 : 102, intensity ? 136 : 68, intensity ? 85 : 0, 255),
             7 => Color.FromNonPremultiplied(intensity ? 255 : 187, intensity ? 255 : 187, intensity ? 255 : 187, 255),
             _ => Color.FromNonPremultiplied(0, 0, 0, 255)
