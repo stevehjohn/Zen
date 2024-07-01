@@ -288,6 +288,18 @@ public class Host : Game
                 ChangeScale(_scaleFactor);
 
                 break;
+            
+            case MenuResult.SpectrumColours:
+                AppSettings.Instance.ColourScheme = ColourScheme.Spectrum;
+                AppSettings.Instance.Save();
+                
+                break;
+            
+            case MenuResult.CommodoreColours:
+                AppSettings.Instance.ColourScheme = ColourScheme.Commodore;
+                AppSettings.Instance.Save();
+                
+                break;
         }
 
         if (_soundState && result != MenuResult.SoundOff)
