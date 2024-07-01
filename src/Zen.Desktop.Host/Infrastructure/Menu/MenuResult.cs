@@ -17,5 +17,7 @@ public enum MenuResult
     VisualisationOff,
     VisualisationWaveform,
     CountersOn,
-    CountersOff
+    CountersOff,
+    SpectrumColours,
+    CommodoreColours
 }

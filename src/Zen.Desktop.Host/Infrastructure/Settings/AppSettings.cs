@@ -26,6 +26,8 @@ public class AppSettings
     public Visualisation Visualisation { get; set; }
 
     public bool ViewCounters { get; set; }
+    
+    public ColourScheme ColourScheme { get; set; }
 
     private static AppSettings GetAppSettings()
     {

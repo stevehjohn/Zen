@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Zen.Desktop.Host.Infrastructure.Settings;
 using Color = Microsoft.Xna.Framework.Color;
 using Constants = Zen.Common.Constants;
 
@@ -37,7 +38,7 @@ public class VideoRenderer
     {
         for (var p = 0; p < Constants.ScreenWidthPixels * Constants.ScreenHeightPixels; p++)
         {
-            _data[p] = GetColor(_screenFrame[p]);
+            _data[p] = AppSettings.Instance.ColourScheme == ColourScheme.Spectrum ? GetColor(_screenFrame[p]) : GetC64Color(_screenFrame[p]);
         }
 
         _display.SetData(_data);
