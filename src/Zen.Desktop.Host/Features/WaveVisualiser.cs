@@ -132,36 +132,25 @@ public class WaveVisualiser
         }
     }
 
-    private float[] CentreChannel(float[] buffer)
+    private static float[] CentreChannel(float[] buffer)
     {
         var result = new float[BufferSize];
 
-        var minVal1 = float.MaxValue;
-        
-        var minVal2 = float.MaxValue;
+        var max = float.MinValue;
 
-        var minPos1 = int.MinValue;
-
-        var minPos2 = int.MinValue;
+        var maxPos = int.MinValue;
         
         for (var i = 0; i < BufferSize; i++)
         {
-            if (buffer[i] < minVal1)
+            if (buffer[i] > max)
             {
-                minVal1 = buffer[i];
+                max = buffer[i];
 
-                minPos1 = i;
-            }
-
-            if (buffer[i] < minVal2 && minPos1 != int.MinValue)
-            {
-                minVal2 = buffer[i];
-
-                minPos2 = i;
+                maxPos = i;
             }
         }
 
-        var startPos = (minPos2 - minPos1) / 2;
+        var startPos = BufferSize / 2 + maxPos;
         
         for (var i = 0; i < BufferSize; i++)
         {
