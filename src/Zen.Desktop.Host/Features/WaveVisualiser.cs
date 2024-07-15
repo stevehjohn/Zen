@@ -149,8 +149,22 @@ public class WaveVisualiser
                 maxPos = i;
             }
         }
+        
+        var min = float.MaxValue;
 
-        var startPos = BufferSize / 2 + maxPos;
+        var minPos = int.MinValue;
+
+        for (var i = maxPos; i < BufferSize; i++)
+        {
+            if (buffer[i] < min)
+            {
+                min = buffer[i];
+
+                minPos = i;
+            }
+        }
+        
+        var startPos = BufferSize / 2 + maxPos - (maxPos - minPos) / 2;
         
         for (var i = 0; i < BufferSize; i++)
         {
