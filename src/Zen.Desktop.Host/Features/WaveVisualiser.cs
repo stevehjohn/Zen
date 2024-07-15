@@ -106,7 +106,14 @@ public class WaveVisualiser
 
         var axis = channel == 3 ? height * width * channel + height * width / 2 : height * width * (channel + 1) - width;
 
-        CentreChannel(_buffers[channel]);
+        if (channel == 3)
+        {
+            CentreBeeper(_buffers[channel]);            
+        }
+        else
+        {
+            CentreChannel(_buffers[channel]);
+        }
 
         var lastOffset = 0;
 
@@ -165,6 +172,30 @@ public class WaveVisualiser
         }
         
         var startPos = BufferSize / 2 + maxPos - (maxPos - minPos) / 2;
+        
+        for (var i = 0; i < BufferSize; i++)
+        {
+            _centreBuffer[i] = buffer[(startPos + i) % BufferSize];
+        }
+    }
+    
+    private void CentreBeeper(float[] buffer)
+    {
+        var max = float.MinValue;
+
+        var maxPos = int.MinValue;
+        
+        for (var i = 0; i < BufferSize; i++)
+        {
+            if (buffer[i] > max)
+            {
+                max = buffer[i];
+
+                maxPos = i;
+            }
+        }
+        
+        var startPos = BufferSize / 2 + maxPos;
         
         for (var i = 0; i < BufferSize; i++)
         {
