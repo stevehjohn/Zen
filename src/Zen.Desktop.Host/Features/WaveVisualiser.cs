@@ -16,6 +16,8 @@ public class WaveVisualiser
 
     private readonly float[][] _buffers;
 
+    private readonly float[] _centreBuffer;
+    
     private readonly Texture2D _waves;
 
     private int _bufferPosition;
@@ -40,6 +42,8 @@ public class WaveVisualiser
         {
             _buffers[i] = new float[BufferSize];
         }
+
+        _centreBuffer = new float[BufferSize];
     }
 
     public void ReceiveSignals(float[] signals)
@@ -102,9 +106,7 @@ public class WaveVisualiser
 
         var axis = channel == 3 ? height * width * channel + height * width / 2 : height * width * (channel + 1) - width;
 
-        var buffer = CentreChannel(_buffers[channel]);
-
-        var length = buffer.Length;
+        CentreChannel(_buffers[channel]);
 
         var lastOffset = 0;
 
@@ -112,7 +114,7 @@ public class WaveVisualiser
 
         for (var x = 0; x < width; x++)
         {
-            var dataPoint = buffer[(int) (x * ((float) length / width))];
+            var dataPoint = _centreBuffer[(int) (x * ((float) BufferSize / width))];
 
             var offset = -(int) (dataPoint * height * (channel == 3 ? 1 : 4));
 
@@ -132,10 +134,8 @@ public class WaveVisualiser
         }
     }
 
-    private static float[] CentreChannel(float[] buffer)
+    private void CentreChannel(float[] buffer)
     {
-        var result = new float[BufferSize];
-
         var max = float.MinValue;
 
         var maxPos = int.MinValue;
@@ -154,9 +154,7 @@ public class WaveVisualiser
         
         for (var i = 0; i < BufferSize; i++)
         {
-            result[i] = buffer[(startPos + i) % BufferSize];
+            _centreBuffer[i] = buffer[(startPos + i) % BufferSize];
         }
-
-        return result;
     }
 }
