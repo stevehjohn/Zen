@@ -171,7 +171,7 @@ public class WaveVisualiser
             }
         }
         
-        var startPos = BufferSize / 2 + maxPos - (maxPos - minPos) / 2;
+        var startPos = maxPos - (maxPos - minPos) / 2;
         
         for (var i = 0; i < BufferSize; i++)
         {
