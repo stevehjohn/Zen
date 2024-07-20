@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿// ReSharper disable UnusedAutoPropertyAccessor.Global - Used by deserialisation
+using System.Diagnostics.CodeAnalysis;
 
 #pragma warning disable CS8618
 
