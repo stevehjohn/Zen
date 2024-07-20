@@ -41,7 +41,7 @@ public class State
 
     public ushort InstructionPrefix { get; set; }
 
-    public int ClockCycles { get; set; }
+    public int ClockCycles { get; private set; }
 
     public byte BorderColour { get; set; }
 
