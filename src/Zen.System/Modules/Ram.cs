@@ -22,7 +22,6 @@ public class Ram
 
     public byte ScreenBank
     {
-        get => _screenBank;
         set => _screenBank = (byte) (value == 1 ? 5 : 7);
     }
 

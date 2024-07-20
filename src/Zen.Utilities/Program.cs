@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using Zen.Utilities.Tools;
 using Zen.Utilities.Visualisations;
 
 namespace Zen.Utilities
@@ -6,20 +7,25 @@ namespace Zen.Utilities
     [ExcludeFromCodeCoverage]
     public static class Program
     {
-        public static void Main()
+        public static void Main(string[] args)
         {
-            // TODO: Add CommandLineParser when required...
-            var generator = new InstructionTableGenerator();
+            switch (args[0].ToLower())
+            {
+                case "table":
+                    var generator = new InstructionTableGenerator();
+                    generator.Generate();
+                    break;
 
-            generator.Generate();
+                case "code":
+                    var codeGenerator = new CodeGenerator();
+                    codeGenerator.GenerateOpCodeInitialisers();
+                    break;
 
-            //var codeGenerator = new CodeGenerator();
-
-            //codeGenerator.GenerateOpCodeInitialisers();
-
-            //var emitter = new JsonOpcodeEmitter();
-
-            //emitter.Emit();
+                default:
+                    var emitter = new JsonOpcodeEmitter();
+                    emitter.Emit();
+                    break;
+            }
         }
     }
 }
