@@ -1,4 +1,5 @@
-﻿namespace Zen.Utilities.Models;
+﻿// ReSharper disable UnusedAutoPropertyAccessor.Global
+namespace Zen.Utilities.Models;
 
 public class OpcodeMetadata
 {
