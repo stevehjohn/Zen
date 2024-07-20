@@ -1,6 +1,6 @@
 ﻿namespace Zen.System.Modules.Audio;
 
-public class Constants
+public static class Constants
 {
     public const int SampleRate = 48_000;
 
