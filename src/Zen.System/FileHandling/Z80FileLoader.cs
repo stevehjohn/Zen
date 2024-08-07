@@ -106,8 +106,7 @@ public class Z80FileLoader : IFileLoader
                 Model.Spectrum128 => "ZX Spectrum 128",
                 Model.SpectrumPlus2 => "ZX Spectrum +2",
                 Model.SpectrumPlus3 => "ZX Spectrum +3",
-                // TODO: Proper exception?
-                _ => throw new Exception("Invalid model")
+                _ => throw new InvalidModelException()
             };
 
             if (_model == Model.SpectrumPlus3 && romNumber == 1)
