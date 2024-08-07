@@ -7,6 +7,7 @@ using System.Linq;
 using Zen.Common;
 using Zen.Common.Infrastructure;
 using Zen.Desktop.Host.Display;
+using Zen.Desktop.Host.Exceptions;
 using Zen.Desktop.Host.Features;
 using Zen.Desktop.Host.Infrastructure.Menu;
 using Zen.Desktop.Host.Infrastructure.Settings;
@@ -391,8 +392,7 @@ public class Host : Game
 
                 break;
             default:
-                // TODO: Proper exception
-                throw new Exception("Unsupported file format");
+                throw new UnsupportedFileFormatException("Unsupported file format");
         }
 
         if (loader != null)
