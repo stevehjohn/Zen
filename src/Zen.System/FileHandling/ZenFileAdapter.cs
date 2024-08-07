@@ -1,4 +1,5 @@
 ﻿using System.Text.Json;
+using Zen.System.Exceptions;
 using Zen.System.FileHandling.Models;
 using Zen.System.Infrastructure;
 using Zen.System.Modules;
@@ -31,8 +32,7 @@ public class ZenFileAdapter
 
         if (model == null || model.State == null)
         {
-            // TODO: Proper exception?
-            throw new Exception("Error deserialising data.");
+            throw new InvalidZenFileException();
         }
 
         _state.Halted = model.State.Halted;
