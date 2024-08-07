@@ -1,4 +1,5 @@
-﻿using Zen.System.Infrastructure;
+﻿using Zen.System.Exceptions;
+using Zen.System.Infrastructure;
 using Zen.System.Interfaces;
 using Zen.System.Modules;
 using Zen.System.ProcessorHooks;
@@ -332,7 +333,7 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
             Model.SpectrumPlus2 => "ZX Spectrum +2",
             Model.SpectrumPlus3 => "ZX Spectrum +3",
             // TODO: Proper exception?
-            _ => throw new Exception("Invalid model")
+            _ => throw new InvalidModelException()
         };
 
         if (! _romCache.ContainsKey(romNumber))
