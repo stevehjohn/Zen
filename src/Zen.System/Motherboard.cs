@@ -332,7 +332,6 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
             Model.Spectrum128 => "ZX Spectrum 128",
             Model.SpectrumPlus2 => "ZX Spectrum +2",
             Model.SpectrumPlus3 => "ZX Spectrum +3",
-            // TODO: Proper exception?
             _ => throw new InvalidModelException()
         };
 

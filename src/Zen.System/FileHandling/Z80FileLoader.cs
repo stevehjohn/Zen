@@ -1,4 +1,5 @@
-﻿using Zen.System.FileHandling.Interfaces;
+﻿using Zen.System.Exceptions;
+using Zen.System.FileHandling.Interfaces;
 using Zen.System.Infrastructure;
 using Zen.System.Modules;
 using Zen.Z80.Processor;
@@ -39,8 +40,7 @@ public class Z80FileLoader : IFileLoader
 
         if (data[30] is not (23 or 54 or 55))
         {
-            // TODO: Replace with proper exception.
-            throw new Exception("Dodgy file.");
+            throw new InvalidZ80FileException();
         }
 
         var ramStart = 32 + data[30];
