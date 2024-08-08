@@ -24,6 +24,8 @@ public class Worker : IDisposable
 
     private readonly ManualResetEvent _resetEvent = new(true);
 
+    private readonly AutoResetEvent _scanResetEvent = new(true);
+    
     private bool _paused;
 
     private Task? _workerThread;
@@ -67,6 +69,7 @@ public class Worker : IDisposable
 
     public void ScanComplete()
     {
+        _scanResetEvent.Set();
     }
 
     public void Dispose()
@@ -116,6 +119,8 @@ public class Worker : IDisposable
 
                         var cycles = OnTick(frameCycles);
 
+                        var instructionCycles = 0;
+                        
                         for (var i = 0; i < 7; i++)
                         {
                             if (i > 0 && cycles[i] == 0)
@@ -125,6 +130,8 @@ public class Worker : IDisposable
 
                             frameCycles += cycles[i];
 
+                            instructionCycles += cycles[i];
+
                             frameCycles += ApplyFrameRamChanges(i, frameCycles, cycles);
 
                             if (cycles[i] > 0)
@@ -133,10 +140,11 @@ public class Worker : IDisposable
                             }
                         }
 
-                        _scanStates += frameCycles;
+                        _scanStates += instructionCycles;
 
                         if (Slow && _scanStates > Constants.StatesPerScreenLine)
                         {
+                            _scanResetEvent.WaitOne();
                         }
 
                         if (_scanStates > Constants.StatesPerScreenLine)
