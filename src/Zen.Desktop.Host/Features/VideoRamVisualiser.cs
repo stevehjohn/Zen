@@ -17,7 +17,12 @@ public class VideoRamVisualiser
 
     private readonly Texture2D _visualisation;
 
-    private readonly Ram _ram;
+    private Ram _ram;
+    
+    public Ram Ram
+    {
+        set => _ram = value;
+    }
 
     public VideoRamVisualiser(GraphicsDeviceManager graphicsDeviceManager, Ram ram)
     {
