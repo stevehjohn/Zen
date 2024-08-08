@@ -14,8 +14,6 @@ public class VideoRamVisualiser
 
     private readonly Texture2D _ram;
 
-    public Texture2D Ram => _ram;
-
     public VideoRamVisualiser(GraphicsDeviceManager graphicsDeviceManager)
     {
         _graphicsDeviceManager = graphicsDeviceManager;
@@ -25,10 +23,12 @@ public class VideoRamVisualiser
         _ram = new Texture2D(_graphicsDeviceManager.GraphicsDevice, Constants.VideoRamVisualisationPanelWidth, Constants.ScreenHeightPixels);
     }
 
-    private void RenderRam()
+    public Texture2D RenderRam()
     {
         Array.Fill(_data, Color.Black);
 
         _ram.SetData(_data);
+
+        return _ram;
     }
 }
