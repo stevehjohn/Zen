@@ -67,7 +67,6 @@ public class Worker : IDisposable
 
     public void ScanComplete()
     {
-        Monitor.Exit(this);
     }
 
     public void Dispose()
@@ -138,8 +137,6 @@ public class Worker : IDisposable
 
                         if (Slow && _scanStates > Constants.StatesPerScreenLine)
                         {
-                            // Process a scanline's worth of instructions, then await ScanComplete call.
-                            Monitor.Enter(this);
                         }
 
                         if (_scanStates > Constants.StatesPerScreenLine)
