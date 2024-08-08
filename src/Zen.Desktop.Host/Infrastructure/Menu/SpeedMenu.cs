@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Zen.Desktop.Host.Infrastructure.Settings;
-using Zen.System.Infrastructure;
 
 namespace Zen.Desktop.Host.Infrastructure.Menu;
 
