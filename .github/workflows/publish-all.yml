@@ -26,5 +26,6 @@ jobs:
       with:
         files: |
           Zen.Desktop.Host.Windows.Intel.zip
+          Zen.Desktop.Host.Linux.Intel.zip
           Zen.Desktop.Host.macOS.Apple.zip
           Zen.Desktop.Host.macOS.Intel.zip
