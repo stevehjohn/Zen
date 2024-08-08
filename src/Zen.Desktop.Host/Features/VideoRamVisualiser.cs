@@ -15,15 +15,19 @@ public class VideoRamVisualiser
 
     private readonly Color[] _data;
 
-    private readonly Texture2D _ram;
+    private readonly Texture2D _visualisation;
+
+    private readonly Ram _ram;
 
     public VideoRamVisualiser(GraphicsDeviceManager graphicsDeviceManager, Ram ram)
     {
         _graphicsDeviceManager = graphicsDeviceManager;
 
+        _ram = ram;
+
         _data = new Color[Constants.VideoRamVisualisationPanelWidth * Constants.ScreenHeightPixels];
 
-        _ram = new Texture2D(_graphicsDeviceManager.GraphicsDevice, Constants.VideoRamVisualisationPanelWidth, Constants.ScreenHeightPixels);
+        _visualisation = new Texture2D(_graphicsDeviceManager.GraphicsDevice, Constants.VideoRamVisualisationPanelWidth, Constants.ScreenHeightPixels);
     }
 
     public Texture2D RenderRam()
@@ -34,12 +38,29 @@ public class VideoRamVisualiser
         {
             for (var x = 0; x < Constants.PaperWidthPixels; x++)
             {
-                _data[YStart + y * Constants.ScreenWidthPixels + Constants.BorderPixels + x] = Color.Aqua;
+                var xB = x / 8;
+
+                var xO = 1 << (7 - x % 8);
+
+                var address = 0x4000;
+
+                address |= (y & 0b0000_0111) << 8;
+
+                address |= (y & 0b1100_0000) << 5;
+
+                address |= (y & 0b0011_1000) << 2;
+
+                address |= xB;
+
+                if ((_ram[(ushort) address] & xO) > 0)
+                {
+                    _data[YStart + y * Constants.ScreenWidthPixels + Constants.BorderPixels + x] = Color.White;
+                }
             }
         }
 
-        _ram.SetData(_data);
+        _visualisation.SetData(_data);
 
-        return _ram;
+        return _visualisation;
     }
 }
