@@ -36,9 +36,14 @@ public class VideoRenderer
 
     public void RenderDisplay()
     {
-        for (var p = 0; p < Constants.ScreenWidthPixels * Constants.ScreenHeightPixels; p++)
+        for (var y = 0; y < Constants.ScreenHeightPixels; y++)
         {
-            _data[p] = AppSettings.Instance.ColourScheme == ColourScheme.Spectrum ? GetColor(_screenFrame[p]) : GetC64Color(_screenFrame[p]);
+            for (var x = 0; x < Constants.ScreenWidthPixels; x++)
+            {
+                var p = y * Constants.ScreenWidthPixels + x;
+
+                _data[p] = AppSettings.Instance.ColourScheme == ColourScheme.Spectrum ? GetColor(_screenFrame[p]) : GetC64Color(_screenFrame[p]);
+            }
         }
 
         _display.SetData(_data);
