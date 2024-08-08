@@ -4,5 +4,5 @@ public enum Visualisation
 {
     Off,
     Waveforms,
-    VRam
+    VideoRam
 }

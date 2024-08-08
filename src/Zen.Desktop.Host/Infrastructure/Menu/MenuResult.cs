@@ -16,7 +16,7 @@ public enum MenuResult
     SoundOff,
     VisualisationOff,
     VisualisationWaveform,
-    VisualisationVRam,
+    VisualisationVideoRam,
     CountersOn,
     CountersOff,
     SpectrumColours,
