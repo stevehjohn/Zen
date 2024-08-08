@@ -29,7 +29,7 @@ public class SpeedMenu : MenuBase
                 AppSettings.Instance.Speed = Speed.Slow;
                 AppSettings.Instance.Save();
 
-                return (MenuResult.SpeedNormal, null, null);
+                return (MenuResult.SpeedSlow, null, null);
 
             case 2:
                 AppSettings.Instance.Speed = Speed.Normal;

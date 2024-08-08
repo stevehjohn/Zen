@@ -9,6 +9,7 @@ public enum MenuResult
     LoadZ80Sna,
     SpeedNormal,
     SpeedFast,
+    SpeedSlow,
     SaveState,
     LoadState,
     ChangeScale,

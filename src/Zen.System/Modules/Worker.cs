@@ -29,6 +29,8 @@ public class Worker : IDisposable
     private Task? _workerThread;
 
     public bool Fast { get; set; }
+    
+    public bool Slow { get; set; }
 
     public Worker(Interface @interface, VideoModulator videoModulator, AyAudio ayAudio)
     {
