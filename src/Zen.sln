@@ -36,6 +36,19 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zen.Desktop.Host", "Zen.Des
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zen.Z80.Tests.Fuse", "Zen.Z80.Tests.Fuse\Zen.Z80.Tests.Fuse.csproj", "{322F3335-09DA-4B4E-AB57-E3886B15078A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Workflows", "Workflows", "{9C9DBDA3-CFBA-425E-8022-FD1135D41455}"
+	ProjectSection(SolutionItems) = preProject
+		..\.github\workflows\dotnet.yml = ..\.github\workflows\dotnet.yml
+		..\.github\workflows\publish-all.yml = ..\.github\workflows\publish-all.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{93025359-CC19-42B9-8519-2B565584455C}"
+	ProjectSection(SolutionItems) = preProject
+		..\publish.sh = ..\publish.sh
+		..\test-fuse.sh = ..\test-fuse.sh
+		..\test-jsmoo.sh = ..\test-jsmoo.sh
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
