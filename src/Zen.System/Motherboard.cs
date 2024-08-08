@@ -61,6 +61,11 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
         set => _worker.Fast = value;
     }
 
+    public bool Slow
+    {
+        set => _worker.Slow = value;
+    }
+
     public bool Sound
     {
         get => _sound;
@@ -185,6 +190,11 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
     public void StateLoaded()
     {
         _videoModulator.Border = _state.BorderColour;
+    }
+
+    public void ScanComplete()
+    {
+        _worker.ScanComplete();
     }
 
     private byte[] OnTick(int frameCycle)

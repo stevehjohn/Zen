@@ -28,7 +28,11 @@ public class Worker : IDisposable
 
     private Task? _workerThread;
 
+    private int _scanStates;
+    
     public bool Fast { get; set; }
+    
+    public bool Slow { get; set; }
 
     public Worker(Interface @interface, VideoModulator videoModulator, AyAudio ayAudio)
     {
@@ -59,6 +63,10 @@ public class Worker : IDisposable
     public void Resume()
     {
         _paused = false;
+    }
+
+    public void ScanComplete()
+    {
     }
 
     public void Dispose()
@@ -123,6 +131,17 @@ public class Worker : IDisposable
                             {
                                 _videoModulator.CycleComplete(frameCycles);
                             }
+                        }
+
+                        _scanStates += frameCycles;
+
+                        if (Slow && _scanStates > Constants.StatesPerScreenLine)
+                        {
+                        }
+
+                        if (_scanStates > Constants.StatesPerScreenLine)
+                        {
+                            _scanStates -= Constants.StatesPerScreenLine;
                         }
                     }
 

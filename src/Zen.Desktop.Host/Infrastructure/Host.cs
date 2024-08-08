@@ -28,7 +28,7 @@ public class Host : Game
 
     private int _scaleFactor = AppSettings.Instance.ScaleFactor;
 
-    private VideoRenderer _vRamAdapter;
+    private VideoRenderer _videoRenderer;
 
     private Motherboard _motherboard;
 
@@ -48,6 +48,8 @@ public class Host : Game
 
     private CountersVisualiser _countersVisualiser;
 
+    private VideoRamVisualiser _videoRamVisualiser;
+
     public Host()
     {
         var width = Constants.ScreenWidthPixels * _scaleFactor;
@@ -55,7 +57,12 @@ public class Host : Game
 
         if (AppSettings.Instance.Visualisation == Visualisation.Waveforms)
         {
-            width += Constants.VisualisationPanelWidth * _scaleFactor;
+            width += Constants.WaveVisualisationPanelWidth * _scaleFactor;
+        }
+
+        if (AppSettings.Instance.Visualisation == Visualisation.VideoRam)
+        {
+            width += Constants.VideoRamVisualisationPanelWidth * _scaleFactor;
         }
 
         if (AppSettings.Instance.ViewCounters)
@@ -93,7 +100,8 @@ public class Host : Game
 
         _motherboard.Sound = AppSettings.Instance.Sound;
 
-        _motherboard.Fast = AppSettings.Instance.Fast;
+        _motherboard.Fast = AppSettings.Instance.Speed == Speed.Fast;
+        _motherboard.Slow = AppSettings.Instance.Speed == Speed.Slow;
 
         _imageName = $"Standard {model} ROM";
 
@@ -119,7 +127,8 @@ public class Host : Game
 
             _hostStarted = true;
 
-            _motherboard.Fast = AppSettings.Instance.Fast;
+            _motherboard.Fast = AppSettings.Instance.Speed == Speed.Fast;
+            _motherboard.Slow = AppSettings.Instance.Speed == Speed.Slow;
 
             _motherboard.Sound = AppSettings.Instance.Sound;
         }
@@ -147,7 +156,19 @@ public class Host : Game
             _motherboard.AyAudio.BeeperSignalHook = _waveVisualiser.ReceiveSignal;
         }
 
-        _vRamAdapter = new VideoRenderer(_motherboard.VideoAdapter.ScreenFrame, _graphicsDeviceManager);
+        if (AppSettings.Instance.Visualisation == Visualisation.VideoRam)
+        {
+            _videoRamVisualiser = new VideoRamVisualiser(_graphicsDeviceManager, _motherboard.Ram);
+        }
+
+        _videoRenderer = new VideoRenderer(_motherboard.VideoAdapter.ScreenFrame, _graphicsDeviceManager);
+        
+        _videoRenderer.ScanComplete = ScanComplete;
+    }
+
+    private void ScanComplete()
+    {
+        _motherboard.ScanComplete();
     }
 
     protected override void Update(GameTime gameTime)
@@ -168,9 +189,9 @@ public class Host : Game
         {
             _motherboard.Pause();
 
-            _vRamAdapter.RenderDisplay();
+            _videoRenderer.RenderDisplay();
 
-            var screen = _vRamAdapter.Display;
+            var screen = _videoRenderer.Display;
 
             _soundState = _motherboard.Sound;
 
@@ -198,7 +219,7 @@ public class Host : Game
 
                 _motherboard.Start();
 
-                _vRamAdapter.ScreenFrame = _motherboard.VideoAdapter.ScreenFrame;
+                _videoRenderer.ScreenFrame = _motherboard.VideoAdapter.ScreenFrame;
 
                 return;
 
@@ -209,11 +230,19 @@ public class Host : Game
 
             case MenuResult.SpeedNormal:
                 _motherboard.Fast = false;
+                _motherboard.Slow = false;
 
                 break;
 
             case MenuResult.SpeedFast:
                 _motherboard.Fast = true;
+                _motherboard.Slow = false;
+
+                break;
+            
+            case MenuResult.SpeedSlow:
+                _motherboard.Fast = false;
+                _motherboard.Slow = true;
 
                 break;
 
@@ -270,6 +299,18 @@ public class Host : Game
 
                 break;
 
+            case MenuResult.VisualisationVideoRam:
+                AppSettings.Instance.Visualisation = Visualisation.VideoRam;
+                AppSettings.Instance.Save();
+
+                _videoRamVisualiser = new VideoRamVisualiser(_graphicsDeviceManager, _motherboard.Ram);
+                _motherboard.AyAudio.AySignalHook = null;
+                _motherboard.AyAudio.BeeperSignalHook = null;
+
+                ChangeScale(_scaleFactor);
+
+                break;
+
             case MenuResult.CountersOn:
                 AppSettings.Instance.ViewCounters = true;
                 AppSettings.Instance.Save();
@@ -320,7 +361,12 @@ public class Host : Game
 
         if (AppSettings.Instance.Visualisation == Visualisation.Waveforms)
         {
-            width += Constants.VisualisationPanelWidth * _scaleFactor;
+            width += Constants.WaveVisualisationPanelWidth * _scaleFactor;
+        }
+
+        if (AppSettings.Instance.Visualisation == Visualisation.VideoRam)
+        {
+            width += Constants.VideoRamVisualisationPanelWidth * _scaleFactor;
         }
 
         if (AppSettings.Instance.ViewCounters)
@@ -419,9 +465,9 @@ public class Host : Game
         }
         else
         {
-            _vRamAdapter.RenderDisplay();
+            _videoRenderer.RenderDisplay();
 
-            screen = _vRamAdapter.Display;
+            screen = _videoRenderer.Display;
         }
 
         _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp);
@@ -437,9 +483,16 @@ public class Host : Game
             if (waves != null)
             {
                 _spriteBatch.Draw(waves,
-                                  new Rectangle(Constants.ScreenWidthPixels * _scaleFactor, 0, Constants.VisualisationPanelWidth * _scaleFactor, Constants.ScreenHeightPixels * _scaleFactor), 
-                                  new Rectangle(0, 0, Constants.VisualisationPanelWidth, Constants.ScreenHeightPixels), Color.White);
+                    new Rectangle(Constants.ScreenWidthPixels * _scaleFactor, 0, Constants.WaveVisualisationPanelWidth * _scaleFactor, Constants.ScreenHeightPixels * _scaleFactor), 
+                    new Rectangle(0, 0, Constants.WaveVisualisationPanelWidth, Constants.ScreenHeightPixels), Color.White);
             }
+        }
+
+        if (_videoRamVisualiser != null)
+        {
+            _spriteBatch.Draw(_videoRamVisualiser.RenderRam(),
+                new Rectangle(Constants.ScreenWidthPixels * _scaleFactor, 0, Constants.VideoRamVisualisationPanelWidth * _scaleFactor, Constants.ScreenHeightPixels * _scaleFactor), 
+                new Rectangle(0, 0, Constants.VideoRamVisualisationPanelWidth, Constants.ScreenHeightPixels), Color.White);
         }
 
         if (_countersVisualiser != null)

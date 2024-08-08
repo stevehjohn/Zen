@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Zen.Desktop.Host.Infrastructure.Settings;
 using Color = Microsoft.Xna.Framework.Color;
@@ -20,7 +21,11 @@ public class VideoRenderer
 
     private readonly Color[] _data = new Color[Constants.ScreenWidthPixels * Constants.ScreenHeightPixels];
 
+    private int _y;
+    
     public Texture2D Display => _display;
+    
+    public Action ScanComplete { get; set; }
 
     public ushort[] ScreenFrame
     {
@@ -36,9 +41,52 @@ public class VideoRenderer
 
     public void RenderDisplay()
     {
-        for (var p = 0; p < Constants.ScreenWidthPixels * Constants.ScreenHeightPixels; p++)
+        if (AppSettings.Instance.Speed == Speed.Slow)
         {
-            _data[p] = AppSettings.Instance.ColourScheme == ColourScheme.Spectrum ? GetColor(_screenFrame[p]) : GetC64Color(_screenFrame[p]);
+            for (var x = 0; x < Constants.ScreenWidthPixels; x++)
+            {
+                var p = _y * Constants.ScreenWidthPixels + x;
+
+                _data[p] = AppSettings.Instance.ColourScheme == ColourScheme.Spectrum ? GetColor(_screenFrame[p]) : GetC64Color(_screenFrame[p]);
+            }
+
+            if (_y < Constants.ScreenHeightPixels - 1)
+            {
+                for (var x = 0; x < Constants.ScreenWidthPixels; x++)
+                {
+                    var p = (_y + 1) * Constants.ScreenWidthPixels + x;
+
+                    _data[p] = Color.Black;
+                }
+            }
+            else
+            {
+                for (var x = 0; x < Constants.ScreenWidthPixels; x++)
+                {
+                    _data[x] = Color.Black;
+                }
+            }
+
+            _y++;
+
+            if (_y >= Constants.ScreenHeightPixels)
+            {
+                _y = 0;
+            }
+            
+            ScanComplete?.Invoke();
+        }
+        else
+        {
+            for (var y = 0; y < Constants.ScreenHeightPixels; y++)
+            {
+                for (var x = 0; x < Constants.ScreenWidthPixels; x++)
+                {
+                    var p = y * Constants.ScreenWidthPixels + x;
+
+                    _data[p] = AppSettings.Instance.ColourScheme == ColourScheme.Spectrum ? GetColor(_screenFrame[p]) : GetC64Color(_screenFrame[p]);
+                }
+            }
         }
 
         _display.SetData(_data);

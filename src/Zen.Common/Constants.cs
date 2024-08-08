@@ -41,10 +41,13 @@ public static class Constants
     public const int SpectrumFramesPerSecond = 50;
 
     /* Wave Visualiser */
-    public const int VisualisationPanelWidth = 200;
+    public const int WaveVisualisationPanelWidth = 200;
 
     /* Counters Visualiser */
     public const int CountersPanelHeight = 24;
+    
+    /* Video RAM Visualiser */
+    public const int VideoRamVisualisationPanelWidth = ScreenWidthPixels;
 
     /* Miscellaneous */
     public const string ExceptionsLogFileName = "exceptions.log";
