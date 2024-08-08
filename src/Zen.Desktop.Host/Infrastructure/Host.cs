@@ -56,7 +56,7 @@ public class Host : Game
 
         if (AppSettings.Instance.Visualisation == Visualisation.Waveforms)
         {
-            width += Constants.VisualisationPanelWidth * _scaleFactor;
+            width += Constants.WaveVisualisationPanelWidth * _scaleFactor;
         }
 
         if (AppSettings.Instance.ViewCounters)
@@ -321,7 +321,7 @@ public class Host : Game
 
         if (AppSettings.Instance.Visualisation == Visualisation.Waveforms)
         {
-            width += Constants.VisualisationPanelWidth * _scaleFactor;
+            width += Constants.WaveVisualisationPanelWidth * _scaleFactor;
         }
 
         if (AppSettings.Instance.ViewCounters)
@@ -438,8 +438,8 @@ public class Host : Game
             if (waves != null)
             {
                 _spriteBatch.Draw(waves,
-                                  new Rectangle(Constants.ScreenWidthPixels * _scaleFactor, 0, Constants.VisualisationPanelWidth * _scaleFactor, Constants.ScreenHeightPixels * _scaleFactor), 
-                                  new Rectangle(0, 0, Constants.VisualisationPanelWidth, Constants.ScreenHeightPixels), Color.White);
+                                  new Rectangle(Constants.ScreenWidthPixels * _scaleFactor, 0, Constants.WaveVisualisationPanelWidth * _scaleFactor, Constants.ScreenHeightPixels * _scaleFactor), 
+                                  new Rectangle(0, 0, Constants.WaveVisualisationPanelWidth, Constants.ScreenHeightPixels), Color.White);
             }
         }
 
