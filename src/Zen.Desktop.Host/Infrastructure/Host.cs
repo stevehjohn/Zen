@@ -157,7 +157,7 @@ public class Host : Game
 
         if (AppSettings.Instance.Visualisation == Visualisation.VideoRam)
         {
-            _videoRamVisualiser = new VideoRamVisualiser(_graphicsDeviceManager);
+            _videoRamVisualiser = new VideoRamVisualiser(_graphicsDeviceManager, _motherboard.Ram);
         }
 
         _vRamAdapter = new VideoRenderer(_motherboard.VideoAdapter.ScreenFrame, _graphicsDeviceManager);
@@ -287,7 +287,7 @@ public class Host : Game
                 AppSettings.Instance.Visualisation = Visualisation.VideoRam;
                 AppSettings.Instance.Save();
 
-                _videoRamVisualiser = new VideoRamVisualiser(_graphicsDeviceManager);
+                _videoRamVisualiser = new VideoRamVisualiser(_graphicsDeviceManager, _motherboard.Ram);
                 _motherboard.AyAudio.AySignalHook = null;
                 _motherboard.AyAudio.BeeperSignalHook = null;
 
