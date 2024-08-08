@@ -49,6 +49,8 @@ public class Host : Game
 
     private CountersVisualiser _countersVisualiser;
 
+    private VideoRamVisualiser _videoRamVisualiser;
+
     public Host()
     {
         var width = Constants.ScreenWidthPixels * _scaleFactor;
@@ -266,6 +268,18 @@ public class Host : Game
                 _waveVisualiser = new WaveVisualiser(_graphicsDeviceManager);
                 _motherboard.AyAudio.AySignalHook = _waveVisualiser.ReceiveSignals;
                 _motherboard.AyAudio.BeeperSignalHook = _waveVisualiser.ReceiveSignal;
+
+                ChangeScale(_scaleFactor);
+
+                break;
+
+            case MenuResult.VisualisationVideoRam:
+                AppSettings.Instance.Visualisation = Visualisation.VideoRam;
+                AppSettings.Instance.Save();
+
+                _videoRamVisualiser = new VideoRamVisualiser(_graphicsDeviceManager);
+                _motherboard.AyAudio.AySignalHook = null;
+                _motherboard.AyAudio.BeeperSignalHook = null;
 
                 ChangeScale(_scaleFactor);
 
