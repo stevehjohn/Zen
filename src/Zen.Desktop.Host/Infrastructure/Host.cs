@@ -61,6 +61,11 @@ public class Host : Game
             width += Constants.WaveVisualisationPanelWidth * _scaleFactor;
         }
 
+        if (AppSettings.Instance.Visualisation == Visualisation.VideoRam)
+        {
+            width += Constants.VideoRamVisualisationPanelWidth * _scaleFactor;
+        }
+
         if (AppSettings.Instance.ViewCounters)
         {
             height += Constants.CountersPanelHeight * _scaleFactor;
@@ -148,6 +153,11 @@ public class Host : Game
             _motherboard.AyAudio.AySignalHook = _waveVisualiser.ReceiveSignals;
 
             _motherboard.AyAudio.BeeperSignalHook = _waveVisualiser.ReceiveSignal;
+        }
+
+        if (AppSettings.Instance.Visualisation == Visualisation.VideoRam)
+        {
+            _videoRamVisualiser = new VideoRamVisualiser(_graphicsDeviceManager);
         }
 
         _vRamAdapter = new VideoRenderer(_motherboard.VideoAdapter.ScreenFrame, _graphicsDeviceManager);
