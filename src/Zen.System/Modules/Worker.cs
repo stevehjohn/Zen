@@ -1,5 +1,6 @@
 ﻿using Zen.Common;
 using Zen.Common.Infrastructure;
+using Zen.System.Infrastructure;
 using Zen.Z80.Processor;
 
 // ReSharper disable IdentifierTypo
@@ -28,7 +29,7 @@ public class Worker : IDisposable
 
     private Task? _workerThread;
 
-    public bool Fast { get; set; }
+    public Speed Speed { get; set; }
 
     public Worker(Interface @interface, VideoModulator videoModulator, AyAudio ayAudio)
     {
@@ -126,7 +127,7 @@ public class Worker : IDisposable
                         }
                     }
 
-                    if (! Fast)
+                    if (Speed == Speed.Normal)
                     {
                         _resetEvent.WaitOne();
                     }
