@@ -115,6 +115,11 @@ public class Host : Game
 
             _motherboard.AyAudio.BeeperSignalHook = _waveVisualiser.ReceiveSignal;
         }
+
+        if (_videoRamVisualiser != null)
+        {
+            _videoRamVisualiser.Ram = _motherboard.Ram;
+        }
     }
 
     protected override void OnActivated(object sender, EventArgs args)
