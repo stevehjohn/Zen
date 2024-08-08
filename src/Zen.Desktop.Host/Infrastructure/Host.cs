@@ -338,6 +338,11 @@ public class Host : Game
             width += Constants.WaveVisualisationPanelWidth * _scaleFactor;
         }
 
+        if (AppSettings.Instance.Visualisation == Visualisation.VideoRam)
+        {
+            width += Constants.VideoRamVisualisationPanelWidth * _scaleFactor;
+        }
+
         if (AppSettings.Instance.ViewCounters)
         {
             height += Constants.CountersPanelHeight * _scaleFactor;
@@ -452,9 +457,16 @@ public class Host : Game
             if (waves != null)
             {
                 _spriteBatch.Draw(waves,
-                                  new Rectangle(Constants.ScreenWidthPixels * _scaleFactor, 0, Constants.WaveVisualisationPanelWidth * _scaleFactor, Constants.ScreenHeightPixels * _scaleFactor), 
-                                  new Rectangle(0, 0, Constants.WaveVisualisationPanelWidth, Constants.ScreenHeightPixels), Color.White);
+                    new Rectangle(Constants.ScreenWidthPixels * _scaleFactor, 0, Constants.WaveVisualisationPanelWidth * _scaleFactor, Constants.ScreenHeightPixels * _scaleFactor), 
+                    new Rectangle(0, 0, Constants.WaveVisualisationPanelWidth, Constants.ScreenHeightPixels), Color.White);
             }
+        }
+
+        if (_videoRamVisualiser != null)
+        {
+            _spriteBatch.Draw(_videoRamVisualiser.Ram,
+                new Rectangle(Constants.ScreenWidthPixels * _scaleFactor, 0, Constants.VideoRamVisualisationPanelWidth * _scaleFactor, Constants.ScreenHeightPixels * _scaleFactor), 
+                new Rectangle(0, 0, Constants.VideoRamVisualisationPanelWidth, Constants.ScreenHeightPixels), Color.White);
         }
 
         if (_countersVisualiser != null)
