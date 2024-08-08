@@ -18,7 +18,7 @@ Any feedback appreciated, get me on <a href="https://x.com/SteveHuwJohn">Twitter
 
 Releases can be found <a href="https://github.com/stevehjohn/Zen/releases">here</a>.
 
-The pre-built Linux binaries are experimental, i.e <a href="https://en.wiktionary.org/wiki/your_mileage_may_vary~~~~">YMMV</a>. Probably better off building it from source.
+The pre-built Linux binaries are experimental, i.e <a href="https://en.wiktionary.org/wiki/your_mileage_may_vary">YMMV</a>. Probably better off building it from source.
 
 Press <kbd>Tab</kbd> for the menu once running.
 
