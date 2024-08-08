@@ -3,7 +3,7 @@
   "SystemModel": 2,
   "ScaleFactor": 4,
   "Sound": true,
-  "Fast": false,
+  "Speed": 1,
   "ViewWaves": false,
   "ViewCounters":  true
 }
