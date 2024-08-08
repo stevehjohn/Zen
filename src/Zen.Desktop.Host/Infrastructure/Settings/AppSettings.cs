@@ -21,7 +21,7 @@ public class AppSettings
     
     public bool Sound { get; set; }
 
-    public bool Fast { get; set; }
+    public Speed Speed { get; set; }
 
     public Visualisation Visualisation { get; set; }
 

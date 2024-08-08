@@ -56,9 +56,9 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
 
     public AyAudio AyAudio => _ayAudio;
 
-    public bool Fast
+    public Speed Speed
     {
-        set => _worker.Fast = value;
+        set => _worker.Speed = value;
     }
 
     public bool Sound

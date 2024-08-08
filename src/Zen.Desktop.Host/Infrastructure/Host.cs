@@ -14,6 +14,7 @@ using Zen.Desktop.Host.Infrastructure.Settings;
 using Zen.System;
 using Zen.System.FileHandling;
 using Zen.System.FileHandling.Interfaces;
+using Zen.System.Infrastructure;
 using Keys = Microsoft.Xna.Framework.Input.Keys;
 using Model = Zen.System.Infrastructure.Model;
 
@@ -93,7 +94,7 @@ public class Host : Game
 
         _motherboard.Sound = AppSettings.Instance.Sound;
 
-        _motherboard.Fast = AppSettings.Instance.Fast;
+        _motherboard.Speed = AppSettings.Instance.Speed;
 
         _imageName = $"Standard {model} ROM";
 
@@ -119,7 +120,7 @@ public class Host : Game
 
             _hostStarted = true;
 
-            _motherboard.Fast = AppSettings.Instance.Fast;
+            _motherboard.Speed = AppSettings.Instance.Speed;
 
             _motherboard.Sound = AppSettings.Instance.Sound;
         }
@@ -208,12 +209,12 @@ public class Host : Game
                 break;
 
             case MenuResult.SpeedNormal:
-                _motherboard.Fast = false;
+                _motherboard.Speed = Speed.Normal;
 
                 break;
 
             case MenuResult.SpeedFast:
-                _motherboard.Fast = true;
+                _motherboard.Speed = Speed.Fast;
 
                 break;
 
