@@ -3,5 +3,6 @@
 public enum Visualisation
 {
     Off,
-    Waveforms
+    Waveforms,
+    VRam
 }

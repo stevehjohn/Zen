@@ -14,7 +14,7 @@ public class VisualisationMenu : MenuBase
             new(0, true, "Zen - Visualisation", Color.White, 0, 0, null),
             new(1, false, $"[1] {(AppSettings.Instance.Visualisation == Visualisation.Off ? ">" : " ")} Off {(AppSettings.Instance.Visualisation == Visualisation.Off ? "<" : " ")}", Color.Yellow, 1, 3, Keys.D1, Color.LightGreen),
             new(2, false, $"[2] {(AppSettings.Instance.Visualisation == Visualisation.Waveforms ? ">" : " ")} Waveforms {(AppSettings.Instance.Visualisation == Visualisation.Waveforms ? "<" : " ")}", Color.Yellow, 1, 5, Keys.D2, Color.LightGreen),
-            //new(3, false, $"[3] {(AppSettings.Instance.Visualisation == Visualisation.Memory ? ">" : " ")} Memory {(AppSettings.Instance.Visualisation == Visualisation.Memory ? "<" : " ")}", Color.Yellow, 1, 7, Keys.D3, Color.LightGreen),
+            new(3, false, $"[3] {(AppSettings.Instance.Visualisation == Visualisation.VRam ? ">" : " ")} Video Memory {(AppSettings.Instance.Visualisation == Visualisation.VRam ? "<" : " ")}", Color.Yellow, 1, 7, Keys.D3, Color.LightGreen),
             new(99, true, "[ESC] Close Menu", Color.FromNonPremultiplied(255, 64, 64, 255), 0, 21, Keys.Escape, Color.LightGreen)
         };
 
@@ -30,6 +30,9 @@ public class VisualisationMenu : MenuBase
 
             case 2:
                 return (MenuResult.VisualisationWaveform, null, null);
+            
+            case 3:
+                return (MenuResult.VisualisationVRam, null, null);
 
             default:
                 return (MenuResult.NewMenu, new MainMenu(), null);
