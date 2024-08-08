@@ -138,7 +138,6 @@ public class Worker : IDisposable
 
                     if (! Fast)
                     {
-                        _resetEvent.WaitOne();
                     }
 
                     _ayAudio.FrameReady(_resetEvent);
