@@ -3,6 +3,7 @@ dotnet publish ./src/Zen.Desktop.Host/Zen.Desktop.Host.csproj -c Release -r osx-
 dotnet publish ./src/Zen.Desktop.Host/Zen.Desktop.Host.csproj -c Release -r osx-arm64 /p:PublishReadyToRun=true /p:TieredCompilation=false --self-contained /p:PublishReadyToRunShowWarnings=true
 dotnet publish ./src/Zen.Desktop.Host/Zen.Desktop.Host.csproj -c Release -r win-x64 /p:PublishReadyToRun=true /p:TieredCompilation=false --self-contained /p:PublishReadyToRunShowWarnings=true
 dotnet publish ./src/Zen.Desktop.Host/Zen.Desktop.Host.csproj -c Release -r linux-x64 /p:PublishReadyToRun=true /p:TieredCompilation=false --self-contained /p:PublishReadyToRunShowWarnings=true
+dotnet publish ./src/Zen.Desktop.Host/Zen.Desktop.Host.csproj -c Release -r linux-arm64 /p:PublishReadyToRun=true /p:TieredCompilation=false --self-contained /p:PublishReadyToRunShowWarnings=true
 
 cd ./src/Zen.Desktop.Host/bin/Release/net8.0/osx-x64/publish
 pwd
@@ -33,3 +34,10 @@ rm *.zip
 zip -r Zen.Desktop.Host.Linux.Intel.zip *
 cd -
 mv ./src/Zen.Desktop.Host/bin/Release/net8.0/linux-x64/publish/Zen.Desktop.Host.Linux.Intel.zip .
+
+cd ./src/Zen.Desktop.Host/bin/Release/net8.0/linux-arm64/publish
+pwd
+rm *.zip
+zip -r Zen.Desktop.Host.Linux.Arm.zip *
+cd -
+mv ./src/Zen.Desktop.Host/bin/Release/net8.0/linux-arm64/publish/Zen.Desktop.Host.Linux.Arm.zip .
