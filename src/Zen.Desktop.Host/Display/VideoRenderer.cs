@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Zen.Desktop.Host.Infrastructure.Settings;
+using Zen.System.Infrastructure;
 using Color = Microsoft.Xna.Framework.Color;
 using Constants = Zen.Common.Constants;
 
@@ -20,6 +21,8 @@ public class VideoRenderer
 
     private readonly Color[] _data = new Color[Constants.ScreenWidthPixels * Constants.ScreenHeightPixels];
 
+    private int _y;
+    
     public Texture2D Display => _display;
 
     public ushort[] ScreenFrame
@@ -36,13 +39,32 @@ public class VideoRenderer
 
     public void RenderDisplay()
     {
-        for (var y = 0; y < Constants.ScreenHeightPixels; y++)
+        if (AppSettings.Instance.Speed == Speed.Slow)
         {
             for (var x = 0; x < Constants.ScreenWidthPixels; x++)
             {
-                var p = y * Constants.ScreenWidthPixels + x;
+                var p = _y * Constants.ScreenWidthPixels + x;
 
                 _data[p] = AppSettings.Instance.ColourScheme == ColourScheme.Spectrum ? GetColor(_screenFrame[p]) : GetC64Color(_screenFrame[p]);
+            }
+
+            _y++;
+
+            if (_y >= Constants.ScreenHeightPixels)
+            {
+                _y = 0;
+            }
+        }
+        else
+        {
+            for (var y = 0; y < Constants.ScreenHeightPixels; y++)
+            {
+                for (var x = 0; x < Constants.ScreenWidthPixels; x++)
+                {
+                    var p = y * Constants.ScreenWidthPixels + x;
+
+                    _data[p] = AppSettings.Instance.ColourScheme == ColourScheme.Spectrum ? GetColor(_screenFrame[p]) : GetC64Color(_screenFrame[p]);
+                }
             }
         }
 
