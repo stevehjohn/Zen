@@ -101,6 +101,7 @@ public class Host : Game
         _motherboard.Sound = AppSettings.Instance.Sound;
 
         _motherboard.Fast = AppSettings.Instance.Speed == Speed.Fast;
+        _motherboard.Slow = AppSettings.Instance.Speed == Speed.Slow;
 
         _imageName = $"Standard {model} ROM";
 
@@ -127,6 +128,7 @@ public class Host : Game
             _hostStarted = true;
 
             _motherboard.Fast = AppSettings.Instance.Speed == Speed.Fast;
+            _motherboard.Slow = AppSettings.Instance.Speed == Speed.Slow;
 
             _motherboard.Sound = AppSettings.Instance.Sound;
         }
@@ -221,11 +223,19 @@ public class Host : Game
 
             case MenuResult.SpeedNormal:
                 _motherboard.Fast = false;
+                _motherboard.Slow = false;
 
                 break;
 
             case MenuResult.SpeedFast:
                 _motherboard.Fast = true;
+                _motherboard.Slow = false;
+
+                break;
+            
+            case MenuResult.SpeedSlow:
+                _motherboard.Fast = false;
+                _motherboard.Slow = true;
 
                 break;
 
