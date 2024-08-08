@@ -28,7 +28,7 @@ public class Host : Game
 
     private int _scaleFactor = AppSettings.Instance.ScaleFactor;
 
-    private VideoRenderer _vRamAdapter;
+    private VideoRenderer _videoRenderer;
 
     private Motherboard _motherboard;
 
@@ -161,7 +161,14 @@ public class Host : Game
             _videoRamVisualiser = new VideoRamVisualiser(_graphicsDeviceManager, _motherboard.Ram);
         }
 
-        _vRamAdapter = new VideoRenderer(_motherboard.VideoAdapter.ScreenFrame, _graphicsDeviceManager);
+        _videoRenderer = new VideoRenderer(_motherboard.VideoAdapter.ScreenFrame, _graphicsDeviceManager);
+        
+        _videoRenderer.ScanComplete = ScanComplete;
+    }
+
+    private void ScanComplete()
+    {
+        _motherboard.ScanComplete();
     }
 
     protected override void Update(GameTime gameTime)
@@ -182,9 +189,9 @@ public class Host : Game
         {
             _motherboard.Pause();
 
-            _vRamAdapter.RenderDisplay();
+            _videoRenderer.RenderDisplay();
 
-            var screen = _vRamAdapter.Display;
+            var screen = _videoRenderer.Display;
 
             _soundState = _motherboard.Sound;
 
@@ -212,7 +219,7 @@ public class Host : Game
 
                 _motherboard.Start();
 
-                _vRamAdapter.ScreenFrame = _motherboard.VideoAdapter.ScreenFrame;
+                _videoRenderer.ScreenFrame = _motherboard.VideoAdapter.ScreenFrame;
 
                 return;
 
@@ -458,9 +465,9 @@ public class Host : Game
         }
         else
         {
-            _vRamAdapter.RenderDisplay();
+            _videoRenderer.RenderDisplay();
 
-            screen = _vRamAdapter.Display;
+            screen = _videoRenderer.Display;
         }
 
         _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp);

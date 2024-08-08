@@ -1,7 +1,7 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Zen.Desktop.Host.Infrastructure.Settings;
-using Zen.System.Infrastructure;
 using Color = Microsoft.Xna.Framework.Color;
 using Constants = Zen.Common.Constants;
 
@@ -24,6 +24,8 @@ public class VideoRenderer
     private int _y;
     
     public Texture2D Display => _display;
+    
+    public Action ScanComplete { get; set; }
 
     public ushort[] ScreenFrame
     {
@@ -71,6 +73,8 @@ public class VideoRenderer
             {
                 _y = 0;
             }
+            
+            ScanComplete?.Invoke();
         }
         else
         {
