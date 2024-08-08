@@ -133,6 +133,7 @@ public class Worker : IDisposable
 
                         if (Slow)
                         {
+                            // Process a scanline's worth of instructions, then await ScanComplete call.
                         }
                     }
 
