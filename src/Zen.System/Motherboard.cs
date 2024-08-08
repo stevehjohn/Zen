@@ -192,6 +192,11 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
         _videoModulator.Border = _state.BorderColour;
     }
 
+    public void ScanComplete()
+    {
+        _worker.ScanComplete();
+    }
+
     private byte[] OnTick(int frameCycle)
     {
         _currentFrameCycle = frameCycle;

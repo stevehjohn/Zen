@@ -63,6 +63,10 @@ public class Worker : IDisposable
         _paused = false;
     }
 
+    public void ScanComplete()
+    {
+    }
+
     public void Dispose()
     {
         if (_workerThread == null)
@@ -125,6 +129,10 @@ public class Worker : IDisposable
                             {
                                 _videoModulator.CycleComplete(frameCycles);
                             }
+                        }
+
+                        if (Slow)
+                        {
                         }
                     }
 
