@@ -28,6 +28,8 @@ public class Worker : IDisposable
 
     private Task? _workerThread;
 
+    private int _scanStates;
+    
     public bool Fast { get; set; }
     
     public bool Slow { get; set; }
@@ -65,6 +67,7 @@ public class Worker : IDisposable
 
     public void ScanComplete()
     {
+        Monitor.Exit(this);
     }
 
     public void Dispose()
@@ -131,14 +134,23 @@ public class Worker : IDisposable
                             }
                         }
 
-                        if (Slow)
+                        _scanStates += frameCycles;
+
+                        if (Slow && _scanStates > Constants.StatesPerScreenLine)
                         {
                             // Process a scanline's worth of instructions, then await ScanComplete call.
+                            Monitor.Enter(this);
+                        }
+
+                        if (_scanStates > Constants.StatesPerScreenLine)
+                        {
+                            _scanStates -= Constants.StatesPerScreenLine;
                         }
                     }
 
                     if (! Fast)
                     {
+                        _resetEvent.WaitOne();
                     }
 
                     _ayAudio.FrameReady(_resetEvent);
