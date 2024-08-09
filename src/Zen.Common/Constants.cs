@@ -30,6 +30,10 @@ public static class Constants
 
     public const int InterruptEnd = 56;
 
+    public const int DisplayStartState = (16 + 48 - BorderPixels) * StatesPerScreenLine;
+
+    public const int DisplayEndState = DisplayStartState + (ScreenHeightPixels + BorderPixels * 2 + 1) * StatesPerScreenLine;
+
     /* RAM */
     public const int ScreenRamSize = 0x1B00;
 

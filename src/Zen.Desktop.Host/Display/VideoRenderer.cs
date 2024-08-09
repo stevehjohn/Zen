@@ -43,37 +43,39 @@ public class VideoRenderer
     {
         if (AppSettings.Instance.Speed == Speed.Slow)
         {
-            for (var x = 0; x < Constants.ScreenWidthPixels; x++)
-            {
-                var p = _y * Constants.ScreenWidthPixels + x;
-
-                _data[p] = AppSettings.Instance.ColourScheme == ColourScheme.Spectrum ? GetColor(_screenFrame[p]) : GetC64Color(_screenFrame[p]);
-            }
-
-            if (_y < Constants.ScreenHeightPixels - 1)
+            if (frameCycles >= Constants.DisplayStartState && frameCycles <= Constants.DisplayEndState && _y < Constants.ScreenHeightPixels)
             {
                 for (var x = 0; x < Constants.ScreenWidthPixels; x++)
                 {
-                    var p = (_y + 1) * Constants.ScreenWidthPixels + x;
+                    var p = _y * Constants.ScreenWidthPixels + x;
 
-                    _data[p] = Color.Black;
+                    _data[p] = AppSettings.Instance.ColourScheme == ColourScheme.Spectrum ? GetColor(_screenFrame[p]) : GetC64Color(_screenFrame[p]);
                 }
+
+                if (_y < Constants.ScreenHeightPixels - 1)
+                {
+                    for (var x = 0; x < Constants.ScreenWidthPixels; x++)
+                    {
+                        var p = (_y + 1) * Constants.ScreenWidthPixels + x;
+
+                        _data[p] = Color.Black;
+                    }
+                }
+                else
+                {
+                    for (var x = 0; x < Constants.ScreenWidthPixels; x++)
+                    {
+                        _data[x] = Color.Black;
+                    }
+                }
+
+                _y++;
             }
             else
             {
-                for (var x = 0; x < Constants.ScreenWidthPixels; x++)
-                {
-                    _data[x] = Color.Black;
-                }
-            }
-
-            _y++;
-
-            if (_y >= Constants.ScreenHeightPixels)
-            {
                 _y = 0;
             }
-            
+
             ScanComplete?.Invoke();
         }
         else
