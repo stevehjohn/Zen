@@ -142,14 +142,14 @@ public class Worker : IDisposable
 
                         _scanStates += instructionCycles;
 
-                        if (Slow && _scanStates > Constants.StatesPerScreenLine)
+                        if (Slow && _scanStates > Constants.WorkerScanlinePause)
                         {
                             _scanResetEvent.WaitOne();
                         }
 
-                        if (_scanStates > Constants.StatesPerScreenLine)
+                        if (_scanStates > Constants.WorkerScanlinePause)
                         {
-                            _scanStates -= Constants.StatesPerScreenLine;
+                            _scanStates -= Constants.WorkerScanlinePause;
                         }
                     }
 
