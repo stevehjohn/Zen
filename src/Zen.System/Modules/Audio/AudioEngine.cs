@@ -1,5 +1,6 @@
 ﻿using Bufdio;
 using Bufdio.Engines;
+using Zen.Common.Infrastructure;
 
 namespace Zen.System.Modules.Audio;
 
@@ -9,25 +10,32 @@ public class AudioEngine : IDisposable
 
     public AudioEngine()
     {
-        if (Environment.OSVersion.Platform == PlatformID.Unix)
+        try
         {
-            BufdioLib.InitializePortAudio(Path.Combine("Libraries", "libportaudio.dylib"));
-        }
-        else
-        {
-            BufdioLib.InitializePortAudio(Path.Combine("Libraries", "libportaudio"));
-        }
+            if (Environment.OSVersion.Platform == PlatformID.Unix)
+            {
+                BufdioLib.InitializePortAudio(Path.Combine("Libraries", "libportaudio.dylib"));
+            }
+            else
+            {
+                BufdioLib.InitializePortAudio(Path.Combine("Libraries", "libportaudio"));
+            }
 
-        _engine = new PortAudioEngine(new AudioEngineOptions(1, Constants.SampleRate));
+            _engine = new PortAudioEngine(new AudioEngineOptions(1, Constants.SampleRate));
+        }
+        catch (Exception exception)
+        {
+            Logger.LogException(nameof(AudioEngine), exception);
+        }
     }
 
     public void Send(float[] data)
     {
-        _engine.Send(data);
+        _engine?.Send(data);
     }
 
     public void Dispose()
     {
-        _engine.Dispose();
+        _engine?.Dispose();
     }
 }
