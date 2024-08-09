@@ -42,15 +42,21 @@ public class VideoRamVisualiser
     public Texture2D RenderRam()
     {
         Array.Fill(_data, Color.Black);
-        
-        RenderBank();
+
+        if (_banks)
+        {
+        }
+        else
+        {
+            RenderBank(0, 0x4000);
+        }
         
         _visualisation.SetData(_data);
 
         return _visualisation;
     }
 
-    private void RenderBank()
+    private void RenderBank(int offset, int address)
     {
         for (var y = 0; y < Constants.PaperHeightPixels; y++)
         {
@@ -59,8 +65,6 @@ public class VideoRamVisualiser
                 var xB = x / 8;
 
                 var xO = 1 << (7 - x % 8);
-
-                var address = 0x4000;
 
                 address |= (y & 0b0000_0111) << 8;
 
@@ -72,7 +76,7 @@ public class VideoRamVisualiser
 
                 if ((_ram[(ushort) address] & xO) > 0)
                 {
-                    _data[YStart + y * Constants.ScreenWidthPixels + Constants.BorderPixels + x] = Color.FromNonPremultiplied(192, 192, 192, 255);
+                    _data[YStart + y * Constants.ScreenWidthPixels + Constants.BorderPixels + x + offset] = Color.FromNonPremultiplied(192, 192, 192, 255);
                 }
             }
         }
