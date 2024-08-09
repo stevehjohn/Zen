@@ -53,7 +53,7 @@ public static class Constants
     /* Video RAM Visualiser */
     public const int VideoRamVisualisationPanelWidth = ScreenWidthPixels;
 
-    public const int WorkerScanlinePause = StatesPerScreenLine * 4;
+    public const int SlowScanFactor = 4;
 
     /* Miscellaneous */
     public const string ExceptionsLogFileName = "exceptions.log";
