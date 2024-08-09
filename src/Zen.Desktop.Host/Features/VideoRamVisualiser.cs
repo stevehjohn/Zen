@@ -19,7 +19,9 @@ public class VideoRamVisualiser
 
     private Ram _ram;
 
-    private bool _banks;
+    private readonly bool _banks;
+    
+    public bool BanksView => _banks;
     
     public Ram Ram
     {

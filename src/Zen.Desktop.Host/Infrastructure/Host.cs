@@ -520,9 +520,18 @@ public class Host : Game
 
         if (_videoRamVisualiser != null)
         {
-            _spriteBatch.Draw(_videoRamVisualiser.RenderRam(),
-                new Rectangle(Constants.ScreenWidthPixels * _scaleFactor, 0, Constants.VideoRamVisualisationPanelWidth * _scaleFactor, Constants.ScreenHeightPixels * _scaleFactor), 
-                new Rectangle(0, 0, Constants.VideoRamVisualisationPanelWidth, Constants.ScreenHeightPixels), Color.White);
+            if (_videoRamVisualiser.BanksView)
+            {
+                _spriteBatch.Draw(_videoRamVisualiser.RenderRam(),
+                    new Rectangle(Constants.ScreenWidthPixels * _scaleFactor, 0, Constants.VideoRamVisualisationPanelWidth * 2 * _scaleFactor, Constants.ScreenHeightPixels * _scaleFactor), 
+                    new Rectangle(0, 0, Constants.VideoRamVisualisationPanelWidth * 2, Constants.ScreenHeightPixels), Color.White);
+            }
+            else
+            {
+                _spriteBatch.Draw(_videoRamVisualiser.RenderRam(),
+                    new Rectangle(Constants.ScreenWidthPixels * _scaleFactor, 0, Constants.VideoRamVisualisationPanelWidth * _scaleFactor, Constants.ScreenHeightPixels * _scaleFactor), 
+                    new Rectangle(0, 0, Constants.VideoRamVisualisationPanelWidth, Constants.ScreenHeightPixels), Color.White);
+            }
         }
 
         if (_countersVisualiser != null)
