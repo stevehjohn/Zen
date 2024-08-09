@@ -91,6 +91,8 @@ public class VideoRenderer
                     _data[p] = AppSettings.Instance.ColourScheme == ColourScheme.Spectrum ? GetColor(_screenFrame[p]) : GetC64Color(_screenFrame[p]);
                 }
             }
+
+            ScanComplete?.Invoke();
         }
 
         _display.SetData(_data);
