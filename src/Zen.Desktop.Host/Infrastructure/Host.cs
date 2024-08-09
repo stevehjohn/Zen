@@ -194,7 +194,7 @@ public class Host : Game
         {
             _motherboard.Pause();
 
-            _videoRenderer.RenderDisplay();
+            _videoRenderer.RenderDisplay(_motherboard.FrameCycles);
 
             var screen = _videoRenderer.Display;
 
@@ -470,7 +470,7 @@ public class Host : Game
         }
         else
         {
-            _videoRenderer.RenderDisplay();
+            _videoRenderer.RenderDisplay(_motherboard.FrameCycles);
 
             screen = _videoRenderer.Display;
         }
