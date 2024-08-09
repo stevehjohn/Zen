@@ -45,9 +45,9 @@ public class VideoRenderer
         {
             if (frameCycles >= Constants.DisplayStartState && frameCycles <= Constants.DisplayEndState)
             {
-                for (var i = 0; i < Constants.SlowScanFactor; i++)
+                if (_y < Constants.ScreenHeightPixels)
                 {
-                    if (_y < Constants.ScreenHeightPixels)
+                    for (var i = 0; i < Constants.SlowScanFactor; i++)
                     {
                         for (var x = 0; x < Constants.ScreenWidthPixels; x++)
                         {
@@ -56,24 +56,20 @@ public class VideoRenderer
                             _data[p] = AppSettings.Instance.ColourScheme == ColourScheme.Spectrum ? GetColor(_screenFrame[p]) : GetC64Color(_screenFrame[p]);
                         }
 
-                        if (_y < Constants.ScreenHeightPixels - 1)
-                        {
-                            for (var x = 0; x < Constants.ScreenWidthPixels; x++)
-                            {
-                                var p = (_y + 1) * Constants.ScreenWidthPixels + x;
-
-                                _data[p] = Color.Black;
-                            }
-                        }
-                        else
-                        {
-                            for (var x = 0; x < Constants.ScreenWidthPixels; x++)
-                            {
-                                _data[x] = Color.Black;
-                            }
-                        }
-
                         _y++;
+                    }
+
+                    if (_y < Constants.ScreenHeightPixels - 4)
+                    {
+                        for (var y = 0; y < 3; y++)
+                        {
+                            for (var x = 0; x < Constants.ScreenWidthPixels; x++)
+                            {
+                                var p = (_y + y) * Constants.ScreenWidthPixels + x;
+
+                                _data[p] = y == 0 || y == 2 ? Color.Black : Color.White;
+                            }
+                        }
                     }
                 }
             }
