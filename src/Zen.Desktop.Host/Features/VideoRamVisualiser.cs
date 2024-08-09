@@ -18,6 +18,8 @@ public class VideoRamVisualiser
     private readonly Texture2D _visualisation;
 
     private Ram _ram;
+
+    private bool _banks;
     
     public Ram Ram
     {
@@ -30,15 +32,26 @@ public class VideoRamVisualiser
 
         _ram = ram;
 
-        _data = new Color[Constants.VideoRamVisualisationPanelWidth * Constants.ScreenHeightPixels];
+        _banks = banks;
 
-        _visualisation = new Texture2D(_graphicsDeviceManager.GraphicsDevice, Constants.VideoRamVisualisationPanelWidth, Constants.ScreenHeightPixels);
+        _data = new Color[Constants.VideoRamVisualisationPanelWidth * Constants.ScreenHeightPixels * (banks ? 2 : 1)];
+
+        _visualisation = new Texture2D(_graphicsDeviceManager.GraphicsDevice, Constants.VideoRamVisualisationPanelWidth * (banks ? 2 : 1), Constants.ScreenHeightPixels);
     }
 
     public Texture2D RenderRam()
     {
         Array.Fill(_data, Color.Black);
+        
+        RenderBank();
+        
+        _visualisation.SetData(_data);
 
+        return _visualisation;
+    }
+
+    private void RenderBank()
+    {
         for (var y = 0; y < Constants.PaperHeightPixels; y++)
         {
             for (var x = 0; x < Constants.PaperWidthPixels; x++)
@@ -63,9 +76,5 @@ public class VideoRamVisualiser
                 }
             }
         }
-
-        _visualisation.SetData(_data);
-
-        return _visualisation;
     }
 }
