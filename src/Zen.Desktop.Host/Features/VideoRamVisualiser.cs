@@ -61,7 +61,7 @@ public class VideoRamVisualiser
         return _visualisation;
     }
 
-    private void RenderBank(int offset, int address)
+    private void RenderBank(int offset, int startAddress)
     {
         for (var y = 0; y < Constants.PaperHeightPixels; y++)
         {
@@ -71,6 +71,8 @@ public class VideoRamVisualiser
 
                 var xO = 1 << (7 - x % 8);
 
+                var address = startAddress;
+                
                 address |= (y & 0b0000_0111) << 8;
 
                 address |= (y & 0b1100_0000) << 5;
@@ -81,7 +83,7 @@ public class VideoRamVisualiser
 
                 if ((_ram[(ushort) address] & xO) > 0)
                 {
-                    _data[YStart + y * Constants.ScreenWidthPixels + Constants.BorderPixels + x + offset] = Color.FromNonPremultiplied(192, 192, 192, 255);
+                    _data[YStart + y * Constants.ScreenWidthPixels * (_banks ? 2 : 1) + Constants.BorderPixels + x + offset] = Color.FromNonPremultiplied(192, 192, 192, 255);
                 }
             }
         }
