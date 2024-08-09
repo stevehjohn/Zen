@@ -394,7 +394,7 @@ public class Host : Game
             width += Constants.VideoRamVisualisationPanelWidth * _scaleFactor;
         }
 
-        if (AppSettings.Instance.Visualisation == Visualisation.VideoRam)
+        if (AppSettings.Instance.Visualisation == Visualisation.VideoBanks)
         {
             width += Constants.VideoRamVisualisationPanelWidth * 2 * _scaleFactor;
         }
