@@ -23,6 +23,7 @@ public class Ram
     public byte ScreenBank
     {
         set => _screenBank = (byte) (value == 1 ? 5 : 7);
+        get => _screenBank;
     }
 
     public byte[] WorkingScreenRam => _banks[_screenBank];
