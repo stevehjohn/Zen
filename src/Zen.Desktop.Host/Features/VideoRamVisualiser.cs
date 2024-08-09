@@ -45,6 +45,9 @@ public class VideoRamVisualiser
 
         if (_banks)
         {
+            RenderBank(0, 0x14000);
+            
+            RenderBank(Constants.VideoRamVisualisationPanelWidth, 0x1C000);
         }
         else
         {
