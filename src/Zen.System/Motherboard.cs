@@ -52,6 +52,8 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
 
     public State State => _state;
 
+    public int FrameCycles => _worker.FrameCycles;
+
     public VideoModulator VideoAdapter => _videoModulator;
 
     public AyAudio AyAudio => _ayAudio;

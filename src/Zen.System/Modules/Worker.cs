@@ -33,7 +33,11 @@ public class Worker : IDisposable
     private int _scanStates;
 
     private int _lastScanComplete;
+
+    private int _frameCycles;
     
+    public int FrameCycles => _frameCycles;
+
     public bool Fast { get; set; }
     
     public bool Slow { get; set; }
@@ -109,13 +113,13 @@ public class Worker : IDisposable
             {
                 if (! _paused)
                 {
-                    var frameCycles = 0;
+                    _frameCycles = 0;
 
                     _videoModulator.StartFrame();
 
-                    while (frameCycles < Constants.FrameCycles)
+                    while (_frameCycles < Constants.FrameCycles)
                     {
-                        if (frameCycles is >= Constants.InterruptStart and < Constants.InterruptEnd)
+                        if (_frameCycles is >= Constants.InterruptStart and < Constants.InterruptEnd)
                         {
                             _interface.INT = true;
 
@@ -130,7 +134,7 @@ public class Worker : IDisposable
 
                         ClearFrameRamBuffer();
 
-                        var cycles = OnTick(frameCycles);
+                        var cycles = OnTick(_frameCycles);
 
                         var instructionCycles = 0;
                         
@@ -141,15 +145,15 @@ public class Worker : IDisposable
                                 break;
                             }
 
-                            frameCycles += cycles[i];
+                            _frameCycles += cycles[i];
 
                             instructionCycles += cycles[i];
 
-                            frameCycles += ApplyFrameRamChanges(i, frameCycles, cycles);
+                            _frameCycles += ApplyFrameRamChanges(i, _frameCycles, cycles);
 
                             if (cycles[i] > 0)
                             {
-                                _videoModulator.CycleComplete(frameCycles);
+                                _videoModulator.CycleComplete(_frameCycles);
                             }
                         }
 
