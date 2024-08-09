@@ -45,11 +45,9 @@ public class VideoRamVisualiser
 
         if (_banks)
         {
-            RenderBank(0, 0x4000);
+            RenderBank(0, 0x1C000);
             
-            var address = _ram.ScreenBank == 5 ? 0x1C000 : 0x14000;
-            
-            RenderBank(1, address);
+            RenderBank(1, 0x14000);
         }
         else
         {
