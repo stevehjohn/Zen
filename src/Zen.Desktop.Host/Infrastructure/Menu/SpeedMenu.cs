@@ -27,7 +27,8 @@ public class SpeedMenu : MenuBase
         {
             case 1:
                 AppSettings.Instance.Speed = Speed.Slow;
-                AppSettings.Instance.Save();
+                // TODO: Reinstate when this works correctly.
+                //AppSettings.Instance.Save();
 
                 return (MenuResult.SpeedSlow, null, null);
 
