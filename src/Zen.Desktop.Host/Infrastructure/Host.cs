@@ -297,6 +297,7 @@ public class Host : Game
                 AppSettings.Instance.Save();
 
                 _waveVisualiser = new WaveVisualiser(_graphicsDeviceManager);
+                _videoRamVisualiser = null;
                 _motherboard.AyAudio.AySignalHook = _waveVisualiser.ReceiveSignals;
                 _motherboard.AyAudio.BeeperSignalHook = _waveVisualiser.ReceiveSignal;
 
@@ -309,6 +310,7 @@ public class Host : Game
                 AppSettings.Instance.Save();
 
                 _videoRamVisualiser = new VideoRamVisualiser(_graphicsDeviceManager, _motherboard.Ram);
+                _waveVisualiser = null;
                 _motherboard.AyAudio.AySignalHook = null;
                 _motherboard.AyAudio.BeeperSignalHook = null;
 
