@@ -2,30 +2,29 @@
 using Zen.Utilities.Tools;
 using Zen.Utilities.Visualisations;
 
-namespace Zen.Utilities
+namespace Zen.Utilities;
+
+[ExcludeFromCodeCoverage]
+public static class Program
 {
-    [ExcludeFromCodeCoverage]
-    public static class Program
+    public static void Main(string[] args)
     {
-        public static void Main(string[] args)
+        switch (args[0].ToLower())
         {
-            switch (args[0].ToLower())
-            {
-                case "table":
-                    var generator = new InstructionTableGenerator();
-                    generator.Generate();
-                    break;
+            case "table":
+                var generator = new InstructionTableGenerator();
+                generator.Generate();
+                break;
 
-                case "code":
-                    var codeGenerator = new CodeGenerator();
-                    codeGenerator.GenerateOpCodeInitialisers();
-                    break;
+            case "code":
+                var codeGenerator = new CodeGenerator();
+                codeGenerator.GenerateOpCodeInitialisers();
+                break;
 
-                default:
-                    var emitter = new JsonOpcodeEmitter();
-                    emitter.Emit();
-                    break;
-            }
+            default:
+                var emitter = new JsonOpcodeEmitter();
+                emitter.Emit();
+                break;
         }
     }
 }
