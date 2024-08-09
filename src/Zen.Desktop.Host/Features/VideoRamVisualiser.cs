@@ -75,6 +75,8 @@ public class VideoRamVisualiser
             }
         }
 
+        var color = 0;
+
         for (var y = 0; y < Constants.PaperHeightPixels; y++)
         {
             for (var x = 0; x < Constants.PaperWidthPixels; x++)
@@ -95,7 +97,16 @@ public class VideoRamVisualiser
 
                 if ((_ram[(ushort) address] & xO) > 0)
                 {
-                    _data[(y + Constants.BorderPixels) * width + x + Constants.BorderPixels + offset] = Color.FromNonPremultiplied(192, 192, 192, 255);
+                    if (y / 8 % 2 == 0)
+                    {
+                        color = x / 8 % 2 == 0 ? 192 : 128;
+                    }
+                    else
+                    {
+                        color = x / 8 % 2 == 1 ? 192 : 128;
+                    }
+
+                    _data[(y + Constants.BorderPixels) * width + x + Constants.BorderPixels + offset] = Color.FromNonPremultiplied(color, color, color, 255);
                 }
             }
         }
