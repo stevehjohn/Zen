@@ -39,7 +39,7 @@ public class VideoRenderer
         _display = new Texture2D(graphicsDeviceManager.GraphicsDevice, Constants.ScreenWidthPixels, Constants.ScreenHeightPixels);
     }
 
-    public void RenderDisplay()
+    public void RenderDisplay(int frameCycles)
     {
         if (AppSettings.Instance.Speed == Speed.Slow)
         {
