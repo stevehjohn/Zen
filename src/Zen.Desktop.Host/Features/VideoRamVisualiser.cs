@@ -8,8 +8,6 @@ namespace Zen.Desktop.Host.Features;
 
 public class VideoRamVisualiser
 {
-    private const int YStart = Constants.ScreenWidthPixels * Constants.BorderPixels;
-    
     // ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
     private readonly GraphicsDeviceManager _graphicsDeviceManager;
 
@@ -67,10 +65,16 @@ public class VideoRamVisualiser
     {
         var width = Constants.ScreenWidthPixels;
 
-        var ystart = YStart;
+        var offset = 0;
         
         if (_banks)
         {
+            width *= 2;
+
+            if (panel == 1)
+            {
+                offset = Constants.ScreenWidthPixels;
+            }
         }
 
         for (var y = 0; y < Constants.PaperHeightPixels; y++)
@@ -93,7 +97,7 @@ public class VideoRamVisualiser
 
                 if ((_ram[(ushort) address] & xO) > 0)
                 {
-                    _data[ystart + y * width + Constants.BorderPixels + x] = Color.FromNonPremultiplied(192, 192, 192, 255);
+                    _data[(y + Constants.BorderPixels) * width + x + Constants.BorderPixels + offset] = Color.FromNonPremultiplied(192, 192, 192, 255);
                 }
             }
         }
