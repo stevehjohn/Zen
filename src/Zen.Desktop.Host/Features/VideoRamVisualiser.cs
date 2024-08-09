@@ -86,7 +86,7 @@ public class VideoRamVisualiser
 
                 if ((_ram[(ushort) address] & xO) > 0)
                 {
-                    _data[YStart + y * (Constants.ScreenWidthPixels + Constants.BorderPixels) * (_banks ? 2 : 1) + x + offset] = Color.FromNonPremultiplied(192, 192, 192, 255);
+                    _data[YStart + y * Constants.ScreenWidthPixels + Constants.BorderPixels + x + offset] = Color.FromNonPremultiplied(192, 192, 192, 255);
                 }
             }
         }
