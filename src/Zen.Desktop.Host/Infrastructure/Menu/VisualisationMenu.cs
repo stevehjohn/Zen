@@ -15,6 +15,7 @@ public class VisualisationMenu : MenuBase
             new(1, false, $"[1] {(AppSettings.Instance.Visualisation == Visualisation.Off ? ">" : " ")} Off {(AppSettings.Instance.Visualisation == Visualisation.Off ? "<" : " ")}", Color.Yellow, 1, 3, Keys.D1, Color.LightGreen),
             new(2, false, $"[2] {(AppSettings.Instance.Visualisation == Visualisation.Waveforms ? ">" : " ")} Waveforms {(AppSettings.Instance.Visualisation == Visualisation.Waveforms ? "<" : " ")}", Color.Yellow, 1, 5, Keys.D2, Color.LightGreen),
             new(3, false, $"[3] {(AppSettings.Instance.Visualisation == Visualisation.VideoRam ? ">" : " ")} Video Memory {(AppSettings.Instance.Visualisation == Visualisation.VideoRam ? "<" : " ")}", Color.Yellow, 1, 7, Keys.D3, Color.LightGreen),
+            new(4, false, $"[4] {(AppSettings.Instance.Visualisation == Visualisation.VideoBanks ? ">" : " ")} Both Video Banks {(AppSettings.Instance.Visualisation == Visualisation.VideoBanks ? "<" : " ")}", Color.Yellow, 1, 9, Keys.D4, Color.LightGreen),
             new(99, true, "[ESC] Close Menu", Color.FromNonPremultiplied(255, 64, 64, 255), 0, 21, Keys.Escape, Color.LightGreen)
         };
 
@@ -33,6 +34,9 @@ public class VisualisationMenu : MenuBase
             
             case 3:
                 return (MenuResult.VisualisationVideoRam, null, null);
+            
+            case 4:
+                return (MenuResult.VisualisationVideoBanks, null, null);
 
             default:
                 return (MenuResult.NewMenu, new MainMenu(), null);

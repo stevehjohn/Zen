@@ -163,7 +163,12 @@ public class Host : Game
 
         if (AppSettings.Instance.Visualisation == Visualisation.VideoRam)
         {
-            _videoRamVisualiser = new VideoRamVisualiser(_graphicsDeviceManager, _motherboard.Ram);
+            _videoRamVisualiser = new VideoRamVisualiser(_graphicsDeviceManager, _motherboard.Ram, false);
+        }
+
+        if (AppSettings.Instance.Visualisation == Visualisation.VideoBanks)
+        {
+            _videoRamVisualiser = new VideoRamVisualiser(_graphicsDeviceManager, _motherboard.Ram, true);
         }
 
         _videoRenderer = new VideoRenderer(_motherboard.VideoAdapter.ScreenFrame, _graphicsDeviceManager);
@@ -309,7 +314,20 @@ public class Host : Game
                 AppSettings.Instance.Visualisation = Visualisation.VideoRam;
                 AppSettings.Instance.Save();
 
-                _videoRamVisualiser = new VideoRamVisualiser(_graphicsDeviceManager, _motherboard.Ram);
+                _videoRamVisualiser = new VideoRamVisualiser(_graphicsDeviceManager, _motherboard.Ram, false);
+                _waveVisualiser = null;
+                _motherboard.AyAudio.AySignalHook = null;
+                _motherboard.AyAudio.BeeperSignalHook = null;
+
+                ChangeScale(_scaleFactor);
+
+                break;
+
+            case MenuResult.VisualisationVideoBanks:
+                AppSettings.Instance.Visualisation = Visualisation.VideoBanks;
+                AppSettings.Instance.Save();
+
+                _videoRamVisualiser = new VideoRamVisualiser(_graphicsDeviceManager, _motherboard.Ram, true);
                 _waveVisualiser = null;
                 _motherboard.AyAudio.AySignalHook = null;
                 _motherboard.AyAudio.BeeperSignalHook = null;
@@ -374,6 +392,11 @@ public class Host : Game
         if (AppSettings.Instance.Visualisation == Visualisation.VideoRam)
         {
             width += Constants.VideoRamVisualisationPanelWidth * _scaleFactor;
+        }
+
+        if (AppSettings.Instance.Visualisation == Visualisation.VideoRam)
+        {
+            width += Constants.VideoRamVisualisationPanelWidth * 2 * _scaleFactor;
         }
 
         if (AppSettings.Instance.ViewCounters)
