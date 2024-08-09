@@ -2,11 +2,6 @@
 
 ToDos, aide memoires, etcetera.
 
-## TODO
-
-- Leaving Slow mode doesn't work.
-- Apply changes to VRAM immediately in Slow mode.
-
 ## Useful References
 
 - https://clrhome.org/table/
