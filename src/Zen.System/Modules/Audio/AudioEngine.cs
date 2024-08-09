@@ -1,4 +1,5 @@
-﻿using Bufdio;
+﻿using System.Runtime.InteropServices;
+using Bufdio;
 using Bufdio.Engines;
 using Zen.Common.Infrastructure;
 
@@ -14,7 +15,14 @@ public class AudioEngine : IDisposable
         {
             if (Environment.OSVersion.Platform == PlatformID.Unix)
             {
-                BufdioLib.InitializePortAudio(Path.Combine("Libraries", "libportaudio.dylib"));
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+                {
+                    BufdioLib.InitializePortAudio(Path.Combine("Libraries", "libportaudio.so"));
+                }
+                else
+                {
+                    BufdioLib.InitializePortAudio(Path.Combine("Libraries", "libportaudio.dylib"));
+                }
             }
             else
             {
