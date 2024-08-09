@@ -159,7 +159,7 @@ public class Worker : IDisposable
 
                         _scanStates += instructionCycles;
 
-                        if (Slow && _scanStates - _lastScanComplete > Constants.StatesPerScreenLine)
+                        if (Slow && _scanStates - _lastScanComplete > Constants.StatesPerScreenLine * Constants.SlowScanFactor)
                         {
                             _scanResetEvent.WaitOne();
 
