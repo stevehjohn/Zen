@@ -31,7 +31,13 @@ public class Worker : IDisposable
     private Task? _workerThread;
 
     private int _scanStates;
+
+    private int _lastScanComplete;
+
+    private int _frameCycles;
     
+    public int FrameCycles => _frameCycles;
+
     public bool Fast { get; set; }
     
     public bool Slow { get; set; }
@@ -107,17 +113,28 @@ public class Worker : IDisposable
             {
                 if (! _paused)
                 {
-                    var frameCycles = 0;
+                    _frameCycles = 0;
 
                     _videoModulator.StartFrame();
 
-                    while (frameCycles < Constants.FrameCycles)
+                    while (_frameCycles < Constants.FrameCycles)
                     {
-                        _interface.INT = frameCycles is >= Constants.InterruptStart and < Constants.InterruptEnd;
+                        if (_frameCycles is >= Constants.InterruptStart and < Constants.InterruptEnd)
+                        {
+                            _interface.INT = true;
+
+                            _scanStates = 0;
+
+                            _lastScanComplete = 0;
+                        }
+                        else
+                        {
+                            _interface.INT = false;
+                        }
 
                         ClearFrameRamBuffer();
 
-                        var cycles = OnTick(frameCycles);
+                        var cycles = OnTick(_frameCycles);
 
                         var instructionCycles = 0;
                         
@@ -128,28 +145,25 @@ public class Worker : IDisposable
                                 break;
                             }
 
-                            frameCycles += cycles[i];
+                            _frameCycles += cycles[i];
 
                             instructionCycles += cycles[i];
 
-                            frameCycles += ApplyFrameRamChanges(i, frameCycles, cycles);
+                            _frameCycles += ApplyFrameRamChanges(i, _frameCycles, cycles);
 
                             if (cycles[i] > 0)
                             {
-                                _videoModulator.CycleComplete(frameCycles);
+                                _videoModulator.CycleComplete(_frameCycles);
                             }
                         }
 
                         _scanStates += instructionCycles;
 
-                        if (Slow && _scanStates > Constants.WorkerScanlinePause)
+                        if (Slow && _scanStates - _lastScanComplete > Constants.StatesPerScreenLine)
                         {
                             _scanResetEvent.WaitOne();
-                        }
 
-                        if (_scanStates > Constants.WorkerScanlinePause)
-                        {
-                            _scanStates -= Constants.WorkerScanlinePause;
+                            _lastScanComplete = _scanStates;
                         }
                     }
 
