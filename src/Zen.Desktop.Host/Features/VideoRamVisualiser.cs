@@ -24,7 +24,7 @@ public class VideoRamVisualiser
         set => _ram = value;
     }
 
-    public VideoRamVisualiser(GraphicsDeviceManager graphicsDeviceManager, Ram ram)
+    public VideoRamVisualiser(GraphicsDeviceManager graphicsDeviceManager, Ram ram, bool banks)
     {
         _graphicsDeviceManager = graphicsDeviceManager;
 
