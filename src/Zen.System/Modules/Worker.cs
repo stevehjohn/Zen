@@ -31,6 +31,8 @@ public class Worker : IDisposable
     private Task? _workerThread;
 
     private int _scanStates;
+
+    private int _lastScanComplete;
     
     public bool Fast { get; set; }
     
@@ -113,7 +115,18 @@ public class Worker : IDisposable
 
                     while (frameCycles < Constants.FrameCycles)
                     {
-                        _interface.INT = frameCycles is >= Constants.InterruptStart and < Constants.InterruptEnd;
+                        if (frameCycles is >= Constants.InterruptStart and < Constants.InterruptEnd)
+                        {
+                            _interface.INT = true;
+
+                            _scanStates = 0;
+
+                            _lastScanComplete = 0;
+                        }
+                        else
+                        {
+                            _interface.INT = false;
+                        }
 
                         ClearFrameRamBuffer();
 
@@ -142,14 +155,11 @@ public class Worker : IDisposable
 
                         _scanStates += instructionCycles;
 
-                        if (Slow && _scanStates > Constants.WorkerScanlinePause)
+                        if (Slow && _scanStates - _lastScanComplete > Constants.StatesPerScreenLine)
                         {
                             _scanResetEvent.WaitOne();
-                        }
 
-                        if (_scanStates > Constants.WorkerScanlinePause)
-                        {
-                            _scanStates -= Constants.WorkerScanlinePause;
+                            _lastScanComplete = _scanStates;
                         }
                     }
 
