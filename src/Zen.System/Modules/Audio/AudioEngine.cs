@@ -7,7 +7,7 @@ namespace Zen.System.Modules.Audio;
 
 public class AudioEngine : IDisposable
 {
-    private readonly IAudioEngine _engine;
+    private readonly IAudioEngine? _engine;
 
     public AudioEngine()
     {
