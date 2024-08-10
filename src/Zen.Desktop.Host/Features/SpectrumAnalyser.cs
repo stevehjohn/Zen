@@ -118,7 +118,7 @@ public class SpectrumAnalyser
 
     public void ReceiveSignal(float signal)
     {
-        _buffers[3][_beeperBufferPosition] = -signal / 3;
+        _buffers[3][_beeperBufferPosition] = new Complex(-signal / 1.5, 0);
 
         _beeperBufferPosition++;
 
@@ -137,6 +137,7 @@ public class SpectrumAnalyser
         RenderSpectrumChannel(0);
         RenderSpectrumChannel(1);
         RenderSpectrumChannel(2);
+        RenderSpectrumChannel(3);
 
         _spectrum.SetData(_data);
 
