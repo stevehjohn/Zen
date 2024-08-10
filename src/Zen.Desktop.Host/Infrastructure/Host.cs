@@ -136,6 +136,8 @@ public class Host : Game
         if (_spectrumAnalyser != null)
         {
             _motherboard.AyAudio.AySignalHook = _spectrumAnalyser.ReceiveSignals;
+
+            _motherboard.AyAudio.BeeperSignalHook = _spectrumAnalyser.ReceiveSignal;
         }
     }
 
@@ -187,6 +189,8 @@ public class Host : Game
             _spectrumAnalyser = new SpectrumAnalyser(_graphicsDeviceManager);
 
             _motherboard.AyAudio.AySignalHook = _spectrumAnalyser.ReceiveSignals;
+
+            _motherboard.AyAudio.BeeperSignalHook = _spectrumAnalyser.ReceiveSignal;
         }
 
         if (AppSettings.Instance.Visualisation == Visualisation.VideoRam)
@@ -362,6 +366,7 @@ public class Host : Game
 
                 _spectrumAnalyser = new SpectrumAnalyser(_graphicsDeviceManager);
                 _motherboard.AyAudio.AySignalHook = _spectrumAnalyser.ReceiveSignals;
+                _motherboard.AyAudio.BeeperSignalHook = _spectrumAnalyser.ReceiveSignal;
                 _videoRamVisualiser = null;
                 _waveVisualiser = null;
 

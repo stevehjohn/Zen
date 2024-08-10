@@ -34,6 +34,8 @@ public class SpectrumAnalyser
 
     private int _bufferPosition;
 
+    private int _beeperBufferPosition;
+
     private bool _rendering;
 
     private readonly Color[] _palette;
@@ -111,6 +113,18 @@ public class SpectrumAnalyser
             {
                 RenderSpectrum();
             }
+        }
+    }
+
+    public void ReceiveSignal(float signal)
+    {
+        _buffers[3][_beeperBufferPosition] = -signal / 3;
+
+        _beeperBufferPosition++;
+
+        if (_beeperBufferPosition >= BufferSize)
+        {
+            _beeperBufferPosition = 0;
         }
     }
 
