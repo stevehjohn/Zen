@@ -25,6 +25,10 @@ public class SpectrumAnalyser
     private readonly Color[] _data;
 
     private readonly Complex[][] _buffers;
+
+    private readonly int[][] _peaks;
+
+    private readonly long[][] _peakTimes;
     
     private readonly Texture2D _spectrum;
 
@@ -63,9 +67,17 @@ public class SpectrumAnalyser
 
         _buffers = new Complex[4][];
 
+        _peaks = new int[4][];
+
+        _peakTimes = new long[4][];
+
         for (var i = 0; i < 4; i++)
         {
             _buffers[i] = new Complex[BufferSize];
+
+            _peaks[i] = new int[_frequencyRanges.Length];
+
+            _peakTimes[i] = new long[_frequencyRanges.Length];
         }
     
         _palette = PaletteGenerator.GetPalette(46,
@@ -153,8 +165,27 @@ public class SpectrumAnalyser
         {
             var dataPoint = groupedMagnitudes[i] / MagnitudeDivisor;
 
+            var peak = (int) (dataPoint * height * (channel == 3 ? 1 : 4));
+            
+            if (peak > _peaks[channel][i])
+            {
+                _peaks[channel][i] = peak;
+
+                _peakTimes[channel][i] = Environment.TickCount64;
+            }
+            else
+            {
+                if (Environment.TickCount64 - _peakTimes[channel][i] > 100 && _peaks[channel][i] > 0)
+                {
+                    _peaks[channel][i]--;
+                }
+            }
+
             for (var x = 0; x < BarWidth; x++)
             {
+                // TODO: Magic number
+                _data[22 + axis + i * (BarWidth + BarSpacing) + x - _peaks[channel][i] * Constants.SpectrumVisualisationPanelWidth] = Color.FromNonPremultiplied(192, 192, 192, 255);
+
                 var offset = -(int) (dataPoint * height * (channel == 3 ? 1 : 4));
                 
                 while (offset <= 0)
