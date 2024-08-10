@@ -35,6 +35,16 @@ public class SpeedMenu : MenuBase
 
                 return (MenuResult.SpeedSlow, null, null);
 
+            case 2:
+                AppSettings.Instance.Speed = Speed.Quarter;
+
+                return (MenuResult.SpeedQuarter, null, null);
+
+            case 3:
+                AppSettings.Instance.Speed = Speed.Half;
+
+                return (MenuResult.SpeedHalf, null, null);
+
             case 4:
                 AppSettings.Instance.Speed = Speed.Normal;
 
