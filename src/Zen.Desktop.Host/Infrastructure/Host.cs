@@ -46,6 +46,8 @@ public class Host : Game
 
     private WaveVisualiser _waveVisualiser;
 
+    private SpectrumAnalyser _spectrumAnalyser;
+    
     private CountersVisualiser _countersVisualiser;
 
     private VideoRamVisualiser _videoRamVisualiser;
@@ -341,6 +343,8 @@ public class Host : Game
                 AppSettings.Instance.Visualisation = Visualisation.SpectrumAnalyser;
                 AppSettings.Instance.Save();
 
+                _spectrumAnalyser = new SpectrumAnalyser(_graphicsDeviceManager);
+                _motherboard.AyAudio.AySignalHook = _spectrumAnalyser.ReceiveSignals;
                 _videoRamVisualiser = null;
                 _waveVisualiser = null;
 
