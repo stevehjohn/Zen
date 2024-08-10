@@ -49,7 +49,7 @@ public class AyAudio : IDisposable
 
     public AyAudio()
     {
-        _buffer = new float[Constants.BufferSize];
+        _buffer = new float[Constants.DefaultBufferSize];
 
         _cancellationTokenSource = new CancellationTokenSource();
 
@@ -257,7 +257,7 @@ public class AyAudio : IDisposable
     {
         var signals = new float[3];
 
-        var bufferStep = (float) Common.Constants.FrameCycles / (Constants.BufferSize - 1);
+        var bufferStep = (float) Common.Constants.FrameCycles / (Constants.DefaultBufferSize - 1);
 
         while (! _cancellationToken.IsCancellationRequested)
         {
@@ -267,7 +267,7 @@ public class AyAudio : IDisposable
 
                 _resetEvent.Reset();
 
-                for (var i = 0; i < Constants.BufferSize; i++)
+                for (var i = 0; i < Constants.DefaultBufferSize; i++)
                 {
                     if (Silent)
                     {
