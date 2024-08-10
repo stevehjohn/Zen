@@ -13,6 +13,10 @@ public class SpectrumAnalyser
 
     private const int MagnitudeDivisor = 300;
 
+    private const int BarWidth = 8;
+
+    private const int BarSpacing = 4;
+
     // ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
     private readonly GraphicsDeviceManager _graphicsDeviceManager;
 
@@ -140,11 +144,16 @@ public class SpectrumAnalyser
         {
             var dataPoint = groupedMagnitudes[i] / MagnitudeDivisor;
 
-            var offset = -(int) (dataPoint * height * (channel == 3 ? 1 : 4));
-
-            for (var x = 0; x < 10; x++)
+            for (var x = 0; x < BarWidth; x++)
             {
-                _data[axis + i * 10 + x + offset * Constants.SpectrumVisualisationPanelWidth] = Color.LightGreen;
+                var offset = -(int) (dataPoint * height * (channel == 3 ? 1 : 4));
+                
+                while (offset <= 0)
+                {
+                    _data[16 + axis + i * (BarWidth + BarSpacing) + x + offset * Constants.SpectrumVisualisationPanelWidth] = Color.LightGreen;
+
+                    offset++;
+                }
             }
         }
     }
