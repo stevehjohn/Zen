@@ -121,9 +121,9 @@ public class VideoRamVisualiser
         {
             for (var x = 0; x < Constants.ScreenWidthPixels; x++)
             {
-                _data[(_videoRenderer.ScanY - 1) * width + x + offset] = Color.Black;
-                _data[_videoRenderer.ScanY * width + x + offset] = Color.White;
-                _data[(_videoRenderer.ScanY + 1) * width + x + offset] = Color.Black;
+                _data[_videoRenderer.ScanY * width + x + offset] = Color.Black;
+                _data[(_videoRenderer.ScanY + 1) * width + x + offset] = Color.White;
+                _data[(_videoRenderer.ScanY + 2) * width + x + offset] = Color.Black;
             }
         }
     }

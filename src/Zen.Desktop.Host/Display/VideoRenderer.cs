@@ -27,7 +27,7 @@ public class VideoRenderer
     
     public Action ScanComplete { get; set; }
     
-    public int ScanY { get; set; }
+    public int ScanY { get; private set; }
 
     public ushort[] ScreenFrame
     {
