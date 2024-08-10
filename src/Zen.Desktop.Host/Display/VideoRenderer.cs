@@ -26,6 +26,8 @@ public class VideoRenderer
     public Texture2D Display => _display;
     
     public Action ScanComplete { get; set; }
+    
+    public int ScanY { get; set; }
 
     public ushort[] ScreenFrame
     {
@@ -70,12 +72,20 @@ public class VideoRenderer
                                 _data[p] = y == 0 || y == 2 ? Color.Black : Color.White;
                             }
                         }
+
+                        ScanY = _y;
                     }
+                }
+                else
+                {
+                    ScanY = -1;
                 }
             }
             else
             {
                 _y = 0;
+
+                ScanY = -1;
             }
 
             ScanComplete?.Invoke();
