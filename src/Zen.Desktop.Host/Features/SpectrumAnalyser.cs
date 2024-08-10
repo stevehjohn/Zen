@@ -70,7 +70,6 @@ public class SpectrumAnalyser
     
         _palette = PaletteGenerator.GetPalette(46,
         [
-            new Color(46, 27, 134),
             new Color(119, 35, 172),
             new Color(176, 83, 203),
             new Color(255, 168, 76),
