@@ -11,6 +11,8 @@ public class SpectrumAnalyser
 {
     private const int BufferSize = System.Modules.Audio.Constants.SampleRate / Constants.SpectrumFramesPerSecond;
 
+    private const int MagnitudeDivisor = 300;
+
     // ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
     private readonly GraphicsDeviceManager _graphicsDeviceManager;
 
@@ -26,16 +28,23 @@ public class SpectrumAnalyser
 
     private readonly FrequencyRange[] _frequencyRanges =
     [
-        new FrequencyRange(20, 40),       // Sub-bass
-        new FrequencyRange(40, 80),       // Bass
-        new FrequencyRange(80, 160),      // Lower midrange
-        new FrequencyRange(160, 320),     // Midrange
-        new FrequencyRange(320, 640),     // Upper midrange
-        new FrequencyRange(640, 1280),    // Presence
-        new FrequencyRange(1280, 2560),   // Brilliance
-        new FrequencyRange(2560, 5120),   // Air
-        new FrequencyRange(5120, 10000),  // High Treble
-        new FrequencyRange(10000, 20000)  // Ultra-High Treble
+        new FrequencyRange(20, 30),       // Sub-bass
+        new FrequencyRange(30, 40),
+        new FrequencyRange(40, 60),       // Bass
+        new FrequencyRange(60, 80),
+        new FrequencyRange(80, 120),      // Lower midrange
+        new FrequencyRange(120, 160),
+        new FrequencyRange(160, 240),     // Midrange
+        new FrequencyRange(240, 320),
+        new FrequencyRange(320, 480),     // Upper midrange
+        new FrequencyRange(480, 640),
+        new FrequencyRange(640, 960),     // Presence
+        new FrequencyRange(960, 1280),
+        new FrequencyRange(1280, 1920),   // Brilliance
+        new FrequencyRange(1920, 2560)
+        // new FrequencyRange(2560, 5120),   // Air
+        // new FrequencyRange(5120, 10000),  // High Treble
+        // new FrequencyRange(10000, 20000)  // Ultra-High Treble
     ];
 
     public Texture2D Spectrum => _spectrum;
@@ -110,12 +119,12 @@ public class SpectrumAnalyser
             magnitudes[i] = (float) Math.Sqrt(_buffers[channel][i].Real * _buffers[channel][i].Real + _buffers[channel][i].Imaginary * _buffers[channel][i].Imaginary);
         }
         
-        var groupedMagnitudes = new float[10];
+        var groupedMagnitudes = new float[_frequencyRanges.Length];
         
-        for (var i = 0; i < 10; i++)
+        for (var i = 0; i < _frequencyRanges.Length; i++)
         {
-            var lowBin = (int)Math.Round(_frequencyRanges[i].Low * BufferSize / 48_000);
-            var highBin = (int)Math.Round(_frequencyRanges[i].High * BufferSize / 48_000);
+            var lowBin = (int)Math.Round(_frequencyRanges[i].Low * BufferSize / System.Modules.Audio.Constants.SampleRate);
+            var highBin = (int)Math.Round(_frequencyRanges[i].High * BufferSize / System.Modules.Audio.Constants.SampleRate);
 
             float sum = 0;
             
@@ -127,15 +136,15 @@ public class SpectrumAnalyser
             groupedMagnitudes[i] = sum / (highBin - lowBin + 1);
         }
 
-        for (var i = 0; i < 10; i++)
+        for (var i = 0; i < _frequencyRanges.Length; i++)
         {
-            var dataPoint = groupedMagnitudes[i] / 500;
+            var dataPoint = groupedMagnitudes[i] / MagnitudeDivisor;
 
             var offset = -(int) (dataPoint * height * (channel == 3 ? 1 : 4));
 
             for (var x = 0; x < 10; x++)
             {
-                _data[axis + (i * 10) + x + offset * Constants.SpectrumVisualisationPanelWidth] = Color.LightGreen;
+                _data[axis + i * 10 + x + offset * Constants.SpectrumVisualisationPanelWidth] = Color.LightGreen;
             }
         }
     }
