@@ -62,6 +62,11 @@ public class Host : Game
             width += Constants.WaveVisualisationPanelWidth * _scaleFactor;
         }
 
+        if (AppSettings.Instance.Visualisation == Visualisation.SpectrumAnalyser)
+        {
+            width += Constants.SpectrumVisualisationPanelWidth * _scaleFactor;
+        }
+
         if (AppSettings.Instance.Visualisation == Visualisation.VideoRam)
         {
             width += Constants.VideoRamVisualisationPanelWidth * _scaleFactor;
@@ -127,6 +132,11 @@ public class Host : Game
         {
             _videoRamVisualiser.Ram = _motherboard.Ram;
         }
+
+        if (_spectrumAnalyser != null)
+        {
+            _motherboard.AyAudio.AySignalHook = _spectrumAnalyser.ReceiveSignals;
+        }
     }
 
     protected override void OnActivated(object sender, EventArgs args)
@@ -170,6 +180,13 @@ public class Host : Game
             _motherboard.AyAudio.AySignalHook = _waveVisualiser.ReceiveSignals;
 
             _motherboard.AyAudio.BeeperSignalHook = _waveVisualiser.ReceiveSignal;
+        }
+
+        if (AppSettings.Instance.Visualisation == Visualisation.SpectrumAnalyser)
+        {
+            _spectrumAnalyser = new SpectrumAnalyser(_graphicsDeviceManager);
+
+            _motherboard.AyAudio.AySignalHook = _spectrumAnalyser.ReceiveSignals;
         }
 
         if (AppSettings.Instance.Visualisation == Visualisation.VideoRam)
@@ -431,6 +448,11 @@ public class Host : Game
             width += Constants.WaveVisualisationPanelWidth * _scaleFactor;
         }
 
+        if (AppSettings.Instance.Visualisation == Visualisation.SpectrumAnalyser)
+        {
+            width += Constants.SpectrumVisualisationPanelWidth * _scaleFactor;
+        }
+
         if (AppSettings.Instance.Visualisation == Visualisation.VideoRam)
         {
             width += Constants.VideoRamVisualisationPanelWidth * _scaleFactor;
@@ -557,6 +579,18 @@ public class Host : Game
                 _spriteBatch.Draw(waves,
                     new Rectangle(Constants.ScreenWidthPixels * _scaleFactor, 0, Constants.WaveVisualisationPanelWidth * _scaleFactor, Constants.ScreenHeightPixels * _scaleFactor), 
                     new Rectangle(0, 0, Constants.WaveVisualisationPanelWidth, Constants.ScreenHeightPixels), Color.White);
+            }
+        }
+
+        if (_spectrumAnalyser != null)
+        {
+            var spectrum = _spectrumAnalyser.Spectrum;
+
+            if (spectrum != null)
+            {
+                _spriteBatch.Draw(spectrum,
+                    new Rectangle(Constants.ScreenWidthPixels * _scaleFactor, 0, Constants.SpectrumVisualisationPanelWidth * _scaleFactor, Constants.ScreenHeightPixels * _scaleFactor), 
+                    new Rectangle(0, 0, Constants.SpectrumVisualisationPanelWidth, Constants.ScreenHeightPixels), Color.White);
             }
         }
 
