@@ -231,6 +231,9 @@ public class Host : Game
         {
             case MenuResult.Restart:
                 SetMotherboard((Model) arguments);
+                _motherboard.Fast = false;
+                _motherboard.Slow = false;
+                _motherboard.AyAudio.BufferSize = System.Modules.Audio.Constants.DefaultBufferSize;
 
                 _motherboard.Start();
 
@@ -267,14 +270,14 @@ public class Host : Game
             case MenuResult.SpeedHalf:
                 _motherboard.Fast = false;
                 _motherboard.Slow = false;
-                _motherboard.AyAudio.BufferSize = System.Modules.Audio.Constants.DefaultBufferSize / 2;
+                _motherboard.AyAudio.BufferSize = System.Modules.Audio.Constants.DefaultBufferSize * 2;
                 
                 break;
             
             case MenuResult.SpeedQuarter:
                 _motherboard.Fast = false;
                 _motherboard.Slow = false;
-                _motherboard.AyAudio.BufferSize = System.Modules.Audio.Constants.DefaultBufferSize / 4;
+                _motherboard.AyAudio.BufferSize = System.Modules.Audio.Constants.DefaultBufferSize * 4;
 
                 break;
 

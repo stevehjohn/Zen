@@ -19,7 +19,7 @@ public class AyAudio : IDisposable
 
     private byte _registerNumber;
 
-    private readonly float[] _buffer;
+    private float[] _buffer;
 
     private readonly AudioEngine _engine = new();
 
@@ -45,7 +45,12 @@ public class AyAudio : IDisposable
 
     public int BufferSize
     {
-        set => _bufferSize = value;
+        set
+        {
+            _bufferSize = value;
+
+            _buffer = new float[_bufferSize];
+        }
     }
 
     public bool Silent { get; set; }
