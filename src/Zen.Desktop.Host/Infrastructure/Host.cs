@@ -258,6 +258,18 @@ public class Host : Game
             case MenuResult.SpeedSlow:
                 _motherboard.Fast = false;
                 _motherboard.Slow = true;
+                
+                break;
+            
+            case MenuResult.SpeedHalf:
+                _motherboard.Fast = false;
+                _motherboard.Slow = false;
+                
+                break;
+            
+            case MenuResult.SpeedQuarter:
+                _motherboard.Fast = false;
+                _motherboard.Slow = false;
 
                 break;
 
