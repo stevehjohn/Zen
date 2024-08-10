@@ -33,7 +33,11 @@ public class AppSettings
     {
         var json = File.ReadAllText(SettingsFile);
 
-        return JsonSerializer.Deserialize<AppSettings>(json);
+        var settings = JsonSerializer.Deserialize<AppSettings>(json);
+
+        settings.Speed = Speed.Normal;
+
+        return settings;
     }
 
     public void Save()
