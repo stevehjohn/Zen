@@ -47,6 +47,9 @@ public static class Constants
     /* Wave Visualiser */
     public const int WaveVisualisationPanelWidth = 200;
 
+    /* Spectrum Analyser Visualiser 8*/
+    public const int SpectrumVisualisationPanelWidth = 200;
+    
     /* Counters Visualiser */
     public const int CountersPanelHeight = 24;
     
