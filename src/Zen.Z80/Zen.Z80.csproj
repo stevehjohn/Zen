@@ -10,7 +10,7 @@
     <Description>A dotnet Z80 emulator implementation.</Description>
     <Copyright>MIT</Copyright>
     <RepositoryUrl>https://github.com/stevehjohn/Zen</RepositoryUrl>
-    <Version>1.1.4</Version>
+    <Version>1.1.5</Version>
   </PropertyGroup>
 
   <ItemGroup>
