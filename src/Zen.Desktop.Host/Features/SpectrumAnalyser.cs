@@ -17,6 +17,8 @@ public class SpectrumAnalyser
 
     private const int BarSpacing = 4;
 
+    private const int SegmentHeight = 5;
+
     // ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
     private readonly GraphicsDeviceManager _graphicsDeviceManager;
 
@@ -158,6 +160,13 @@ public class SpectrumAnalyser
                 
                 while (offset <= 0)
                 {
+                    if (Math.Abs(offset) % SegmentHeight == 4)
+                    {
+                        offset++;
+                        
+                        continue;
+                    }
+
                     _data[22 + axis + i * (BarWidth + BarSpacing) + x + offset * Constants.SpectrumVisualisationPanelWidth] = _palette[-offset];
 
                     offset++;
