@@ -57,7 +57,7 @@ public class VideoRamVisualiser
         }
         else
         {
-            RenderBank(0, _ram.GetBank(5));
+            RenderBank(0, _ram.WorkingScreenRam);
         }
         
         _visualisation.SetData(_data);
