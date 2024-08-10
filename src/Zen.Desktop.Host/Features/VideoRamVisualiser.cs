@@ -106,7 +106,7 @@ public class VideoRamVisualiser
             }
         }
 
-        if (AppSettings.Instance.Speed == Speed.Slow && _videoRenderer.ScanY > -1 && _videoRenderer.ScanY < Constants.ScreenHeightPixels - 3)
+        if (AppSettings.Instance.Speed == Speed.Slow && _videoRenderer.ScanY > -1 && _videoRenderer.ScanY < Constants.ScreenHeightPixels - 4)
         {
             for (var x = 0; x < Constants.ScreenWidthPixels; x++)
             {
