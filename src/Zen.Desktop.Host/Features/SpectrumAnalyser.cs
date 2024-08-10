@@ -175,7 +175,7 @@ public class SpectrumAnalyser
             }
             else
             {
-                if (Environment.TickCount64 - _peakTimes[channel][i] > 100 && _peaks[channel][i] > 0)
+                if (Environment.TickCount64 - _peakTimes[channel][i] > 250 && _peaks[channel][i] > 0)
                 {
                     _peaks[channel][i]--;
                 }
