@@ -19,7 +19,7 @@ public class AyAudio : IDisposable
 
     private byte _registerNumber;
 
-    private readonly float[] _buffer;
+    private float[] _buffer;
 
     private readonly AudioEngine _engine = new();
 
@@ -41,6 +41,18 @@ public class AyAudio : IDisposable
 
     private ManualResetEvent? _workerResetEvent;
 
+    private int _bufferSize = Constants.DefaultBufferSize;
+
+    public int BufferSize
+    {
+        set
+        {
+            _bufferSize = value;
+
+            _buffer = new float[_bufferSize];
+        }
+    }
+
     public bool Silent { get; set; }
 
     public Action<float[]>? AySignalHook { get; set; }
@@ -49,7 +61,7 @@ public class AyAudio : IDisposable
 
     public AyAudio()
     {
-        _buffer = new float[Constants.BufferSize];
+        _buffer = new float[_bufferSize];
 
         _cancellationTokenSource = new CancellationTokenSource();
 
@@ -257,7 +269,7 @@ public class AyAudio : IDisposable
     {
         var signals = new float[3];
 
-        var bufferStep = (float) Common.Constants.FrameCycles / (Constants.BufferSize - 1);
+        var bufferStep = (float) Common.Constants.FrameCycles / (_bufferSize - 1);
 
         while (! _cancellationToken.IsCancellationRequested)
         {
@@ -267,7 +279,7 @@ public class AyAudio : IDisposable
 
                 _resetEvent.Reset();
 
-                for (var i = 0; i < Constants.BufferSize; i++)
+                for (var i = 0; i < _bufferSize; i++)
                 {
                     if (Silent)
                     {
