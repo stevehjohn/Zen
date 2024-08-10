@@ -57,7 +57,12 @@ public class SpectrumAnalyser
 
             if (! _rendering)
             {
+                RenderSpectrum();
             }
         }
+    }
+
+    private void RenderSpectrum()
+    {
     }
 }
