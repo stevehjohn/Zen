@@ -157,6 +157,10 @@ public class Host : Game
 
         _countersVisualiser = new CountersVisualiser(_graphicsDeviceManager, Content);
 
+        _videoRenderer = new VideoRenderer(_motherboard.VideoAdapter.ScreenFrame, _graphicsDeviceManager);
+        
+        _videoRenderer.ScanComplete = ScanComplete;
+
         if (AppSettings.Instance.Visualisation == Visualisation.Waveforms)
         {
             _waveVisualiser = new WaveVisualiser(_graphicsDeviceManager);
@@ -168,17 +172,13 @@ public class Host : Game
 
         if (AppSettings.Instance.Visualisation == Visualisation.VideoRam)
         {
-            _videoRamVisualiser = new VideoRamVisualiser(_graphicsDeviceManager, _motherboard.Ram, false);
+            _videoRamVisualiser = new VideoRamVisualiser(_graphicsDeviceManager, _motherboard.Ram, false, _videoRenderer);
         }
 
         if (AppSettings.Instance.Visualisation == Visualisation.VideoBanks)
         {
-            _videoRamVisualiser = new VideoRamVisualiser(_graphicsDeviceManager, _motherboard.Ram, true);
+            _videoRamVisualiser = new VideoRamVisualiser(_graphicsDeviceManager, _motherboard.Ram, true, _videoRenderer);
         }
-
-        _videoRenderer = new VideoRenderer(_motherboard.VideoAdapter.ScreenFrame, _graphicsDeviceManager);
-        
-        _videoRenderer.ScanComplete = ScanComplete;
     }
 
     private void ScanComplete()
@@ -319,7 +319,7 @@ public class Host : Game
                 AppSettings.Instance.Visualisation = Visualisation.VideoRam;
                 AppSettings.Instance.Save();
 
-                _videoRamVisualiser = new VideoRamVisualiser(_graphicsDeviceManager, _motherboard.Ram, false);
+                _videoRamVisualiser = new VideoRamVisualiser(_graphicsDeviceManager, _motherboard.Ram, false, _videoRenderer);
                 _waveVisualiser = null;
                 _motherboard.AyAudio.AySignalHook = null;
                 _motherboard.AyAudio.BeeperSignalHook = null;
@@ -332,7 +332,7 @@ public class Host : Game
                 AppSettings.Instance.Visualisation = Visualisation.VideoBanks;
                 AppSettings.Instance.Save();
 
-                _videoRamVisualiser = new VideoRamVisualiser(_graphicsDeviceManager, _motherboard.Ram, true);
+                _videoRamVisualiser = new VideoRamVisualiser(_graphicsDeviceManager, _motherboard.Ram, true, _videoRenderer);
                 _waveVisualiser = null;
                 _motherboard.AyAudio.AySignalHook = null;
                 _motherboard.AyAudio.BeeperSignalHook = null;

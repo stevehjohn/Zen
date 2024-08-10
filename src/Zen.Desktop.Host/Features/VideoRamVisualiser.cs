@@ -2,6 +2,8 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Zen.Common;
+using Zen.Desktop.Host.Display;
+using Zen.Desktop.Host.Infrastructure.Settings;
 using Zen.System.Modules;
 
 namespace Zen.Desktop.Host.Features;
@@ -18,6 +20,8 @@ public class VideoRamVisualiser
     private Ram _ram;
 
     private readonly bool _banks;
+
+    private readonly VideoRenderer _videoRenderer;
     
     public bool BanksView => _banks;
     
@@ -26,13 +30,15 @@ public class VideoRamVisualiser
         set => _ram = value;
     }
 
-    public VideoRamVisualiser(GraphicsDeviceManager graphicsDeviceManager, Ram ram, bool banks)
+    public VideoRamVisualiser(GraphicsDeviceManager graphicsDeviceManager, Ram ram, bool banks, VideoRenderer videoRenderer)
     {
         _graphicsDeviceManager = graphicsDeviceManager;
 
         _ram = ram;
 
         _banks = banks;
+
+        _videoRenderer = videoRenderer;
 
         _data = new Color[Constants.VideoRamVisualisationPanelWidth * Constants.ScreenHeightPixels * (banks ? 2 : 1)];
 
@@ -75,8 +81,6 @@ public class VideoRamVisualiser
             }
         }
 
-        var color = 0;
-
         for (var y = 0; y < Constants.PaperHeightPixels; y++)
         {
             for (var x = 0; x < Constants.PaperWidthPixels; x++)
@@ -97,6 +101,8 @@ public class VideoRamVisualiser
 
                 if ((_ram[(ushort) address] & xO) > 0)
                 {
+                    int color;
+                    
                     if (y / 8 % 2 == 0)
                     {
                         color = x / 8 % 2 == 0 ? 192 : 128;
@@ -108,6 +114,16 @@ public class VideoRamVisualiser
 
                     _data[(y + Constants.BorderPixels) * width + x + Constants.BorderPixels + offset] = Color.FromNonPremultiplied(color, color, color, 255);
                 }
+            }
+        }
+
+        if (AppSettings.Instance.Speed == Speed.Slow && _videoRenderer.ScanY > -1)
+        {
+            for (var x = 0; x < Constants.ScreenWidthPixels; x++)
+            {
+                _data[(_videoRenderer.ScanY - 1) * width + x + offset] = Color.Black;
+                _data[_videoRenderer.ScanY * width + x + offset] = Color.White;
+                _data[(_videoRenderer.ScanY + 1) * width + x + offset] = Color.Black;
             }
         }
     }
