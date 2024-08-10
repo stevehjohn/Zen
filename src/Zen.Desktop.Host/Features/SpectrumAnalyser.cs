@@ -20,6 +20,8 @@ public class SpectrumAnalyser
 
     private bool _rendering;
 
+    public Texture2D Spectrum => _spectrum;
+
     public SpectrumAnalyser(GraphicsDeviceManager graphicsDeviceManager)
     {
         _graphicsDeviceManager = graphicsDeviceManager;
