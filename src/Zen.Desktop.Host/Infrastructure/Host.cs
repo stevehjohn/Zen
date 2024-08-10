@@ -316,6 +316,7 @@ public class Host : Game
                 AppSettings.Instance.Save();
 
                 _waveVisualiser = null;
+                _videoRamVisualiser = null;
                 _motherboard.AyAudio.AySignalHook = null;
                 _motherboard.AyAudio.BeeperSignalHook = null;
 
@@ -331,6 +332,17 @@ public class Host : Game
                 _videoRamVisualiser = null;
                 _motherboard.AyAudio.AySignalHook = _waveVisualiser.ReceiveSignals;
                 _motherboard.AyAudio.BeeperSignalHook = _waveVisualiser.ReceiveSignal;
+
+                ChangeScale(_scaleFactor);
+
+                break;
+
+            case MenuResult.VisualisationSpectrumAnalyser:
+                AppSettings.Instance.Visualisation = Visualisation.SpectrumAnalyser;
+                AppSettings.Instance.Save();
+
+                _videoRamVisualiser = null;
+                _waveVisualiser = null;
 
                 ChangeScale(_scaleFactor);
 
