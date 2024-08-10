@@ -246,30 +246,35 @@ public class Host : Game
             case MenuResult.SpeedNormal:
                 _motherboard.Fast = false;
                 _motherboard.Slow = false;
+                _motherboard.AyAudio.BufferSize = System.Modules.Audio.Constants.DefaultBufferSize;
 
                 break;
 
             case MenuResult.SpeedFast:
                 _motherboard.Fast = true;
                 _motherboard.Slow = false;
+                _motherboard.AyAudio.BufferSize = System.Modules.Audio.Constants.DefaultBufferSize;
 
                 break;
             
             case MenuResult.SpeedSlow:
                 _motherboard.Fast = false;
                 _motherboard.Slow = true;
+                _motherboard.AyAudio.BufferSize = System.Modules.Audio.Constants.DefaultBufferSize;
                 
                 break;
             
             case MenuResult.SpeedHalf:
                 _motherboard.Fast = false;
                 _motherboard.Slow = false;
+                _motherboard.AyAudio.BufferSize = System.Modules.Audio.Constants.DefaultBufferSize / 2;
                 
                 break;
             
             case MenuResult.SpeedQuarter:
                 _motherboard.Fast = false;
                 _motherboard.Slow = false;
+                _motherboard.AyAudio.BufferSize = System.Modules.Audio.Constants.DefaultBufferSize / 4;
 
                 break;
 
