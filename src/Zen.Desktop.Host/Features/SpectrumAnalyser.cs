@@ -11,7 +11,7 @@ public class SpectrumAnalyser
 {
     private const int BufferSize = System.Modules.Audio.Constants.SampleRate / Constants.SpectrumFramesPerSecond;
 
-    private const int MagnitudeDivisor = 300;
+    private const int MagnitudeDivisor = 250;
 
     private const int BarWidth = 8;
 
@@ -30,9 +30,10 @@ public class SpectrumAnalyser
 
     private bool _rendering;
 
+    private readonly Color[] _palette;
+
     private readonly FrequencyRange[] _frequencyRanges =
     [
-        new FrequencyRange(20, 30),       // Sub-bass
         new FrequencyRange(30, 40),
         new FrequencyRange(40, 60),       // Bass
         new FrequencyRange(60, 80),
@@ -46,9 +47,6 @@ public class SpectrumAnalyser
         new FrequencyRange(960, 1280),
         new FrequencyRange(1280, 1920),   // Brilliance
         new FrequencyRange(1920, 2560)
-        // new FrequencyRange(2560, 5120),   // Air
-        // new FrequencyRange(5120, 10000),  // High Treble
-        // new FrequencyRange(10000, 20000)  // Ultra-High Treble
     ];
 
     public Texture2D Spectrum => _spectrum;
@@ -67,6 +65,16 @@ public class SpectrumAnalyser
         {
             _buffers[i] = new Complex[BufferSize];
         }
+    
+        _palette = PaletteGenerator.GetPalette(46,
+        [
+            new Color(46, 27, 134),
+            new Color(119, 35, 172),
+            new Color(176, 83, 203),
+            new Color(255, 168, 76),
+            new Color(254, 211, 56),
+            new Color(254, 253, 0)
+        ]);
     }
 
     public void ReceiveSignals(float[] signals)
@@ -150,7 +158,7 @@ public class SpectrumAnalyser
                 
                 while (offset <= 0)
                 {
-                    _data[16 + axis + i * (BarWidth + BarSpacing) + x + offset * Constants.SpectrumVisualisationPanelWidth] = Color.LightGreen;
+                    _data[22 + axis + i * (BarWidth + BarSpacing) + x + offset * Constants.SpectrumVisualisationPanelWidth] = _palette[-offset];
 
                     offset++;
                 }
@@ -167,6 +175,46 @@ public class SpectrumAnalyser
         {
             Low = low;
             High = high;
+        }
+    }
+
+    private static class PaletteGenerator
+    {
+        public static Color[] GetPalette(int steps, Color[] markers)
+        {
+            var palette = new Color[steps];
+
+            var markerPeriod = steps / (markers.Length - 2);
+
+            var current = markers[0];
+
+            var next = markers[1];
+
+            var counter = markerPeriod;
+
+            var markerIndex = 1;
+
+            for (var i = 0; i < steps; i++)
+            {
+                palette[i] = new Color(current.R, current.G, current.B);
+
+                current.R += (byte) ((next.R - current.R) / markerPeriod);
+                current.G += (byte) ((next.G - current.G) / markerPeriod);
+                current.B += (byte) ((next.B - current.B) / markerPeriod);
+
+                counter--;
+
+                if (counter == 0)
+                {
+                    counter = markerPeriod;
+
+                    markerIndex++;
+
+                    next = markers[markerIndex];
+                }
+            }
+
+            return palette;
         }
     }
 }
