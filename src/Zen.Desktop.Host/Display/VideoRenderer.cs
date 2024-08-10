@@ -72,9 +72,9 @@ public class VideoRenderer
                                 _data[p] = y == 0 || y == 2 ? Color.Black : Color.White;
                             }
                         }
-
-                        ScanY = _y;
                     }
+
+                    ScanY = _y;
                 }
                 else
                 {
