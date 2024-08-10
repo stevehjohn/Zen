@@ -4,6 +4,7 @@ public enum Visualisation
 {
     Off,
     Waveforms,
+    SpectrumAnalyser,
     VideoRam,
     VideoBanks
 }
