@@ -234,6 +234,7 @@ public class Host : Game
                 _motherboard.Fast = false;
                 _motherboard.Slow = false;
                 _motherboard.AyAudio.BufferSize = System.Modules.Audio.Constants.DefaultBufferSize;
+                AppSettings.Instance.Speed = Speed.Normal;
 
                 _motherboard.Start();
 
