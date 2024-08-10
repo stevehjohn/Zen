@@ -51,13 +51,13 @@ public class VideoRamVisualiser
 
         if (_banks)
         {
-            RenderBank(0, 0x1C000);
+            RenderBank(0, _ram.GetBank(5));
             
-            RenderBank(1, 0x14000);
+            RenderBank(1, _ram.GetBank(7));
         }
         else
         {
-            RenderBank(0, 0x4000);
+            RenderBank(0, _ram.GetBank(5));
         }
         
         _visualisation.SetData(_data);
@@ -65,7 +65,7 @@ public class VideoRamVisualiser
         return _visualisation;
     }
 
-    private void RenderBank(int panel, int startAddress)
+    private void RenderBank(int panel, byte[] bank)
     {
         var width = Constants.ScreenWidthPixels;
 
@@ -89,7 +89,7 @@ public class VideoRamVisualiser
 
                 var xO = 1 << (7 - x % 8);
 
-                var address = startAddress;
+                var address = 0;
                 
                 address |= (y & 0b0000_0111) << 8;
 
@@ -99,7 +99,7 @@ public class VideoRamVisualiser
 
                 address |= xB;
 
-                if ((_ram[(ushort) address] & xO) > 0)
+                if ((bank[(ushort) address] & xO) > 0)
                 {
                     _data[(y + Constants.BorderPixels) * width + x + Constants.BorderPixels + offset] = Color.FromNonPremultiplied(192, 192, 192, 255);
                 }
