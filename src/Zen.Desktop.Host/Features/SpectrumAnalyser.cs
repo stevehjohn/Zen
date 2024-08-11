@@ -34,9 +34,15 @@ public class SpectrumAnalyser
 
     private int _bufferPosition;
 
+    private int _beeperBufferPosition;
+
     private bool _rendering;
 
     private readonly Color[] _palette;
+
+    private readonly float[] _magnitudes;
+
+    private readonly float[] _groupedMagnitudes;
 
     private readonly FrequencyRange[] _frequencyRanges =
     [
@@ -70,6 +76,10 @@ public class SpectrumAnalyser
         _peaks = new int[4][];
 
         _peakTimes = new long[4][];
+
+        _magnitudes = new float[BufferSize];
+            
+        _groupedMagnitudes = new float[_frequencyRanges.Length];
 
         for (var i = 0; i < 4; i++)
         {
@@ -114,6 +124,18 @@ public class SpectrumAnalyser
         }
     }
 
+    public void ReceiveSignal(float signal)
+    {
+        _buffers[3][_beeperBufferPosition] = new Complex(-signal / 1.5, 0);
+
+        _beeperBufferPosition++;
+
+        if (_beeperBufferPosition >= BufferSize)
+        {
+            _beeperBufferPosition = 0;
+        }
+    }
+
     private void RenderSpectrum()
     {
         _rendering = true;
@@ -123,6 +145,7 @@ public class SpectrumAnalyser
         RenderSpectrumChannel(0);
         RenderSpectrumChannel(1);
         RenderSpectrumChannel(2);
+        RenderSpectrumChannel(3);
 
         _spectrum.SetData(_data);
 
@@ -135,35 +158,31 @@ public class SpectrumAnalyser
         
         var height = Constants.ScreenHeightPixels / 4;
 
-        var magnitudes = new float[_buffers[channel].Length];
-        
         var axis = height * Constants.SpectrumVisualisationPanelWidth * (channel + 1) - Constants.SpectrumVisualisationPanelWidth;
 
-        for (var i = 0; i < magnitudes.Length; i++)
+        for (var i = 0; i < _magnitudes.Length; i++)
         {
-            magnitudes[i] = (float) Math.Sqrt(_buffers[channel][i].Real * _buffers[channel][i].Real + _buffers[channel][i].Imaginary * _buffers[channel][i].Imaginary);
+            _magnitudes[i] = (float) Math.Sqrt(_buffers[channel][i].Real * _buffers[channel][i].Real + _buffers[channel][i].Imaginary * _buffers[channel][i].Imaginary);
         }
-        
-        var groupedMagnitudes = new float[_frequencyRanges.Length];
         
         for (var i = 0; i < _frequencyRanges.Length; i++)
         {
-            var lowBin = (int)Math.Round(_frequencyRanges[i].Low * BufferSize / System.Modules.Audio.Constants.SampleRate);
-            var highBin = (int)Math.Round(_frequencyRanges[i].High * BufferSize / System.Modules.Audio.Constants.SampleRate);
+            var lowBin = (int) Math.Round(_frequencyRanges[i].Low * BufferSize / System.Modules.Audio.Constants.SampleRate);
+            var highBin = (int) Math.Round(_frequencyRanges[i].High * BufferSize / System.Modules.Audio.Constants.SampleRate);
 
             float sum = 0;
             
             for (var j = lowBin; j <= highBin; j++)
             {
-                sum += magnitudes[j];
+                sum += _magnitudes[j];
             }
             
-            groupedMagnitudes[i] = sum / (highBin - lowBin + 1);
+            _groupedMagnitudes[i] = sum / (highBin - lowBin + 1);
         }
 
         for (var i = 0; i < _frequencyRanges.Length; i++)
         {
-            var dataPoint = groupedMagnitudes[i] / MagnitudeDivisor;
+            var dataPoint = _groupedMagnitudes[i] / MagnitudeDivisor;
 
             var peak = (int) (dataPoint * height * (channel == 3 ? 1 : 4));
             
@@ -204,18 +223,6 @@ public class SpectrumAnalyser
             }
         }
     }
-    
-    private class FrequencyRange
-    {
-        public float Low { get; }
-        public float High { get; }
-
-        public FrequencyRange(float low, float high)
-        {
-            Low = low;
-            High = high;
-        }
-    }
 
     private static class PaletteGenerator
     {
@@ -254,6 +261,18 @@ public class SpectrumAnalyser
             }
 
             return palette;
+        }
+    }
+    
+    private class FrequencyRange
+    {
+        public float Low { get; }
+        public float High { get; }
+
+        public FrequencyRange(float low, float high)
+        {
+            Low = low;
+            High = high;
         }
     }
 }
