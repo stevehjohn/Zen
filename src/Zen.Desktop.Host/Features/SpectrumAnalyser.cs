@@ -13,6 +13,8 @@ public class SpectrumAnalyser
 
     private const int MagnitudeDivisor = 250;
 
+    private const int PeakDelayMilliseconds = 250;
+
     private const int BarWidth = 8;
 
     private const int BarSpacing = 4;
@@ -194,7 +196,7 @@ public class SpectrumAnalyser
             }
             else
             {
-                if (Environment.TickCount64 - _peakTimes[channel][i] > 250 && _peaks[channel][i] > 0)
+                if (Environment.TickCount64 - _peakTimes[channel][i] > PeakDelayMilliseconds && _peaks[channel][i] > 0)
                 {
                     _peaks[channel][i]--;
                 }
