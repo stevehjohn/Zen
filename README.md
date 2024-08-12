@@ -22,7 +22,7 @@ The pre-built Linux binaries are experimental, i.e <a href="https://en.wiktionar
 
 Press <kbd>Tab</kbd> for the menu once running.
 
-For macOS, extract the files somewhere and execute with `./Zen.Desktop.Host`.
+For macOS and Linux, extract the files somewhere and execute with `./Zen.Desktop.Host`.
 
 For Windows, extract the files somewhere and run `Zen.Desktop.Host.exe`.
 
