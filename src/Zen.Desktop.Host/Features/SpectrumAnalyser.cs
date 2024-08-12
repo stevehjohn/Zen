@@ -7,7 +7,7 @@ using Zen.Common;
 
 namespace Zen.Desktop.Host.Features;
 
-public class SpectrumAnalyser
+public partial class SpectrumAnalyser
 {
     private const int BufferSize = System.Modules.Audio.Constants.SampleRate / Constants.SpectrumFramesPerSecond;
 
@@ -263,18 +263,6 @@ public class SpectrumAnalyser
             }
 
             return palette;
-        }
-    }
-    
-    private class FrequencyRange
-    {
-        public float Low { get; }
-        public float High { get; }
-
-        public FrequencyRange(float low, float high)
-        {
-            Low = low;
-            High = high;
         }
     }
 }
