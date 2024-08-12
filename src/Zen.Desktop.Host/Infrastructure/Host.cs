@@ -382,6 +382,7 @@ public class Host : Game
 
                 _videoRamVisualiser = new VideoRamVisualiser(_graphicsDeviceManager, _motherboard.Ram, false, _videoRenderer);
                 _waveVisualiser = null;
+                _spectrumAnalyser = null;
                 _motherboard.AyAudio.AySignalHook = null;
                 _motherboard.AyAudio.BeeperSignalHook = null;
 
