@@ -12,6 +12,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentat
 		..\Documentation\Spectrum Defines.txt = ..\Documentation\Spectrum Defines.txt
 		..\Documentation\Z80 Microprocessor Family.pdf = ..\Documentation\Z80 Microprocessor Family.pdf
 		..\Documentation\Z80 User Manual.pdf = ..\Documentation\Z80 User Manual.pdf
+		..\Documentation\Z80 Undocumented.pdf = ..\Documentation\Z80 Undocumented.pdf
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{06811074-46FA-421F-B28C-D20E185821F8}"
