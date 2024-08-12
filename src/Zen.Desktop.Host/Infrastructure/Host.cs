@@ -352,6 +352,7 @@ public class Host : Game
                 AppSettings.Instance.Save();
 
                 _waveVisualiser = new WaveVisualiser(_graphicsDeviceManager);
+                _spectrumAnalyser = null;
                 _videoRamVisualiser = null;
                 _motherboard.AyAudio.AySignalHook = _waveVisualiser.ReceiveSignals;
                 _motherboard.AyAudio.BeeperSignalHook = _waveVisualiser.ReceiveSignal;
