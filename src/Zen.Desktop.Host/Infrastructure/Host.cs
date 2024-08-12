@@ -340,6 +340,7 @@ public class Host : Game
 
                 _waveVisualiser = null;
                 _videoRamVisualiser = null;
+                _spectrumAnalyser = null;
                 _motherboard.AyAudio.AySignalHook = null;
                 _motherboard.AyAudio.BeeperSignalHook = null;
 
