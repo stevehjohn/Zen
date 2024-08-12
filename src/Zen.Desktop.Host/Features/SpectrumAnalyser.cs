@@ -4,10 +4,11 @@ using MathNet.Numerics.IntegralTransforms;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Zen.Common;
+using Zen.Desktop.Host.Features.SupportingClasses;
 
 namespace Zen.Desktop.Host.Features;
 
-public partial class SpectrumAnalyser
+public class SpectrumAnalyser
 {
     private const int BufferSize = System.Modules.Audio.Constants.SampleRate / Constants.SpectrumFramesPerSecond;
 
