@@ -17,16 +17,16 @@ public class AudioEngine : IDisposable
             {
                 if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
                 {
-                    BufdioLib.InitializePortAudio(Path.Combine("Libraries", "libportaudio.so"));
+                    BufdioLib.InitializePortAudio(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Libraries", "libportaudio.so"));
                 }
                 else
                 {
-                    BufdioLib.InitializePortAudio(Path.Combine("Libraries", "libportaudio.dylib"));
+                    BufdioLib.InitializePortAudio(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Libraries", "libportaudio.dylib"));
                 }
             }
             else
             {
-                BufdioLib.InitializePortAudio(Path.Combine("Libraries", "libportaudio"));
+                BufdioLib.InitializePortAudio(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Libraries", "libportaudio"));
             }
 
             _engine = new PortAudioEngine(new AudioEngineOptions(1, Constants.SampleRate));
