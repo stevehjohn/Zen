@@ -349,7 +349,7 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
 
         if (! _romCache.ContainsKey(romNumber))
         {
-            _romCache.Add(romNumber, File.ReadAllBytes($"Rom Images/{folder}/image-{romNumber}.rom"));
+            _romCache.Add(romNumber, File.ReadAllBytes($"{AppDomain.CurrentDomain.BaseDirectory}/Rom Images/{folder}/image-{romNumber}.rom"));
         }
 
         return _romCache[romNumber];

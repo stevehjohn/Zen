@@ -54,6 +54,13 @@ public class AppSettings
 
     public void Save()
     {
-        File.WriteAllText(SettingsFile, JsonSerializer.Serialize(this));
+        try
+        {
+            File.WriteAllText(SettingsFile, JsonSerializer.Serialize(this));
+        }
+        catch (Exception exception)
+        {
+            Logger.LogException(nameof(AppSettings), exception);
+        }
     }
 }
