@@ -119,8 +119,6 @@ public class Host : Game
 
         AppSettings.Instance.SystemModel = model;
 
-        AppSettings.Instance.Save();
-
         if (_waveVisualiser != null)
         {
             _motherboard.AyAudio.AySignalHook = _waveVisualiser.ReceiveSignals;

@@ -12,12 +12,12 @@ public static class Logger
     public static void LogException(string className, Exception exception)
     {
 
-        File.AppendAllLines(LogFile, new[]
-        {
-            "--------------------------------------------------------------------------------",
-            $"Time: {DateTime.UtcNow:u}",
-            $"Component: {className}",
-            exception.ToString()
-        });
+        // File.AppendAllLines(LogFile, new[]
+        // {
+        //     "--------------------------------------------------------------------------------",
+        //     $"Time: {DateTime.UtcNow:u}",
+        //     $"Component: {className}",
+        //     exception.ToString()
+        // });
     }
 }
