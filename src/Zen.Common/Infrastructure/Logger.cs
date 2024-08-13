@@ -2,14 +2,22 @@
 
 public static class Logger
 {
+    private static readonly string LogFile;
+
+    static Logger()
+    {
+        LogFile = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "zen.log");
+    }
+    
     public static void LogException(string className, Exception exception)
     {
-        File.AppendAllLines(Constants.ExceptionsLogFileName, new[]
-                                                             {
-                                                                 "--------------------------------------------------------------------------------",
-                                                                 $"Time: {DateTime.UtcNow:u}",
-                                                                 $"Component: {className}",
-                                                                 exception.ToString()
-                                                             });
+
+        File.AppendAllLines(LogFile, new[]
+        {
+            "--------------------------------------------------------------------------------",
+            $"Time: {DateTime.UtcNow:u}",
+            $"Component: {className}",
+            exception.ToString()
+        });
     }
 }
