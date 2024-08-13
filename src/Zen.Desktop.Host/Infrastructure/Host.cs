@@ -88,7 +88,7 @@ public class Host : Game
                                      PreferredBackBufferHeight = height
                                  };
 
-        Content.RootDirectory = "_Content";
+        Content.RootDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "_Content");
 
         IsMouseVisible = false;
 
