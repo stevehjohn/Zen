@@ -48,6 +48,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{9302
 		..\publish.sh = ..\publish.sh
 		..\test-fuse.sh = ..\test-fuse.sh
 		..\test-jsmoo.sh = ..\test-jsmoo.sh
+		..\publish-app.sh = ..\publish-app.sh
 	EndProjectSection
 EndProject
 Global
