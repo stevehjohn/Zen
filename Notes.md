@@ -2,7 +2,7 @@
 
 ToDos, aide memoires, etcetera.
 
-## Useful References
+## Useful Speccy References
 
 - https://clrhome.org/table/
 - http://ped.7gods.org/Z80N_table_ClrHome.html
@@ -11,6 +11,11 @@ ToDos, aide memoires, etcetera.
 - https://discord.com/channels/654774470652723220/689220116801650811/885861410490433566
 - https://github.com/hoglet67/Z80Decoder/wiki/Undocumented-Flags
 - https://rk.nvg.ntnu.no/sinclair/faq/tech_z80.html#UNDOC
+
+## Other References
+
+- https://stackoverflow.com/questions/77384897/how-do-you-create-a-self-contained-net-core-app-for-macos-thats-x86-x64-arm6
+- https://web.archive.org/web/20210420173215/https://docs.monogame.net/articles/packaging_games.html
 
 ## Failing Tests
 
