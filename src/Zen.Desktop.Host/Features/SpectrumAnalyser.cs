@@ -22,6 +22,8 @@ public class SpectrumAnalyser
 
     private const int SegmentHeight = 5;
 
+    private int _leftPadding;
+
     // ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
     private readonly GraphicsDeviceManager _graphicsDeviceManager;
 
@@ -101,6 +103,8 @@ public class SpectrumAnalyser
             new Color(254, 211, 56),
             new Color(254, 253, 0)
         ]);
+        
+        _leftPadding = (Constants.SpectrumVisualisationPanelWidth - (BarWidth + BarSpacing) * _frequencyRanges.Length) / 2;
     }
 
     public void ReceiveSignals(float[] signals)
@@ -205,8 +209,7 @@ public class SpectrumAnalyser
 
             for (var x = 0; x < BarWidth; x++)
             {
-                // TODO: Magic number
-                _data[22 + axis + i * (BarWidth + BarSpacing) + x - _peaks[channel][i] * Constants.SpectrumVisualisationPanelWidth] = Color.FromNonPremultiplied(192, 192, 192, 255);
+                _data[_leftPadding + axis + i * (BarWidth + BarSpacing) + x - _peaks[channel][i] * Constants.SpectrumVisualisationPanelWidth] = Color.FromNonPremultiplied(192, 192, 192, 255);
 
                 var offset = -(int) (dataPoint * height * (channel == 3 ? 1 : 4));
                 
@@ -219,7 +222,7 @@ public class SpectrumAnalyser
                         continue;
                     }
 
-                    _data[22 + axis + i * (BarWidth + BarSpacing) + x + offset * Constants.SpectrumVisualisationPanelWidth] = _palette[-offset];
+                    _data[_leftPadding + axis + i * (BarWidth + BarSpacing) + x + offset * Constants.SpectrumVisualisationPanelWidth] = _palette[-offset];
 
                     offset++;
                 }
