@@ -100,7 +100,6 @@ public class Z80FileLoader : IFileLoader
 
             var romNumber = (data[35] & 0b0001_0000) >> 4;
 
-            // TODO: Do this on the motherboard
             var folder = _model switch
             {
                 Model.Spectrum128 => "ZX Spectrum 128",
