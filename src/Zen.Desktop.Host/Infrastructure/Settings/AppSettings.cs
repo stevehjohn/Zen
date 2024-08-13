@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Text.Json;
+using Zen.Common.Infrastructure;
 using Zen.System.Infrastructure;
 
 namespace Zen.Desktop.Host.Infrastructure.Settings;
@@ -31,11 +32,22 @@ public class AppSettings
 
     private static AppSettings GetAppSettings()
     {
-        var json = File.ReadAllText(SettingsFile);
+        AppSettings settings;
+        
+        try
+        {
+            var json = File.ReadAllText(SettingsFile);
 
-        var settings = JsonSerializer.Deserialize<AppSettings>(json);
+            settings = JsonSerializer.Deserialize<AppSettings>(json);
 
-        settings.Speed = Speed.Normal;
+            settings.Speed = Speed.Normal;
+        }
+        catch (Exception exception)
+        {
+            Logger.LogException(nameof(AppSettings), exception);
+
+            settings = new AppSettings();
+        }
 
         return settings;
     }
