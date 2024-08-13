@@ -22,8 +22,6 @@
         <string>FONV</string>
         <key>CFBundleVersion</key>
         <string>1.2.7</string>
-        <key>LSApplicationCategoryType</key>
-        <string>public.app-category.games</string>
         <key>LSMinimumSystemVersion</key>
         <string>10.13</string>
         <key>NSHumanReadableCopyright</key>
