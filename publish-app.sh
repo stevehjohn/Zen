@@ -2,9 +2,9 @@ rm -rf Zen.app
 
 rm *.zip
 
-dotnet publish ./src/Zen.Desktop.Host/Zen.Desktop.Host.csproj -c Debug -r osx-arm64 -p:PublishReadyToRun=false -p:TieredCompilation=false -p:PublishTrimmed=false --self-contained
+dotnet publish ./src/Zen.Desktop.Host/Zen.Desktop.Host.csproj -c Release -r osx-arm64 -p:PublishReadyToRun=false -p:TieredCompilation=false -p:PublishTrimmed=false --self-contained
 
-cd ./src/Zen.Desktop.Host/bin/Debug/net8.0/osx-arm64/publish
+cd ./src/Zen.Desktop.Host/bin/Release/net8.0/osx-arm64/publish
 pwd
 chmod +xxx Zen.Desktop.Host
 cd -
@@ -13,7 +13,7 @@ cd Zen.app
 mkdir Contents
 cd Contents
 mkdir MacOS
-cp -R ../../src/Zen.Desktop.Host/bin/Debug/net8.0/osx-arm64/publish/* MacOS
+cp -R ../../src/Zen.Desktop.Host/bin/Release/net8.0/osx-arm64/publish/* MacOS
 mkdir Resources
 cp -R MacOS/_Content Resources
 cp ../../icon.icns Resources
