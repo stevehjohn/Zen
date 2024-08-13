@@ -1,10 +1,10 @@
 rm -rf Zen.app
 
-dotnet publish ./src/Zen.Desktop.Host/Zen.Desktop.Host.csproj -c Release -r osx-arm64 /p:PublishReadyToRun=true /p:TieredCompilation=false --self-contained /p:PublishReadyToRunShowWarnings=true
+dotnet publish ./src/Zen.Desktop.Host/Zen.Desktop.Host.csproj -c Release -r osx-arm64 -p:PublishReadyToRun=false -p:TieredCompilation=false -p:PublishTrimmed=false --self-contained
 
 cd ./src/Zen.Desktop.Host/bin/Release/net8.0/osx-arm64/publish
 pwd
-chmod +xx Zen.Desktop.Host
+chmod +xxx Zen.Desktop.Host
 cd -
 mkdir Zen.app
 cd Zen.app
