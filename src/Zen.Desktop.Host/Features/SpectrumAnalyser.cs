@@ -22,7 +22,7 @@ public class SpectrumAnalyser
 
     private const int SegmentHeight = 5;
 
-    private int _leftPadding;
+    private readonly int _leftPadding;
 
     // ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
     private readonly GraphicsDeviceManager _graphicsDeviceManager;
