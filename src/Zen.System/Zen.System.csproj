@@ -9,7 +9,6 @@
   <ItemGroup>
     <Folder Include="Infrastructure\" />
     <Folder Include="Interfaces\" />
-    <Folder Include="Libraries\" />
     <Folder Include="ProcessorHooks\" />
   </ItemGroup>
 
