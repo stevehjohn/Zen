@@ -113,6 +113,12 @@ public class Host : Game
 
         _motherboard.Sound = AppSettings.Instance.Sound;
 
+        _motherboard.AudioEngine = AppSettings.Instance.AudioEngine switch
+        {
+            AudioEngine.Bass => new BassAudioEngine(),
+            _ => new PortAudioEngine()
+        };
+
         _motherboard.Fast = AppSettings.Instance.Speed == Speed.Fast;
         _motherboard.Slow = AppSettings.Instance.Speed == Speed.Slow;
 
