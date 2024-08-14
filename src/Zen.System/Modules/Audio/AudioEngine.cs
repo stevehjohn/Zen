@@ -8,6 +8,8 @@ public class AudioEngine : IDisposable
 {
     private readonly int _sampleHandle;
 
+    private int _channel = -1;
+    
     private static readonly AutoResetEvent ResetEvent = new(true);
     
     public AudioEngine()
@@ -32,7 +34,7 @@ public class AudioEngine : IDisposable
         {
             Bass.BASS_Init(-1, Constants.SampleRate, BASSInit.BASS_DEVICE_MONO, 0);
             
-            _sampleHandle = Bass.BASS_SampleCreate(Constants.DefaultBufferSize, Constants.SampleRate, 1, 1, BASSFlag.BASS_SAMPLE_FLOAT);
+            _sampleHandle = Bass.BASS_SampleCreate(Constants.DefaultBufferSize * 4, Constants.SampleRate, 1, 1, BASSFlag.BASS_SAMPLE_FLOAT);
         }
         catch (Exception exception)
         {
@@ -44,11 +46,11 @@ public class AudioEngine : IDisposable
     {
         Bass.BASS_SampleSetData(_sampleHandle, data);
         
-        var channel = Bass.BASS_SampleGetChannel(_sampleHandle, BASSFlag.BASS_SAMCHAN_STREAM);
+        _channel = Bass.BASS_SampleGetChannel(_sampleHandle, BASSFlag.BASS_SAMCHAN_STREAM);
         
-        Bass.BASS_ChannelSetSync(channel, BASSSync.BASS_SYNC_END, 0, PlayComplete, IntPtr.Zero);
+        Bass.BASS_ChannelSetSync(_channel, BASSSync.BASS_SYNC_END | BASSSync.BASS_SYNC_ONETIME, 0, PlayComplete, IntPtr.Zero);
         
-        Bass.BASS_ChannelPlay(channel, true);
+        Bass.BASS_ChannelPlay(_channel, true);
         
         ResetEvent.WaitOne();
     }
