@@ -20,7 +20,7 @@ public class AppSettings
 
     public int ScaleFactor { get; set; }
     
-    public AudioEngine AudioEngine { get; set; }
+    public bool Sound { get; set; }
 
     public Speed Speed { get; set; }
 
