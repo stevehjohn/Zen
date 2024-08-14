@@ -318,7 +318,7 @@ public class Host : Game
 
                 break;
 
-            case MenuResult.SoundOn:
+            case MenuResult.SoundPortAudio:
                 _motherboard.Sound = true;
                 AppSettings.Instance.Sound = true;
                 AppSettings.Instance.Save();

@@ -29,7 +29,7 @@ public class SoundMenu : MenuBase
                 return (MenuResult.SoundOff, null, null);
 
             case 2:
-                return (MenuResult.SoundOn, null, null);
+                return (MenuResult.SoundPortAudio, null, null);
 
             default:
                 return (MenuResult.NewMenu, new MainMenu(), null);

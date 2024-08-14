@@ -15,7 +15,7 @@ public enum MenuResult
     SaveState,
     LoadState,
     ChangeScale,
-    SoundOn,
+    SoundPortAudio,
     SoundOff,
     VisualisationOff,
     VisualisationWaveform,
