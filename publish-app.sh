@@ -1,6 +1,6 @@
 rm -rf Zen.app
 
-rm *.zip
+rm *.App.zip
 
 dotnet publish ./src/Zen.Desktop.Host/Zen.Desktop.Host.csproj -c Release -r osx-arm64 -p:PublishReadyToRun=false -p:TieredCompilation=false -p:PublishTrimmed=false --self-contained
 
