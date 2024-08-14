@@ -8,7 +8,7 @@ public class AudioEngine : IDisposable
 {
     private readonly int _sampleHandle;
 
-    private static readonly AutoResetEvent ResetEvent = new AutoResetEvent(true);
+    private static readonly AutoResetEvent ResetEvent = new(true);
     
     public AudioEngine()
     {
