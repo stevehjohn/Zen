@@ -42,17 +42,24 @@ public class AudioEngine : IDisposable
         }
     }
 
+    private bool _first = true;
+    
     public void Send(float[] data)
     {
+        if (! _first)
+        {
+            ResetEvent.WaitOne();
+
+            _first = false;
+        }
+        
         Bass.BASS_SampleSetData(_sampleHandle, data);
         
         _channel = Bass.BASS_SampleGetChannel(_sampleHandle, BASSFlag.BASS_SAMCHAN_STREAM);
         
-        Bass.BASS_ChannelSetSync(_channel, BASSSync.BASS_SYNC_END | BASSSync.BASS_SYNC_ONETIME, 0, PlayComplete, IntPtr.Zero);
+        Bass.BASS_ChannelSetSync(_channel, BASSSync.BASS_SYNC_END | BASSSync.BASS_SYNC_MIXTIME, 0, PlayComplete, IntPtr.Zero);
         
         Bass.BASS_ChannelPlay(_channel, true);
-        
-        ResetEvent.WaitOne();
     }
 
     private static void PlayComplete(int handle, int channel, int data, IntPtr user)
