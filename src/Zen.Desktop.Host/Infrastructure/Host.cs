@@ -14,6 +14,7 @@ using Zen.Desktop.Host.Infrastructure.Settings;
 using Zen.System;
 using Zen.System.FileHandling;
 using Zen.System.FileHandling.Interfaces;
+using Zen.System.Modules.Audio.Engines;
 using Keys = Microsoft.Xna.Framework.Input.Keys;
 using Model = Zen.System.Infrastructure.Model;
 
@@ -320,6 +321,15 @@ public class Host : Game
 
             case MenuResult.SoundPortAudio:
                 _motherboard.Sound = true;
+                _motherboard.AudioEngine = new PortAudioEngine();
+                AppSettings.Instance.Sound = true;
+                AppSettings.Instance.Save();
+
+                break;
+
+            case MenuResult.SoundBass:
+                _motherboard.Sound = true;
+                _motherboard.AudioEngine = new BassAudioEngine();
                 AppSettings.Instance.Sound = true;
                 AppSettings.Instance.Save();
 
