@@ -14,6 +14,22 @@ public class AudioEngine : IDisposable
     {
         _resetEvent = new AutoResetEvent(true);
 
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux) && ! File.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "libbass.so")))
+        {
+            switch (RuntimeInformation.ProcessArchitecture)
+            {
+                case Architecture.X64:
+                    File.Copy(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "libbass.so.x64"), Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "libbass.so"));
+
+                    break;
+                
+                default:
+                    File.Copy(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "libbass.so.arm64"), Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "libbass.so"));
+                    
+                    break;
+            }
+        }
+
         try
         {
             Bass.BASS_Init(-1, Constants.SampleRate, BASSInit.BASS_DEVICE_MONO, 0);
