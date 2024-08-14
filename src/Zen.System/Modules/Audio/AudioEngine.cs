@@ -8,12 +8,10 @@ public class AudioEngine : IDisposable
 {
     private readonly int _sampleHandle;
 
-    private readonly AutoResetEvent _resetEvent;
+    private static readonly AutoResetEvent ResetEvent = new AutoResetEvent(true);
     
     public AudioEngine()
     {
-        _resetEvent = new AutoResetEvent(true);
-
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux) && ! File.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "libbass.so")))
         {
             switch (RuntimeInformation.ProcessArchitecture)
@@ -45,19 +43,19 @@ public class AudioEngine : IDisposable
     public void Send(float[] data)
     {
         Bass.BASS_SampleSetData(_sampleHandle, data);
-
+        
         var channel = Bass.BASS_SampleGetChannel(_sampleHandle, BASSFlag.BASS_SAMCHAN_STREAM);
-
-        Bass.BASS_ChannelSetSync(channel, BASSSync.BASS_SYNC_END | BASSSync.BASS_SYNC_MIXTIME, 0, PlayComplete, IntPtr.Zero);
+        
+        Bass.BASS_ChannelSetSync(channel, BASSSync.BASS_SYNC_ONETIME | BASSSync.BASS_SYNC_END, 0, PlayComplete, IntPtr.Zero);
         
         Bass.BASS_ChannelPlay(channel, false);
-
-        _resetEvent.WaitOne();
+        
+        ResetEvent.WaitOne();
     }
 
-    private void PlayComplete(int handle, int channel, int data, IntPtr user)
+    private static void PlayComplete(int handle, int channel, int data, IntPtr user)
     {
-        _resetEvent.Set();
+        ResetEvent.Set();
     }
 
     public void Dispose()
