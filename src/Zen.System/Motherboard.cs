@@ -2,6 +2,7 @@
 using Zen.System.Infrastructure;
 using Zen.System.Interfaces;
 using Zen.System.Modules;
+using Zen.System.Modules.Audio.Engines;
 using Zen.System.ProcessorHooks;
 using Zen.Z80.Interfaces;
 using Zen.Z80.Processor;
@@ -77,6 +78,11 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
 
             _sound = value;
         }
+    }
+
+    public IZenAudioEngine AudioEngine
+    {
+        set => _ayAudio.AudioEngine = value;
     }
 
     public Motherboard(Model model)

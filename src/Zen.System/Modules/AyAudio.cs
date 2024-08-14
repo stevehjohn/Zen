@@ -1,5 +1,6 @@
 ﻿using Zen.Common.Infrastructure;
 using Zen.System.Modules.Audio;
+using Zen.System.Modules.Audio.Engines;
 
 namespace Zen.System.Modules;
 
@@ -15,13 +16,7 @@ public class AyAudio : IDisposable
 
     private readonly MixerDac _mixerDac = new();
 
-    private Task? _audioThread;
-
-    private byte _registerNumber;
-
-    private float[] _buffer;
-
-    private readonly AudioEngine _engine = new();
+    private IZenAudioEngine _engine = new PortAudioEngine();
 
     private readonly CancellationTokenSource _cancellationTokenSource;
 
@@ -32,6 +27,12 @@ public class AyAudio : IDisposable
     private readonly ManualResetEvent _resetEvent = new(false);
 
     private readonly Queue<(int Frame, Command Command, byte Value)>[] _commandQueues;
+
+    private Task? _audioThread;
+
+    private byte _registerNumber;
+
+    private float[] _buffer;
 
     private int _readQueue;
 
@@ -51,6 +52,11 @@ public class AyAudio : IDisposable
 
             _buffer = new float[_bufferSize];
         }
+    }
+
+    public IZenAudioEngine AudioEngine
+    {
+        set => _engine = value;
     }
 
     public bool Silent { get; set; }
