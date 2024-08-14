@@ -46,9 +46,9 @@ public class AudioEngine : IDisposable
         
         var channel = Bass.BASS_SampleGetChannel(_sampleHandle, BASSFlag.BASS_SAMCHAN_STREAM);
         
-        Bass.BASS_ChannelSetSync(channel, BASSSync.BASS_SYNC_ONETIME | BASSSync.BASS_SYNC_END, 0, PlayComplete, IntPtr.Zero);
+        Bass.BASS_ChannelSetSync(channel, BASSSync.BASS_SYNC_END, 0, PlayComplete, IntPtr.Zero);
         
-        Bass.BASS_ChannelPlay(channel, false);
+        Bass.BASS_ChannelPlay(channel, true);
         
         ResetEvent.WaitOne();
     }
