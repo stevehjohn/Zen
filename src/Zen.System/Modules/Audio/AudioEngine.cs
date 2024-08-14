@@ -17,7 +17,7 @@ public class AudioEngine : IDisposable
             {
                 if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
                 {
-                    BufdioLib.InitializePortAudio(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Libraries", "libportaudio.so"));
+                    BufdioLib.InitializePortAudio();
                 }
                 else
                 {
