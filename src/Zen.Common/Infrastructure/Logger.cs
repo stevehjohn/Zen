@@ -6,18 +6,17 @@ public static class Logger
 
     static Logger()
     {
-        LogFile = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "zen.log");
+        LogFile = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "zen.log");
     }
     
     public static void LogException(string className, Exception exception)
     {
-
-        // File.AppendAllLines(LogFile, new[]
-        // {
-        //     "--------------------------------------------------------------------------------",
-        //     $"Time: {DateTime.UtcNow:u}",
-        //     $"Component: {className}",
-        //     exception.ToString()
-        // });
+        File.AppendAllLines(LogFile, new[]
+        {
+            "--------------------------------------------------------------------------------",
+            $"Time: {DateTime.UtcNow:u}",
+            $"Component: {className}",
+            exception.ToString()
+        });
     }
 }
