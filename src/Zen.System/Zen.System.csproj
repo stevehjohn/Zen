@@ -9,11 +9,8 @@
   <ItemGroup>
     <Folder Include="Infrastructure\" />
     <Folder Include="Interfaces\" />
+    <Folder Include="Libraries\" />
     <Folder Include="ProcessorHooks\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Bufdio" Version="0.1.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,14 +18,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Libraries\libportaudio.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <PackageReference Include="radio42.Bass.Net.core" Version="2.4.17.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="libbass.dylib">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Libraries\libportaudio.dylib">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Libraries\libportaudio.so">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <None Update="libbass.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 

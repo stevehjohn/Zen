@@ -1,35 +1,19 @@
-﻿using System.Runtime.InteropServices;
-using Bufdio;
-using Bufdio.Engines;
+﻿using Un4seen.Bass;
 using Zen.Common.Infrastructure;
 
 namespace Zen.System.Modules.Audio;
 
 public class AudioEngine : IDisposable
 {
-    private readonly IAudioEngine? _engine;
+    private readonly int _sampleHandle;
 
     public AudioEngine()
     {
         try
         {
-            if (Environment.OSVersion.Platform == PlatformID.Unix)
-            {
-                if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-                {
-                    BufdioLib.InitializePortAudio();
-                }
-                else
-                {
-                    BufdioLib.InitializePortAudio(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Libraries", "libportaudio.dylib"));
-                }
-            }
-            else
-            {
-                BufdioLib.InitializePortAudio(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Libraries", "libportaudio"));
-            }
-
-            _engine = new PortAudioEngine(new AudioEngineOptions(1, Constants.SampleRate));
+            Bass.BASS_Init(-1, Constants.SampleRate, BASSInit.BASS_DEVICE_MONO, 0);
+            
+            _sampleHandle = Bass.BASS_SampleCreate(Constants.DefaultBufferSize, Constants.SampleRate, 1, 1, BASSFlag.BASS_SAMPLE_FLOAT);
         }
         catch (Exception exception)
         {
@@ -39,11 +23,15 @@ public class AudioEngine : IDisposable
 
     public void Send(float[] data)
     {
-        _engine?.Send(data);
+        Bass.BASS_SampleSetData(_sampleHandle, data);
+
+        var channel = Bass.BASS_SampleGetChannel(_sampleHandle, BASSFlag.BASS_SAMCHAN_STREAM);
+
+        Bass.BASS_ChannelPlay(channel, true);
     }
 
     public void Dispose()
     {
-        _engine?.Dispose();
+        Bass.BASS_Free();
     }
 }
