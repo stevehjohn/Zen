@@ -35,6 +35,9 @@ public class SoundMenu : MenuBase
             case 2:
                 return (MenuResult.SoundPortAudio, null, null);
 
+            case 3:
+                return (MenuResult.SoundBass, null, null);
+
             default:
                 return (MenuResult.NewMenu, new MainMenu(), null);
         }
