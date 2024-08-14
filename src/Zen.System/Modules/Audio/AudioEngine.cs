@@ -6,11 +6,13 @@ namespace Zen.System.Modules.Audio;
 
 public class AudioEngine : IDisposable
 {
+    private static readonly AutoResetEvent ResetEvent = new(true);
+
     private readonly int _sampleHandle;
 
     private int _channel = -1;
     
-    private static readonly AutoResetEvent ResetEvent = new(true);
+    private bool _first = true;
     
     public AudioEngine()
     {
@@ -42,8 +44,6 @@ public class AudioEngine : IDisposable
         }
     }
 
-    private bool _first = true;
-    
     public void Send(float[] data)
     {
         if (! _first)
