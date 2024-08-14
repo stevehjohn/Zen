@@ -41,3 +41,5 @@ rm *.zip
 zip -r Zen.Desktop.Host.Linux.Arm.zip *
 cd -
 mv ./src/Zen.Desktop.Host/bin/Release/net8.0/linux-arm64/publish/Zen.Desktop.Host.Linux.Arm.zip .
+
+ls *.zip
