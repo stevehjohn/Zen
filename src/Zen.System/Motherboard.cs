@@ -82,10 +82,7 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
 
     public IZenAudioEngine AudioEngine
     {
-        set
-        {
-            
-        }
+        set => _ayAudio.AudioEngine = value;
     }
 
     public Motherboard(Model model)
