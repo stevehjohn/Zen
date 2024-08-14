@@ -13,22 +13,35 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Bufdio" Version="0.1.0" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Zen.Z80\Zen.Z80.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Libraries\libportaudio.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <PackageReference Include="Bufdio" Version="0.1.0" />
+    <PackageReference Include="radio42.Bass.Net.core" Version="2.4.17.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="libbass.dylib">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Libraries\libportaudio.dylib">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <None Update="libbass.so.arm64">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Libraries\libportaudio.so">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <None Update="bass.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="libbass.so.x64">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="libportaudio.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="libportaudio.dylib">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="libportaudio.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 

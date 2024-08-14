@@ -14,6 +14,7 @@ using Zen.Desktop.Host.Infrastructure.Settings;
 using Zen.System;
 using Zen.System.FileHandling;
 using Zen.System.FileHandling.Interfaces;
+using Zen.System.Modules.Audio.Engines;
 using Keys = Microsoft.Xna.Framework.Input.Keys;
 using Model = Zen.System.Infrastructure.Model;
 
@@ -111,6 +112,12 @@ public class Host : Game
         _motherboard.AddPeripheral(new Peripherals.DiskDrive());
 
         _motherboard.Sound = AppSettings.Instance.Sound;
+
+        _motherboard.AudioEngine = AppSettings.Instance.AudioEngine switch
+        {
+            AudioEngine.Bass => new BassAudioEngine(),
+            _ => new PortAudioEngine()
+        };
 
         _motherboard.Fast = AppSettings.Instance.Speed == Speed.Fast;
         _motherboard.Slow = AppSettings.Instance.Speed == Speed.Slow;
@@ -318,8 +325,19 @@ public class Host : Game
 
                 break;
 
-            case MenuResult.SoundOn:
+            case MenuResult.SoundPortAudio:
                 _motherboard.Sound = true;
+                _motherboard.AudioEngine = new PortAudioEngine();
+                AppSettings.Instance.AudioEngine = AudioEngine.PortAudio;
+                AppSettings.Instance.Sound = true;
+                AppSettings.Instance.Save();
+
+                break;
+
+            case MenuResult.SoundBass:
+                _motherboard.Sound = true;
+                _motherboard.AudioEngine = new BassAudioEngine();
+                AppSettings.Instance.AudioEngine = AudioEngine.Bass;
                 AppSettings.Instance.Sound = true;
                 AppSettings.Instance.Save();
 

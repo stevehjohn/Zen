@@ -1,15 +1,15 @@
-﻿using System.Runtime.InteropServices;
+using System.Runtime.InteropServices;
 using Bufdio;
 using Bufdio.Engines;
 using Zen.Common.Infrastructure;
 
-namespace Zen.System.Modules.Audio;
+namespace Zen.System.Modules.Audio.Engines;
 
-public class AudioEngine : IDisposable
+public class PortAudioEngine : IZenAudioEngine
 {
     private readonly IAudioEngine? _engine;
 
-    public AudioEngine()
+    public PortAudioEngine()
     {
         try
         {
@@ -21,19 +21,19 @@ public class AudioEngine : IDisposable
                 }
                 else
                 {
-                    BufdioLib.InitializePortAudio(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Libraries", "libportaudio.dylib"));
+                    BufdioLib.InitializePortAudio(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "libportaudio.dylib"));
                 }
             }
             else
             {
-                BufdioLib.InitializePortAudio(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Libraries", "libportaudio"));
+                BufdioLib.InitializePortAudio(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "libportaudio"));
             }
 
-            _engine = new PortAudioEngine(new AudioEngineOptions(1, Constants.SampleRate));
+            _engine = new Bufdio.Engines.PortAudioEngine(new AudioEngineOptions(1, Constants.SampleRate));
         }
         catch (Exception exception)
         {
-            Logger.LogException(nameof(AudioEngine), exception);
+            Logger.LogException(nameof(PortAudioEngine), exception);
         }
     }
 
