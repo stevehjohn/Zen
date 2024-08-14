@@ -49,10 +49,12 @@ public class AudioEngine : IDisposable
         if (! _first)
         {
             ResetEvent.WaitOne();
-
+        }
+        else
+        {
             _first = false;
         }
-        
+
         Bass.BASS_SampleSetData(_sampleHandle, data);
         
         _channel = Bass.BASS_SampleGetChannel(_sampleHandle, BASSFlag.BASS_SAMCHAN_STREAM);
