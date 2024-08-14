@@ -2,9 +2,9 @@
 using Un4seen.Bass;
 using Zen.Common.Infrastructure;
 
-namespace Zen.System.Modules.Audio;
+namespace Zen.System.Modules.Audio.Engines;
 
-public class AudioEngine : IDisposable
+public class BassAudioEngine : IZenAudioEngine
 {
     private static readonly AutoResetEvent ResetEvent = new(true);
 
@@ -14,7 +14,7 @@ public class AudioEngine : IDisposable
     
     private bool _first = true;
     
-    public AudioEngine()
+    public BassAudioEngine()
     {
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux) && ! File.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "libbass.so")))
         {
@@ -40,7 +40,7 @@ public class AudioEngine : IDisposable
         }
         catch (Exception exception)
         {
-            Logger.LogException(nameof(AudioEngine), exception);
+            Logger.LogException(nameof(BassAudioEngine), exception);
         }
     }
 
