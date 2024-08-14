@@ -172,12 +172,12 @@ public class Worker : IDisposable
                         _resetEvent.WaitOne();
                     }
 
-                    _ayAudio.FrameReady(_resetEvent);
-
-                    _resetEvent.Reset();
-
                     Counters.Instance.IncrementCounter(Counter.SpectrumFrames);
                 }
+
+                _ayAudio.FrameReady(_resetEvent);
+
+                _resetEvent.Reset();
             }
             catch (Exception exception)
             {
