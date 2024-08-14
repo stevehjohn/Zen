@@ -1,5 +1,6 @@
 ﻿using Zen.Common.Infrastructure;
 using Zen.System.Modules.Audio;
+using Zen.System.Modules.Audio.Engines;
 
 namespace Zen.System.Modules;
 
@@ -21,7 +22,7 @@ public class AyAudio : IDisposable
 
     private float[] _buffer;
 
-    private readonly AudioEngine _engine = new();
+    private readonly IZenAudioEngine _engine = new PortAudioEngine();
 
     private readonly CancellationTokenSource _cancellationTokenSource;
 
