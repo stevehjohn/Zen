@@ -1,4 +1,5 @@
-﻿using Un4seen.Bass;
+﻿using System.Runtime.InteropServices;
+using Un4seen.Bass;
 using Zen.Common.Infrastructure;
 
 namespace Zen.System.Modules.Audio;
@@ -12,7 +13,27 @@ public class AudioEngine : IDisposable
     public AudioEngine()
     {
         _resetEvent = new AutoResetEvent(true);
-        
+
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+        {
+            switch (RuntimeInformation.ProcessArchitecture)
+            {
+                case Architecture.X64:
+                    File.Copy("libbass.so.x64", "libbass.so.arm64");
+
+                    break;
+                
+                default:
+                    File.Copy("libbass.so.arm64", "libbass.so.arm64");
+                    
+                    break;
+            }
+
+            {
+                
+            }
+        }
+
         try
         {
             Bass.BASS_Init(-1, Constants.SampleRate, BASSInit.BASS_DEVICE_MONO, 0);
