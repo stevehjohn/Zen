@@ -36,7 +36,7 @@ cd Contents
 mkdir MacOS
 cp -R ../../src/Zen.Desktop.Host/bin/Release/net8.0/osx-x64/publish/* MacOS
 mkdir Resources
-mv MacOS/_Content Resources
+cp MacOS/_Content Resources
 cp ../../icon.icns Resources
 cp ../../src/Zen.Desktop.Host/Info.plist .
 cd ..
