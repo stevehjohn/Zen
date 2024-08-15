@@ -83,6 +83,7 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
     public IZenAudioEngine AudioEngine
     {
         set => _ayAudio.AudioEngine = value;
+        get => _ayAudio.AudioEngine;
     }
 
     public Motherboard(Model model, IZenAudioEngine engine)

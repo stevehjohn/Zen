@@ -456,6 +456,8 @@ public class Host : Game
             _motherboard.Sound = true;
         }
 
+        _motherboard.AudioEngine.Reset();
+        
         _motherboard.Resume();
     }
 
