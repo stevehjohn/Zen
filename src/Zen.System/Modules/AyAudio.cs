@@ -16,7 +16,7 @@ public class AyAudio : IDisposable
 
     private readonly MixerDac _mixerDac = new();
 
-    private IZenAudioEngine _engine = new PortAudioEngine();
+    private IZenAudioEngine _engine;
 
     private readonly CancellationTokenSource _cancellationTokenSource;
 
@@ -56,7 +56,12 @@ public class AyAudio : IDisposable
 
     public IZenAudioEngine AudioEngine
     {
-        set => _engine = value;
+        set
+        {
+            _engine.Dispose();
+            
+            _engine = value; 
+        }
     }
 
     public bool Silent { get; set; }
@@ -65,8 +70,10 @@ public class AyAudio : IDisposable
 
     public Action<float>? BeeperSignalHook { get; set; }
 
-    public AyAudio()
+    public AyAudio(IZenAudioEngine engine)
     {
+        _engine = engine;
+        
         _buffer = new float[_bufferSize];
 
         _cancellationTokenSource = new CancellationTokenSource();

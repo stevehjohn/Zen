@@ -105,19 +105,17 @@ public class Host : Game
             _motherboard = null;
         }
 
-        _motherboard = new Motherboard(model);
+        _motherboard = new Motherboard(model, AppSettings.Instance.AudioEngine switch
+        {
+            AudioEngine.Bass => new BassAudioEngine(),
+            _ => new PortAudioEngine()
+        });
 
         _motherboard.AddPeripheral(new Peripherals.Keyboard());
         _motherboard.AddPeripheral(new Peripherals.Kempston());
         _motherboard.AddPeripheral(new Peripherals.DiskDrive());
 
         _motherboard.Sound = AppSettings.Instance.Sound;
-
-        _motherboard.AudioEngine = AppSettings.Instance.AudioEngine switch
-        {
-            AudioEngine.Bass => new BassAudioEngine(),
-            _ => new PortAudioEngine()
-        };
 
         _motherboard.Fast = AppSettings.Instance.Speed == Speed.Fast;
         _motherboard.Slow = AppSettings.Instance.Speed == Speed.Slow;

@@ -85,7 +85,7 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
         set => _ayAudio.AudioEngine = value;
     }
 
-    public Motherboard(Model model)
+    public Motherboard(Model model, IZenAudioEngine engine)
     {
         _model = model;
 
@@ -110,7 +110,7 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
 
         _videoModulator = new VideoModulator(_ram);
         
-        _ayAudio = new AyAudio();
+        _ayAudio = new AyAudio(engine);
 
         _ayAudio.Start();
 
