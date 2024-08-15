@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Text.Json;
 using Zen.Common.Infrastructure;
 using Zen.System.Infrastructure;
@@ -34,22 +35,31 @@ public class AppSettings
 
     private static AppSettings GetAppSettings()
     {
-        AppSettings settings;
+        var settings = new AppSettings
+        {
+            AudioEngine = RuntimeInformation.IsOSPlatform(OSPlatform.Linux)
+                ? AudioEngine.Bass
+                : AudioEngine.PortAudio,
+            ScaleFactor = 2,
+            Sound = true,
+            SystemModel = Model.SpectrumPlus2
+        };
         
         try
         {
-            var json = File.ReadAllText(SettingsFile);
+            if (File.Exists(SettingsFile))
+            {
+                var json = File.ReadAllText(SettingsFile);
 
-            settings = JsonSerializer.Deserialize<AppSettings>(json);
-
-            settings.Speed = Speed.Normal;
+                settings = JsonSerializer.Deserialize<AppSettings>(json);
+            }
         }
         catch (Exception exception)
         {
             Logger.LogException(nameof(AppSettings), exception);
-
-            settings = new AppSettings();
         }
+
+        settings.Speed = Speed.Normal;
 
         return settings;
     }
