@@ -8,7 +8,7 @@ public class BassAudioEngine : IZenAudioEngine
 {
     private static readonly AutoResetEvent ResetEvent = new(true);
 
-    private readonly int _sampleHandle;
+    private int _sampleHandle = -1;
 
     private int _channel = -1;
     
@@ -31,21 +31,17 @@ public class BassAudioEngine : IZenAudioEngine
                     break;
             }
         }
-
-        try
-        {
-            Bass.BASS_Init(-1, Constants.SampleRate, BASSInit.BASS_DEVICE_MONO, 0);
-            
-            _sampleHandle = Bass.BASS_SampleCreate(Constants.DefaultBufferSize * 4, Constants.SampleRate, 1, 1, BASSFlag.BASS_SAMPLE_FLOAT);
-        }
-        catch (Exception exception)
-        {
-            Logger.LogException(nameof(BassAudioEngine), exception);
-        }
+        
+        Initialise();
     }
 
     public void Send(float[] data)
     {
+        if (_sampleHandle == -1)
+        {
+            return;
+        }
+        
         if (! _first)
         {
             ResetEvent.WaitOne();
@@ -64,13 +60,36 @@ public class BassAudioEngine : IZenAudioEngine
         Bass.BASS_ChannelPlay(_channel, false);
     }
 
-    private static void PlayComplete(int handle, int channel, int data, IntPtr user)
+    public void Reset()
     {
-        ResetEvent.Set();
+        // Bass.BASS_Free();
+        //
+        // Thread.Sleep(100);
+        //
+        Initialise();
     }
 
     public void Dispose()
     {
         Bass.BASS_Free();
+    }
+
+    private static void PlayComplete(int handle, int channel, int data, IntPtr user)
+    {
+        ResetEvent.Set();
+    }
+
+    private void Initialise()
+    {
+        try
+        {
+            Bass.BASS_Init(-1, Constants.SampleRate, BASSInit.BASS_DEVICE_MONO, 0);
+            
+            _sampleHandle = Bass.BASS_SampleCreate(Constants.DefaultBufferSize * 4, Constants.SampleRate, 1, 1, BASSFlag.BASS_SAMPLE_FLOAT);
+        }
+        catch (Exception exception)
+        {
+            Logger.LogException(nameof(BassAudioEngine), exception);
+        }
     }
 }
