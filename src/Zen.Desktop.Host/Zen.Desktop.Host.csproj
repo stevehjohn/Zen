@@ -30,9 +30,6 @@
     <ProjectReference Include="..\Zen.Utilities\Zen.Utilities.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <None Update="app-settings.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Update="Rom Images\ZX Spectrum +2\image-0.rom">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
