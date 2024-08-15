@@ -16,7 +16,7 @@ mkdir MacOS
 cp -R ../../src/Zen.Desktop.Host/bin/Release/net8.0/osx-arm64/publish/* MacOS
 mkdir Resources
 cp -R MacOS/_Content Resources
-cp ../../icon.icns Resources
+cp ../../Images/icon.icns Resources
 cp ../../src/Zen.Desktop.Host/Info.plist .
 cd ..
 cd ..
@@ -37,7 +37,7 @@ mkdir MacOS
 cp -R ../../src/Zen.Desktop.Host/bin/Release/net8.0/osx-x64/publish/* MacOS
 mkdir Resources
 cp MacOS/_Content Resources
-cp ../../icon.icns Resources
+cp ../../Images/icon.icns Resources
 cp ../../src/Zen.Desktop.Host/Info.plist .
 cd ..
 cd ..

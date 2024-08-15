@@ -42,7 +42,8 @@ public class AppSettings
                 : AudioEngine.PortAudio,
             ScaleFactor = 2,
             Sound = true,
-            SystemModel = Model.SpectrumPlus2
+            SystemModel = Model.SpectrumPlus2,
+            ViewCounters = true
         };
         
         try
