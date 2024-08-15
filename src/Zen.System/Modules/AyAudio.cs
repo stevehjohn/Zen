@@ -62,6 +62,7 @@ public class AyAudio : IDisposable
             
             _engine = value; 
         }
+        get => _engine;
     }
 
     public bool Silent { get; set; }
