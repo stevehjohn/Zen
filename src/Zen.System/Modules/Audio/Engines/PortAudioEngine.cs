@@ -7,9 +7,31 @@ namespace Zen.System.Modules.Audio.Engines;
 
 public class PortAudioEngine : IZenAudioEngine
 {
-    private readonly IAudioEngine? _engine;
+    private IAudioEngine? _engine;
 
     public PortAudioEngine()
+    {
+        Initialise();
+    }
+
+    public void Send(float[] data)
+    {
+        _engine?.Send(data);
+    }
+
+    public void Reset()
+    {
+        _engine?.Dispose();
+        
+        Initialise();
+    }
+
+    public void Dispose()
+    {
+        _engine?.Dispose();
+    }
+
+    private void Initialise()
     {
         try
         {
@@ -35,15 +57,5 @@ public class PortAudioEngine : IZenAudioEngine
         {
             Logger.LogException(nameof(PortAudioEngine), exception);
         }
-    }
-
-    public void Send(float[] data)
-    {
-        _engine?.Send(data);
-    }
-
-    public void Dispose()
-    {
-        _engine?.Dispose();
     }
 }
