@@ -62,10 +62,6 @@ public class BassAudioEngine : IZenAudioEngine
 
     public void Reset()
     {
-        // Bass.BASS_Free();
-        //
-        // Thread.Sleep(100);
-        //
         Initialise();
     }
 
@@ -83,7 +79,7 @@ public class BassAudioEngine : IZenAudioEngine
     {
         try
         {
-            Bass.BASS_Init(-1, Constants.SampleRate, BASSInit.BASS_DEVICE_MONO, 0);
+            Bass.BASS_Init(-1, Constants.SampleRate, BASSInit.BASS_DEVICE_MONO, IntPtr.Zero);
             
             _sampleHandle = Bass.BASS_SampleCreate(Constants.DefaultBufferSize * 4, Constants.SampleRate, 1, 1, BASSFlag.BASS_SAMPLE_FLOAT);
         }
