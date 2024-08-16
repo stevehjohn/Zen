@@ -55,7 +55,7 @@ public class BassAudioEngine : IZenAudioEngine
         
         _channel = ManagedBass.BASS_SampleGetChannel(_sampleHandle, BassFlag.BASS_SAMCHAN_STREAM);
         
-        ManagedBass.BASS_ChannelSetSync(_channel, BassSync.BASS_SYNC_END | BassSync.BASS_SYNC_ONETIME, Constants.DefaultBufferSize * 4, PlayComplete, IntPtr.Zero);
+        Logger.LogException(ManagedBass.BASS_ChannelSetSync(_channel, BassSync.BASS_SYNC_END | BassSync.BASS_SYNC_ONETIME, Constants.DefaultBufferSize * 4, PlayComplete, IntPtr.Zero).ToString(), new Exception());
         
         ManagedBass.BASS_ChannelPlay(_channel, false);
     }
@@ -79,9 +79,17 @@ public class BassAudioEngine : IZenAudioEngine
     {
         try
         {
-            ManagedBass.BASS_Init(-1, Constants.SampleRate, BassInit.BASS_DEVICE_MONO, IntPtr.Zero);
-            
+            if (! ManagedBass.BASS_Init(-1, Constants.SampleRate, BassInit.BASS_DEVICE_MONO, IntPtr.Zero))
+            {
+                throw new BassException("Error initialising BASS library.");
+            }
+
             _sampleHandle = ManagedBass.BASS_SampleCreate(Constants.DefaultBufferSize * 4, Constants.SampleRate, 1, 1, BassFlag.BASS_SAMPLE_FLOAT);
+
+            if (_sampleHandle == 0)
+            {
+                throw new BassException("Error creating BASS sample.");
+            }
         }
         catch (Exception exception)
         {

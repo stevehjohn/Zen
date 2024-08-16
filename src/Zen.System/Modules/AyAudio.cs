@@ -286,7 +286,7 @@ public class AyAudio : IDisposable
             try
             {
                 _resetEvent.WaitOne();
-
+                
                 _resetEvent.Reset();
 
                 for (var i = 0; i < Constants.DefaultBufferSize; i++)
