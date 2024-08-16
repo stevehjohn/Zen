@@ -10,8 +10,6 @@ public enum MenuResult
     SpeedNormal,
     SpeedFast,
     SpeedSlow,
-    SpeedQuarter,
-    SpeedHalf,
     SpeedLocked,
     SaveState,
     LoadState,

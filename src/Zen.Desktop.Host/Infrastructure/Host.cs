@@ -305,22 +305,6 @@ public class Host : Game
                 TargetElapsedTime = TimeSpan.FromMilliseconds(16.666);
 
                 break;
-            
-            case MenuResult.SpeedHalf:
-                _motherboard.Fast = false;
-                _motherboard.Slow = false;
-                                
-                TargetElapsedTime = TimeSpan.FromMilliseconds(40);
-
-                break;
-            
-            case MenuResult.SpeedQuarter:
-                _motherboard.Fast = false;
-                _motherboard.Slow = false;
-                
-                TargetElapsedTime = TimeSpan.FromMilliseconds(80);
-    
-                break;
 
             case MenuResult.SaveState:
                 SaveState();
