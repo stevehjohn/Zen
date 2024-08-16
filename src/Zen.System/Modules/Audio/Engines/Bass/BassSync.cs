@@ -2,6 +2,7 @@
 // ReSharper disable UnusedMember.Global
 namespace Zen.System.Modules.Audio.Engines.Bass;
 
+[Flags]
 public enum BassSync
 {
     BASS_SYNC_POS = 0,
