@@ -81,14 +81,18 @@ public class BassAudioEngine : IZenAudioEngine
         {
             if (! ManagedBass.BASS_Init(-1, Constants.SampleRate, BassInit.BASS_DEVICE_MONO, IntPtr.Zero))
             {
-                throw new BassException("Error initialising BASS library.");
+                var code = ManagedBass.BASS_ErrorGetCode();
+                
+                throw new BassException($"Error {code} initialising BASS library.");
             }
 
             _sampleHandle = ManagedBass.BASS_SampleCreate(Constants.DefaultBufferSize * 4, Constants.SampleRate, 1, 1, BassFlag.BASS_SAMPLE_FLOAT);
 
             if (_sampleHandle == 0)
             {
-                throw new BassException("Error creating BASS sample.");
+                var code = ManagedBass.BASS_ErrorGetCode();
+                
+                throw new BassException($"Error {code} creating BASS sample.");
             }
         }
         catch (Exception exception)
