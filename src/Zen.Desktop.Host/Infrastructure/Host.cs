@@ -121,6 +121,7 @@ public class Host : Game
         if (AppSettings.Instance.Speed == Speed.Locked)
         {
             _motherboard.Worker.Locked = true;
+            _motherboard.AyAudio.Locked = true;
             
             TargetElapsedTime = TimeSpan.FromMilliseconds(20);
         }
@@ -272,6 +273,7 @@ public class Host : Game
                 _motherboard.Fast = false;
                 _motherboard.Slow = false;
                 _motherboard.Worker.Locked = false;
+                _motherboard.AyAudio.Locked = false;
 
                 TargetElapsedTime = TimeSpan.FromTicks(166667L);
 
@@ -281,6 +283,7 @@ public class Host : Game
                 _motherboard.Fast = false;
                 _motherboard.Slow = false;
                 _motherboard.Worker.Locked = true;
+                _motherboard.AyAudio.Locked = true;
                 
                 TargetElapsedTime = TimeSpan.FromMilliseconds(20);
 
@@ -290,7 +293,8 @@ public class Host : Game
                 _motherboard.Fast = true;
                 _motherboard.Slow = false;
                 _motherboard.Worker.Locked = false;
-                
+                _motherboard.AyAudio.Locked = false;
+
                 TargetElapsedTime = TimeSpan.FromTicks(166667L);
 
                 break;
@@ -299,7 +303,8 @@ public class Host : Game
                 _motherboard.Fast = false;
                 _motherboard.Slow = true;
                 _motherboard.Worker.Locked = false;
-                                
+                _motherboard.AyAudio.Locked = false;
+
                 TargetElapsedTime = TimeSpan.FromTicks(166667L);
 
                 break;

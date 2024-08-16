@@ -53,6 +53,8 @@ public class AyAudio : IDisposable
         get => _engine;
     }
 
+    public bool Locked { get; set; }
+    
     public bool Silent { get; set; }
 
     public Action<float[]>? AySignalHook { get; set; }
@@ -78,7 +80,18 @@ public class AyAudio : IDisposable
 
     public void Start()
     {
-        _audioThread = Task.Run(RunFrame, _cancellationToken);
+        _audioThread = Task.Run(() =>
+        {
+            if (! Locked)
+            {
+                RunFrameInternal();
+            }
+        }, _cancellationToken);
+    }
+
+    public void RunFrame()
+    {
+        RunFrameInternal();
     }
 
     public void FrameReady(ManualResetEvent resetEvent)
@@ -267,7 +280,7 @@ public class AyAudio : IDisposable
         _engine.Dispose();
     }
 
-    private void RunFrame()
+    private void RunFrameInternal()
     {
         var signals = new float[3];
 

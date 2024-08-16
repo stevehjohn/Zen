@@ -189,6 +189,11 @@ public class Worker : IDisposable
 
             _ayAudio.FrameReady(_resetEvent);
 
+            if (Locked)
+            {
+                _ayAudio.RunFrame();
+            }
+
             _resetEvent.Reset();
         }
         catch (Exception exception)
