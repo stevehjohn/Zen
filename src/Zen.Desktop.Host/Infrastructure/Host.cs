@@ -228,7 +228,7 @@ public class Host : Game
             _motherboard.Resume();
         }
 
-        if (AppSettings.Instance.Speed == Speed.Fast)
+        if (AppSettings.Instance.Speed == Speed.Locked)
         {
             _motherboard.Worker.RunFrame();
         }
