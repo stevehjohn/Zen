@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
-using Un4seen.Bass;
 using Zen.Common.Infrastructure;
+using Zen.System.Modules.Audio.Engines.Bass;
 
 namespace Zen.System.Modules.Audio.Engines;
 
@@ -51,13 +51,13 @@ public class BassAudioEngine : IZenAudioEngine
             _first = false;
         }
 
-        Bass.BASS_SampleSetData(_sampleHandle, data);
+        ManagedBass.BASS_SampleSetData(_sampleHandle, data);
         
-        _channel = Bass.BASS_SampleGetChannel(_sampleHandle, BASSFlag.BASS_SAMCHAN_STREAM);
+        _channel = ManagedBass.BASS_SampleGetChannel(_sampleHandle, BassFlag.BASS_SAMCHAN_STREAM);
         
-        Bass.BASS_ChannelSetSync(_channel, BASSSync.BASS_SYNC_END | BASSSync.BASS_SYNC_ONETIME, Constants.DefaultBufferSize * 4, PlayComplete, IntPtr.Zero);
+        ManagedBass.BASS_ChannelSetSync(_channel, BassSync.BASS_SYNC_END | BassSync.BASS_SYNC_ONETIME, Constants.DefaultBufferSize * 4, PlayComplete, IntPtr.Zero);
         
-        Bass.BASS_ChannelPlay(_channel, false);
+        ManagedBass.BASS_ChannelPlay(_channel, false);
     }
 
     public void Reset()
@@ -67,7 +67,7 @@ public class BassAudioEngine : IZenAudioEngine
 
     public void Dispose()
     {
-        Bass.BASS_Free();
+        ManagedBass.BASS_Free();
     }
 
     private static void PlayComplete(int handle, int channel, int data, IntPtr user)
@@ -79,9 +79,9 @@ public class BassAudioEngine : IZenAudioEngine
     {
         try
         {
-            Bass.BASS_Init(-1, Constants.SampleRate, BASSInit.BASS_DEVICE_MONO, IntPtr.Zero);
+            ManagedBass.BASS_Init(-1, Constants.SampleRate, BassInit.BASS_DEVICE_MONO, IntPtr.Zero);
             
-            _sampleHandle = Bass.BASS_SampleCreate(Constants.DefaultBufferSize * 4, Constants.SampleRate, 1, 1, BASSFlag.BASS_SAMPLE_FLOAT);
+            _sampleHandle = ManagedBass.BASS_SampleCreate(Constants.DefaultBufferSize * 4, Constants.SampleRate, 1, 1, BassFlag.BASS_SAMPLE_FLOAT);
         }
         catch (Exception exception)
         {
