@@ -113,157 +113,35 @@ public enum BassFlag
     BASS_MIDI_FONT_LINDECVOL = BASS_STREAM_DECODE, // 0x00200000
     BASS_MIDI_FONT_NORAMPIN = BASS_MIDI_ASYNC, // 0x00400000
     BASS_MIDI_FONT_NOLIMITS = BASS_MIDI_SINCINTER, // 0x00800000
-
-    /// <summary>
-    /// BASSMIDI add-on: Treat the reverb/chorus levels in the soundfont as minimums. The higher of them and the MIDI levels (CC91/93) will be used instead of the sum of both.
-    /// </summary>
     BASS_MIDI_FONT_MINFX = BASS_SPEAKER_PAIR1, // 0x01000000
-
-    /// <summary>
-    /// BASSMIDI add-on: Don't send a WAVE header to the encoder. If this flag is used then the sample format (mono 16-bit) must be passed to the encoder some other way, eg. via the command-line.
-    /// </summary>
     BASS_MIDI_PACK_NOHEAD = BASS_SAMCHAN_NEW, // 0x00000001
-
-    /// <summary>
-    /// BASSMIDI add-on: Reduce 24-bit sample data to 16-bit before encoding.
-    /// </summary>
     BASS_MIDI_PACK_16BIT = BASS_SAMCHAN_STREAM, // 0x00000002
-
-    /// <summary>
-    /// BASSMIDI add-on: Set encoding rate to 48000 Hz (else 44100 Hz).
-    /// </summary>
     BASS_MIDI_PACK_48KHZ = BASS_SAMPLE_LOOP, // 0x00000004
-
-    /// <summary>BASS_FX add-on: Free the source handle as well?</summary>
     BASS_FX_FREESOURCE = BASS_MIDI_FONT_MEM, // 0x00010000
-
-    /// <summary>
-    /// BASS_FX add-on: If in use, then you can do other stuff while detection's in process.
-    /// </summary>
     BASS_FX_BPM_BKGRND = BASS_MIDI_PACK_NOHEAD, // 0x00000001
-
-    /// <summary>
-    /// BASS_FX add-on: If in use, then will auto multiply bpm by 2 (if BPM &lt; MinBPM*2)
-    /// </summary>
     BASS_FX_BPM_MULT2 = BASS_MIDI_PACK_16BIT, // 0x00000002
-
-    /// <summary>
-    /// BASS_FX add-on (AddOn.Fx.BassFx.BASS_FX_TempoCreate): Uses a linear interpolation mode (simple).
-    /// </summary>
     BASS_FX_TEMPO_ALGO_LINEAR = BASS_CD_SUBCHANNEL, // 0x00000200
-
-    /// <summary>
-    /// BASS_FX add-on (AddOn.Fx.BassFx.BASS_FX_TempoCreate): Uses a cubic interpolation mode (recommended, default).
-    /// </summary>
     BASS_FX_TEMPO_ALGO_CUBIC = BASS_MIDI_NODRUMPARAM, // 0x00000400
-
-    /// <summary>
-    /// BASS_FX add-on (AddOn.Fx.BassFx.BASS_FX_TempoCreate): Uses a 8-tap band-limited Shannon interpolation (complex, but not much better than cubic).
-    /// </summary>
     BASS_FX_TEMPO_ALGO_SHANNON = BASS_MIDI_NOSYSRESET, // 0x00000800
-
-    /// <summary>
-    /// Music: Use 32-bit floating-point sample data (see <a href="../Overview.html#FloatingPoint">Floating-Point Channels</a> for details). WDM drivers or the BASS_STREAM_DECODE flag are required to use this flag.
-    /// </summary>
     BASS_MUSIC_FLOAT = BASS_SAMPLE_FLOAT, // 0x00000100
-
-    /// <summary>
-    /// Music: Decode/play the mod music in mono, reducing the CPU usage (if it was originally stereo).
-    /// This flag is automatically applied if BASS_DEVICE_MONO was specified when calling <see cref="M:Un4seen.Bass.Bass.BASS_Init(System.Int32,System.Int32,Un4seen.Bass.BASSInit,System.IntPtr,System.IntPtr)" />.
-    /// </summary>
     BASS_MUSIC_MONO = BASS_FX_BPM_MULT2, // 0x00000002
-
-    /// <summary>
-    /// Music: Loop the music. This flag can be toggled at any time using <see cref="M:Un4seen.Bass.Bass.BASS_ChannelFlags(System.Int32,Un4seen.Bass.BASSFlag,Un4seen.Bass.BASSFlag)" />.
-    /// </summary>
     BASS_MUSIC_LOOP = BASS_MIDI_PACK_48KHZ, // 0x00000004
-
-    /// <summary>
-    /// Music: Use 3D functionality. This is ignored if BASS_DEVICE_3D wasn't specified when calling <see cref="M:Un4seen.Bass.Bass.BASS_Init(System.Int32,System.Int32,Un4seen.Bass.BASSInit,System.IntPtr,System.IntPtr)" />.
-    /// <para>3D streams must be mono (chans=1). The SPEAKER flags can not be used together with this flag.</para>
-    /// </summary>
     BASS_MUSIC_3D = BASS_SAMPLE_3D, // 0x00000008
-
-    /// <summary>
-    /// Music: Enable the old implementation of DirectX 8 effects. See the <a href="../Overview.html#DX8DMOEffects">DX8 effect implementations</a> section for details.
-    /// <para>Use <see cref="M:Un4seen.Bass.Bass.BASS_ChannelSetFX(System.Int32,Un4seen.Bass.BASSFXType,System.Int32)" /> to add effects to the stream. Requires DirectX 8 or above.</para>
-    /// </summary>
     BASS_MUSIC_FX = BASS_SAMPLE_FX, // 0x00000080
-
-    /// <summary>
-    /// Music: Automatically free the music when it ends. This allows you to play a music and forget about it, as BASS will automatically free the music's resources when it has reached the end or when <see cref="M:Un4seen.Bass.Bass.BASS_ChannelStop(System.Int32)" /> (or <see cref="M:Un4seen.Bass.Bass.BASS_Stop" />) is called.
-    /// <para>Note that some musics never actually end on their own (ie. without you stopping them).</para>
-    /// </summary>
     BASS_MUSIC_AUTOFREE = BASS_MIDI_FONT_XGDRUMS, // 0x00040000
-
-    /// <summary>
-    /// Music: Decode the music into sample data, without outputting it.
-    /// <para>Use <see cref="M:Un4seen.Bass.Bass.BASS_ChannelGetData(System.Int32,System.IntPtr,System.Int32)" /> to retrieve decoded sample data.
-    /// BASS_SAMPLE_SOFTWARE/3D/FX/AUTOFREE are ignored when using this flag, as are the SPEAKER flags.</para>
-    /// </summary>
     BASS_MUSIC_DECODE = BASS_MIDI_FONT_LINDECVOL, // 0x00200000
-
-    /// <summary>
-    /// Music: Calculate the playback length of the music, and enable seeking in bytes. This slightly increases the time taken to load the music, depending on how long it is.
-    /// <para>In the case of musics that loop, the length until the loop occurs is calculated. Use <see cref="M:Un4seen.Bass.Bass.BASS_ChannelGetLength(System.Int32,Un4seen.Bass.BASSMode)" /> to retrieve the length.</para>
-    /// </summary>
     BASS_MUSIC_PRESCAN = BASS_MIDI_FONT_MMAP, // 0x00020000
-
-    /// <summary>
-    /// Music: Use "normal" ramping (as used in FastTracker 2).
-    /// </summary>
     BASS_MUSIC_RAMP = BASS_FX_TEMPO_ALGO_LINEAR, // 0x00000200
-
-    /// <summary>Music: Use "sensitive" ramping.</summary>
     BASS_MUSIC_RAMPS = BASS_FX_TEMPO_ALGO_CUBIC, // 0x00000400
-
-    /// <summary>
-    /// Music: Apply XMPlay's surround sound to the music (ignored in mono).
-    /// </summary>
     BASS_MUSIC_SURROUND = BASS_FX_TEMPO_ALGO_SHANNON, // 0x00000800
-
-    /// <summary>
-    /// Music: Apply XMPlay's surround sound mode 2 to the music (ignored in mono).
-    /// </summary>
     BASS_MUSIC_SURROUND2 = BASS_MIDI_DECAYEND, // 0x00001000
-
-    /// <summary>Music: Apply FastTracker 2 panning to XM files.</summary>
     BASS_MUSIC_FT2PAN = BASS_MIDI_NOFX, // 0x00002000
-
-    /// <summary>Music: Play .MOD file as FastTracker 2 would.</summary>
     BASS_MUSIC_FT2MOD = BASS_MUSIC_FT2PAN, // 0x00002000
-
-    /// <summary>Music: Play .MOD file as ProTracker 1 would.</summary>
     BASS_MUSIC_PT1MOD = BASS_MIDI_DECAYSEEK, // 0x00004000
-
-    /// <summary>
-    /// Music: Use non-interpolated mixing. This generally reduces the sound quality, but can be good for chip-tunes.
-    /// </summary>
     BASS_MUSIC_NONINTER = BASS_FX_FREESOURCE, // 0x00010000
-
-    /// <summary>
-    ///  Music: Sinc interpolated sample mixing.
-    /// This increases the sound quality, but also requires quite a bit more processing. If neither this or the BASS_MUSIC_NONINTER flag is specified, linear interpolation is used.
-    /// </summary>
     BASS_MUSIC_SINCINTER = BASS_MIDI_FONT_NOLIMITS, // 0x00800000
-
-    /// <summary>
-    /// Music: Stop all notes when seeking (using <see cref="M:Un4seen.Bass.Bass.BASS_ChannelSetPosition(System.Int32,System.Int64,Un4seen.Bass.BASSMode)" />).
-    /// </summary>
     BASS_MUSIC_POSRESET = BASS_MIDI_NOCROP, // 0x00008000
-
-    /// <summary>Music: Stop all notes and reset bpm/etc when seeking.</summary>
     BASS_MUSIC_POSRESETEX = BASS_MIDI_FONT_NORAMPIN, // 0x00400000
-
-    /// <summary>
-    /// Music: Stop the music when a backward jump effect is played. This stops musics that never reach the end from going into endless loops.
-    /// <para>Some MOD musics are designed to jump all over the place, so this flag would cause those to be stopped prematurely.
-    /// If this flag is used together with the BASS_SAMPLE_LOOP flag, then the music would not be stopped but any BASS_SYNC_END sync would be triggered.</para>
-    /// </summary>
     BASS_MUSIC_STOPBACK = BASS_MIDI_FONT_NOFX, // 0x00080000
-
-    /// <summary>
-    /// Music: Don't load the samples. This reduces the time taken to load the music, notably with MO3 files, which is useful if you just want to get the name and length of the music without playing it.
-    /// </summary>
     BASS_MUSIC_NOSAMPLE = BASS_MIDI_FONT_LINATTMOD, // 0x00100000
 }
