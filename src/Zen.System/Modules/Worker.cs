@@ -41,6 +41,8 @@ public class Worker : IDisposable
     public bool Fast { get; set; }
     
     public bool Slow { get; set; }
+    
+    public bool Locked { get; set; }
 
     public Worker(Interface @interface, VideoModulator videoModulator, AyAudio ayAudio)
     {
@@ -109,15 +111,9 @@ public class Worker : IDisposable
     {
         while (! _cancellationToken.IsCancellationRequested)
         {
-            try
+            if (! Locked)
             {
                 RunFrame();
-            }
-            catch (Exception exception)
-            {
-                Logger.LogException(nameof(Worker), exception);
-
-                throw;
             }
         }
         // ReSharper disable once FunctionNeverReturns
@@ -125,73 +121,82 @@ public class Worker : IDisposable
 
     public void RunFrame()
     {
-        if (! _paused)
+        try
         {
-            _frameCycles = 0;
-
-            _videoModulator.StartFrame();
-
-            while (_frameCycles < Constants.FrameCycles)
+            if (! _paused)
             {
-                if (_frameCycles is >= Constants.InterruptStart and < Constants.InterruptEnd)
+                _frameCycles = 0;
+
+                _videoModulator.StartFrame();
+
+                while (_frameCycles < Constants.FrameCycles)
                 {
-                    _interface.INT = true;
-
-                    _scanStates = 0;
-
-                    _lastScanComplete = 0;
-                }
-                else
-                {
-                    _interface.INT = false;
-                }
-
-                ClearFrameRamBuffer();
-
-                var cycles = OnTick(_frameCycles);
-
-                var instructionCycles = 0;
-                
-                for (var i = 0; i < 7; i++)
-                {
-                    if (i > 0 && cycles[i] == 0)
+                    if (_frameCycles is >= Constants.InterruptStart and < Constants.InterruptEnd)
                     {
-                        break;
+                        _interface.INT = true;
+
+                        _scanStates = 0;
+
+                        _lastScanComplete = 0;
+                    }
+                    else
+                    {
+                        _interface.INT = false;
                     }
 
-                    _frameCycles += cycles[i];
+                    ClearFrameRamBuffer();
 
-                    instructionCycles += cycles[i];
+                    var cycles = OnTick(_frameCycles);
 
-                    _frameCycles += ApplyFrameRamChanges(i, _frameCycles, cycles);
+                    var instructionCycles = 0;
 
-                    if (cycles[i] > 0)
+                    for (var i = 0; i < 7; i++)
                     {
-                        _videoModulator.CycleComplete(_frameCycles);
+                        if (i > 0 && cycles[i] == 0)
+                        {
+                            break;
+                        }
+
+                        _frameCycles += cycles[i];
+
+                        instructionCycles += cycles[i];
+
+                        _frameCycles += ApplyFrameRamChanges(i, _frameCycles, cycles);
+
+                        if (cycles[i] > 0)
+                        {
+                            _videoModulator.CycleComplete(_frameCycles);
+                        }
+                    }
+
+                    _scanStates += instructionCycles;
+
+                    if (Slow && _scanStates - _lastScanComplete > Constants.StatesPerScreenLine * Constants.SlowScanFactor)
+                    {
+                        _scanResetEvent.WaitOne();
+
+                        _lastScanComplete = _scanStates;
                     }
                 }
 
-                _scanStates += instructionCycles;
-
-                if (Slow && _scanStates - _lastScanComplete > Constants.StatesPerScreenLine * Constants.SlowScanFactor)
+                if (! Fast)
                 {
-                    _scanResetEvent.WaitOne();
-
-                    _lastScanComplete = _scanStates;
+                    _resetEvent.WaitOne();
                 }
+
+                Counters.Instance.IncrementCounter(Counter.SpectrumFrames);
             }
 
-            if (! Fast)
-            {
-                _resetEvent.WaitOne();
-            }
+            _ayAudio.FrameReady(_resetEvent);
 
-            Counters.Instance.IncrementCounter(Counter.SpectrumFrames);
+            _resetEvent.Reset();
         }
+        catch (Exception exception)
+        {
+            Logger.LogException(nameof(Worker), exception);
 
-        _ayAudio.FrameReady(_resetEvent);
-
-        _resetEvent.Reset();
+            throw;
+        }
     }
 
     private void ClearFrameRamBuffer()
