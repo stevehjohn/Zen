@@ -29,5 +29,8 @@ public static class ManagedBass
     [return: MarshalAs((UnmanagedType) 2)]
     public static extern bool BASS_Free();
 
+    [DllImport("Libraries/libbass")]
+    public static extern int BASS_ErrorGetCode();
+
     public delegate void SyncProc(int handle, int channel, int data, IntPtr user);
 }
