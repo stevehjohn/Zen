@@ -43,12 +43,12 @@ public class PortAudioEngine : IZenAudioEngine
                 }
                 else
                 {
-                    BufdioLib.InitializePortAudio(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "libportaudio.dylib"));
+                    BufdioLib.InitializePortAudio(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Libraries", "libportaudio.dylib"));
                 }
             }
             else
             {
-                BufdioLib.InitializePortAudio(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "libportaudio"));
+                BufdioLib.InitializePortAudio(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Libraries", "libportaudio"));
             }
 
             _engine = new Bufdio.Engines.PortAudioEngine(new AudioEngineOptions(1, Constants.SampleRate));
