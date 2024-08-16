@@ -68,6 +68,8 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
     {
         set => _worker.Slow = value;
     }
+    
+    public Worker Worker => _worker;
 
     public bool Sound
     {

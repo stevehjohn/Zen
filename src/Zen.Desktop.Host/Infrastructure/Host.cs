@@ -228,6 +228,11 @@ public class Host : Game
             _motherboard.Resume();
         }
 
+        if (AppSettings.Instance.Speed == Speed.Fast)
+        {
+            _motherboard.Worker.RunFrame();
+        }
+
         if (Keyboard.GetState().IsKeyDown(Keys.Tab) && _menuSystem == null)
         {
             _motherboard.Pause();
