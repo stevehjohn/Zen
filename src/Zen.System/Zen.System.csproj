@@ -18,7 +18,6 @@
 
   <ItemGroup>
     <PackageReference Include="Bufdio" Version="0.1.0" />
-    <PackageReference Include="radio42.Bass.Net.core" Version="2.4.17.5" />
   </ItemGroup>
 
   <ItemGroup>
