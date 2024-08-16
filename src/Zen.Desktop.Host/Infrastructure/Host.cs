@@ -256,7 +256,6 @@ public class Host : Game
                 SetMotherboard((Model) arguments);
                 _motherboard.Fast = false;
                 _motherboard.Slow = false;
-                AppSettings.Instance.Speed = Speed.Normal;
 
                 _motherboard.Start();
 
