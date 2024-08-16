@@ -5,6 +5,7 @@ public enum Speed
     Slow,
     Quarter,
     Half,
+    Locked,
     Normal,
     Fast
 }
