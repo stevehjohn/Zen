@@ -32,7 +32,7 @@ public class AyAudio : IDisposable
 
     private byte _registerNumber;
 
-    private float[] _buffer;
+    private readonly float[] _buffer;
 
     private int _readQueue;
 
@@ -41,18 +41,6 @@ public class AyAudio : IDisposable
     private float _amplitude;
 
     private ManualResetEvent? _workerResetEvent;
-
-    private int _bufferSize = Constants.DefaultBufferSize;
-
-    public int BufferSize
-    {
-        set
-        {
-            _bufferSize = value;
-
-            _buffer = new float[_bufferSize];
-        }
-    }
 
     public IZenAudioEngine AudioEngine
     {
@@ -65,6 +53,8 @@ public class AyAudio : IDisposable
         get => _engine;
     }
 
+    public bool Locked { get; set; }
+    
     public bool Silent { get; set; }
 
     public Action<float[]>? AySignalHook { get; set; }
@@ -75,7 +65,7 @@ public class AyAudio : IDisposable
     {
         _engine = engine;
         
-        _buffer = new float[_bufferSize];
+        _buffer = new float[Constants.DefaultBufferSize];
 
         _cancellationTokenSource = new CancellationTokenSource();
 
@@ -90,7 +80,13 @@ public class AyAudio : IDisposable
 
     public void Start()
     {
-        _audioThread = Task.Run(RunFrame, _cancellationToken);
+        _audioThread = Task.Run(() =>
+        {
+            if (! Locked)
+            {
+                RunFrame();
+            }
+        }, _cancellationToken);
     }
 
     public void FrameReady(ManualResetEvent resetEvent)
@@ -283,7 +279,7 @@ public class AyAudio : IDisposable
     {
         var signals = new float[3];
 
-        var bufferStep = (float) Common.Constants.FrameCycles / (_bufferSize - 1);
+        var bufferStep = (float) Common.Constants.FrameCycles / (Constants.DefaultBufferSize - 1);
 
         while (! _cancellationToken.IsCancellationRequested)
         {
@@ -293,7 +289,7 @@ public class AyAudio : IDisposable
 
                 _resetEvent.Reset();
 
-                for (var i = 0; i < _bufferSize; i++)
+                for (var i = 0; i < Constants.DefaultBufferSize; i++)
                 {
                     if (Silent)
                     {
