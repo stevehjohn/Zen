@@ -283,8 +283,8 @@ public class Host : Game
                 _motherboard.Fast = false;
                 _motherboard.Slow = false;
                 _motherboard.Worker.Locked = false;
-                
-                TargetElapsedTime = TimeSpan.FromMilliseconds(16.666);
+
+                TargetElapsedTime = TimeSpan.FromTicks(166667L);
 
                 break;
 
@@ -302,7 +302,7 @@ public class Host : Game
                 _motherboard.Slow = false;
                 _motherboard.Worker.Locked = false;
                 
-                TargetElapsedTime = TimeSpan.FromMilliseconds(16.666);
+                TargetElapsedTime = TimeSpan.FromTicks(166667L);
 
                 break;
             
@@ -311,7 +311,7 @@ public class Host : Game
                 _motherboard.Slow = true;
                 _motherboard.Worker.Locked = false;
                                 
-                TargetElapsedTime = TimeSpan.FromMilliseconds(16.666);
+                TargetElapsedTime = TimeSpan.FromTicks(166667L);
 
                 break;
 
