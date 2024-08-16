@@ -90,7 +90,7 @@ public class Host : Game
         IsMouseVisible = false;
 
         SetMotherboard(AppSettings.Instance.SystemModel);
-
+        
         InactiveSleepTime = TimeSpan.FromMilliseconds(0);
     }
 
