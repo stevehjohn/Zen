@@ -15,8 +15,9 @@ public class SpeedMenu : MenuBase
                         new(1, false, $"[1] {(AppSettings.Instance.Speed == Speed.Slow ? ">" : " ")} Scanline {(AppSettings.Instance.Speed == Speed.Slow ? "<" : " ")}", Color.Yellow, 1, 3, Keys.D1, Color.LightGreen),
                         new(2, false, $"[2] {(AppSettings.Instance.Speed == Speed.Quarter ? ">" : " ")} Quarter {(AppSettings.Instance.Speed == Speed.Quarter ? "<" : " ")}", Color.Yellow, 1, 5, Keys.D2, Color.LightGreen),
                         new(3, false, $"[3] {(AppSettings.Instance.Speed == Speed.Half ? ">" : " ")} Half {(AppSettings.Instance.Speed == Speed.Half ? "<" : " ")}", Color.Yellow, 1, 7, Keys.D3, Color.LightGreen),
-                        new(4, false, $"[4] {(AppSettings.Instance.Speed == Speed.Normal ? ">" : " ")} Normal {(AppSettings.Instance.Speed == Speed.Normal ? "<" : " ")}", Color.Yellow, 1, 9, Keys.D4, Color.LightGreen),
-                        new(5, false, $"[5] {(AppSettings.Instance.Speed == Speed.Fast ? ">" : " ")} As Fast As Possible {(AppSettings.Instance.Speed == Speed.Fast ? "<" : " ")}", Color.Yellow, 1, 11, Keys.D5, Color.LightGreen),
+                        new(4, false, $"[4] {(AppSettings.Instance.Speed == Speed.Locked ? ">" : " ")} Locked 50Hz {(AppSettings.Instance.Speed == Speed.Locked ? "<" : " ")}", Color.Yellow, 1, 9, Keys.D4, Color.LightGreen),
+                        new(5, false, $"[5] {(AppSettings.Instance.Speed == Speed.Normal ? ">" : " ")} Normal {(AppSettings.Instance.Speed == Speed.Normal ? "<" : " ")}", Color.Yellow, 1, 9, Keys.D5, Color.LightGreen),
+                        new(6, false, $"[6] {(AppSettings.Instance.Speed == Speed.Fast ? ">" : " ")} As Fast As Possible {(AppSettings.Instance.Speed == Speed.Fast ? "<" : " ")}", Color.Yellow, 1, 11, Keys.D6, Color.LightGreen),
                         new(96, true, "This setting is not saved", Color.Wheat, 0, 15, null),
                         new(97, true, "Zen always starts", Color.Wheat, 0, 17, null),
                         new(98, true, "at Normal speed", Color.Wheat, 0, 18, null),
@@ -46,11 +47,16 @@ public class SpeedMenu : MenuBase
                 return (MenuResult.SpeedHalf, null, null);
 
             case 4:
+                AppSettings.Instance.Speed = Speed.Locked;
+
+                return (MenuResult.SpeedLocked, null, null);
+
+            case 5:
                 AppSettings.Instance.Speed = Speed.Normal;
 
                 return (MenuResult.SpeedNormal, null, null);
 
-            case 5:
+            case 6:
                 AppSettings.Instance.Speed = Speed.Fast;
 
                 return (MenuResult.SpeedFast, null, null);
