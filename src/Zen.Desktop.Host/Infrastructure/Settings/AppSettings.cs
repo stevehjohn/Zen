@@ -62,7 +62,7 @@ public class AppSettings
 
         settings.Speed = RuntimeInformation.IsOSPlatform(OSPlatform.Linux)
             ? Speed.Locked
-            : Speed.Locked;
+            : Speed.Normal;
 
         return settings;
     }
