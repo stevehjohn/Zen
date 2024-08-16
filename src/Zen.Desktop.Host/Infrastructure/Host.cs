@@ -279,6 +279,17 @@ public class Host : Game
                 _motherboard.Fast = false;
                 _motherboard.Slow = false;
                 _motherboard.AyAudio.BufferSize = System.Modules.Audio.Constants.DefaultBufferSize;
+                
+                TargetElapsedTime = TimeSpan.FromMilliseconds(16.666);
+
+                break;
+
+            case MenuResult.SpeedLocked:
+                _motherboard.Fast = false;
+                _motherboard.Slow = false;
+                _motherboard.AyAudio.BufferSize = System.Modules.Audio.Constants.DefaultBufferSize;
+                
+                TargetElapsedTime = TimeSpan.FromMilliseconds(20);
 
                 break;
 
@@ -286,6 +297,8 @@ public class Host : Game
                 _motherboard.Fast = true;
                 _motherboard.Slow = false;
                 _motherboard.AyAudio.BufferSize = System.Modules.Audio.Constants.DefaultBufferSize;
+                
+                TargetElapsedTime = TimeSpan.FromMilliseconds(16.666);
 
                 break;
             
@@ -293,21 +306,27 @@ public class Host : Game
                 _motherboard.Fast = false;
                 _motherboard.Slow = true;
                 _motherboard.AyAudio.BufferSize = System.Modules.Audio.Constants.DefaultBufferSize;
-                
+                                
+                TargetElapsedTime = TimeSpan.FromMilliseconds(16.666);
+
                 break;
             
             case MenuResult.SpeedHalf:
                 _motherboard.Fast = false;
                 _motherboard.Slow = false;
                 _motherboard.AyAudio.BufferSize = System.Modules.Audio.Constants.DefaultBufferSize * 2;
-                
+                                
+                TargetElapsedTime = TimeSpan.FromMilliseconds(16.666);
+
                 break;
             
             case MenuResult.SpeedQuarter:
                 _motherboard.Fast = false;
                 _motherboard.Slow = false;
                 _motherboard.AyAudio.BufferSize = System.Modules.Audio.Constants.DefaultBufferSize * 4;
-
+                
+                TargetElapsedTime = TimeSpan.FromMilliseconds(16.666);
+    
                 break;
 
             case MenuResult.SaveState:
