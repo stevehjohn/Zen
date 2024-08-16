@@ -22,8 +22,6 @@ namespace Zen.Desktop.Host.Infrastructure;
 
 public class Host : Game
 {
-    private const int StartPause = 30;
-
     // ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
     private readonly GraphicsDeviceManager _graphicsDeviceManager;
 
@@ -40,8 +38,6 @@ public class Host : Game
     private bool _hostStarted;
 
     private MenuSystem _menuSystem;
-
-    private int? _pause = StartPause;
 
     private bool _soundState;
 
@@ -122,6 +118,14 @@ public class Host : Game
         _motherboard.Fast = AppSettings.Instance.Speed == Speed.Fast;
         _motherboard.Slow = AppSettings.Instance.Speed == Speed.Slow;
 
+        if (AppSettings.Instance.Speed == Speed.Locked)
+        {
+            _motherboard.Worker.Locked = true;
+            _motherboard.AyAudio.Locked = true;
+            
+            TargetElapsedTime = TimeSpan.FromMilliseconds(20);
+        }
+
         _imageName = $"Standard {model} ROM";
 
         AppSettings.Instance.SystemModel = model;
@@ -151,8 +155,6 @@ public class Host : Game
         if (! _hostStarted)
         {
             _motherboard.Start();
-
-            _motherboard.Pause();
 
             _hostStarted = true;
 
@@ -216,16 +218,9 @@ public class Host : Game
 
     protected override void Update(GameTime gameTime)
     {
-        if (_pause != null)
+        if (AppSettings.Instance.Speed == Speed.Locked)
         {
-            _pause--;
-        }
-
-        if (_pause == 0)
-        {
-            _pause = null;
-
-            _motherboard.Resume();
+            _motherboard.Worker.RunFrame();
         }
 
         if (Keyboard.GetState().IsKeyDown(Keys.Tab) && _menuSystem == null)
@@ -261,7 +256,6 @@ public class Host : Game
                 SetMotherboard((Model) arguments);
                 _motherboard.Fast = false;
                 _motherboard.Slow = false;
-                _motherboard.AyAudio.BufferSize = System.Modules.Audio.Constants.DefaultBufferSize;
                 AppSettings.Instance.Speed = Speed.Normal;
 
                 _motherboard.Start();
@@ -278,35 +272,40 @@ public class Host : Game
             case MenuResult.SpeedNormal:
                 _motherboard.Fast = false;
                 _motherboard.Slow = false;
-                _motherboard.AyAudio.BufferSize = System.Modules.Audio.Constants.DefaultBufferSize;
+                _motherboard.Worker.Locked = false;
+                _motherboard.AyAudio.Locked = false;
+
+                TargetElapsedTime = TimeSpan.FromTicks(166667L);
+
+                break;
+
+            case MenuResult.SpeedLocked:
+                _motherboard.Fast = false;
+                _motherboard.Slow = false;
+                _motherboard.Worker.Locked = true;
+                _motherboard.AyAudio.Locked = true;
+                
+                TargetElapsedTime = TimeSpan.FromMilliseconds(20);
 
                 break;
 
             case MenuResult.SpeedFast:
                 _motherboard.Fast = true;
                 _motherboard.Slow = false;
-                _motherboard.AyAudio.BufferSize = System.Modules.Audio.Constants.DefaultBufferSize;
+                _motherboard.Worker.Locked = false;
+                _motherboard.AyAudio.Locked = false;
+
+                TargetElapsedTime = TimeSpan.FromTicks(166667L);
 
                 break;
             
             case MenuResult.SpeedSlow:
                 _motherboard.Fast = false;
                 _motherboard.Slow = true;
-                _motherboard.AyAudio.BufferSize = System.Modules.Audio.Constants.DefaultBufferSize;
-                
-                break;
-            
-            case MenuResult.SpeedHalf:
-                _motherboard.Fast = false;
-                _motherboard.Slow = false;
-                _motherboard.AyAudio.BufferSize = System.Modules.Audio.Constants.DefaultBufferSize * 2;
-                
-                break;
-            
-            case MenuResult.SpeedQuarter:
-                _motherboard.Fast = false;
-                _motherboard.Slow = false;
-                _motherboard.AyAudio.BufferSize = System.Modules.Audio.Constants.DefaultBufferSize * 4;
+                _motherboard.Worker.Locked = false;
+                _motherboard.AyAudio.Locked = false;
+
+                TargetElapsedTime = TimeSpan.FromTicks(166667L);
 
                 break;
 
