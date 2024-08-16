@@ -24,8 +24,6 @@ public class AyAudio : IDisposable
 
     private readonly byte[] _registerValues = new byte[256];
 
-    private readonly ManualResetEvent _resetEvent = new(false);
-
     private readonly Queue<(int Frame, Command Command, byte Value)>[] _commandQueues;
 
     private Task? _audioThread;
@@ -84,8 +82,6 @@ public class AyAudio : IDisposable
     public void FrameReady(ManualResetEvent resetEvent)
     {
         _workerResetEvent = resetEvent;
-
-        _resetEvent.Set();
     }
 
     public void SelectRegister(int cycle, byte registerNumber)
@@ -277,10 +273,6 @@ public class AyAudio : IDisposable
         {
             try
             {
-                _resetEvent.WaitOne();
-
-                _resetEvent.Reset();
-
                 for (var i = 0; i < Constants.DefaultBufferSize; i++)
                 {
                     if (Silent)
