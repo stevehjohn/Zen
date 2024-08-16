@@ -7,9 +7,3 @@ rm -rf src/Zen.Desktop.Host/bin
 rm -rf src/Zen.Utilities/bin
 rm -rf src/Zen.Z80.Test.JSMoo/bin
 rm -rf src/Zen.Z80.Tests.Fuse/bin
-
-
-
-
-
-
