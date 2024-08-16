@@ -16,11 +16,12 @@ public class SpeedMenu : MenuBase
                         new(2, false, $"[2] {(AppSettings.Instance.Speed == Speed.Quarter ? ">" : " ")} Quarter {(AppSettings.Instance.Speed == Speed.Quarter ? "<" : " ")}", Color.Yellow, 1, 5, Keys.D2, Color.LightGreen),
                         new(3, false, $"[3] {(AppSettings.Instance.Speed == Speed.Half ? ">" : " ")} Half {(AppSettings.Instance.Speed == Speed.Half ? "<" : " ")}", Color.Yellow, 1, 7, Keys.D3, Color.LightGreen),
                         new(4, false, $"[4] {(AppSettings.Instance.Speed == Speed.Locked ? ">" : " ")} Locked 50Hz {(AppSettings.Instance.Speed == Speed.Locked ? "<" : " ")}", Color.Yellow, 1, 9, Keys.D4, Color.LightGreen),
-                        new(5, false, $"[5] {(AppSettings.Instance.Speed == Speed.Normal ? ">" : " ")} Normal {(AppSettings.Instance.Speed == Speed.Normal ? "<" : " ")}", Color.Yellow, 1, 9, Keys.D5, Color.LightGreen),
-                        new(6, false, $"[6] {(AppSettings.Instance.Speed == Speed.Fast ? ">" : " ")} As Fast As Possible {(AppSettings.Instance.Speed == Speed.Fast ? "<" : " ")}", Color.Yellow, 1, 11, Keys.D6, Color.LightGreen),
+                        new(5, false, $"[5] {(AppSettings.Instance.Speed == Speed.Normal ? ">" : " ")} Normal {(AppSettings.Instance.Speed == Speed.Normal ? "<" : " ")}", Color.Yellow, 1, 11, Keys.D5, Color.LightGreen),
+                        new(6, false, $"[6] {(AppSettings.Instance.Speed == Speed.Fast ? ">" : " ")} As Fast As Possible {(AppSettings.Instance.Speed == Speed.Fast ? "<" : " ")}", Color.Yellow, 1, 13, Keys.D6, Color.LightGreen),
                         new(96, true, "This setting is not saved", Color.Wheat, 0, 15, null),
                         new(97, true, "Zen always starts", Color.Wheat, 0, 17, null),
-                        new(98, true, "at Normal speed", Color.Wheat, 0, 18, null),
+                        new(98, true, "at Normal speed or", Color.Wheat, 0, 18, null),
+                        new(98, true, "Locked 50Hz on Linux", Color.Wheat, 0, 19, null),
                         new(99, true, "[ESC] Close Menu", Color.FromNonPremultiplied(255, 64, 64, 255), 0, 21, Keys.Escape, Color.LightGreen)
                     };
 
