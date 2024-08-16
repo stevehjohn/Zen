@@ -22,8 +22,6 @@ namespace Zen.Desktop.Host.Infrastructure;
 
 public class Host : Game
 {
-    private const int StartPause = 30;
-
     // ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
     private readonly GraphicsDeviceManager _graphicsDeviceManager;
 
@@ -40,8 +38,6 @@ public class Host : Game
     private bool _hostStarted;
 
     private MenuSystem _menuSystem;
-
-    private int? _pause = StartPause;
 
     private bool _soundState;
 
@@ -159,8 +155,6 @@ public class Host : Game
         {
             _motherboard.Start();
 
-            _motherboard.Pause();
-
             _hostStarted = true;
 
             _motherboard.Fast = AppSettings.Instance.Speed == Speed.Fast;
@@ -223,18 +217,6 @@ public class Host : Game
 
     protected override void Update(GameTime gameTime)
     {
-        if (_pause != null)
-        {
-            _pause--;
-        }
-
-        if (_pause == 0)
-        {
-            _pause = null;
-
-            _motherboard.Resume();
-        }
-
         if (AppSettings.Instance.Speed == Speed.Locked)
         {
             _motherboard.Worker.RunFrame();
