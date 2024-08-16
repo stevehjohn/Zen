@@ -18,12 +18,11 @@ public class Ram
 
     private byte _screenBank = 5;
 
-    public bool ProtectRom { get; set; }
+    public bool ProtectRom { get; init; }
 
     public byte ScreenBank
     {
         set => _screenBank = (byte) (value == 1 ? 5 : 7);
-        get => _screenBank;
     }
 
     public byte[] WorkingScreenRam => _banks[_screenBank];
