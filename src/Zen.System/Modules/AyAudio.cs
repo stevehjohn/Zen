@@ -84,14 +84,9 @@ public class AyAudio : IDisposable
         {
             if (! Locked)
             {
-                RunFrameInternal();
+                RunFrame();
             }
         }, _cancellationToken);
-    }
-
-    public void RunFrame()
-    {
-        RunFrameInternal();
     }
 
     public void FrameReady(ManualResetEvent resetEvent)
@@ -280,7 +275,7 @@ public class AyAudio : IDisposable
         _engine.Dispose();
     }
 
-    private void RunFrameInternal()
+    private void RunFrame()
     {
         var signals = new float[3];
 
