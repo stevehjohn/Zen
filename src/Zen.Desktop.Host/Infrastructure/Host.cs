@@ -282,6 +282,7 @@ public class Host : Game
             case MenuResult.SpeedNormal:
                 _motherboard.Fast = false;
                 _motherboard.Slow = false;
+                _motherboard.Worker.Locked = false;
                 
                 TargetElapsedTime = TimeSpan.FromMilliseconds(16.666);
 
@@ -290,6 +291,7 @@ public class Host : Game
             case MenuResult.SpeedLocked:
                 _motherboard.Fast = false;
                 _motherboard.Slow = false;
+                _motherboard.Worker.Locked = true;
                 
                 TargetElapsedTime = TimeSpan.FromMilliseconds(20);
 
@@ -298,6 +300,7 @@ public class Host : Game
             case MenuResult.SpeedFast:
                 _motherboard.Fast = true;
                 _motherboard.Slow = false;
+                _motherboard.Worker.Locked = false;
                 
                 TargetElapsedTime = TimeSpan.FromMilliseconds(16.666);
 
@@ -306,6 +309,7 @@ public class Host : Game
             case MenuResult.SpeedSlow:
                 _motherboard.Fast = false;
                 _motherboard.Slow = true;
+                _motherboard.Worker.Locked = false;
                                 
                 TargetElapsedTime = TimeSpan.FromMilliseconds(16.666);
 
