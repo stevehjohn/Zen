@@ -21,25 +21,25 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="libbass.dylib">
+    <None Update="Libraries\libbass.dylib">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="libbass.so.arm64">
+    <None Update="Libraries\libbass.so.arm64">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="bass.dll">
+    <None Update="Libraries\libbass.so.x64">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="libbass.so.x64">
+    <None Update="Libraries\libportaudio.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="libportaudio.dll">
+    <None Update="Libraries\libportaudio.dylib">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="libportaudio.dylib">
+    <None Update="Libraries\libportaudio.so">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="libportaudio.so">
+    <None Update="Libraries\libbass.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
