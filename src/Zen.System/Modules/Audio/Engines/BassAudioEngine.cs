@@ -16,17 +16,17 @@ public class BassAudioEngine : IZenAudioEngine
     
     public BassAudioEngine()
     {
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux) && ! File.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "libbass.so")))
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux) && ! File.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Libraries", "libbass.so")))
         {
             switch (RuntimeInformation.ProcessArchitecture)
             {
                 case Architecture.X64:
-                    File.Copy(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "libbass.so.x64"), Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "libbass.so"));
+                    File.Copy(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Libraries", "libbass.so.x64"), Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Libraries", "libbass.so"));
 
                     break;
                 
                 default:
-                    File.Copy(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "libbass.so.arm64"), Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "libbass.so"));
+                    File.Copy(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Libraries", "libbass.so.arm64"), Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Libraries", "libbass.so"));
                     
                     break;
             }
