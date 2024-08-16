@@ -111,73 +111,7 @@ public class Worker : IDisposable
         {
             try
             {
-                if (! _paused)
-                {
-                    _frameCycles = 0;
-
-                    _videoModulator.StartFrame();
-
-                    while (_frameCycles < Constants.FrameCycles)
-                    {
-                        if (_frameCycles is >= Constants.InterruptStart and < Constants.InterruptEnd)
-                        {
-                            _interface.INT = true;
-
-                            _scanStates = 0;
-
-                            _lastScanComplete = 0;
-                        }
-                        else
-                        {
-                            _interface.INT = false;
-                        }
-
-                        ClearFrameRamBuffer();
-
-                        var cycles = OnTick(_frameCycles);
-
-                        var instructionCycles = 0;
-                        
-                        for (var i = 0; i < 7; i++)
-                        {
-                            if (i > 0 && cycles[i] == 0)
-                            {
-                                break;
-                            }
-
-                            _frameCycles += cycles[i];
-
-                            instructionCycles += cycles[i];
-
-                            _frameCycles += ApplyFrameRamChanges(i, _frameCycles, cycles);
-
-                            if (cycles[i] > 0)
-                            {
-                                _videoModulator.CycleComplete(_frameCycles);
-                            }
-                        }
-
-                        _scanStates += instructionCycles;
-
-                        if (Slow && _scanStates - _lastScanComplete > Constants.StatesPerScreenLine * Constants.SlowScanFactor)
-                        {
-                            _scanResetEvent.WaitOne();
-
-                            _lastScanComplete = _scanStates;
-                        }
-                    }
-
-                    if (! Fast)
-                    {
-                        _resetEvent.WaitOne();
-                    }
-
-                    Counters.Instance.IncrementCounter(Counter.SpectrumFrames);
-                }
-
-                _ayAudio.FrameReady(_resetEvent);
-
-                _resetEvent.Reset();
+                RunFrame();
             }
             catch (Exception exception)
             {
@@ -187,6 +121,77 @@ public class Worker : IDisposable
             }
         }
         // ReSharper disable once FunctionNeverReturns
+    }
+
+    private void RunFrame()
+    {
+        if (! _paused)
+        {
+            _frameCycles = 0;
+
+            _videoModulator.StartFrame();
+
+            while (_frameCycles < Constants.FrameCycles)
+            {
+                if (_frameCycles is >= Constants.InterruptStart and < Constants.InterruptEnd)
+                {
+                    _interface.INT = true;
+
+                    _scanStates = 0;
+
+                    _lastScanComplete = 0;
+                }
+                else
+                {
+                    _interface.INT = false;
+                }
+
+                ClearFrameRamBuffer();
+
+                var cycles = OnTick(_frameCycles);
+
+                var instructionCycles = 0;
+                
+                for (var i = 0; i < 7; i++)
+                {
+                    if (i > 0 && cycles[i] == 0)
+                    {
+                        break;
+                    }
+
+                    _frameCycles += cycles[i];
+
+                    instructionCycles += cycles[i];
+
+                    _frameCycles += ApplyFrameRamChanges(i, _frameCycles, cycles);
+
+                    if (cycles[i] > 0)
+                    {
+                        _videoModulator.CycleComplete(_frameCycles);
+                    }
+                }
+
+                _scanStates += instructionCycles;
+
+                if (Slow && _scanStates - _lastScanComplete > Constants.StatesPerScreenLine * Constants.SlowScanFactor)
+                {
+                    _scanResetEvent.WaitOne();
+
+                    _lastScanComplete = _scanStates;
+                }
+            }
+
+            if (! Fast)
+            {
+                _resetEvent.WaitOne();
+            }
+
+            Counters.Instance.IncrementCounter(Counter.SpectrumFrames);
+        }
+
+        _ayAudio.FrameReady(_resetEvent);
+
+        _resetEvent.Reset();
     }
 
     private void ClearFrameRamBuffer()
