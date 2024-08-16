@@ -123,7 +123,7 @@ public class Worker : IDisposable
         // ReSharper disable once FunctionNeverReturns
     }
 
-    private void RunFrame()
+    public void RunFrame()
     {
         if (! _paused)
         {
