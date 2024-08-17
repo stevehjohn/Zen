@@ -116,7 +116,6 @@ public class Worker : IDisposable
                 RunFrame();
             }
         }
-        // ReSharper disable once FunctionNeverReturns
     }
 
     public void RunFrame()
