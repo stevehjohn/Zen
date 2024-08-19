@@ -178,9 +178,10 @@ public class Host : Game
 
         _countersVisualiser = new CountersVisualiser(_graphicsDeviceManager, Content);
 
-        _videoRenderer = new VideoRenderer(_motherboard.VideoAdapter.ScreenFrame, _graphicsDeviceManager);
-        
-        _videoRenderer.ScanComplete = ScanComplete;
+        _videoRenderer = new VideoRenderer(_motherboard.VideoAdapter.ScreenFrame, _graphicsDeviceManager)
+        {
+            ScanComplete = ScanComplete
+        };
 
         if (AppSettings.Instance.Visualisation == Visualisation.Waveforms)
         {
