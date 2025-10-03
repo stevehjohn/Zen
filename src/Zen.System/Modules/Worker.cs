@@ -132,7 +132,7 @@ public class Worker : IDisposable
                 {
                     if (_frameCycles is >= Constants.InterruptStart and < Constants.InterruptEnd)
                     {
-                        _interface.INT = true;
+                        _interface.Int = true;
 
                         _scanStates = 0;
 
@@ -140,7 +140,7 @@ public class Worker : IDisposable
                     }
                     else
                     {
-                        _interface.INT = false;
+                        _interface.Int = false;
                     }
 
                     ClearFrameRamBuffer();

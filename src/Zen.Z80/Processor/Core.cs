@@ -208,7 +208,7 @@ public class Core
 
     private void HandleInterrupts()
     {
-        if (_interface.INT)
+        if (_interface.Int)
         {
             HandleMaskableInterrupt();
         }
