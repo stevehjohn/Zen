@@ -18,7 +18,7 @@ public class Interface
         _ramConnector = ramConnector;
     }
 
-    public bool INT { get; set; }
+    public bool Int { get; set; }
 
     public byte ReadFromMemory(ushort address)
     {
