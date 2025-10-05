@@ -122,7 +122,7 @@ public class VideoRenderer
     {
         var flash = (pixel & 0b0000_0010_0000_0000) > 0;
 
-        var color = (flash && _flash) ^ ((pixel & 01000_0000_0000_0000) > 0)
+        var color = (flash && _flash) ^ ((pixel & 0b1000_0000_0000_0000) > 0)
                         ? pixel & 0b0000_0111
                         : (pixel & 0b0011_1000) >> 3;
 
@@ -145,7 +145,7 @@ public class VideoRenderer
     {
         var flash = (pixel & 0b0000_0010_0000_0000) > 0;
 
-        var color = (flash && _flash) ^ ((pixel & 01000_0000_0000_0000) > 0)
+        var color = (flash && _flash) ^ ((pixel & 0b1000_0000_0000_0000) > 0)
             ? pixel & 0b0000_0111
             : (pixel & 0b0011_1000) >> 3;
 
