@@ -138,7 +138,7 @@ public class Core
 
         Counters.Instance.IncrementCounter(Counter.Instructions);
 
-        if (_state.InstructionPrefix > 0xFF)
+        if (_state.InstructionPrefix is 0xDDCB or 0xFDCB)
         {
             opcode = _state.InstructionPrefix << 8 | _parameters[1];
 
