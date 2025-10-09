@@ -110,6 +110,10 @@ public class Core
 
         _state.InstructionPrefix = 0;
 
+#if LOG
+        Log(instruction);
+#endif
+
         _state.ProgramCounter++;
 
         if (instruction.ParameterLength > 0)
@@ -125,11 +129,7 @@ public class Core
         }
 
         UpdateR(instruction);
-
-#if LOG
-        Log(instruction);
-#endif
-
+        
         instruction.Execute(_parameters);
 
         instruction.UseCount++;
