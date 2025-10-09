@@ -82,7 +82,7 @@ public class Core
 
             UpdateR(instruction);
 
-            instruction.Execute(Array.Empty<byte>());
+            instruction.Execute([]);
 
             instruction.UseCount++;
 
