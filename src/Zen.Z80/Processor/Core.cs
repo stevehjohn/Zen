@@ -1,4 +1,4 @@
-﻿//#define LOG
+﻿// #define LOG
 
 using Zen.Common.Infrastructure;
 using Zen.Z80.Implementation;
@@ -126,13 +126,13 @@ public class Core
 
         UpdateR(instruction);
 
-        instruction.Execute(_parameters);
-
-        instruction.UseCount++;
-
 #if LOG
         Log(instruction);
 #endif
+
+        instruction.Execute(_parameters);
+
+        instruction.UseCount++;
 
         Counters.Instance.IncrementCounter(Counter.Hertz, _state.ClockCycles);
 
