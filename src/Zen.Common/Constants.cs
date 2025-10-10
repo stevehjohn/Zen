@@ -20,8 +20,6 @@ public static class Constants
     /* Timing */
     public const int FrameCycles = 70_908;
 
-    public const int StatesPerScreenLine = 228;
-
     public const int StatesPerPaperLine = 128;
 
     public const int PaperRegionStart = 14_592;
@@ -29,6 +27,18 @@ public static class Constants
     public const int InterruptStart = 32;
 
     public const int InterruptEnd = 68;
+
+    public const int FrameCyclesPlus = 70_908;
+
+    public const int StatesPerScreenLinePlus = 228;
+
+    public const int PaperRegionStartPlus = 14_592;
+
+    public const int InterruptStartPlus = 32;
+
+    public const int InterruptEndPlus = 68;
+
+    public const int StatesPerScreenLine = 228;
 
     public const int DisplayStartState = (16 + 48 - BorderPixels) * StatesPerScreenLine;
 
