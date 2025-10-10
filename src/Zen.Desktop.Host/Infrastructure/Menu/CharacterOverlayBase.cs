@@ -42,11 +42,9 @@ public class CharacterOverlayBase
 
         _colorFrameDelay = AppSettings.Instance.Speed switch
         {
-            Speed.Slow => 10,
-            Speed.Normal => 10,
-            Speed.Fast => 10,
+            Speed.Locked50 => 4,
             Speed.Locked60 => 5,
-            _ => 4
+            _ => 10
         };
     }
     
