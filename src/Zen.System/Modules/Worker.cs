@@ -42,6 +42,8 @@ public class Worker : IDisposable
     private int _interruptEnd;
 
     private int _statesPerScreenLine;
+
+    private int _expectedFrameCycles;
     
     public int FrameCycles => _frameCycles;
 
@@ -62,6 +64,7 @@ public class Worker : IDisposable
                     _interruptStart = Constants.InterruptStartPlus;
                     _interruptEnd = Constants.InterruptEndPlus;
                     _statesPerScreenLine = Constants.StatesPerScreenLine;
+                    _expectedFrameCycles = Constants.FrameCycles;
 
                     break;
                 
@@ -69,6 +72,7 @@ public class Worker : IDisposable
                     _interruptStart = Constants.InterruptStart;
                     _interruptEnd = Constants.InterruptEnd;
                     _statesPerScreenLine = Constants.StatesPerScreenLinePlus;
+                    _expectedFrameCycles = Constants.FrameCyclesPlus;
                     
                     break;
             }
@@ -161,7 +165,7 @@ public class Worker : IDisposable
 
                 _videoModulator.StartFrame();
 
-                while (_frameCycles < Constants.FrameCycles)
+                while (_frameCycles < _expectedFrameCycles)
                 {
                     if (_frameCycles >= _interruptStart && _frameCycles < _interruptEnd)
                     {
