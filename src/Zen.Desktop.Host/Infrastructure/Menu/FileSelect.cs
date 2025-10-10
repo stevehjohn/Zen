@@ -14,11 +14,11 @@ namespace Zen.Desktop.Host.Infrastructure.Menu;
 
 public class FileSelect : CharacterOverlayBase
 {
-    private const int SelectDelayFramesSlow = 10;
+    private readonly int _selectDelayFramesSlow;
 
-    private const int SelectDelayFramesVerySlow = 24;
+    private readonly int _selectDelayFramesVerySlow;
 
-    private readonly int _selectDelayFramesFast = 5;
+    private readonly int _selectDelayFramesFast;
 
     private const int FileRows = 16;
 
@@ -74,6 +74,10 @@ public class FileSelect : CharacterOverlayBase
             Speed.Locked60 => 5,
             _ => 10
         };
+
+        _selectDelayFramesSlow = _selectDelayFramesFast * 2;
+
+        _selectDelayFramesVerySlow = _selectDelayFramesFast * 5;
     }
 
     public void Update()
@@ -240,13 +244,13 @@ public class FileSelect : CharacterOverlayBase
             {
                 _path = _files[_top + _y].FullPath;
 
-                _selectDelay = SelectDelayFramesSlow;
+                _selectDelay = _selectDelayFramesSlow;
 
                 _folderSelected = true;
             }
             else
             {
-                _selectDelay = SelectDelayFramesVerySlow;
+                _selectDelay = _selectDelayFramesVerySlow;
                 
                 AppSettings.Instance.LastZ80SnaPath = Path.GetDirectoryName(_files[_top + _y].FullPath);
 
@@ -258,7 +262,7 @@ public class FileSelect : CharacterOverlayBase
 
         if (keys.IsKeyDown(Keys.Escape))
         {
-            _selectDelay = SelectDelayFramesVerySlow;
+            _selectDelay = _selectDelayFramesVerySlow;
 
             _cancelled = true;
         }
