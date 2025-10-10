@@ -24,7 +24,7 @@ public static class Constants
 
     public const int StatesPerPaperLine = 128;
 
-    public const int PaperRegionStart = 14_336;
+    public const int PaperRegionStart = 14_592;
 
     public const int InterruptStart = 32;
 
