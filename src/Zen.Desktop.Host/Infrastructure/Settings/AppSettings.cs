@@ -43,7 +43,8 @@ public class AppSettings
             ScaleFactor = 2,
             Sound = true,
             SystemModel = Model.SpectrumPlus2,
-            ViewCounters = true
+            ViewCounters = true,
+            Visualisation = Visualisation.SpectrumAnalyser
         };
         
         try
