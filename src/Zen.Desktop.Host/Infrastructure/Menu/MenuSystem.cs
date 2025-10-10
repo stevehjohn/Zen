@@ -69,6 +69,7 @@ public class MenuSystem : CharacterOverlayBase
 
     public void KeyPressed(char character)
     {
+        _fileSelect?.KeyTyped(character);
     }
 
     private void ActionSelection()
