@@ -247,7 +247,7 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
         {
             var paging = (port & 0b1000_0000_0000_0010) == 0;
 
-            if (_model == Model.SpectrumPlus3)
+            if (_model is Model.SpectrumPlus2A or Model.SpectrumPlus3)
             {
                 paging &= (port & 0b0100_0000_0000_0000) > 0;
             }
@@ -262,7 +262,7 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
                 PageCall(0x7F, data);
             }
 
-            if (_model != Model.SpectrumPlus3)
+            if (_model is not (Model.SpectrumPlus2A or Model.SpectrumPlus3))
             {
                 return;
             }
