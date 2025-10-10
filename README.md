@@ -12,13 +12,17 @@ for display output.
 
 This project aims to take the lessons learned from ZXE and build upon them.
 
+Any feedback appreciated, get me on <a href="https://x.com/SteveHuwJohn">Twitter / X</a>
+
 ## Pre-built Binaries
 
 Releases can be found <a href="https://github.com/stevehjohn/Zen/releases">here</a>.
 
+The pre-built Linux binaries are experimental, i.e <a href="https://en.wiktionary.org/wiki/your_mileage_may_vary">YMMV</a>. Probably better off building it from source.
+
 Press <kbd>Tab</kbd> for the menu once running.
 
-For macOS, extract the files somewhere and execute with `./Zen.Desktop.Host`.
+For macOS and Linux, extract the files somewhere and execute with `./Zen.Desktop.Host`.
 
 For Windows, extract the files somewhere and run `Zen.Desktop.Host.exe`.
 
@@ -40,6 +44,14 @@ You may or may not need to do the second step. On my M1 MacBook, I didn't need t
 - `brew install freeimage`
 - `mkdir /usr/local/lib`
 - `sudo ln -s /opt/homebrew/Cellar/freeimage/3.18.0/lib/libfreeimage.dylib /usr/local/lib/libfreeimage`
+
+### Zen.Z80
+
+This is the core of the processor that can be used to emulate anything that uses a Z80 (in theory).
+
+### Zen.System
+
+This emulates the Spectrum motherboard and can be used as an example of how to integrate with the Zen.Z80 project.
 
 ## Useful Resources
 

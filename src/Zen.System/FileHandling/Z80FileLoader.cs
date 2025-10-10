@@ -1,4 +1,5 @@
-﻿using Zen.System.FileHandling.Interfaces;
+﻿using Zen.System.Exceptions;
+using Zen.System.FileHandling.Interfaces;
 using Zen.System.Infrastructure;
 using Zen.System.Modules;
 using Zen.Z80.Processor;
@@ -39,8 +40,7 @@ public class Z80FileLoader : IFileLoader
 
         if (data[30] is not (23 or 54 or 55))
         {
-            // TODO: Replace with proper exception.
-            throw new Exception("Dodgy file.");
+            throw new InvalidZ80FileException();
         }
 
         var ramStart = 32 + data[30];
@@ -100,14 +100,12 @@ public class Z80FileLoader : IFileLoader
 
             var romNumber = (data[35] & 0b0001_0000) >> 4;
 
-            // TODO: Do this on the motherboard
             var folder = _model switch
             {
                 Model.Spectrum128 => "ZX Spectrum 128",
                 Model.SpectrumPlus2 => "ZX Spectrum +2",
                 Model.SpectrumPlus3 => "ZX Spectrum +3",
-                // TODO: Proper exception?
-                _ => throw new Exception("Invalid model")
+                _ => throw new InvalidModelException()
             };
 
             if (_model == Model.SpectrumPlus3 && romNumber == 1)

@@ -12,6 +12,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentat
 		..\Documentation\Spectrum Defines.txt = ..\Documentation\Spectrum Defines.txt
 		..\Documentation\Z80 Microprocessor Family.pdf = ..\Documentation\Z80 Microprocessor Family.pdf
 		..\Documentation\Z80 User Manual.pdf = ..\Documentation\Z80 User Manual.pdf
+		..\Documentation\Z80 Undocumented.pdf = ..\Documentation\Z80 Undocumented.pdf
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{06811074-46FA-421F-B28C-D20E185821F8}"
@@ -20,6 +21,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\Notes.md = ..\Notes.md
 		..\README.md = ..\README.md
 		..\SupportedOpCodes.html = ..\SupportedOpCodes.html
+		Zen.Desktop.Host\Info.plist = Zen.Desktop.Host\Info.plist
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zen.System", "Zen.System\Zen.System.csproj", "{237C82AF-C844-4134-B945-C0851D1D4B06}"
@@ -35,6 +37,21 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zen.Desktop.Host", "Zen.Desktop.Host\Zen.Desktop.Host.csproj", "{5F224FF4-B320-4C9A-9C2C-8FC38997D73F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zen.Z80.Tests.Fuse", "Zen.Z80.Tests.Fuse\Zen.Z80.Tests.Fuse.csproj", "{322F3335-09DA-4B4E-AB57-E3886B15078A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Workflows", "Workflows", "{9C9DBDA3-CFBA-425E-8022-FD1135D41455}"
+	ProjectSection(SolutionItems) = preProject
+		..\.github\workflows\dotnet.yml = ..\.github\workflows\dotnet.yml
+		..\.github\workflows\publish-all.yml = ..\.github\workflows\publish-all.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{93025359-CC19-42B9-8519-2B565584455C}"
+	ProjectSection(SolutionItems) = preProject
+		..\publish.sh = ..\publish.sh
+		..\test-fuse.sh = ..\test-fuse.sh
+		..\test-jsmoo.sh = ..\test-jsmoo.sh
+		..\publish-app.sh = ..\publish-app.sh
+		..\clean.sh = ..\clean.sh
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

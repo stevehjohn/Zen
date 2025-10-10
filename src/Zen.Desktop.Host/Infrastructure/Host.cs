@@ -7,6 +7,7 @@ using System.Linq;
 using Zen.Common;
 using Zen.Common.Infrastructure;
 using Zen.Desktop.Host.Display;
+using Zen.Desktop.Host.Exceptions;
 using Zen.Desktop.Host.Features;
 using Zen.Desktop.Host.Infrastructure.Menu;
 using Zen.Desktop.Host.Infrastructure.Settings;
@@ -15,6 +16,7 @@ using Zen.Desktop.Host.ProcessorHooks.ManicMiner;
 using Zen.System;
 using Zen.System.FileHandling;
 using Zen.System.FileHandling.Interfaces;
+using Zen.System.Modules.Audio.Engines;
 using Keys = Microsoft.Xna.Framework.Input.Keys;
 using Model = Zen.System.Infrastructure.Model;
 
@@ -22,14 +24,12 @@ namespace Zen.Desktop.Host.Infrastructure;
 
 public class Host : Game
 {
-    private const int StartPause = 30;
-
     // ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
     private readonly GraphicsDeviceManager _graphicsDeviceManager;
 
     private int _scaleFactor = AppSettings.Instance.ScaleFactor;
 
-    private VideoRenderer _vRamAdapter;
+    private VideoRenderer _videoRenderer;
 
     private Motherboard _motherboard;
 
@@ -41,13 +41,15 @@ public class Host : Game
 
     private MenuSystem _menuSystem;
 
-    private int? _pause = StartPause;
-
     private bool _soundState;
 
     private WaveVisualiser _waveVisualiser;
 
+    private SpectrumAnalyser _spectrumAnalyser;
+    
     private CountersVisualiser _countersVisualiser;
+
+    private VideoRamVisualiser _videoRamVisualiser;
 
     public Host()
     {
@@ -56,7 +58,22 @@ public class Host : Game
 
         if (AppSettings.Instance.Visualisation == Visualisation.Waveforms)
         {
-            width += Constants.VisualisationPanelWidth * _scaleFactor;
+            width += Constants.WaveVisualisationPanelWidth * _scaleFactor;
+        }
+
+        if (AppSettings.Instance.Visualisation == Visualisation.SpectrumAnalyser)
+        {
+            width += Constants.SpectrumVisualisationPanelWidth * _scaleFactor;
+        }
+
+        if (AppSettings.Instance.Visualisation == Visualisation.VideoRam)
+        {
+            width += Constants.VideoRamVisualisationPanelWidth * _scaleFactor;
+        }
+        
+        if (AppSettings.Instance.Visualisation == Visualisation.VideoBanks)
+        {
+            width += Constants.VideoRamVisualisationPanelWidth * 2 * _scaleFactor;
         }
 
         if (AppSettings.Instance.ViewCounters)
@@ -70,11 +87,13 @@ public class Host : Game
                                      PreferredBackBufferHeight = height
                                  };
 
-        Content.RootDirectory = "_Content";
+        Content.RootDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "_Content");
 
         IsMouseVisible = false;
 
         SetMotherboard(AppSettings.Instance.SystemModel);
+        
+        InactiveSleepTime = TimeSpan.FromMilliseconds(0);
     }
 
     private void SetMotherboard(Model model)
@@ -86,7 +105,11 @@ public class Host : Game
             _motherboard = null;
         }
 
-        _motherboard = new Motherboard(model);
+        _motherboard = new Motherboard(model, AppSettings.Instance.AudioEngine switch
+        {
+            AudioEngine.Bass => new BassAudioEngine(),
+            _ => new PortAudioEngine()
+        });
 
         _motherboard.AddPeripheral(new Peripherals.Keyboard());
         _motherboard.AddPeripheral(new Peripherals.Kempston());
@@ -94,13 +117,20 @@ public class Host : Game
 
         _motherboard.Sound = AppSettings.Instance.Sound;
 
-        _motherboard.Fast = AppSettings.Instance.Fast;
+        _motherboard.Fast = AppSettings.Instance.Speed == Speed.Fast;
+        _motherboard.Slow = AppSettings.Instance.Speed == Speed.Slow;
+
+        if (AppSettings.Instance.Speed == Speed.Locked)
+        {
+            _motherboard.Worker.Locked = true;
+            _motherboard.AyAudio.Locked = true;
+            
+            TargetElapsedTime = TimeSpan.FromMilliseconds(20);
+        }
 
         _imageName = $"Standard {model} ROM";
 
         AppSettings.Instance.SystemModel = model;
-
-        AppSettings.Instance.Save();
 
         if (_waveVisualiser != null)
         {
@@ -110,6 +140,18 @@ public class Host : Game
         }
         
         _motherboard.AddProcessorHook(new WillyBot());
+
+        if (_videoRamVisualiser != null)
+        {
+            _videoRamVisualiser.Ram = _motherboard.Ram;
+        }
+
+        if (_spectrumAnalyser != null)
+        {
+            _motherboard.AyAudio.AySignalHook = _spectrumAnalyser.ReceiveSignals;
+
+            _motherboard.AyAudio.BeeperSignalHook = _spectrumAnalyser.ReceiveSignal;
+        }
     }
 
     protected override void OnActivated(object sender, EventArgs args)
@@ -118,11 +160,10 @@ public class Host : Game
         {
             _motherboard.Start();
 
-            _motherboard.Pause();
-
             _hostStarted = true;
 
-            _motherboard.Fast = AppSettings.Instance.Fast;
+            _motherboard.Fast = AppSettings.Instance.Speed == Speed.Fast;
+            _motherboard.Slow = AppSettings.Instance.Speed == Speed.Slow;
 
             _motherboard.Sound = AppSettings.Instance.Sound;
         }
@@ -141,6 +182,11 @@ public class Host : Game
 
         _countersVisualiser = new CountersVisualiser(_graphicsDeviceManager, Content);
 
+        _videoRenderer = new VideoRenderer(_motherboard.VideoAdapter.ScreenFrame, _graphicsDeviceManager)
+        {
+            ScanComplete = ScanComplete
+        };
+
         if (AppSettings.Instance.Visualisation == Visualisation.Waveforms)
         {
             _waveVisualiser = new WaveVisualiser(_graphicsDeviceManager);
@@ -150,30 +196,45 @@ public class Host : Game
             _motherboard.AyAudio.BeeperSignalHook = _waveVisualiser.ReceiveSignal;
         }
 
-        _vRamAdapter = new VideoRenderer(_motherboard.VideoAdapter.ScreenFrame, _graphicsDeviceManager);
+        if (AppSettings.Instance.Visualisation == Visualisation.SpectrumAnalyser)
+        {
+            _spectrumAnalyser = new SpectrumAnalyser(_graphicsDeviceManager);
+
+            _motherboard.AyAudio.AySignalHook = _spectrumAnalyser.ReceiveSignals;
+
+            _motherboard.AyAudio.BeeperSignalHook = _spectrumAnalyser.ReceiveSignal;
+        }
+
+        if (AppSettings.Instance.Visualisation == Visualisation.VideoRam)
+        {
+            _videoRamVisualiser = new VideoRamVisualiser(_graphicsDeviceManager, _motherboard.Ram, false, _videoRenderer);
+        }
+
+        if (AppSettings.Instance.Visualisation == Visualisation.VideoBanks)
+        {
+            _videoRamVisualiser = new VideoRamVisualiser(_graphicsDeviceManager, _motherboard.Ram, true, _videoRenderer);
+        }
+    }
+
+    private void ScanComplete()
+    {
+        _motherboard.ScanComplete();
     }
 
     protected override void Update(GameTime gameTime)
     {
-        if (_pause != null)
+        if (AppSettings.Instance.Speed == Speed.Locked)
         {
-            _pause--;
-        }
-
-        if (_pause == 0)
-        {
-            _pause = null;
-
-            _motherboard.Resume();
+            _motherboard.Worker.RunFrame();
         }
 
         if (Keyboard.GetState().IsKeyDown(Keys.Tab) && _menuSystem == null)
         {
             _motherboard.Pause();
 
-            _vRamAdapter.RenderDisplay();
+            _videoRenderer.RenderDisplay(_motherboard.FrameCycles);
 
-            var screen = _vRamAdapter.Display;
+            var screen = _videoRenderer.Display;
 
             _soundState = _motherboard.Sound;
 
@@ -198,10 +259,12 @@ public class Host : Game
         {
             case MenuResult.Restart:
                 SetMotherboard((Model) arguments);
+                _motherboard.Fast = false;
+                _motherboard.Slow = false;
 
                 _motherboard.Start();
 
-                _vRamAdapter.ScreenFrame = _motherboard.VideoAdapter.ScreenFrame;
+                _videoRenderer.ScreenFrame = _motherboard.VideoAdapter.ScreenFrame;
 
                 return;
 
@@ -212,11 +275,41 @@ public class Host : Game
 
             case MenuResult.SpeedNormal:
                 _motherboard.Fast = false;
+                _motherboard.Slow = false;
+                _motherboard.Worker.Locked = false;
+                _motherboard.AyAudio.Locked = false;
+
+                TargetElapsedTime = TimeSpan.FromTicks(166667L);
+
+                break;
+
+            case MenuResult.SpeedLocked:
+                _motherboard.Fast = false;
+                _motherboard.Slow = false;
+                _motherboard.Worker.Locked = true;
+                _motherboard.AyAudio.Locked = true;
+                
+                TargetElapsedTime = TimeSpan.FromMilliseconds(20);
 
                 break;
 
             case MenuResult.SpeedFast:
                 _motherboard.Fast = true;
+                _motherboard.Slow = false;
+                _motherboard.Worker.Locked = false;
+                _motherboard.AyAudio.Locked = false;
+
+                TargetElapsedTime = TimeSpan.FromTicks(166667L);
+
+                break;
+            
+            case MenuResult.SpeedSlow:
+                _motherboard.Fast = false;
+                _motherboard.Slow = true;
+                _motherboard.Worker.Locked = false;
+                _motherboard.AyAudio.Locked = false;
+
+                TargetElapsedTime = TimeSpan.FromTicks(166667L);
 
                 break;
 
@@ -235,8 +328,19 @@ public class Host : Game
 
                 break;
 
-            case MenuResult.SoundOn:
+            case MenuResult.SoundPortAudio:
                 _motherboard.Sound = true;
+                _motherboard.AudioEngine = new PortAudioEngine();
+                AppSettings.Instance.AudioEngine = AudioEngine.PortAudio;
+                AppSettings.Instance.Sound = true;
+                AppSettings.Instance.Save();
+
+                break;
+
+            case MenuResult.SoundBass:
+                _motherboard.Sound = true;
+                _motherboard.AudioEngine = new BassAudioEngine();
+                AppSettings.Instance.AudioEngine = AudioEngine.Bass;
                 AppSettings.Instance.Sound = true;
                 AppSettings.Instance.Save();
 
@@ -254,6 +358,8 @@ public class Host : Game
                 AppSettings.Instance.Save();
 
                 _waveVisualiser = null;
+                _videoRamVisualiser = null;
+                _spectrumAnalyser = null;
                 _motherboard.AyAudio.AySignalHook = null;
                 _motherboard.AyAudio.BeeperSignalHook = null;
 
@@ -266,8 +372,52 @@ public class Host : Game
                 AppSettings.Instance.Save();
 
                 _waveVisualiser = new WaveVisualiser(_graphicsDeviceManager);
+                _spectrumAnalyser = null;
+                _videoRamVisualiser = null;
                 _motherboard.AyAudio.AySignalHook = _waveVisualiser.ReceiveSignals;
                 _motherboard.AyAudio.BeeperSignalHook = _waveVisualiser.ReceiveSignal;
+
+                ChangeScale(_scaleFactor);
+
+                break;
+
+            case MenuResult.VisualisationSpectrumAnalyser:
+                AppSettings.Instance.Visualisation = Visualisation.SpectrumAnalyser;
+                AppSettings.Instance.Save();
+
+                _spectrumAnalyser = new SpectrumAnalyser(_graphicsDeviceManager);
+                _motherboard.AyAudio.AySignalHook = _spectrumAnalyser.ReceiveSignals;
+                _motherboard.AyAudio.BeeperSignalHook = _spectrumAnalyser.ReceiveSignal;
+                _videoRamVisualiser = null;
+                _waveVisualiser = null;
+
+                ChangeScale(_scaleFactor);
+
+                break;
+
+            case MenuResult.VisualisationVideoRam:
+                AppSettings.Instance.Visualisation = Visualisation.VideoRam;
+                AppSettings.Instance.Save();
+
+                _videoRamVisualiser = new VideoRamVisualiser(_graphicsDeviceManager, _motherboard.Ram, false, _videoRenderer);
+                _waveVisualiser = null;
+                _spectrumAnalyser = null;
+                _motherboard.AyAudio.AySignalHook = null;
+                _motherboard.AyAudio.BeeperSignalHook = null;
+
+                ChangeScale(_scaleFactor);
+
+                break;
+
+            case MenuResult.VisualisationVideoBanks:
+                AppSettings.Instance.Visualisation = Visualisation.VideoBanks;
+                AppSettings.Instance.Save();
+
+                _videoRamVisualiser = new VideoRamVisualiser(_graphicsDeviceManager, _motherboard.Ram, true, _videoRenderer);
+                _waveVisualiser = null;
+                _spectrumAnalyser = null;
+                _motherboard.AyAudio.AySignalHook = null;
+                _motherboard.AyAudio.BeeperSignalHook = null;
 
                 ChangeScale(_scaleFactor);
 
@@ -292,6 +442,18 @@ public class Host : Game
                 ChangeScale(_scaleFactor);
 
                 break;
+            
+            case MenuResult.SpectrumColours:
+                AppSettings.Instance.ColourScheme = ColourScheme.Spectrum;
+                AppSettings.Instance.Save();
+                
+                break;
+            
+            case MenuResult.CommodoreColours:
+                AppSettings.Instance.ColourScheme = ColourScheme.Commodore;
+                AppSettings.Instance.Save();
+                
+                break;
         }
 
         if (_soundState && result != MenuResult.SoundOff)
@@ -299,6 +461,8 @@ public class Host : Game
             _motherboard.Sound = true;
         }
 
+        _motherboard.AudioEngine.Reset();
+        
         _motherboard.Resume();
     }
 
@@ -311,7 +475,22 @@ public class Host : Game
 
         if (AppSettings.Instance.Visualisation == Visualisation.Waveforms)
         {
-            width += Constants.VisualisationPanelWidth * _scaleFactor;
+            width += Constants.WaveVisualisationPanelWidth * _scaleFactor;
+        }
+
+        if (AppSettings.Instance.Visualisation == Visualisation.SpectrumAnalyser)
+        {
+            width += Constants.SpectrumVisualisationPanelWidth * _scaleFactor;
+        }
+
+        if (AppSettings.Instance.Visualisation == Visualisation.VideoRam)
+        {
+            width += Constants.VideoRamVisualisationPanelWidth * _scaleFactor;
+        }
+
+        if (AppSettings.Instance.Visualisation == Visualisation.VideoBanks)
+        {
+            width += Constants.VideoRamVisualisationPanelWidth * 2 * _scaleFactor;
         }
 
         if (AppSettings.Instance.ViewCounters)
@@ -383,8 +562,7 @@ public class Host : Game
 
                 break;
             default:
-                // TODO: Proper exception
-                throw new Exception("Unsupported file format");
+                throw new UnsupportedFileFormatException("Unsupported file format");
         }
 
         if (loader != null)
@@ -411,9 +589,9 @@ public class Host : Game
         }
         else
         {
-            _vRamAdapter.RenderDisplay();
+            _videoRenderer.RenderDisplay(_motherboard.FrameCycles);
 
-            screen = _vRamAdapter.Display;
+            screen = _videoRenderer.Display;
         }
 
         _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp);
@@ -429,8 +607,36 @@ public class Host : Game
             if (waves != null)
             {
                 _spriteBatch.Draw(waves,
-                                  new Rectangle(Constants.ScreenWidthPixels * _scaleFactor, 0, Constants.VisualisationPanelWidth * _scaleFactor, Constants.ScreenHeightPixels * _scaleFactor), 
-                                  new Rectangle(0, 0, Constants.VisualisationPanelWidth, Constants.ScreenHeightPixels), Color.White);
+                    new Rectangle(Constants.ScreenWidthPixels * _scaleFactor, 0, Constants.WaveVisualisationPanelWidth * _scaleFactor, Constants.ScreenHeightPixels * _scaleFactor), 
+                    new Rectangle(0, 0, Constants.WaveVisualisationPanelWidth, Constants.ScreenHeightPixels), Color.White);
+            }
+        }
+
+        if (_spectrumAnalyser != null)
+        {
+            var spectrum = _spectrumAnalyser.Spectrum;
+
+            if (spectrum != null)
+            {
+                _spriteBatch.Draw(spectrum,
+                    new Rectangle(Constants.ScreenWidthPixels * _scaleFactor, 0, Constants.SpectrumVisualisationPanelWidth * _scaleFactor, Constants.ScreenHeightPixels * _scaleFactor), 
+                    new Rectangle(0, 0, Constants.SpectrumVisualisationPanelWidth, Constants.ScreenHeightPixels), Color.White);
+            }
+        }
+
+        if (_videoRamVisualiser != null)
+        {
+            if (_videoRamVisualiser.BanksView)
+            {
+                _spriteBatch.Draw(_videoRamVisualiser.RenderRam(),
+                    new Rectangle(Constants.ScreenWidthPixels * _scaleFactor, 0, Constants.VideoRamVisualisationPanelWidth * 2 * _scaleFactor, Constants.ScreenHeightPixels * _scaleFactor), 
+                    new Rectangle(0, 0, Constants.VideoRamVisualisationPanelWidth * 2, Constants.ScreenHeightPixels), Color.White);
+            }
+            else
+            {
+                _spriteBatch.Draw(_videoRamVisualiser.RenderRam(),
+                    new Rectangle(Constants.ScreenWidthPixels * _scaleFactor, 0, Constants.VideoRamVisualisationPanelWidth * _scaleFactor, Constants.ScreenHeightPixels * _scaleFactor), 
+                    new Rectangle(0, 0, Constants.VideoRamVisualisationPanelWidth, Constants.ScreenHeightPixels), Color.White);
             }
         }
 

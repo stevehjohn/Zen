@@ -1,6 +1,8 @@
 ﻿using System;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Text.Json;
+using Zen.Common.Infrastructure;
 using Zen.System.Infrastructure;
 
 namespace Zen.Desktop.Host.Infrastructure.Settings;
@@ -20,22 +22,60 @@ public class AppSettings
     public int ScaleFactor { get; set; }
     
     public bool Sound { get; set; }
+    
+    public AudioEngine AudioEngine { get; set; }
 
-    public bool Fast { get; set; }
+    public Speed Speed { get; set; }
 
     public Visualisation Visualisation { get; set; }
 
     public bool ViewCounters { get; set; }
+    
+    public ColourScheme ColourScheme { get; set; }
 
     private static AppSettings GetAppSettings()
     {
-        var json = File.ReadAllText(SettingsFile);
+        var settings = new AppSettings
+        {
+            AudioEngine = RuntimeInformation.IsOSPlatform(OSPlatform.Linux)
+                ? AudioEngine.Bass
+                : AudioEngine.PortAudio,
+            ScaleFactor = 2,
+            Sound = true,
+            SystemModel = Model.SpectrumPlus2,
+            ViewCounters = true
+        };
+        
+        try
+        {
+            if (File.Exists(SettingsFile))
+            {
+                var json = File.ReadAllText(SettingsFile);
 
-        return JsonSerializer.Deserialize<AppSettings>(json);
+                settings = JsonSerializer.Deserialize<AppSettings>(json);
+            }
+        }
+        catch (Exception exception)
+        {
+            Logger.LogException(nameof(AppSettings), exception);
+        }
+
+        settings.Speed = RuntimeInformation.IsOSPlatform(OSPlatform.Linux)
+            ? Speed.Locked
+            : Speed.Normal;
+
+        return settings;
     }
 
     public void Save()
     {
-        File.WriteAllText(SettingsFile, JsonSerializer.Serialize(this));
+        try
+        {
+            File.WriteAllText(SettingsFile, JsonSerializer.Serialize(this));
+        }
+        catch (Exception exception)
+        {
+            Logger.LogException(nameof(AppSettings), exception);
+        }
     }
 }

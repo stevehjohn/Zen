@@ -17,7 +17,12 @@ public class CharacterMap
 
     public int GetCharacterStartPixel(char character)
     {
-        return _characterMap[character];
+        if (_characterMap.TryGetValue(character, out var pixel))
+        {
+            return pixel;
+        }
+
+        return _characterMap['?'];
     }
 
     private void InitialiseCharacterMap()

@@ -16,6 +16,8 @@ public class WaveVisualiser
 
     private readonly float[][] _buffers;
 
+    private readonly float[] _centreBuffer;
+    
     private readonly Texture2D _waves;
 
     private int _bufferPosition;
@@ -30,9 +32,9 @@ public class WaveVisualiser
     {
         _graphicsDeviceManager = graphicsDeviceManager;
 
-        _data = new Color[Constants.VisualisationPanelWidth * Constants.ScreenHeightPixels];
+        _data = new Color[Constants.WaveVisualisationPanelWidth * Constants.ScreenHeightPixels];
 
-        _waves = new Texture2D(_graphicsDeviceManager.GraphicsDevice, Constants.VisualisationPanelWidth, Constants.ScreenHeightPixels);
+        _waves = new Texture2D(_graphicsDeviceManager.GraphicsDevice, Constants.WaveVisualisationPanelWidth, Constants.ScreenHeightPixels);
 
         _buffers = new float[4][];
 
@@ -40,6 +42,8 @@ public class WaveVisualiser
         {
             _buffers[i] = new float[BufferSize];
         }
+
+        _centreBuffer = new float[BufferSize];
     }
 
     public void ReceiveSignals(float[] signals)
@@ -96,15 +100,20 @@ public class WaveVisualiser
 
     private void RenderChannel(int channel)
     {
-        var width = Constants.VisualisationPanelWidth;
+        var width = Constants.WaveVisualisationPanelWidth;
 
         var height = Constants.ScreenHeightPixels / 4;
 
         var axis = channel == 3 ? height * width * channel + height * width / 2 : height * width * (channel + 1) - width;
 
-        var buffer = CentreChannel(_buffers[channel]);
-
-        var length = buffer.Length;
+        if (channel == 3)
+        {
+            CentreBeeper(_buffers[channel]);            
+        }
+        else
+        {
+            CentreChannel(_buffers[channel]);
+        }
 
         var lastOffset = 0;
 
@@ -112,7 +121,7 @@ public class WaveVisualiser
 
         for (var x = 0; x < width; x++)
         {
-            var dataPoint = buffer[(int) (x * ((float) length / width))];
+            var dataPoint = _centreBuffer[(int) (x * ((float) BufferSize / width))];
 
             var offset = -(int) (dataPoint * height * (channel == 3 ? 1 : 4));
 
@@ -132,61 +141,65 @@ public class WaveVisualiser
         }
     }
 
-    private static float[] CentreChannel(float[] buffer)
+    private void CentreChannel(float[] buffer)
     {
-        var high = float.MinValue;
+        var max = float.MinValue;
 
-        var highIndex = 0;
+        var maxPos = int.MinValue;
         
-        var low = float.MaxValue;
-
-        var lowIndex = 0;
-        
-        for (var i = 0; i < buffer.Length; i++)
+        for (var i = 0; i < BufferSize; i++)
         {
-            if (buffer[i] > high)
+            if (buffer[i] > max)
             {
-                high = buffer[i];
+                max = buffer[i];
 
-                highIndex = i;
-            }
-            
-            if (buffer[i] < low)
-            {
-                low = buffer[i];
-
-                lowIndex = i;
+                maxPos = i;
             }
         }
-
-        var delta = Math.Abs((highIndex - lowIndex) / 2);
         
-        var result = new float[buffer.Length];
+        var min = float.MaxValue;
 
-        var offset = buffer.Length / 2 - highIndex - delta + 1;
+        var minPos = int.MinValue;
 
-        if (offset >= buffer.Length)
+        for (var i = maxPos; i < BufferSize; i++)
         {
-            offset -= buffer.Length;
-        }
+            if (buffer[i] < min)
+            {
+                min = buffer[i];
 
-        for (var i = 0; i < buffer.Length; i++)
+                minPos = i;
+            }
+        }
+        
+        var startPos = maxPos - (maxPos - minPos) / 2;
+        
+        for (var i = 0; i < BufferSize; i++)
         {
-            var source = i - offset;
-
-            if (source < 0)
-            {
-                source += buffer.Length;
-            }
-
-            if (source >= buffer.Length)
-            {
-                source -= buffer.Length;
-            }
-
-            result[i] = buffer[source];
+            _centreBuffer[i] = buffer[(startPos + i) % BufferSize];
         }
+    }
+    
+    private void CentreBeeper(float[] buffer)
+    {
+        var max = float.MinValue;
 
-        return result;
+        var maxPos = int.MinValue;
+        
+        for (var i = 0; i < BufferSize; i++)
+        {
+            if (buffer[i] > max)
+            {
+                max = buffer[i];
+
+                maxPos = i;
+            }
+        }
+        
+        var startPos = BufferSize / 2 + maxPos;
+        
+        for (var i = 0; i < BufferSize; i++)
+        {
+            _centreBuffer[i] = buffer[(startPos + i) % BufferSize];
+        }
     }
 }

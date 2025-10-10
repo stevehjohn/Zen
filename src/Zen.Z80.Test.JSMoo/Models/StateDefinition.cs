@@ -1,4 +1,5 @@
 ﻿// ReSharper disable InconsistentNaming
+// ReSharper disable UnusedAutoPropertyAccessor.Global - JSON serialiser uses them
 
 using System.Diagnostics.CodeAnalysis;
 

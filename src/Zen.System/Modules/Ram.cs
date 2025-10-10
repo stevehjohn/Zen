@@ -18,18 +18,26 @@ public class Ram
 
     private byte _screenBank = 5;
 
-    public bool ProtectRom { get; set; }
+    public bool ProtectRom { get; init; }
 
     public byte ScreenBank
     {
-        get => _screenBank;
         set => _screenBank = (byte) (value == 1 ? 5 : 7);
     }
 
     public byte[] WorkingScreenRam => _banks[_screenBank];
 
-    // TODO: Return copy?
-    public byte[] Rom => _rom;
+    public byte[] Rom
+    {
+        get
+        {
+            var rom = new byte[Constants.RomSize];
+            
+            Array.Copy(_rom, rom, Constants.RomSize);
+            
+            return rom;
+        }
+    }
 
     public Ram()
     {
@@ -103,7 +111,6 @@ public class Ram
 
     public byte[] GetBank(byte bankNumber)
     {
-        // TODO: Return copy?
         return _banks[bankNumber];
     }
 

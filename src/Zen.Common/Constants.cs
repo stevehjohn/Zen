@@ -30,6 +30,10 @@ public static class Constants
 
     public const int InterruptEnd = 56;
 
+    public const int DisplayStartState = (16 + 48 - BorderPixels) * StatesPerScreenLine;
+
+    public const int DisplayEndState = DisplayStartState + (ScreenHeightPixels + BorderPixels * 2 + 1) * StatesPerScreenLine;
+
     /* RAM */
     public const int ScreenRamSize = 0x1B00;
 
@@ -41,11 +45,16 @@ public static class Constants
     public const int SpectrumFramesPerSecond = 50;
 
     /* Wave Visualiser */
-    public const int VisualisationPanelWidth = 200;
+    public const int WaveVisualisationPanelWidth = 200;
 
+    /* Spectrum Analyser Visualiser 8*/
+    public const int SpectrumVisualisationPanelWidth = 200;
+    
     /* Counters Visualiser */
     public const int CountersPanelHeight = 24;
+    
+    /* Video RAM Visualiser */
+    public const int VideoRamVisualisationPanelWidth = ScreenWidthPixels;
 
-    /* Miscellaneous */
-    public const string ExceptionsLogFileName = "exceptions.log";
+    public const int SlowScanFactor = 4;
 }
