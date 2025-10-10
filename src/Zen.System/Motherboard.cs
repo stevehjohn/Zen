@@ -238,7 +238,7 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
             _ayAudio.SetRegister(_currentFrameCycle, data);
         }
 
-        if (_pagingDisabled)
+        if (_pagingDisabled || _model == Model.Spectrum48K)
         {
             return;
         }
