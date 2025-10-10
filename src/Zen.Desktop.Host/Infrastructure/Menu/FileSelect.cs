@@ -117,8 +117,27 @@ public class FileSelect : CharacterOverlayBase
                     selectedIndex = 0;
                 }
             }
-            
-            // TODO: Move to the index.
+
+            var target = matches[selectedIndex];
+
+            while (_files[_top + _y].Display != target.Display)
+            {
+                _y++;
+
+                if (_y > FileRows)
+                {
+                    _y = FileRows - 1;
+                    
+                    _top++;
+                }
+
+                if (_y + _top > _files.Count)
+                {
+                    _y = 0;
+
+                    _top = 0;
+                }
+            }
         }
     }
 
