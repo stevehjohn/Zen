@@ -53,32 +53,6 @@ public class Worker : IDisposable
     
     public bool Locked { get; set; }
     
-    private Model Model 
-    {
-        set
-        {
-            switch (value)
-            {
-                case Model.SpectrumPlus2A:
-                case Model.SpectrumPlus3:
-                    _interruptStart = Constants.InterruptStartPlus;
-                    _interruptEnd = Constants.InterruptEndPlus;
-                    _statesPerScreenLine = Constants.StatesPerScreenLine;
-                    _expectedFrameCycles = Constants.FrameCycles;
-
-                    break;
-                
-                default:
-                    _interruptStart = Constants.InterruptStart;
-                    _interruptEnd = Constants.InterruptEnd;
-                    _statesPerScreenLine = Constants.StatesPerScreenLinePlus;
-                    _expectedFrameCycles = Constants.FrameCyclesPlus;
-                    
-                    break;
-            }
-        }
-    }
-
     public Worker(Model model, Interface @interface, VideoModulator videoModulator, AyAudio ayAudio)
     {
         _interface = @interface;
@@ -94,7 +68,25 @@ public class Worker : IDisposable
         _vramChanges[0].Address = -1;
         _vramChanges[1].Address = -1;
 
-        Model = model;
+        switch (model)
+        {
+            case Model.SpectrumPlus2A:
+            case Model.SpectrumPlus3:
+                _interruptStart = Constants.InterruptStartPlus;
+                _interruptEnd = Constants.InterruptEndPlus;
+                _statesPerScreenLine = Constants.StatesPerScreenLine;
+                _expectedFrameCycles = Constants.FrameCycles;
+
+                break;
+                
+            default:
+                _interruptStart = Constants.InterruptStart;
+                _interruptEnd = Constants.InterruptEnd;
+                _statesPerScreenLine = Constants.StatesPerScreenLinePlus;
+                _expectedFrameCycles = Constants.FrameCyclesPlus;
+                    
+                break;
+        }
     }
 
     public void Start()

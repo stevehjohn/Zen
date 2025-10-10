@@ -32,35 +32,27 @@ public class VideoModulator
 
     public byte FloatingBusValue { get; private set; }
     
-    private Model Model 
-    {
-        set
-        {
-            switch (value)
-            {
-                case Model.SpectrumPlus2A:
-                case Model.SpectrumPlus3:
-                    _screenStart = Constants.PaperRegionStartPlus - Constants.StatesPerScreenLinePlus * Constants.BorderPixels;
-                    _screenEnd = _screenStart + Constants.StatesPerScreenLinePlus * (Constants.ScreenHeightPixels + 1);
-                    _statesPerScreenLine = Constants.StatesPerScreenLinePlus;
-                        
-                    break;
-                
-                default:
-                    _screenStart = Constants.PaperRegionStart - Constants.StatesPerScreenLine * Constants.BorderPixels;
-                    _screenEnd = _screenStart + Constants.StatesPerScreenLine * (Constants.ScreenHeightPixels + 1);
-                    _statesPerScreenLine = Constants.StatesPerScreenLine;
-                    
-                    break;
-            }
-        }
-    }
-    
     public VideoModulator(Model model, Ram ram)
     {
         _ram = ram;
 
-        Model = model;
+        switch (model)
+        {
+            case Model.SpectrumPlus2A:
+            case Model.SpectrumPlus3:
+                _screenStart = Constants.PaperRegionStartPlus - Constants.StatesPerScreenLinePlus * Constants.BorderPixels;
+                _screenEnd = _screenStart + Constants.StatesPerScreenLinePlus * (Constants.ScreenHeightPixels + 1);
+                _statesPerScreenLine = Constants.StatesPerScreenLinePlus;
+                        
+                break;
+                
+            default:
+                _screenStart = Constants.PaperRegionStart - Constants.StatesPerScreenLine * Constants.BorderPixels;
+                _screenEnd = _screenStart + Constants.StatesPerScreenLine * (Constants.ScreenHeightPixels + 1);
+                _statesPerScreenLine = Constants.StatesPerScreenLine;
+                    
+                break;
+        }
     }
 
     public void StartFrame()
