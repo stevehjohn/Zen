@@ -267,7 +267,9 @@ public class Host : Game
         switch (result)
         {
             case MenuResult.Restart:
+                
                 SetMotherboard((Model) arguments);
+                
                 _motherboard.Fast = false;
                 _motherboard.Slow = false;
 
