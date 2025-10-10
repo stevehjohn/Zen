@@ -117,7 +117,7 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
 
         _ayAudio.Start();
 
-        _worker = new(_interface, _videoModulator, _ayAudio)
+        _worker = new(model, _interface, _videoModulator, _ayAudio)
                   {
                       OnTick = OnTick
                   };

@@ -1,5 +1,6 @@
 ﻿using Zen.Common;
 using Zen.Common.Infrastructure;
+using Zen.System.Infrastructure;
 using Zen.Z80.Processor;
 
 // ReSharper disable IdentifierTypo
@@ -35,6 +36,10 @@ public class Worker : IDisposable
     private int _lastScanComplete;
 
     private int _frameCycles;
+
+    private int _interruptStart;
+
+    private int _interruptEnd;
     
     public int FrameCycles => _frameCycles;
 
@@ -43,8 +48,30 @@ public class Worker : IDisposable
     public bool Slow { get; set; }
     
     public bool Locked { get; set; }
+    
+    public Model Model 
+    {
+        set
+        {
+            switch (value)
+            {
+                case Model.SpectrumPlus2A:
+                case Model.SpectrumPlus3:
+                    _interruptStart = Constants.InterruptStartPlus;
+                    _interruptEnd = Constants.InterruptEndPlus;
 
-    public Worker(Interface @interface, VideoModulator videoModulator, AyAudio ayAudio)
+                    break;
+                
+                default:
+                    _interruptStart = Constants.InterruptStart;
+                    _interruptEnd = Constants.InterruptEnd;
+                    
+                    break;
+            }
+        }
+    }
+
+    public Worker(Model model, Interface @interface, VideoModulator videoModulator, AyAudio ayAudio)
     {
         _interface = @interface;
 
@@ -58,6 +85,8 @@ public class Worker : IDisposable
 
         _vramChanges[0].Address = -1;
         _vramChanges[1].Address = -1;
+
+        Model = model;
     }
 
     public void Start()
@@ -130,7 +159,7 @@ public class Worker : IDisposable
 
                 while (_frameCycles < Constants.FrameCycles)
                 {
-                    if (_frameCycles is >= Constants.InterruptStart and < Constants.InterruptEnd)
+                    if (_frameCycles >= _interruptStart && _frameCycles < _interruptEnd)
                     {
                         _interface.Int = true;
 
