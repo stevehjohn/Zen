@@ -40,7 +40,6 @@ public class CharacterOverlayBase
 
         characterSet.GetData(_characterSet);
 
-        _colorFrameDelay = AppSettings.Instance.Speed is Speed.Normal or Speed.Fast or Speed.Slow ? 10 : 5;
         _colorFrameDelay = AppSettings.Instance.Speed switch
         {
             Speed.Slow => 10,
