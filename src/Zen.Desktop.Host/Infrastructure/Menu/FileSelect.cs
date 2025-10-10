@@ -100,7 +100,9 @@ public class FileSelect : CharacterOverlayBase
 
     public void KeyTyped(char character)
     {
-        var matches = _files.Where(f => f.Display.StartsWith(character)).ToList();
+        var asString = character.ToString();
+        
+        var matches = _files.Where(f => f.Display.StartsWith(asString, StringComparison.InvariantCultureIgnoreCase)).ToList();
 
         if (matches.Count > 0)
         {
@@ -112,10 +114,14 @@ public class FileSelect : CharacterOverlayBase
             {
                 selectedIndex++;
 
-                if (selectedIndex > matches.Count)
+                if (selectedIndex >= matches.Count)
                 {
                     selectedIndex = 0;
                 }
+            }
+            else
+            {
+                selectedIndex = 0;
             }
 
             var target = matches[selectedIndex];
@@ -124,14 +130,14 @@ public class FileSelect : CharacterOverlayBase
             {
                 _y++;
 
-                if (_y > FileRows)
+                if (_y >= FileRows)
                 {
                     _y = FileRows - 1;
                     
                     _top++;
                 }
 
-                if (_y + _top > _files.Count)
+                if (_y + _top >= _files.Count)
                 {
                     _y = 0;
 
