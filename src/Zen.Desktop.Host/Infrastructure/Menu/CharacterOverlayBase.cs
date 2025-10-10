@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Zen.Common;
+using Zen.Desktop.Host.Infrastructure.Settings;
 
 namespace Zen.Desktop.Host.Infrastructure.Menu;
 
@@ -9,7 +10,7 @@ public class CharacterOverlayBase
 {
     private const int ColorDecrement = 20;
 
-    private const int ColorFrameDelay = 5;
+    private readonly int _colorFrameDelay = 5;
 
     private readonly Color[] _characterSet;
 
@@ -38,6 +39,8 @@ public class CharacterOverlayBase
         _characterSet = new Color[7168];
 
         characterSet.GetData(_characterSet);
+
+        _colorFrameDelay = AppSettings.Instance.Speed == Speed.Normal ? 10 : 5;
     }
     
     protected static void DrawWindow(Color[] data)
@@ -110,7 +113,7 @@ public class CharacterOverlayBase
     {
         _colorFrame++;
 
-        if (_colorFrame < ColorFrameDelay)
+        if (_colorFrame < _colorFrameDelay)
         {
             return;
         }
