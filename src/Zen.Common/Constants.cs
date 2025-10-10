@@ -36,7 +36,7 @@ public static class Constants
 
     public const int InterruptStartPlus = 32;
 
-    public const int InterruptEndPlus = 68;
+    public const int InterruptEndPlus = 64;
 
     public const int StatesPerPaperLine = 128;
 
