@@ -10,7 +10,7 @@ public class CharacterOverlayBase
 {
     private const int ColorDecrement = 20;
 
-    private readonly int _colorFrameDelay = 5;
+    private readonly int _colorFrameDelay;
 
     private readonly Color[] _characterSet;
 
@@ -40,7 +40,15 @@ public class CharacterOverlayBase
 
         characterSet.GetData(_characterSet);
 
-        _colorFrameDelay = AppSettings.Instance.Speed == Speed.Normal ? 10 : 5;
+        _colorFrameDelay = AppSettings.Instance.Speed is Speed.Normal or Speed.Fast or Speed.Slow ? 10 : 5;
+        _colorFrameDelay = AppSettings.Instance.Speed switch
+        {
+            Speed.Slow => 10,
+            Speed.Normal => 10,
+            Speed.Fast => 10,
+            Speed.Locked60 => 5,
+            _ => 4
+        };
     }
     
     protected static void DrawWindow(Color[] data)
