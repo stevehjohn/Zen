@@ -40,6 +40,8 @@ public class Worker : IDisposable
     private int _interruptStart;
 
     private int _interruptEnd;
+
+    private int _statesPerScreenLine;
     
     public int FrameCycles => _frameCycles;
 
@@ -59,12 +61,14 @@ public class Worker : IDisposable
                 case Model.SpectrumPlus3:
                     _interruptStart = Constants.InterruptStartPlus;
                     _interruptEnd = Constants.InterruptEndPlus;
+                    _statesPerScreenLine = Constants.StatesPerScreenLine;
 
                     break;
                 
                 default:
                     _interruptStart = Constants.InterruptStart;
                     _interruptEnd = Constants.InterruptEnd;
+                    _statesPerScreenLine = Constants.StatesPerScreenLinePlus;
                     
                     break;
             }
@@ -199,7 +203,7 @@ public class Worker : IDisposable
 
                     _scanStates += instructionCycles;
 
-                    if (Slow && _scanStates - _lastScanComplete > Constants.StatesPerScreenLine * Constants.SlowScanFactor)
+                    if (Slow && _scanStates - _lastScanComplete > _statesPerScreenLine * Constants.SlowScanFactor)
                     {
                         _scanResetEvent.WaitOne();
 
