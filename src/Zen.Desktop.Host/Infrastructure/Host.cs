@@ -307,6 +307,7 @@ public class Host : Game
                 _motherboard.AyAudio.Locked = true;
 
                 IsFixedTimeStep = true;
+                
                 TargetElapsedTime = TimeSpan.FromTicks(166667L);
                 
 
