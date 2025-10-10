@@ -4,9 +4,7 @@ namespace Zen.System.Modules;
 
 public class VideoModulator
 {
-    private const int PaperRegionAdjusted = Constants.PaperRegionStart;
-
-    private const int ScreenStart = PaperRegionAdjusted - Constants.StatesPerScreenLine * Constants.BorderPixels;
+    private const int ScreenStart = Constants.PaperRegionStart - Constants.StatesPerScreenLine * Constants.BorderPixels;
 
     private const int ScreenEnd = ScreenStart + Constants.StatesPerScreenLine * (Constants.ScreenHeightPixels + 1);
 
