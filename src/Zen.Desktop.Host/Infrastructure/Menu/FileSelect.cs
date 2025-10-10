@@ -156,6 +156,10 @@ public class FileSelect : CharacterOverlayBase
                 }
             }
         }
+        else
+        {
+            _searchTerm = string.Empty;
+        }
     }
 
     private void CheckKeys()
