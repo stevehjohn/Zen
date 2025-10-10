@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using Zen.Common;
@@ -104,11 +105,13 @@ public class FileSelect : CharacterOverlayBase
 
     public void KeyTyped(char character)
     {
-        _searchTerm = TimeSpan.FromTicks(DateTime.UtcNow.Ticks - _lastTicks).TotalMilliseconds < 300 
+        var now = Stopwatch.GetTimestamp();
+        
+        _searchTerm = (now - _lastTicks) * 1_000f / Stopwatch.Frequency < 300 
             ? $"{_searchTerm}{character}" 
             : character.ToString();
 
-        _lastTicks = DateTime.UtcNow.Ticks;
+        _lastTicks = now;
 
         var matches = _files.Where(f => f.Display.StartsWith(_searchTerm, StringComparison.InvariantCultureIgnoreCase)).ToList();
 
