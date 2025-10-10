@@ -43,6 +43,8 @@ public class AyAudio : IDisposable
 
     private ManualResetEvent? _workerResetEvent;
 
+    private int _frameCycles;
+
     public IZenAudioEngine AudioEngine
     {
         set
@@ -82,10 +84,12 @@ public class AyAudio : IDisposable
         {
             case Model.SpectrumPlus2A:
             case Model.SpectrumPlus3:
+                _frameCycles = Common.Constants.FrameCycles;
 
                 break;
                 
             default:
+                _frameCycles = Common.Constants.FrameCyclesPlus;
                     
                 break;
         }
@@ -292,7 +296,7 @@ public class AyAudio : IDisposable
     {
         var signals = new float[3];
 
-        var bufferStep = (float) Common.Constants.FrameCycles / (Constants.DefaultBufferSize - 1);
+        var bufferStep = (float) _frameCycles / (Constants.DefaultBufferSize - 1);
 
         while (! _cancellationToken.IsCancellationRequested)
         {
