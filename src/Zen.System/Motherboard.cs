@@ -111,7 +111,7 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
 
         _ram.LoadRom(LoadRom(0));
 
-        _videoModulator = new VideoModulator(_ram);
+        _videoModulator = new VideoModulator(model, _ram);
         
         _ayAudio = new AyAudio(engine);
 

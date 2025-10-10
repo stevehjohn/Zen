@@ -1,12 +1,13 @@
 ﻿using Zen.Common;
+using Zen.System.Infrastructure;
 
 namespace Zen.System.Modules;
 
 public class VideoModulator
 {
-    private const int ScreenStart = Constants.PaperRegionStart - Constants.StatesPerScreenLine * Constants.BorderPixels;
+    private int _screenStart;
 
-    private const int ScreenEnd = ScreenStart + Constants.StatesPerScreenLine * (Constants.ScreenHeightPixels + 1);
+    private int _screenEnd;
 
     private const int StatesPerHBorder = Constants.BorderPixels / 2;
 
@@ -28,10 +29,34 @@ public class VideoModulator
     public byte Border { get; set; }
 
     public byte FloatingBusValue { get; private set; }
-
-    public VideoModulator(Ram ram)
+    
+    private Model Model 
+    {
+        set
+        {
+            switch (value)
+            {
+                case Model.SpectrumPlus2A:
+                case Model.SpectrumPlus3:
+                    _screenStart = Constants.PaperRegionStart - Constants.StatesPerScreenLine * Constants.BorderPixels;
+                    _screenEnd = _screenStart + Constants.StatesPerScreenLine * (Constants.ScreenHeightPixels + 1);
+                        
+                    break;
+                
+                default:
+                    _screenStart = Constants.PaperRegionStartPlus - Constants.StatesPerScreenLinePlus * Constants.BorderPixels;
+                    _screenEnd = _screenStart + Constants.StatesPerScreenLinePlus * (Constants.ScreenHeightPixels + 1);
+                    
+                    break;
+            }
+        }
+    }
+    
+    public VideoModulator(Model model, Ram ram)
     {
         _ram = ram;
+
+        Model = model;
     }
 
     public void StartFrame()
@@ -46,20 +71,20 @@ public class VideoModulator
 
     public void CycleComplete(int cycles)
     {
-        if (cycles < ScreenStart || cycles > ScreenEnd)
+        if (cycles < _screenStart || cycles > _screenEnd)
         {
             FloatingBusValue = 0xFF;
 
-            _previousCycles = ScreenStart;
+            _previousCycles = _screenStart;
 
             return;
         }
 
-        var start = _previousCycles - ScreenStart;
+        var start = _previousCycles - _screenStart;
 
         _previousCycles = cycles;
 
-        var end = cycles - ScreenStart;
+        var end = cycles - _screenStart;
 
         var y = 0;
 
