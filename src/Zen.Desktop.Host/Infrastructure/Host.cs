@@ -135,6 +135,7 @@ public class Host : Game
         _imageName = $"Standard {model} ROM";
 
         AppSettings.Instance.SystemModel = model;
+        AppSettings.Instance.Save();
 
         if (_waveVisualiser != null)
         {
