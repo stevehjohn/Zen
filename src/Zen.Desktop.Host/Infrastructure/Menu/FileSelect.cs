@@ -43,6 +43,10 @@ public class FileSelect : CharacterOverlayBase
 
     private readonly Action<string> _menuDone;
 
+    private string _searchTerm;
+
+    private long _lastTicks;
+
     public FileSelect(Texture2D background, GraphicsDeviceManager graphicsDeviceManager, ContentManager contentManager, Action<string> menuDone)
         : base(background, graphicsDeviceManager, contentManager)
     {
@@ -100,9 +104,13 @@ public class FileSelect : CharacterOverlayBase
 
     public void KeyTyped(char character)
     {
-        var asString = character.ToString();
-        
-        var matches = _files.Where(f => f.Display.StartsWith(asString, StringComparison.InvariantCultureIgnoreCase)).ToList();
+        _searchTerm = TimeSpan.FromTicks(DateTime.UtcNow.Ticks - _lastTicks).TotalMilliseconds < 300 
+            ? $"{_searchTerm}{character}" 
+            : character.ToString();
+
+        _lastTicks = DateTime.UtcNow.Ticks;
+
+        var matches = _files.Where(f => f.Display.StartsWith(_searchTerm, StringComparison.InvariantCultureIgnoreCase)).ToList();
 
         if (matches.Count > 0)
         {
