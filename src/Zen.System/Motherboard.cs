@@ -113,7 +113,7 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
 
         _videoModulator = new VideoModulator(model, _ram);
         
-        _ayAudio = new AyAudio(engine);
+        _ayAudio = new AyAudio(model, engine);
 
         _ayAudio.Start();
 
