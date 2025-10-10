@@ -11,7 +11,8 @@ ToDos, aide memoires, etcetera.
 - https://discord.com/channels/654774470652723220/689220116801650811/885861410490433566
 - https://github.com/hoglet67/Z80Decoder/wiki/Undocumented-Flags
 - https://rk.nvg.ntnu.no/sinclair/faq/tech_z80.html#UNDOC
-
+- https://softspectrum48.weebly.com/notes/category/naudio
+- 
 ## Other References
 
 - https://stackoverflow.com/questions/77384897/how-do-you-create-a-self-contained-net-core-app-for-macos-thats-x86-x64-arm6
