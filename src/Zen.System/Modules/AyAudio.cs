@@ -1,4 +1,5 @@
 ﻿using Zen.Common.Infrastructure;
+using Zen.System.Infrastructure;
 using Zen.System.Modules.Audio;
 using Zen.System.Modules.Audio.Engines;
 
@@ -61,7 +62,7 @@ public class AyAudio : IDisposable
 
     public Action<float>? BeeperSignalHook { get; set; }
 
-    public AyAudio(IZenAudioEngine engine)
+    public AyAudio(Model model, IZenAudioEngine engine)
     {
         _engine = engine;
         
@@ -76,6 +77,18 @@ public class AyAudio : IDisposable
         _commandQueues[0] = new Queue<(int Frame, Command Command, byte Value)>();
 
         _commandQueues[1] = new Queue<(int Frame, Command Command, byte Value)>();
+
+        switch (model)
+        {
+            case Model.SpectrumPlus2A:
+            case Model.SpectrumPlus3:
+
+                break;
+                
+            default:
+                    
+                break;
+        }
     }
 
     public void Start()
