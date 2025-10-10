@@ -109,7 +109,7 @@ public class Z80FileLoader : IFileLoader
                 _ => throw new InvalidModelException()
             };
 
-            if (_model == Model.SpectrumPlus3 && romNumber == 1)
+            if (_model is Model.SpectrumPlus2A or Model.SpectrumPlus3 && romNumber == 1)
             {
                 romNumber = 3;
             }
