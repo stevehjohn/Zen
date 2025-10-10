@@ -9,6 +9,8 @@ public class VideoModulator
 
     private int _screenEnd;
 
+    private int _statesPerScreenLine;
+
     private const int StatesPerHBorder = Constants.BorderPixels / 2;
 
     private int _previousCycles;
@@ -38,14 +40,16 @@ public class VideoModulator
             {
                 case Model.SpectrumPlus2A:
                 case Model.SpectrumPlus3:
-                    _screenStart = Constants.PaperRegionStart - Constants.StatesPerScreenLine * Constants.BorderPixels;
-                    _screenEnd = _screenStart + Constants.StatesPerScreenLine * (Constants.ScreenHeightPixels + 1);
+                    _screenStart = Constants.PaperRegionStartPlus - Constants.StatesPerScreenLinePlus * Constants.BorderPixels;
+                    _screenEnd = _screenStart + Constants.StatesPerScreenLinePlus * (Constants.ScreenHeightPixels + 1);
+                    _statesPerScreenLine = Constants.StatesPerScreenLinePlus;
                         
                     break;
                 
                 default:
-                    _screenStart = Constants.PaperRegionStartPlus - Constants.StatesPerScreenLinePlus * Constants.BorderPixels;
-                    _screenEnd = _screenStart + Constants.StatesPerScreenLinePlus * (Constants.ScreenHeightPixels + 1);
+                    _screenStart = Constants.PaperRegionStart - Constants.StatesPerScreenLine * Constants.BorderPixels;
+                    _screenEnd = _screenStart + Constants.StatesPerScreenLine * (Constants.ScreenHeightPixels + 1);
+                    _statesPerScreenLine = Constants.StatesPerScreenLine;
                     
                     break;
             }
@@ -90,9 +94,9 @@ public class VideoModulator
 
         while (start < end)
         {
-            y = start / Constants.StatesPerScreenLine;
+            y = start / _statesPerScreenLine;
 
-            var xS = start % Constants.StatesPerScreenLine;
+            var xS = start % _statesPerScreenLine;
 
             start++;
 
