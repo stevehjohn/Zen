@@ -5,11 +5,11 @@ namespace Zen.System.Modules;
 
 public class VideoModulator
 {
-    private int _screenStart;
+    private readonly int _screenStart;
 
-    private int _screenEnd;
+    private readonly int _screenEnd;
 
-    private int _statesPerScreenLine;
+    private readonly int _statesPerScreenLine;
 
     private const int StatesPerHBorder = Constants.BorderPixels / 2;
 

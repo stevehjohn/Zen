@@ -37,13 +37,13 @@ public class Worker : IDisposable
 
     private int _frameCycles;
 
-    private int _interruptStart;
+    private readonly int _interruptStart;
 
-    private int _interruptEnd;
+    private readonly int _interruptEnd;
 
-    private int _statesPerScreenLine;
+    private readonly int _statesPerScreenLine;
 
-    private int _expectedFrameCycles;
+    private readonly int _expectedFrameCycles;
     
     public int FrameCycles => _frameCycles;
 
