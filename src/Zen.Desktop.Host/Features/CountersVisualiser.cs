@@ -41,7 +41,7 @@ public class CountersVisualiser
         DrawString(":", Color.White, 22, 0);
         DrawString(Counters.Instance.GetCountPerSecond(Counter.Instructions).ToString("N0"), Color.Cyan, 24, 0);
 
-        DrawString("ZXPFS", Color.Magenta, 2, 1);
+        DrawString("ZXFPS", Color.Magenta, 2, 1);
         DrawString(":", Color.White, 7, 1);
         DrawString(Counters.Instance.GetCountPerSecond(Counter.SpectrumFrames).ToString("N0"), Color.Cyan, 9, 1);
 

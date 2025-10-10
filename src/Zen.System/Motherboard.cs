@@ -1,6 +1,8 @@
-﻿using Zen.System.Infrastructure;
+﻿using Zen.System.Exceptions;
+using Zen.System.Infrastructure;
 using Zen.System.Interfaces;
 using Zen.System.Modules;
+using Zen.System.Modules.Audio.Engines;
 using Zen.System.ProcessorHooks;
 using Zen.Z80.Interfaces;
 using Zen.Z80.Processor;
@@ -51,6 +53,8 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
 
     public State State => _state;
 
+    public int FrameCycles => _worker.FrameCycles;
+
     public VideoModulator VideoAdapter => _videoModulator;
 
     public AyAudio AyAudio => _ayAudio;
@@ -59,6 +63,13 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
     {
         set => _worker.Fast = value;
     }
+
+    public bool Slow
+    {
+        set => _worker.Slow = value;
+    }
+    
+    public Worker Worker => _worker;
 
     public bool Sound
     {
@@ -71,7 +82,13 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
         }
     }
 
-    public Motherboard(Model model)
+    public IZenAudioEngine AudioEngine
+    {
+        set => _ayAudio.AudioEngine = value;
+        get => _ayAudio.AudioEngine;
+    }
+
+    public Motherboard(Model model, IZenAudioEngine engine)
     {
         _model = model;
 
@@ -96,7 +113,7 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
 
         _videoModulator = new VideoModulator(_ram);
         
-        _ayAudio = new AyAudio();
+        _ayAudio = new AyAudio(engine);
 
         _ayAudio.Start();
 
@@ -189,6 +206,11 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
     public void StateLoaded()
     {
         _videoModulator.Border = _state.BorderColour;
+    }
+
+    public void ScanComplete()
+    {
+        _worker.ScanComplete();
     }
 
     private byte[] OnTick(int frameCycle)
@@ -336,13 +358,12 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
             Model.Spectrum128 => "ZX Spectrum 128",
             Model.SpectrumPlus2 => "ZX Spectrum +2",
             Model.SpectrumPlus3 => "ZX Spectrum +3",
-            // TODO: Proper exception?
-            _ => throw new Exception("Invalid model")
+            _ => throw new InvalidModelException()
         };
 
         if (! _romCache.ContainsKey(romNumber))
         {
-            _romCache.Add(romNumber, File.ReadAllBytes($"Rom Images/{folder}/image-{romNumber}.rom"));
+            _romCache.Add(romNumber, File.ReadAllBytes($"{AppDomain.CurrentDomain.BaseDirectory}/Rom Images/{folder}/image-{romNumber}.rom"));
         }
 
         return _romCache[romNumber];

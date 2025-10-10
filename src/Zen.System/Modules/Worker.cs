@@ -16,7 +16,7 @@ public class Worker : IDisposable
 
     private readonly Interface _interface;
 
-    private readonly VideoModulator _videoAdapter;
+    private readonly VideoModulator _videoModulator;
 
     private readonly AyAudio _ayAudio;
 
@@ -24,17 +24,31 @@ public class Worker : IDisposable
 
     private readonly ManualResetEvent _resetEvent = new(true);
 
+    private readonly AutoResetEvent _scanResetEvent = new(true);
+    
     private bool _paused;
 
     private Task? _workerThread;
 
-    public bool Fast { get; set; }
+    private int _scanStates;
 
-    public Worker(Interface @interface, VideoModulator videoAdapter, AyAudio ayAudio)
+    private int _lastScanComplete;
+
+    private int _frameCycles;
+    
+    public int FrameCycles => _frameCycles;
+
+    public bool Fast { get; set; }
+    
+    public bool Slow { get; set; }
+    
+    public bool Locked { get; set; }
+
+    public Worker(Interface @interface, VideoModulator videoModulator, AyAudio ayAudio)
     {
         _interface = @interface;
 
-        _videoAdapter = videoAdapter;
+        _videoModulator = videoModulator;
 
         _ayAudio = ayAudio;
 
@@ -59,6 +73,11 @@ public class Worker : IDisposable
     public void Resume()
     {
         _paused = false;
+    }
+
+    public void ScanComplete()
+    {
+        _scanResetEvent.Set();
     }
 
     public void Dispose()
@@ -92,60 +111,91 @@ public class Worker : IDisposable
     {
         while (! _cancellationToken.IsCancellationRequested)
         {
-            try
+            if (! Locked)
             {
-                if (! _paused)
+                RunFrame();
+            }
+        }
+    }
+
+    public void RunFrame()
+    {
+        try
+        {
+            if (! _paused)
+            {
+                _frameCycles = 0;
+
+                _videoModulator.StartFrame();
+
+                while (_frameCycles < Constants.FrameCycles)
                 {
-                    var frameCycles = 0;
-
-                    _videoAdapter.StartFrame();
-
-                    while (frameCycles < Constants.FrameCycles)
+                    if (_frameCycles is >= Constants.InterruptStart and < Constants.InterruptEnd)
                     {
-                        _interface.INT = frameCycles is >= Constants.InterruptStart and < Constants.InterruptEnd;
+                        _interface.Int = true;
 
-                        ClearFrameRamBuffer();
+                        _scanStates = 0;
 
-                        var cycles = OnTick(frameCycles);
+                        _lastScanComplete = 0;
+                    }
+                    else
+                    {
+                        _interface.Int = false;
+                    }
 
-                        for (var i = 0; i < 7; i++)
+                    ClearFrameRamBuffer();
+
+                    var cycles = OnTick(_frameCycles);
+
+                    var instructionCycles = 0;
+
+                    for (var i = 0; i < 7; i++)
+                    {
+                        if (i > 0 && cycles[i] == 0)
                         {
-                            if (i > 0 && cycles[i] == 0)
-                            {
-                                break;
-                            }
+                            break;
+                        }
 
-                            frameCycles += cycles[i];
+                        _frameCycles += cycles[i];
 
-                            frameCycles += ApplyFrameRamChanges(i, frameCycles, cycles);
+                        instructionCycles += cycles[i];
 
-                            if (cycles[i] > 0)
-                            {
-                                _videoAdapter.CycleComplete(frameCycles);
-                            }
+                        _frameCycles += ApplyFrameRamChanges(i, _frameCycles, cycles);
+
+                        if (cycles[i] > 0)
+                        {
+                            _videoModulator.CycleComplete(_frameCycles);
                         }
                     }
 
-                    if (! Fast)
+                    _scanStates += instructionCycles;
+
+                    if (Slow && _scanStates - _lastScanComplete > Constants.StatesPerScreenLine * Constants.SlowScanFactor)
                     {
-                        _resetEvent.WaitOne();
+                        _scanResetEvent.WaitOne();
+
+                        _lastScanComplete = _scanStates;
                     }
-
-                    _ayAudio.FrameReady(_resetEvent);
-
-                    _resetEvent.Reset();
-
-                    Counters.Instance.IncrementCounter(Counter.SpectrumFrames);
                 }
-            }
-            catch (Exception exception)
-            {
-                Logger.LogException(nameof(Worker), exception);
 
-                throw;
+                if (! Fast && ! Locked)
+                {
+                    _resetEvent.WaitOne();
+                }
+
+                Counters.Instance.IncrementCounter(Counter.SpectrumFrames);
             }
+
+            _ayAudio.FrameReady(_resetEvent);
+
+            _resetEvent.Reset();
         }
-        // ReSharper disable once FunctionNeverReturns
+        catch (Exception exception)
+        {
+            Logger.LogException(nameof(Worker), exception);
+
+            throw;
+        }
     }
 
     private void ClearFrameRamBuffer()
@@ -158,14 +208,14 @@ public class Worker : IDisposable
     {
         if (mcycle < 6 && opCycles[mcycle + 1] == 0 && _vramChanges[1].Address != -1)
         {
-            _videoAdapter.ApplyRamChange(_vramChanges[1].Address, _vramChanges[1].Data);
+            _videoModulator.ApplyRamChange(_vramChanges[1].Address, _vramChanges[1].Data);
 
             return GetContention(frameCycles);
         }
 
         if (mcycle < 5 && opCycles[mcycle + 2] == 0 && _vramChanges[0].Address != -1)
         {
-            _videoAdapter.ApplyRamChange(_vramChanges[0].Address, _vramChanges[0].Data);
+            _videoModulator.ApplyRamChange(_vramChanges[0].Address, _vramChanges[0].Data);
 
             return GetContention(frameCycles);
         }

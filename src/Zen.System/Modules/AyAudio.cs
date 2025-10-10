@@ -1,5 +1,6 @@
 ﻿using Zen.Common.Infrastructure;
 using Zen.System.Modules.Audio;
+using Zen.System.Modules.Audio.Engines;
 
 namespace Zen.System.Modules;
 
@@ -15,13 +16,7 @@ public class AyAudio : IDisposable
 
     private readonly MixerDac _mixerDac = new();
 
-    private Task? _audioThread;
-
-    private byte _registerNumber;
-
-    private readonly float[] _buffer;
-
-    private readonly AudioEngine _engine = new();
+    private IZenAudioEngine _engine;
 
     private readonly CancellationTokenSource _cancellationTokenSource;
 
@@ -33,6 +28,12 @@ public class AyAudio : IDisposable
 
     private readonly Queue<(int Frame, Command Command, byte Value)>[] _commandQueues;
 
+    private Task? _audioThread;
+
+    private byte _registerNumber;
+
+    private readonly float[] _buffer;
+
     private int _readQueue;
 
     private float _bitValue;
@@ -41,15 +42,30 @@ public class AyAudio : IDisposable
 
     private ManualResetEvent? _workerResetEvent;
 
+    public IZenAudioEngine AudioEngine
+    {
+        set
+        {
+            _engine.Dispose();
+            
+            _engine = value; 
+        }
+        get => _engine;
+    }
+
+    public bool Locked { get; set; }
+    
     public bool Silent { get; set; }
 
     public Action<float[]>? AySignalHook { get; set; }
 
     public Action<float>? BeeperSignalHook { get; set; }
 
-    public AyAudio()
+    public AyAudio(IZenAudioEngine engine)
     {
-        _buffer = new float[Constants.BufferSize];
+        _engine = engine;
+        
+        _buffer = new float[Constants.DefaultBufferSize];
 
         _cancellationTokenSource = new CancellationTokenSource();
 
@@ -64,7 +80,13 @@ public class AyAudio : IDisposable
 
     public void Start()
     {
-        _audioThread = Task.Run(RunFrame, _cancellationToken);
+        _audioThread = Task.Run(() =>
+        {
+            if (! Locked)
+            {
+                RunFrame();
+            }
+        }, _cancellationToken);
     }
 
     public void FrameReady(ManualResetEvent resetEvent)
@@ -257,17 +279,17 @@ public class AyAudio : IDisposable
     {
         var signals = new float[3];
 
-        var bufferStep = (float) Common.Constants.FrameCycles / (Constants.BufferSize - 1);
+        var bufferStep = (float) Common.Constants.FrameCycles / (Constants.DefaultBufferSize - 1);
 
         while (! _cancellationToken.IsCancellationRequested)
         {
             try
             {
                 _resetEvent.WaitOne();
-
+                
                 _resetEvent.Reset();
 
-                for (var i = 0; i < Constants.BufferSize; i++)
+                for (var i = 0; i < Constants.DefaultBufferSize; i++)
                 {
                     if (Silent)
                     {

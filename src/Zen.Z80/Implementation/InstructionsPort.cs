@@ -116,7 +116,6 @@ public partial class Instructions
 
             _state[Register.B]--;
 
-
             var flagTemp1 = data + ((_state[Register.C] - 1) & 255);
             var flagTemp2 = (ushort) ((flagTemp1 & 7) ^ _state[Register.B]);
 

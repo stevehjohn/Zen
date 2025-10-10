@@ -1,4 +1,6 @@
-﻿namespace Zen.Common.Infrastructure;
+﻿// ReSharper disable InconsistentNaming
+
+namespace Zen.Common.Infrastructure;
 
 public enum Counter
 {

@@ -113,6 +113,8 @@ public class TestRunner
 
         PopulateRam(ram);
         
+        ram.Add(ram.Count, 0x00);
+        
         _ramConnector.Setup(c => c.ReadRam(It.IsAny<ushort>())).Returns<ushort>(address => ram[address]);
 
         _ramConnector.Setup(c => c.WriteRam(It.IsAny<ushort>(), It.IsAny<byte>())).Callback<ushort, byte>((a, b) => ram[a] = b);

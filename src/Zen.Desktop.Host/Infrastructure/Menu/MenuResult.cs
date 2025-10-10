@@ -9,13 +9,21 @@ public enum MenuResult
     LoadZ80Sna,
     SpeedNormal,
     SpeedFast,
+    SpeedSlow,
+    SpeedLocked,
     SaveState,
     LoadState,
     ChangeScale,
-    SoundOn,
+    SoundPortAudio,
+    SoundBass,
     SoundOff,
     VisualisationOff,
     VisualisationWaveform,
+    VisualisationSpectrumAnalyser,
+    VisualisationVideoRam,
+    VisualisationVideoBanks,
     CountersOn,
-    CountersOff
+    CountersOff,
+    SpectrumColours,
+    CommodoreColours
 }

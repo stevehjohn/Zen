@@ -1,0 +1,36 @@
+# This workflow will build a .NET project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
+
+name: Build Artifacts and Release
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+      
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+    - name: Publish and Zip all.
+      run: ./publish.sh
+    - name: Create macOS apps.
+      run: ./publish-app.sh
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: |
+          Zen.Desktop.Host.Windows.Intel.zip
+          Zen.Desktop.Host.Linux.Intel.zip
+          Zen.Desktop.Host.Linux.Arm.zip
+          Zen.Desktop.Host.macOS.Apple.zip
+          Zen.Desktop.Host.macOS.Intel.zip
+          Zen.App.Intel.zip
+          Zen.App.AppleSilicon.zip

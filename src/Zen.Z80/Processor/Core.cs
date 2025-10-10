@@ -1,4 +1,4 @@
-﻿//#define LOG
+﻿// #define LOG
 
 using Zen.Common.Infrastructure;
 using Zen.Z80.Implementation;
@@ -82,7 +82,7 @@ public class Core
 
             UpdateR(instruction);
 
-            instruction.Execute(Array.Empty<byte>());
+            instruction.Execute([]);
 
             instruction.UseCount++;
 
@@ -110,6 +110,10 @@ public class Core
 
         _state.InstructionPrefix = 0;
 
+#if LOG
+        Log(instruction);
+#endif
+
         _state.ProgramCounter++;
 
         if (instruction.ParameterLength > 0)
@@ -125,20 +129,16 @@ public class Core
         }
 
         UpdateR(instruction);
-
+        
         instruction.Execute(_parameters);
 
         instruction.UseCount++;
-
-#if LOG
-        Log(instruction);
-#endif
 
         Counters.Instance.IncrementCounter(Counter.Hertz, _state.ClockCycles);
 
         Counters.Instance.IncrementCounter(Counter.Instructions);
 
-        if (_state.InstructionPrefix > 0xFF)
+        if (_state.InstructionPrefix is 0xDDCB or 0xFDCB)
         {
             opcode = _state.InstructionPrefix << 8 | _parameters[1];
 
@@ -208,7 +208,7 @@ public class Core
 
     private void HandleInterrupts()
     {
-        if (_interface.INT)
+        if (_interface.Int)
         {
             HandleMaskableInterrupt();
         }

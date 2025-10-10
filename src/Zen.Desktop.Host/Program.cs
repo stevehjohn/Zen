@@ -9,6 +9,8 @@ public static class Program
     {
         try
         {
+            Environment.CurrentDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            
             using var host = new Infrastructure.Host();
 
             host.Run();
