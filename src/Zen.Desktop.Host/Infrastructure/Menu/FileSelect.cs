@@ -14,11 +14,11 @@ namespace Zen.Desktop.Host.Infrastructure.Menu;
 
 public class FileSelect : CharacterOverlayBase
 {
-    private const int SelectDelayFramesFast = 5;
-
     private const int SelectDelayFramesSlow = 10;
 
     private const int SelectDelayFramesVerySlow = 24;
+
+    private readonly int _selectDelayFramesFast = 5;
 
     private const int FileRows = 16;
 
@@ -67,6 +67,13 @@ public class FileSelect : CharacterOverlayBase
         Background.GetData(_backgroundData);
         
         Menu = new Texture2D(GraphicsDeviceManager.GraphicsDevice, Constants.ScreenWidthPixels, Constants.ScreenHeightPixels);
+        
+        _selectDelayFramesFast = AppSettings.Instance.Speed switch
+        {
+            Speed.Locked50 => 4,
+            Speed.Locked60 => 5,
+            _ => 10
+        };
     }
 
     public void Update()
@@ -182,7 +189,7 @@ public class FileSelect : CharacterOverlayBase
 
         if (keys.IsKeyDown(Keys.Up))
         {
-            _selectDelay = SelectDelayFramesFast;
+            _selectDelay = _selectDelayFramesFast;
 
             _y--;
 
@@ -203,7 +210,7 @@ public class FileSelect : CharacterOverlayBase
 
         if (keys.IsKeyDown(Keys.Down))
         {
-            _selectDelay = SelectDelayFramesFast;
+            _selectDelay = _selectDelayFramesFast;
 
             if (_y + _top + 1 == _files.Count)
             {
