@@ -18,17 +18,17 @@ public static class Constants
     public const int ScreenPixelCount = ScreenWidthPixels * ScreenHeightPixels;
 
     /* Timing */
-    public const int FrameCycles = 69_888;
+    public const int FrameCycles = 70_908;
 
-    public const int StatesPerScreenLine = 224;
+    public const int StatesPerScreenLine = 228;
 
     public const int StatesPerPaperLine = 128;
 
     public const int PaperRegionStart = 14_336;
 
-    public const int InterruptStart = 24;
+    public const int InterruptStart = 32;
 
-    public const int InterruptEnd = 56;
+    public const int InterruptEnd = 68;
 
     public const int DisplayStartState = (16 + 48 - BorderPixels) * StatesPerScreenLine;
 
