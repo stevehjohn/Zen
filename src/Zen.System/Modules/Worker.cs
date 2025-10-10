@@ -53,7 +53,7 @@ public class Worker : IDisposable
     
     public bool Locked { get; set; }
     
-    public Model Model 
+    private Model Model 
     {
         set
         {
