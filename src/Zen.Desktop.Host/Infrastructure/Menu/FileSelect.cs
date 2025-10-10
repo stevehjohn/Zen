@@ -44,7 +44,7 @@ public class FileSelect : CharacterOverlayBase
 
     private readonly Action<string> _menuDone;
 
-    private string _searchTerm;
+    private string _searchTerm = string.Empty;
 
     private long _lastTicks;
 
@@ -106,7 +106,14 @@ public class FileSelect : CharacterOverlayBase
     public void KeyTyped(char character)
     {
         var now = Stopwatch.GetTimestamp();
-        
+
+        character = char.ToLowerInvariant(character);
+
+        if (_searchTerm.Length > 0 && character == _searchTerm[^1])
+        {
+            _searchTerm = character.ToString();
+        }
+
         _searchTerm = (now - _lastTicks) * 1_000f / Stopwatch.Frequency < 300 
             ? $"{_searchTerm}{character}" 
             : character.ToString();
