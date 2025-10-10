@@ -111,7 +111,11 @@ public class Host : Game
 
         _motherboard.AddPeripheral(new Peripherals.Keyboard());
         _motherboard.AddPeripheral(new Peripherals.Kempston());
-        _motherboard.AddPeripheral(new Peripherals.DiskDrive());
+
+        if (model == Model.SpectrumPlus3)
+        {
+            _motherboard.AddPeripheral(new Peripherals.DiskDrive());
+        }
 
         _motherboard.Sound = AppSettings.Instance.Sound;
 
