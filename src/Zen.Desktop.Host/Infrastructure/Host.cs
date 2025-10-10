@@ -122,6 +122,8 @@ public class Host : Game
         {
             _motherboard.Worker.Locked = true;
             _motherboard.AyAudio.Locked = true;
+
+            IsFixedTimeStep = true;
             
             TargetElapsedTime = TimeSpan.FromMilliseconds(20);
         }
@@ -282,7 +284,7 @@ public class Host : Game
                 _motherboard.Worker.Locked = false;
                 _motherboard.AyAudio.Locked = false;
 
-                TargetElapsedTime = TimeSpan.FromTicks(166667L);
+                IsFixedTimeStep = false;
 
                 break;
 
@@ -291,6 +293,8 @@ public class Host : Game
                 _motherboard.Slow = false;
                 _motherboard.Worker.Locked = true;
                 _motherboard.AyAudio.Locked = true;
+
+                IsFixedTimeStep = true;
                 
                 TargetElapsedTime = TimeSpan.FromMilliseconds(20);
 
@@ -302,7 +306,7 @@ public class Host : Game
                 _motherboard.Worker.Locked = false;
                 _motherboard.AyAudio.Locked = false;
 
-                TargetElapsedTime = TimeSpan.FromTicks(166667L);
+                IsFixedTimeStep = false;
 
                 break;
             
@@ -312,7 +316,7 @@ public class Host : Game
                 _motherboard.Worker.Locked = false;
                 _motherboard.AyAudio.Locked = false;
 
-                TargetElapsedTime = TimeSpan.FromTicks(166667L);
+                IsFixedTimeStep = false;
 
                 break;
 
