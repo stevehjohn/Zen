@@ -127,6 +127,10 @@ public class Host : Game
             
             TargetElapsedTime = TimeSpan.FromMilliseconds(20);
         }
+        else
+        {
+            IsFixedTimeStep = false;
+        }
 
         _imageName = $"Standard {model} ROM";
 
