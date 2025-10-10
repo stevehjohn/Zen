@@ -98,6 +98,30 @@ public class FileSelect : CharacterOverlayBase
         }
     }
 
+    public void KeyTyped(char character)
+    {
+        var matches = _files.Where(f => f.Display.StartsWith(character)).ToList();
+
+        if (matches.Count > 0)
+        {
+            var selectedName = _files[_top + _y];
+
+            var selectedIndex = matches.IndexOf(selectedName);
+
+            if (selectedIndex > -1)
+            {
+                selectedIndex++;
+
+                if (selectedIndex > matches.Count)
+                {
+                    selectedIndex = 0;
+                }
+            }
+            
+            // TODO: Move to the index.
+        }
+    }
+
     private void CheckKeys()
     {
         if (_selectDelay != 0)
