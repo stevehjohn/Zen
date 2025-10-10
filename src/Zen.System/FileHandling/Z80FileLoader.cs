@@ -104,6 +104,7 @@ public class Z80FileLoader : IFileLoader
             {
                 Model.Spectrum128 => "ZX Spectrum 128",
                 Model.SpectrumPlus2 => "ZX Spectrum +2",
+                Model.SpectrumPlus2A => "ZX Spectrum +3",
                 Model.SpectrumPlus3 => "ZX Spectrum +3",
                 _ => throw new InvalidModelException()
             };
