@@ -118,7 +118,7 @@ public class Host : Game
         _motherboard.Fast = AppSettings.Instance.Speed == Speed.Fast;
         _motherboard.Slow = AppSettings.Instance.Speed == Speed.Slow;
 
-        if (AppSettings.Instance.Speed == Speed.Locked)
+        if (AppSettings.Instance.Speed == Speed.Locked50)
         {
             _motherboard.Worker.Locked = true;
             _motherboard.AyAudio.Locked = true;
@@ -228,7 +228,7 @@ public class Host : Game
 
     protected override void Update(GameTime gameTime)
     {
-        if (AppSettings.Instance.Speed == Speed.Locked)
+        if (AppSettings.Instance.Speed == Speed.Locked50)
         {
             _motherboard.Worker.RunFrame();
         }
@@ -288,7 +288,7 @@ public class Host : Game
 
                 break;
 
-            case MenuResult.SpeedLocked:
+            case MenuResult.SpeedLocked50:
                 _motherboard.Fast = false;
                 _motherboard.Slow = false;
                 _motherboard.Worker.Locked = true;
@@ -297,6 +297,18 @@ public class Host : Game
                 IsFixedTimeStep = true;
                 
                 TargetElapsedTime = TimeSpan.FromMilliseconds(20);
+
+                break;
+
+            case MenuResult.SpeedLocked60:
+                _motherboard.Fast = false;
+                _motherboard.Slow = false;
+                _motherboard.Worker.Locked = true;
+                _motherboard.AyAudio.Locked = true;
+
+                IsFixedTimeStep = true;
+                
+                TargetElapsedTime = TimeSpan.FromMilliseconds(166667L);
 
                 break;
 
