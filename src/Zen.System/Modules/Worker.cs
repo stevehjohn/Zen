@@ -74,16 +74,16 @@ public class Worker : IDisposable
             case Model.SpectrumPlus3:
                 _interruptStart = Constants.InterruptStartPlus;
                 _interruptEnd = Constants.InterruptEndPlus;
-                _statesPerScreenLine = Constants.StatesPerScreenLine;
-                _expectedFrameCycles = Constants.FrameCycles;
+                _statesPerScreenLine = Constants.StatesPerScreenLinePlus;
+                _expectedFrameCycles = Constants.FrameCyclesPlus;
 
                 break;
                 
             default:
                 _interruptStart = Constants.InterruptStart;
                 _interruptEnd = Constants.InterruptEnd;
-                _statesPerScreenLine = Constants.StatesPerScreenLinePlus;
-                _expectedFrameCycles = Constants.FrameCyclesPlus;
+                _statesPerScreenLine = Constants.StatesPerScreenLine;
+                _expectedFrameCycles = Constants.FrameCycles;
                     
                 break;
         }
