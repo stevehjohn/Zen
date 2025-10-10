@@ -169,6 +169,8 @@ public class Host : Game
     {
         Window.Title = "Zen";
 
+        Window.TextInput += (_, arguements) => KeyTyped(arguements); 
+        
         base.Initialize();
     }
 
@@ -210,6 +212,11 @@ public class Host : Game
         {
             _videoRamVisualiser = new VideoRamVisualiser(_graphicsDeviceManager, _motherboard.Ram, true, _videoRenderer);
         }
+    }
+
+    private void KeyTyped(TextInputEventArgs arguments)
+    {
+        _menuSystem?.KeyPressed(arguments.Character);
     }
 
     private void ScanComplete()
