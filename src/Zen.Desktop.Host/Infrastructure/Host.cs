@@ -237,7 +237,7 @@ public class Host : Game
 
     protected override void Update(GameTime gameTime)
     {
-        if (AppSettings.Instance.Speed == Speed.Locked50)
+        if (_motherboard.Worker.Locked)
         {
             _motherboard.Worker.RunFrame();
         }
