@@ -67,6 +67,10 @@ public class MenuSystem : CharacterOverlayBase
         }
     }
 
+    public void KeyPressed(char character)
+    {
+    }
+
     private void ActionSelection()
     {
         if (_selectedItem == -1)
