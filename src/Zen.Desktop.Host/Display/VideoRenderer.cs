@@ -22,43 +22,50 @@ public class VideoRenderer
     private readonly Color[] _data = new Color[Constants.ScreenWidthPixels * Constants.ScreenHeightPixels];
 
     private int _y;
-    
+
     public Texture2D Display => _display;
-    
+
     public Action ScanComplete { get; set; }
-    
+
     public int ScanY { get; private set; }
 
-    private readonly int _displayStartState;
+    private int _displayStartState;
 
-    private readonly int _displayEndState;
+    private int _displayEndState;
+
+    public System.Infrastructure.Model Model
+    {
+        get { }
+        set
+        {
+            switch (value)
+            {
+                case System.Infrastructure.Model.SpectrumPlus2A:
+                case System.Infrastructure.Model.SpectrumPlus3:
+                    _displayStartState = Constants.DisplayStartStatePlus;
+                    _displayEndState = Constants.DisplayEndStatePlus;
+
+                    break;
+
+                default:
+                    _displayStartState = Constants.DisplayStartState;
+                    _displayEndState = Constants.DisplayEndState;
+
+                    break;
+            }
+        }
+    }
 
     public ushort[] ScreenFrame
     {
         set => _screenFrame = value;
     }
 
-    public VideoRenderer(System.Infrastructure.Model model, ushort[] screenFrame, GraphicsDeviceManager graphicsDeviceManager)
+    public VideoRenderer(ushort[] screenFrame, GraphicsDeviceManager graphicsDeviceManager)
     {
         _screenFrame = screenFrame;
 
         _display = new Texture2D(graphicsDeviceManager.GraphicsDevice, Constants.ScreenWidthPixels, Constants.ScreenHeightPixels);
-
-        switch (model)
-        {
-            case System.Infrastructure.Model.SpectrumPlus2A:
-            case System.Infrastructure.Model.SpectrumPlus3:
-                _displayStartState = Constants.DisplayStartStatePlus;
-                _displayEndState = Constants.DisplayEndStatePlus;
-                
-                break;
-                
-            default:
-                _displayStartState = Constants.DisplayStartState;
-                _displayEndState = Constants.DisplayEndState;
-                    
-                break;
-        }
     }
 
     public void RenderDisplay(int frameCycles)
@@ -143,11 +150,11 @@ public class VideoRenderer
         var flash = (pixel & 0b0000_0010_0000_0000) > 0;
 
         var color = (flash && _flash) ^ ((pixel & 0b1000_0000_0000_0000) > 0)
-                        ? pixel & 0b0000_0111
-                        : (pixel & 0b0011_1000) >> 3;
+            ? pixel & 0b0000_0111
+            : (pixel & 0b0011_1000) >> 3;
 
         var intensity = (pixel & 0b0000_0001_0000_0000) > 0 ? 0xFF : 0xD8;
-        
+
         return color switch
         {
             1 => Color.FromNonPremultiplied(0, 0, intensity, 255),
@@ -160,7 +167,7 @@ public class VideoRenderer
             _ => Color.FromNonPremultiplied(0, 0, 0, 255)
         };
     }
-    
+
     private Color GetC64Color(ushort pixel)
     {
         var flash = (pixel & 0b0000_0010_0000_0000) > 0;
@@ -174,7 +181,7 @@ public class VideoRenderer
         return color switch
         {
             1 => Color.FromNonPremultiplied(0, intensity ? 136 : 0, intensity ? 255 : 170, 255),
-            2 => Color.FromNonPremultiplied(intensity ? 255 : 136, intensity ? 119 : 0,  intensity ? 119 : 0, 255),
+            2 => Color.FromNonPremultiplied(intensity ? 255 : 136, intensity ? 119 : 0, intensity ? 119 : 0, 255),
             3 => Color.FromNonPremultiplied(204, 68, 204, 255),
             4 => Color.FromNonPremultiplied(intensity ? 170 : 0, intensity ? 255 : 204, intensity ? 102 : 85, 255),
             5 => Color.FromNonPremultiplied(intensity ? 170 : 0, intensity ? 255 : 139, intensity ? 238 : 139, 255),
