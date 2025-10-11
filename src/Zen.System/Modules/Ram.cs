@@ -20,9 +20,9 @@ public class Ram
 
     public bool ProtectRom { get; init; }
 
-    public byte ScreenBank
+    public bool UseShadowScreenBank
     {
-        set => _screenBank = (byte) (value == 1 ? 5 : 7);
+        set => _screenBank = (byte) (value ? 7 : 5);
     }
 
     public byte[] WorkingScreenRam => _banks[_screenBank];

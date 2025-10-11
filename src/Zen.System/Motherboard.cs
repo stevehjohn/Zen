@@ -289,7 +289,7 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
         {
             _ram.SetBank(3, (byte) (data & 0b0000_0111));
 
-            _ram.ScreenBank = (byte) ((data & 0b0000_1000) > 0 ? 2 : 1);
+            _ram.UseShadowScreenBank = (data & 0b0000_1000) > 0;
         }
 
         if (port == 0x7F)
