@@ -29,23 +29,43 @@ public class VideoRenderer
     
     public int ScanY { get; private set; }
 
+    private readonly int _displayStartState;
+
+    private readonly int _displayEndState;
+
     public ushort[] ScreenFrame
     {
         set => _screenFrame = value;
     }
 
-    public VideoRenderer(ushort[] screenFrame, GraphicsDeviceManager graphicsDeviceManager)
+    public VideoRenderer(System.Infrastructure.Model model, ushort[] screenFrame, GraphicsDeviceManager graphicsDeviceManager)
     {
         _screenFrame = screenFrame;
 
         _display = new Texture2D(graphicsDeviceManager.GraphicsDevice, Constants.ScreenWidthPixels, Constants.ScreenHeightPixels);
+
+        switch (model)
+        {
+            case System.Infrastructure.Model.SpectrumPlus2A:
+            case System.Infrastructure.Model.SpectrumPlus3:
+                _displayStartState = Constants.DisplayStartStatePlus;
+                _displayEndState = Constants.DisplayEndStatePlus;
+                
+                break;
+                
+            default:
+                _displayStartState = Constants.DisplayStartState;
+                _displayEndState = Constants.DisplayEndState;
+                    
+                break;
+        }
     }
 
     public void RenderDisplay(int frameCycles)
     {
         if (AppSettings.Instance.Speed == Speed.Slow)
         {
-            if (frameCycles >= Constants.DisplayStartState && frameCycles <= Constants.DisplayEndState)
+            if (frameCycles >= _displayStartState && frameCycles <= _displayEndState)
             {
                 if (_y < Constants.ScreenHeightPixels)
                 {

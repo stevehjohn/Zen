@@ -44,6 +44,10 @@ public static class Constants
 
     public const int DisplayEndState = DisplayStartState + (ScreenHeightPixels + BorderPixels * 2 + 1) * StatesPerScreenLine;
 
+    public const int DisplayStartStatePlus = (16 + 48 - BorderPixels) * StatesPerScreenLinePlus;
+
+    public const int DisplayEndStatePlus = DisplayStartStatePlus + (ScreenHeightPixels + BorderPixels * 2 + 1) * StatesPerScreenLinePlus;
+
     /* RAM */
     public const int ScreenRamSize = 0x1B00;
 
