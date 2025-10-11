@@ -282,7 +282,7 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
     {
         if (port == 0x1F && (data & 0x01) > 0)
         {
-            ConfigureSpecialPaging(data & 0b0110 >> 1);
+            ConfigureSpecialPaging((data & 0b0110) >> 1);
         }
 
         if (port == 0x7F)
