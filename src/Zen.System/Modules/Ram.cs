@@ -123,9 +123,12 @@ public class Ram
     {
         var random = new Random(Guid.NewGuid().GetHashCode());
 
-        for (var i = 0; i < Constants.ScreenRamSize; i++)
+        for (var b = 0; b < BankCount; b++)
         {
-            _banks[_screenBank][i] = (byte) random.Next(256);
+            for (ushort i = 0; i < Constants.RamBankSize; i++)
+            {
+                _banks[b][i] = (byte) random.Next(256);
+            }
         }
     }
 }
