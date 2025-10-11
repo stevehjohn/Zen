@@ -96,7 +96,7 @@ public class Z80FileLoader : IFileLoader
         {
             _ram.SetBank(3, (byte) (data[35] & 0b0000_0111));
 
-            _ram.ScreenBank = (byte) ((data[35] & 0b0000_1000) > 0 ? 2 : 1);
+            _ram.UseShadowScreenBank = (data[35] & 0b0000_1000) > 0;
 
             var romNumber = (data[35] & 0b0001_0000) >> 4;
 
