@@ -109,6 +109,8 @@ public class Host : Game
             _ => new PortAudioEngine()
         });
 
+        _videoRenderer.Model = model;
+        
         _motherboard.AddPeripheral(new Peripherals.Keyboard());
         _motherboard.AddPeripheral(new Peripherals.Kempston());
 

@@ -35,7 +35,6 @@ public class VideoRenderer
 
     public System.Infrastructure.Model Model
     {
-        get { }
         set
         {
             switch (value)
