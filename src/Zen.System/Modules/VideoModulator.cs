@@ -110,7 +110,7 @@ public class VideoModulator
 
             _screen[pixel + 1] = GetPixel(ramPixel + 1);
 
-            FloatingBusValue = _ram[(ushort) (ramPixel + 1)];
+            FloatingBusValue = _ram.WorkingScreenRam[(ushort) (ramPixel + 1)];
         }
 
         if (y >= Constants.ScreenHeightPixels && ! _renderedFrame)
