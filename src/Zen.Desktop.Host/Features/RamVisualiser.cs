@@ -19,6 +19,8 @@ public class RamVisualiser
 
     private Ram _ram;
 
+    private int _offset = 0x8000;
+
     public Ram Ram
     {
         set => _ram = value;
@@ -45,7 +47,7 @@ public class RamVisualiser
         {
             for (var x = 0; x < bytesPerRow; x++)
             {
-                var data = _ram[(ushort) (y * bytesPerRow + x)];
+                var data = _ram[(ushort) (_offset + y * bytesPerRow + x)];
 
                 for (var i = 0; i < 8; i++)
                 {
