@@ -63,7 +63,7 @@ public static class Constants
     public const int SpectrumVisualisationPanelWidth = 200;
     
     /* Counters Visualiser */
-    public const int CountersPanelHeight = 24;
+    public const int CountersPanelHeight = 32;
     
     /* Video RAM Visualiser */
     public const int VideoRamVisualisationPanelWidth = ScreenWidthPixels;
