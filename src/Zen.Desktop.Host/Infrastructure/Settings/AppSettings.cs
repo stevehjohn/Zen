@@ -61,9 +61,7 @@ public class AppSettings
             Logger.LogException(nameof(AppSettings), exception);
         }
 
-        settings.Speed = RuntimeInformation.IsOSPlatform(OSPlatform.Linux)
-            ? Speed.Locked50
-            : Speed.Normal;
+        settings.Speed = Speed.Locked50;
 
         return settings;
     }
