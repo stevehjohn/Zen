@@ -120,7 +120,7 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
 
         _core.AddHook(_ldBytesHook);
 
-        _ram = new() { ProtectRom = true };
+        _ram = new() { ProtectRom = model == Model.Spectrum48K };
 
         if (model == Model.Spectrum48K)
         {
