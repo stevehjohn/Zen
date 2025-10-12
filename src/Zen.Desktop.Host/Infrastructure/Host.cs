@@ -49,7 +49,7 @@ public class Host : Game
 
     private VideoRamVisualiser _videoRamVisualiser;
 
-    private RamBankVisualiser _ramBankVisualiser;
+    private RamVisualiser _ramVisualiser;
 
     public Host()
     {
@@ -165,9 +165,9 @@ public class Host : Game
             _videoRamVisualiser.Ram = _motherboard.Ram;
         }
 
-        if (_ramBankVisualiser != null)
+        if (_ramVisualiser != null)
         {
-            _ramBankVisualiser.Ram = _motherboard.Ram;
+            _ramVisualiser.Ram = _motherboard.Ram;
         }
 
         if (_spectrumAnalyser != null)
@@ -245,7 +245,7 @@ public class Host : Game
 
         if (AppSettings.Instance.Visualisation == Visualisation.RamBank)
         {
-            _ramBankVisualiser = new RamBankVisualiser(_graphicsDeviceManager, _motherboard.Ram);
+            _ramVisualiser = new RamVisualiser(_graphicsDeviceManager, _motherboard.Ram);
         }
     }
 
@@ -415,7 +415,7 @@ public class Host : Game
                 _waveVisualiser = null;
                 _videoRamVisualiser = null;
                 _spectrumAnalyser = null;
-                _ramBankVisualiser = null;
+                _ramVisualiser = null;
                 _motherboard.AyAudio.AySignalHook = null;
                 _motherboard.AyAudio.BeeperSignalHook = null;
 
@@ -430,7 +430,7 @@ public class Host : Game
                 _waveVisualiser = new WaveVisualiser(_graphicsDeviceManager);
                 _spectrumAnalyser = null;
                 _videoRamVisualiser = null;
-                _ramBankVisualiser = null;
+                _ramVisualiser = null;
                 _motherboard.AyAudio.AySignalHook = _waveVisualiser.ReceiveSignals;
                 _motherboard.AyAudio.BeeperSignalHook = _waveVisualiser.ReceiveSignal;
 
@@ -447,7 +447,7 @@ public class Host : Game
                 _motherboard.AyAudio.BeeperSignalHook = _spectrumAnalyser.ReceiveSignal;
                 _videoRamVisualiser = null;
                 _waveVisualiser = null;
-                _ramBankVisualiser = null;
+                _ramVisualiser = null;
 
                 ChangeScale(_scaleFactor);
 
@@ -460,7 +460,7 @@ public class Host : Game
                 _videoRamVisualiser = new VideoRamVisualiser(_graphicsDeviceManager, _motherboard.Ram, false, _videoRenderer);
                 _waveVisualiser = null;
                 _spectrumAnalyser = null;
-                _ramBankVisualiser = null;
+                _ramVisualiser = null;
                 _motherboard.AyAudio.AySignalHook = null;
                 _motherboard.AyAudio.BeeperSignalHook = null;
 
@@ -475,7 +475,7 @@ public class Host : Game
                 _videoRamVisualiser = new VideoRamVisualiser(_graphicsDeviceManager, _motherboard.Ram, true, _videoRenderer);
                 _waveVisualiser = null;
                 _spectrumAnalyser = null;
-                _ramBankVisualiser = null;
+                _ramVisualiser = null;
                 _motherboard.AyAudio.AySignalHook = null;
                 _motherboard.AyAudio.BeeperSignalHook = null;
 
@@ -487,7 +487,7 @@ public class Host : Game
                 AppSettings.Instance.Visualisation = Visualisation.RamBank;
                 AppSettings.Instance.Save();
 
-                _ramBankVisualiser = new RamBankVisualiser(_graphicsDeviceManager, _motherboard.Ram);
+                _ramVisualiser = new RamVisualiser(_graphicsDeviceManager, _motherboard.Ram);
                 _waveVisualiser = null;
                 _spectrumAnalyser = null;
                 _videoRamVisualiser = null;
@@ -720,9 +720,9 @@ public class Host : Game
             }
         }
 
-        if (_ramBankVisualiser != null)
+        if (_ramVisualiser != null)
         {
-            _spriteBatch.Draw(_ramBankVisualiser.RenderRam(),
+            _spriteBatch.Draw(_ramVisualiser.RenderRam(),
                 new Rectangle(Constants.ScreenWidthPixels * _scaleFactor, 0, Constants.RamBankVisualisationPanelWidth * _scaleFactor, Constants.ScreenHeightPixels * _scaleFactor),
                 new Rectangle(0, 0, Constants.RamBankVisualisationPanelWidth, Constants.ScreenHeightPixels), Color.White);
         }

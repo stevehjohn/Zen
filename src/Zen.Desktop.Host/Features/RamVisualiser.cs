@@ -6,7 +6,7 @@ using Zen.System.Modules;
 
 namespace Zen.Desktop.Host.Features;
 
-public class RamBankVisualiser
+public class RamVisualiser
 {
     private const int SideSize = 256;
 
@@ -24,7 +24,7 @@ public class RamBankVisualiser
         set => _ram = value;
     }
 
-    public RamBankVisualiser(GraphicsDeviceManager graphicsDeviceManager, Ram ram)
+    public RamVisualiser(GraphicsDeviceManager graphicsDeviceManager, Ram ram)
     {
         _graphicsDeviceManager = graphicsDeviceManager;
 
@@ -39,24 +39,13 @@ public class RamBankVisualiser
     {
         Array.Fill(_data, Color.Black);
 
-        RenderBank();
-
-        _visualisation.SetData(_data);
-
-        return _visualisation;
-    }
-
-    private void RenderBank()
-    {
-        var bank = _ram.GetBank(2);
-
         const int bytesPerRow = SideSize / 8;
 
         for (var y = 0; y < Constants.ScreenHeightPixels; y++)
         {
             for (var x = 0; x < bytesPerRow; x++)
             {
-                var data = bank[y * bytesPerRow + x];
+                var data = _ram[(ushort) (y * bytesPerRow + x)];
 
                 for (var i = 0; i < 8; i++)
                 {
@@ -64,5 +53,9 @@ public class RamBankVisualiser
                 }
             }
         }
+
+        _visualisation.SetData(_data);
+
+        return _visualisation;
     }
 }
