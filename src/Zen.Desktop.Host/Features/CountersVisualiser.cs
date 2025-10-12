@@ -64,7 +64,11 @@ public class CountersVisualiser
 
         DrawString("ROM", Color.Magenta, 2, 3);
         DrawString(":", Color.White, 5, 3);
-        DrawString(_motherboard.SelectedRom.ToString(), Color.Cyan, 7, 3);
+        DrawString(_motherboard.SelectedRom.ToString(), Color.Cyan, 9, 3);
+
+        DrawString("Banks", Color.Magenta, 14, 3);
+        DrawString(":", Color.White, 22, 3);
+        DrawString(_motherboard.SelectedRom.ToString(), Color.Cyan, 24, 3);
         
         _texture.SetData(_data);
 
