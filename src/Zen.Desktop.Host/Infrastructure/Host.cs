@@ -236,6 +236,15 @@ public class Host : Game
         }
     }
 
+    protected override void Dispose(bool disposing)
+    {
+        base.Dispose(disposing);
+
+        _audioEngine?.Dispose();
+
+        _audioEngine = null;
+    }
+
     private void KeyTyped(TextInputEventArgs arguments)
     {
         _menuSystem?.KeyPressed(arguments.Character);

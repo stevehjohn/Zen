@@ -311,11 +311,11 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
 
         if (port == 0x7F)
         {
-            _ram.SetBank(3, (byte) (data & 0b0000_0111));
+            _ram.SetBank(3, (byte) (Last7FFD & 0b0000_0111));
 
-            _ram.UseShadowScreenBank = (data & 0b0000_1000) != 0;
+            _ram.UseShadowScreenBank = (Last7FFD & 0b0000_1000) != 0;
 
-            if ((data & 0b0010_0000) != 0)
+            if ((Last7FFD & 0b0010_0000) != 0)
             {
                 _pagingDisabled = true;
             }
@@ -328,7 +328,7 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
             
             case Model.Spectrum128:
             case Model.SpectrumPlus2:
-                _ram.LoadRom(LoadRom((data >> 4) & 0x01));
+                _ram.LoadRom(LoadRom((Last7FFD >> 4) & 0x01));
                 
                 break;
             
