@@ -168,6 +168,11 @@ public class Host : Game
 
             _motherboard.AyAudio.BeeperSignalHook = _spectrumAnalyser.ReceiveSignal;
         }
+
+        if (_countersVisualiser != null)
+        {
+            _countersVisualiser.Motherboard = _motherboard;
+        }
     }
 
     protected override void OnActivated(object sender, EventArgs args)
