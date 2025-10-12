@@ -329,6 +329,7 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
             case Model.Spectrum128:
             case Model.SpectrumPlus2:
                 _ram.LoadRom(LoadRom((data >> 4) & 0x01));
+                
                 break;
             
             default:
