@@ -20,6 +20,8 @@ public class CountersVisualiser
 
     private readonly Motherboard _motherboard;
 
+    private int _lastRom;
+
     private readonly byte[] _previousMappings = new byte[4];
 
     public CountersVisualiser(GraphicsDeviceManager graphicsDeviceManager, ContentManager contentManager, Motherboard motherboard)
@@ -67,7 +69,9 @@ public class CountersVisualiser
 
         DrawString("ROM", Color.Magenta, 2, 3);
         DrawString(":", Color.White, 7, 3);
-        DrawString(_motherboard.SelectedRom.ToString(), Color.Cyan, 9, 3);
+        DrawCharacter((char) (_motherboard.SelectedRom + '0'), Color.Cyan, 9, 3, _motherboard.SelectedRom != _lastRom);
+
+        _lastRom = _motherboard.SelectedRom;
 
         var data = new StringBuilder();
 
