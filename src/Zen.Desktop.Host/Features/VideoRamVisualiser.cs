@@ -65,7 +65,7 @@ public class VideoRamVisualiser
         return _visualisation;
     }
 
-    private void RenderBank(int panel, byte[] bank)
+    private void RenderBank(int panel, Span<byte> bank)
     {
         var width = Constants.ScreenWidthPixels;
 

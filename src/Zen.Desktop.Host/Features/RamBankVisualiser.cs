@@ -61,7 +61,7 @@ public class RamBankVisualiser
 
                 for (var i = 0; i < 8; i++)
                 {
-                    _data[Offset + y * bytesPerRow + x * 8 + i] = (data & 1 << (7 - i)) > 0 ? Color.LightGray : Color.Black;
+                    _data[Offset + y * SideSize + x * 8 + i] = (data & (1 << (7 - i))) > 0 ? Color.LightGray : Color.Black;
                 }
             }
         }
