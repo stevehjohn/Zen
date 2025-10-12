@@ -337,6 +337,9 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
 
                 if (! specialPaging)
                 {
+                    _ram.SetBank(1, 5);
+                    _ram.SetBank(2, 2);
+                    
                     var romNumber = ((Last7FFD >> 4) & 0x01) | ((Last1FFD >> 1) & 0x02);
 
                     _ram.LoadRom(LoadRom(romNumber));
