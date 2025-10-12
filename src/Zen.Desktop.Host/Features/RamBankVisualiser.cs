@@ -53,11 +53,11 @@ public class RamBankVisualiser
         {
             for (var x = 0; x < SideSize / 8; x++)
             {
-                var data = _ram.GetBank(3)[y * SideSize + x];
+                var data = _ram.GetBank(3)[y * (SideSize / 8) + x];
 
-                for (var i = 0; i < 7; i++)
+                for (var i = 0; i < 8; i++)
                 {
-                    _data[Offset + y * SideSize + x * 8 + i] = (data & 1 << i) > 0 ? Color.LightGray : Color.Black;
+                    _data[Offset + y * (SideSize / 8) + x * 8 + i] = (data & 1 << (7 - i)) > 0 ? Color.LightGray : Color.Black;
                 }
             }
         }
