@@ -14,6 +14,7 @@ public struct TestDefinition
 
     public StateDefinition Final { get; set; }
 
+    // ReSharper disable once CollectionNeverQueried.Global
     public object[][] Cycles { get; set; }
 
     public object[][]? Ports { get; set; }
