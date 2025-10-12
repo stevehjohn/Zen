@@ -40,8 +40,24 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
     private bool _sound;
 
     private int _currentFrameCycle;
-    
-    public int SelectedRom { get; private set; }
+
+    public int SelectedRom
+    {
+        get
+        {
+            if (_model is Model.SpectrumPlus2A or Model.SpectrumPlus3)
+            {
+                if ((Last1FFD & 0x01) != 0)
+                {
+                    return -1;
+                }
+
+                return ((Last7FFD >> 4) & 0x01) | ((Last1FFD >> 1) & 0x02);
+            }
+
+            return (Last7FFD >> 4) & 0x01;
+        }
+    }
 
     // ReSharper disable once InconsistentNaming
     public byte Last7FFD { get; set; }
@@ -315,8 +331,6 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
 
                 ConfigureSpecialPaging(map);
 
-                SelectedRom = -1;
-
                 return;
             }
         }
@@ -390,8 +404,6 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
         {
             _romCache.Add(romNumber, File.ReadAllBytes($"{AppDomain.CurrentDomain.BaseDirectory}/Rom Images/{folder}/image-{romNumber}.rom"));
         }
-
-        SelectedRom = romNumber;
 
         return _romCache[romNumber];
     }
