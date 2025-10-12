@@ -165,6 +165,11 @@ public class Host : Game
             _videoRamVisualiser.Ram = _motherboard.Ram;
         }
 
+        if (_ramBankVisualiser != null)
+        {
+            _ramBankVisualiser.Ram = _motherboard.Ram;
+        }
+
         if (_spectrumAnalyser != null)
         {
             _motherboard.AyAudio.AySignalHook = _spectrumAnalyser.ReceiveSignals;

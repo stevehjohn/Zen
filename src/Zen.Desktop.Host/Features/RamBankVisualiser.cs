@@ -1,15 +1,14 @@
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Zen.Common;
 using Zen.System.Modules;
 
 namespace Zen.Desktop.Host.Features;
 
 public class RamBankVisualiser
 {
-    private const int SideSize = 128;
-
-    private const int Offset = 16;
+    private const int SideSize = 256;
 
     // ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
     private readonly GraphicsDeviceManager _graphicsDeviceManager;
@@ -51,9 +50,9 @@ public class RamBankVisualiser
     {
         var bank = _ram.GetBank(2);
 
-        var bytesPerRow = SideSize / 8;
+        const int bytesPerRow = SideSize / 8;
 
-        for (var y = 0; y < SideSize; y++)
+        for (var y = 0; y < Constants.ScreenHeightPixels; y++)
         {
             for (var x = 0; x < bytesPerRow; x++)
             {
@@ -61,7 +60,7 @@ public class RamBankVisualiser
 
                 for (var i = 0; i < 8; i++)
                 {
-                    _data[Offset + y * SideSize + x * 8 + i] = (data & (1 << (7 - i))) > 0 ? Color.LightGray : Color.Black;
+                    _data[y * SideSize + x * 8 + i] = (data & (1 << (7 - i))) > 0 ? Color.LightGray : Color.Black;
                 }
             }
         }
