@@ -40,7 +40,7 @@ public class VideoModulator
         {
             case Model.SpectrumPlus2A:
             case Model.SpectrumPlus3:
-                _screenStart = Constants.PaperRegionStartPlus - Constants.StatesPerScreenLinePlus * Constants.BorderPixels;
+                _screenStart = Constants.PaperRegionStartPlus - Constants.StatesPerScreenLinePlus * Constants.BorderPixels - Constants.StatesPerScreenLinePlus;
                 _screenEnd = _screenStart + Constants.StatesPerScreenLinePlus * (Constants.ScreenHeightPixels + 1);
                 _statesPerScreenLine = Constants.StatesPerScreenLinePlus;
                         
