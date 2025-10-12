@@ -69,9 +69,12 @@ public class CountersVisualiser
 
         DrawString("ROM", Color.Magenta, 2, 3);
         DrawString(":", Color.White, 7, 3);
-        DrawCharacter((char) (_motherboard.SelectedRom + '0'), Color.Cyan, 9, 3, _motherboard.SelectedRom != _lastRom);
 
-        _lastRom = _motherboard.SelectedRom;
+        var selectedRom = _motherboard.SelectedRom;
+        
+        DrawCharacter((char) (selectedRom + '0'), Color.Cyan, 9, 3, selectedRom != _lastRom);
+
+        _lastRom = selectedRom;
 
         var data = new StringBuilder();
 
