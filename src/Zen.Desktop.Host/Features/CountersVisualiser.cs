@@ -21,7 +21,7 @@ public class CountersVisualiser
 
     private readonly Motherboard _motherboard;
 
-    private byte[] _previousBanks = new byte[4];
+    private readonly byte[] _previousMappings = new byte[4];
 
     public CountersVisualiser(GraphicsDeviceManager graphicsDeviceManager, ContentManager contentManager, Motherboard motherboard)
     {
@@ -81,9 +81,13 @@ public class CountersVisualiser
 
             var mapping = _motherboard.Ram.GetBankMapping((byte) i);
 
-            _previousBanks[i] = mapping;
+            var colour = mapping == _previousMappings[i]
+                ? Color.Cyan
+                : Color.Red;
                 
-            DrawCharacter((char) (mapping + '0'), Color.Cyan, 24 + i *2, 3);
+            _previousMappings[i] = mapping;
+            
+            DrawCharacter((char) (mapping + '0'), colour, 24 + i *2, 3);
         }
 
         
