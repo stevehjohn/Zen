@@ -30,7 +30,7 @@ public class Ram
         }
     }
 
-    public byte[] WorkingScreenRam => _banks[_screenBank];
+    public Span<byte> WorkingScreenRam => _banks[_screenBank];
 
     public byte[] Rom
     {
