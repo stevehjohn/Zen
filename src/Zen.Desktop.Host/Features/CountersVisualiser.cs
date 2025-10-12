@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Data;
 using System.Text;
 using Zen.Common;
 using Zen.Common.Infrastructure;
@@ -19,6 +20,8 @@ public class CountersVisualiser
     private readonly Texture2D _texture;
 
     private readonly Motherboard _motherboard;
+
+    private byte[] _previousBanks = new byte[4];
 
     public CountersVisualiser(GraphicsDeviceManager graphicsDeviceManager, ContentManager contentManager, Motherboard motherboard)
     {
@@ -76,7 +79,11 @@ public class CountersVisualiser
         {
             DrawString(data.ToString().Trim(), Color.Cyan, 24, 3);
 
-            DrawCharacter((char) (_motherboard.Ram.GetBankMapping((byte) i) + '0'), Color.Cyan, 24 + i *2, 3);
+            var mapping = _motherboard.Ram.GetBankMapping((byte) i);
+
+            _previousBanks[i] = mapping;
+                
+            DrawCharacter((char) (mapping + '0'), Color.Cyan, 24 + i *2, 3);
         }
 
         
