@@ -321,32 +321,34 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
             }
         }
 
-        if (_model is Model.SpectrumPlus2A or Model.SpectrumPlus3)
+        switch (_model)
         {
-            var specialPaging = (Last1FFD & 0x01) != 0;
+            case Model.Spectrum48K:
+                return;
+            
+            case Model.Spectrum128:
+            case Model.SpectrumPlus2:
+                _ram.LoadRom(LoadRom((data >> 4) & 0x01));
+                break;
+            
+            default:
+                var specialPaging = (Last1FFD & 0x01) != 0;
 
-            if (specialPaging)
-            {
+                if (! specialPaging)
+                {
+                    var romNumber = ((Last7FFD >> 4) & 0x01) | ((Last1FFD >> 1) & 0x02);
+
+                    _ram.LoadRom(LoadRom(romNumber));
+                    
+                    return;
+                }
+
                 var map = (Last1FFD >> 1) & 0b11;
 
                 ConfigureSpecialPaging(map);
 
-                return;
-            }
+                break;
         }
-
-        int romNumber;
-
-        if (_model is Model.SpectrumPlus2A or Model.SpectrumPlus3)
-        {
-            romNumber = ((Last7FFD >> 4) & 0x01) | ((Last1FFD >> 1) & 0x02);
-        }
-        else
-        {
-            romNumber = (Last7FFD >> 4) & 0x01;
-        }
-
-        _ram.LoadRom(LoadRom(romNumber));
     }
 
 
