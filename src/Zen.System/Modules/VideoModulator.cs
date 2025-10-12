@@ -13,9 +13,11 @@ public class VideoModulator
 
     private const int StatesPerHBorder = Constants.BorderPixels / 2;
 
+    private readonly Ram _ram;
+
     private int _previousCycles;
 
-    private readonly Ram _ram;
+    private bool _renderedFrame;
 
     // .. S           F B     P P P I I I
     // .. 7 6 5 4 3 2 1 0 7 6 5 4 3 2 1 0
@@ -29,7 +31,7 @@ public class VideoModulator
     public byte Border { get; set; }
 
     public byte FloatingBusValue { get; private set; }
-    
+
     public VideoModulator(Model model, Ram ram)
     {
         _ram = ram;
@@ -41,14 +43,14 @@ public class VideoModulator
                 _screenStart = Constants.PaperRegionStartPlus - Constants.StatesPerScreenLinePlus * Constants.BorderPixels - Constants.StatesPerScreenLinePlus;
                 _screenEnd = _screenStart + Constants.StatesPerScreenLinePlus * (Constants.ScreenHeightPixels + 1);
                 _statesPerScreenLine = Constants.StatesPerScreenLinePlus;
-                        
+
                 break;
-                
+
             default:
                 _screenStart = Constants.PaperRegionStart - Constants.StatesPerScreenLine * Constants.BorderPixels;
                 _screenEnd = _screenStart + Constants.StatesPerScreenLine * (Constants.ScreenHeightPixels + 1);
                 _statesPerScreenLine = Constants.StatesPerScreenLine;
-                    
+
                 break;
         }
     }
@@ -60,6 +62,8 @@ public class VideoModulator
             FloatingBusValue = 0xFF;
 
             _previousCycles = _screenStart;
+
+            _renderedFrame = false;
 
             return;
         }
@@ -109,12 +113,14 @@ public class VideoModulator
             FloatingBusValue = _ram[(ushort) (ramPixel + 1)];
         }
 
-        if (y >= Constants.BorderPixels + Constants.PaperHeightPixels)
+        if (y >= Constants.BorderPixels + Constants.PaperHeightPixels && ! _renderedFrame)
         {
             Array.Copy(_screen, 0, _frame, 0, Constants.ScreenPixelCount);
+
+            _renderedFrame = true;
         }
     }
-    
+
     private ushort GetPixel(int pixel)
     {
         var y = pixel / Constants.PaperWidthPixels;
