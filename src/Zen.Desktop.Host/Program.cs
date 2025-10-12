@@ -18,6 +18,8 @@ public static class Program
         catch (Exception exception)
         {
             Logger.LogException(nameof(Program), exception);
+
+            throw;
         }
     }
 }
