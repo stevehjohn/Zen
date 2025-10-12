@@ -68,7 +68,7 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
     {
         set => _worker.Slow = value;
     }
-    
+
     public Worker Worker => _worker;
 
     public bool Sound
@@ -112,15 +112,15 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
         _ram.LoadRom(LoadRom(0));
 
         _videoModulator = new VideoModulator(model, _ram);
-        
+
         _ayAudio = new AyAudio(model, engine);
 
         _ayAudio.Start();
 
         _worker = new(model, _interface, _videoModulator, _ayAudio)
-                  {
-                      OnTick = OnTick
-                  };
+        {
+            OnTick = OnTick
+        };
     }
 
     public void AddPeripheral(IPeripheral peripheral)
@@ -280,35 +280,57 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
 
     private void PageCall(byte port, byte data)
     {
-        if (_model is Model.SpectrumPlus2A or Model.SpectrumPlus3 && port == 0x1F && (data & 0x01) > 0)
+        switch (port)
         {
-            ConfigureSpecialPaging((data & 0b0110) >> 1);
+            case 0x7F:
+                Last7FFD = data;
+                break;
 
-            var romNumber = (Last7FFD & 0b0001_0000) >> 4 | (Last1FFD & 0b0000_0100) >> 1;
-
-            _ram.LoadRom(LoadRom(romNumber));
-        }
-        else if (port == 0x7F)
-        {
-            _ram.SetBank(3, (byte) (data & 0b0000_0111));
-
-            _ram.UseShadowScreenBank = (data & 0b0000_1000) > 0;
-            
-            var romNumber = (Last7FFD & 0b0001_0000) >> 4;
-
-            _ram.LoadRom(LoadRom(romNumber));
+            case 0x1F:
+                Last1FFD = data;
+                break;
         }
 
         if (port == 0x7F)
         {
-            Last7FFD = data;
+            _ram.SetBank(3, (byte) (data & 0b0000_0111));
+
+            _ram.UseShadowScreenBank = (data & 0b0000_1000) != 0;
+
+            if ((data & 0b0010_0000) != 0)
+            {
+                _pagingDisabled = true;
+            }
         }
 
-        if (port == 0x1F)
+        if (_model is Model.SpectrumPlus2A or Model.SpectrumPlus3)
         {
-            Last1FFD = data;
+            var specialPaging = (Last1FFD & 0x01) != 0;
+
+            if (specialPaging)
+            {
+                var map = (Last1FFD >> 1) & 0b11;
+
+                ConfigureSpecialPaging(map);
+
+                return;
+            }
         }
+
+        int romNumber;
+
+        if (_model is Model.SpectrumPlus2A or Model.SpectrumPlus3)
+        {
+            romNumber = ((Last7FFD >> 4) & 0x01) | ((Last1FFD >> 1) & 0x02);
+        }
+        else
+        {
+            romNumber = (Last7FFD >> 4) & 0x01;
+        }
+
+        _ram.LoadRom(LoadRom(romNumber));
     }
+
 
     private void ConfigureSpecialPaging(int configurationId)
     {
