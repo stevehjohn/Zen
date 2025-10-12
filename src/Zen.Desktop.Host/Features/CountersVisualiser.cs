@@ -14,7 +14,7 @@ namespace Zen.Desktop.Host.Features;
 public class CountersVisualiser
 {
     private readonly Color[] _data;
-    
+
     private readonly Color[] _characterSet;
 
     private readonly Texture2D _texture;
@@ -26,7 +26,7 @@ public class CountersVisualiser
     public CountersVisualiser(GraphicsDeviceManager graphicsDeviceManager, ContentManager contentManager, Motherboard motherboard)
     {
         var characterSet = contentManager.Load<Texture2D>("character-set");
-        
+
         _characterSet = new Color[7168];
 
         characterSet.GetData(_characterSet);
@@ -84,13 +84,13 @@ public class CountersVisualiser
             var colour = mapping == _previousMappings[i]
                 ? Color.Cyan
                 : Color.Red;
-                
+
+            DrawCharacter((char) (mapping + '0'), colour, 24 + i * 2, 3, mapping != _previousMappings[i]);
+
             _previousMappings[i] = mapping;
-            
-            DrawCharacter((char) (mapping + '0'), colour, 24 + i *2, 3);
         }
 
-        
+
         _texture.SetData(_data);
 
         return _texture;
@@ -104,7 +104,7 @@ public class CountersVisualiser
         }
     }
 
-    private void DrawCharacter(char c, Color color, int x, int y)
+    private void DrawCharacter(char c, Color color, int x, int y, bool invert = false)
     {
         var co = CharacterMap.Instance.GetCharacterStartPixel(c);
 
@@ -112,7 +112,11 @@ public class CountersVisualiser
         {
             for (var bX = 0; bX < 8; bX++)
             {
-                if (_characterSet[bY * 128 + bX + co].A == 0)
+                var set = _characterSet[bY * 128 + bX + co].A == 0;
+
+                var draw = invert ? set : ! set;
+
+                if (! draw)
                 {
                     continue;
                 }
