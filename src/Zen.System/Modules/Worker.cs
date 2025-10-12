@@ -155,8 +155,6 @@ public class Worker : IDisposable
             {
                 _frameCycles = 0;
 
-                _videoModulator.StartFrame();
-
                 while (_frameCycles < _expectedFrameCycles)
                 {
                     if (_frameCycles >= _interruptStart && _frameCycles < _interruptEnd)
@@ -237,15 +235,11 @@ public class Worker : IDisposable
     {
         if (mcycle < 6 && opCycles[mcycle + 1] == 0 && _vramChanges[1].Address != -1)
         {
-            _videoModulator.ApplyRamChange(_vramChanges[1].Address, _vramChanges[1].Data);
-
             return GetContention(frameCycles);
         }
 
         if (mcycle < 5 && opCycles[mcycle + 2] == 0 && _vramChanges[0].Address != -1)
         {
-            _videoModulator.ApplyRamChange(_vramChanges[0].Address, _vramChanges[0].Data);
-
             return GetContention(frameCycles);
         }
 

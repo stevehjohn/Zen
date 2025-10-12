@@ -24,8 +24,6 @@ public class VideoModulator
 
     private readonly ushort[] _frame = new ushort[Constants.ScreenPixelCount];
 
-    private readonly byte[] _vram = new byte[Constants.RamBankSize];
-
     public ushort[] ScreenFrame => _frame;
 
     public byte Border { get; set; }
@@ -53,16 +51,6 @@ public class VideoModulator
                     
                 break;
         }
-    }
-
-    public void StartFrame()
-    {
-        Array.Copy(_ram.WorkingScreenRam, 0, _vram, 0, 0x4000);
-    }
-
-    public void ApplyRamChange(int address, byte data)
-    {
-        _vram[address & 0b0011_1111_1111_1111] = data;
     }
 
     public void CycleComplete(int cycles)
