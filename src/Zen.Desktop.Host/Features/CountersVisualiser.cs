@@ -64,7 +64,7 @@ public class CountersVisualiser
         DrawString(Counters.Instance.GetCountPerSecond(Counter.Hertz).ToString("N0"), Color.Cyan, 24, 2);
 
         DrawString("ROM", Color.Magenta, 2, 3);
-        DrawString(":", Color.White, 5, 3);
+        DrawString(":", Color.White, 7, 3);
         DrawString(_motherboard.SelectedRom.ToString(), Color.Cyan, 9, 3);
 
         var data = new StringBuilder();
