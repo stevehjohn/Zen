@@ -118,7 +118,7 @@ public class ZenFileAdapter
 
         for (var i = 0; i < 8; i++)
         {
-            data.RamBanks.Add(i, _ram.GetBank((byte) i));
+            data.RamBanks.Add(i, _ram.GetBank((byte) i).ToArray());
         }
 
         for (var i = 0; i < 4; i++)

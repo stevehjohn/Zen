@@ -109,7 +109,7 @@ public class Ram
         Array.Copy(data, 0, _banks[bankNumber], 0, data.Length);
     }
 
-    public byte[] GetBank(byte bankNumber)
+    public Span<byte> GetBank(byte bankNumber)
     {
         return _banks[bankNumber];
     }

@@ -10,7 +10,7 @@ public class RamBankVisualiser
     private const int SideSize = 128;
 
     private const int Offset = 16;
-    
+
     // ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
     private readonly GraphicsDeviceManager _graphicsDeviceManager;
 
@@ -39,9 +39,9 @@ public class RamBankVisualiser
     public Texture2D RenderRam()
     {
         Array.Fill(_data, Color.Black);
-        
+
         RenderBank();
-        
+
         _visualisation.SetData(_data);
 
         return _visualisation;
@@ -49,15 +49,19 @@ public class RamBankVisualiser
 
     private void RenderBank()
     {
+        var bank = _ram.GetBank(2);
+
+        var bytesPerRow = SideSize / 8;
+
         for (var y = 0; y < SideSize; y++)
         {
-            for (var x = 0; x < SideSize / 8; x++)
+            for (var x = 0; x < bytesPerRow; x++)
             {
-                var data = _ram.GetBank(3)[y * (SideSize / 8) + x];
+                var data = bank[y * bytesPerRow + x];
 
                 for (var i = 0; i < 8; i++)
                 {
-                    _data[Offset + y * (SideSize / 8) + x * 8 + i] = (data & 1 << (7 - i)) > 0 ? Color.LightGray : Color.Black;
+                    _data[Offset + y * bytesPerRow + x * 8 + i] = (data & 1 << (7 - i)) > 0 ? Color.LightGray : Color.Black;
                 }
             }
         }
