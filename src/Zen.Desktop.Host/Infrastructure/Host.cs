@@ -194,7 +194,7 @@ public class Host : Game
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-        _countersVisualiser = new CountersVisualiser(_graphicsDeviceManager, Content);
+        _countersVisualiser = new CountersVisualiser(_graphicsDeviceManager, Content, _motherboard);
 
         _videoRenderer = new VideoRenderer(_motherboard.VideoAdapter.ScreenFrame, _graphicsDeviceManager)
         {
@@ -465,7 +465,7 @@ public class Host : Game
                 AppSettings.Instance.ViewCounters = true;
                 AppSettings.Instance.Save();
 
-                _countersVisualiser = new CountersVisualiser(_graphicsDeviceManager, Content);
+                _countersVisualiser = new CountersVisualiser(_graphicsDeviceManager, Content, _motherboard);
 
                 ChangeScale(_scaleFactor);
 

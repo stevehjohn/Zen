@@ -5,6 +5,7 @@ using System;
 using Zen.Common;
 using Zen.Common.Infrastructure;
 using Zen.Desktop.Host.Infrastructure;
+using Zen.System;
 
 namespace Zen.Desktop.Host.Features;
 
@@ -16,7 +17,9 @@ public class CountersVisualiser
 
     private readonly Texture2D _texture;
 
-    public CountersVisualiser(GraphicsDeviceManager graphicsDeviceManager, ContentManager contentManager)
+    private readonly Motherboard _motherboard;
+
+    public CountersVisualiser(GraphicsDeviceManager graphicsDeviceManager, ContentManager contentManager, Motherboard motherboard)
     {
         var characterSet = contentManager.Load<Texture2D>("character-set");
         
@@ -27,6 +30,8 @@ public class CountersVisualiser
         _data = new Color[Constants.ScreenWidthPixels * Constants.CountersPanelHeight];
 
         _texture = new Texture2D(graphicsDeviceManager.GraphicsDevice, Constants.ScreenWidthPixels, Constants.CountersPanelHeight);
+
+        _motherboard = motherboard;
     }
 
     public Texture2D RenderPanel()
@@ -56,6 +61,10 @@ public class CountersVisualiser
         DrawString("Hz", Color.Magenta, 14, 2);
         DrawString(":", Color.White, 22, 2);
         DrawString(Counters.Instance.GetCountPerSecond(Counter.Hertz).ToString("N0"), Color.Cyan, 24, 2);
+
+        DrawString("ROM", Color.Magenta, 2, 3);
+        DrawString(":", Color.White, 5, 3);
+        DrawString(_motherboard.SelectedRom.ToString(), Color.Cyan, 7, 3);
         
         _texture.SetData(_data);
 

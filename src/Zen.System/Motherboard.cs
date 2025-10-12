@@ -40,6 +40,8 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
     private bool _sound;
 
     private int _currentFrameCycle;
+    
+    public int SelectedRom { get; private set; }
 
     // ReSharper disable once InconsistentNaming
     public byte Last7FFD { get; set; }
@@ -386,6 +388,8 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
         {
             _romCache.Add(romNumber, File.ReadAllBytes($"{AppDomain.CurrentDomain.BaseDirectory}/Rom Images/{folder}/image-{romNumber}.rom"));
         }
+
+        SelectedRom = romNumber;
 
         return _romCache[romNumber];
     }
