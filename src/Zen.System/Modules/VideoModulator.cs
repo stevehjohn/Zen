@@ -127,11 +127,6 @@ public class VideoModulator
         }
     }
     
-    public void ScreenBankSwitched()
-    {
-        Array.Copy(_ram.WorkingScreenRam, 0, _vram, 0, 0x4000);
-    }
-    
     private ushort GetPixel(int pixel)
     {
         var y = pixel / Constants.PaperWidthPixels;
@@ -152,7 +147,7 @@ public class VideoModulator
 
         address |= xB;
 
-        var set = (_vram[address] & xO) > 0;
+        var set = (_ram.WorkingScreenRam[address] & xO) > 0;
 
         var colourAddress = 0x1800;
 
@@ -160,7 +155,7 @@ public class VideoModulator
 
         colourAddress += offset;
 
-        var attributes = _vram[colourAddress];
+        var attributes = _ram.WorkingScreenRam[colourAddress];
 
         var result = (ushort) (attributes & 0b0011_1111);
 

@@ -23,7 +23,6 @@ public class Ram
     public bool UseShadowScreenBank
     {
         set => _screenBank = (byte) (value ? 7 : 5);
-        get => _screenBank == 7;
     }
 
     public byte[] WorkingScreenRam => _banks[_screenBank];
