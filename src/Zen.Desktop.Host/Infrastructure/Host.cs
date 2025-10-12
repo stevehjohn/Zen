@@ -386,6 +386,7 @@ public class Host : Game
 
             case MenuResult.SoundPortAudio:
                 _motherboard.Sound = true;
+                _motherboard.AudioEngine.Dispose();
                 _motherboard.AudioEngine = new PortAudioEngine();
                 AppSettings.Instance.AudioEngine = AudioEngine.PortAudio;
                 AppSettings.Instance.Sound = true;
@@ -395,6 +396,7 @@ public class Host : Game
 
             case MenuResult.SoundBass:
                 _motherboard.Sound = true;
+                _motherboard.AudioEngine.Dispose();
                 _motherboard.AudioEngine = new BassAudioEngine();
                 AppSettings.Instance.AudioEngine = AudioEngine.Bass;
                 AppSettings.Instance.Sound = true;
@@ -516,8 +518,6 @@ public class Host : Game
         {
             _motherboard.Sound = true;
         }
-
-        _motherboard.AudioEngine.Reset();
 
         _motherboard.Resume();
     }
