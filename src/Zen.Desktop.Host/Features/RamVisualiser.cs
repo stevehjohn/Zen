@@ -19,7 +19,7 @@ public class RamVisualiser
 
     private Ram _ram;
 
-    private int _offset = 0x8000;
+    private int _offset = 0x8200;
 
     public Ram Ram
     {
