@@ -71,8 +71,12 @@ public class CountersVisualiser
         DrawString(":", Color.White, 7, 3);
 
         var selectedRom = _motherboard.SelectedRom;
+
+        var text = selectedRom == -1
+            ? "RAM"
+            : selectedRom.ToString();
         
-        DrawCharacter((char) (selectedRom + '0'), Color.Cyan, 9, 3, selectedRom != _lastRom);
+        DrawString(text, Color.Cyan, 9, 3, selectedRom != _lastRom);
 
         _lastRom = selectedRom;
 
@@ -98,11 +102,11 @@ public class CountersVisualiser
         return _texture;
     }
 
-    private void DrawString(string text, Color color, int x, int y)
+    private void DrawString(string text, Color color, int x, int y, bool invert = false)
     {
         for (var i = 0; i < text.Length; i++)
         {
-            DrawCharacter(text[i], color, x + i, y);
+            DrawCharacter(text[i], color, x + i, y, invert);
         }
     }
 

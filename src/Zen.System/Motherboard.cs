@@ -316,6 +316,8 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
 
                 ConfigureSpecialPaging(map);
 
+                SelectedRom = -1;
+
                 return;
             }
         }
