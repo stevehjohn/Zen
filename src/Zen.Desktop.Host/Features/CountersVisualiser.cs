@@ -69,14 +69,16 @@ public class CountersVisualiser
 
         var data = new StringBuilder();
 
-        for (var i = 0; i < 4; i++)
-        {
-            data.Append($"{_motherboard.Ram.GetBankMapping((byte) i)} ");
-        }
-
         DrawString("Banks", Color.Magenta, 14, 3);
         DrawString(":", Color.White, 22, 3);
-        DrawString(data.ToString().Trim(), Color.Cyan, 24, 3);
+
+        for (var i = 0; i < 4; i++)
+        {
+            DrawString(data.ToString().Trim(), Color.Cyan, 24, 3);
+
+            DrawCharacter((char) (_motherboard.Ram.GetBankMapping((byte) i) + '0'), Color.Cyan, 24 + i *2, 3);
+        }
+
         
         _texture.SetData(_data);
 
