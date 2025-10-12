@@ -196,7 +196,7 @@ public class Host : Game
 
         _countersVisualiser = new CountersVisualiser(_graphicsDeviceManager, Content, _motherboard);
 
-        _videoRenderer = new VideoRenderer(_motherboard.VideoAdapter.ScreenFrame, _graphicsDeviceManager)
+        _videoRenderer = new VideoRenderer(_motherboard.VideoModulator.ScreenFrame, _graphicsDeviceManager)
         {
             ScanComplete = ScanComplete
         };
@@ -287,7 +287,7 @@ public class Host : Game
 
                 _motherboard.Start();
 
-                _videoRenderer.ScreenFrame = _motherboard.VideoAdapter.ScreenFrame;
+                _videoRenderer.ScreenFrame = _motherboard.VideoModulator.ScreenFrame;
 
                 return;
 

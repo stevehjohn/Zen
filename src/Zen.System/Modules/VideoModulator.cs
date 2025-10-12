@@ -109,7 +109,7 @@ public class VideoModulator
             FloatingBusValue = _ram[(ushort) (ramPixel + 1)];
         }
 
-        if (y >= Constants.ScreenHeightPixels)
+        if (y >= Constants.BorderPixels + Constants.PaperHeightPixels)
         {
             Array.Copy(_screen, 0, _frame, 0, Constants.ScreenPixelCount);
         }
