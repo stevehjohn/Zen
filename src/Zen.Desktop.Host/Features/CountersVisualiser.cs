@@ -18,13 +18,16 @@ public class CountersVisualiser
 
     private readonly Texture2D _texture;
 
-    private readonly Motherboard _motherboard;
+    private Motherboard _motherboard;
 
     private int _lastRom;
 
     private readonly byte[] _previousMappings = new byte[4];
     
-    public Motherboard Motherboard { get; set; }
+    public Motherboard Motherboard
+    {
+        set => _motherboard = value;
+    }
 
     public CountersVisualiser(GraphicsDeviceManager graphicsDeviceManager, ContentManager contentManager, Motherboard motherboard)
     {
