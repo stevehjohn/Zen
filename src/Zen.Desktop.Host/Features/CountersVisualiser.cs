@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Text;
 using Zen.Common;
 using Zen.Common.Infrastructure;
 using Zen.Desktop.Host.Infrastructure;
@@ -66,9 +67,16 @@ public class CountersVisualiser
         DrawString(":", Color.White, 5, 3);
         DrawString(_motherboard.SelectedRom.ToString(), Color.Cyan, 9, 3);
 
+        var data = new StringBuilder();
+
+        for (var i = 0; i < 4; i++)
+        {
+            data.Append($"{_motherboard.Ram.GetBankMapping((byte) i)} ");
+        }
+
         DrawString("Banks", Color.Magenta, 14, 3);
         DrawString(":", Color.White, 22, 3);
-        DrawString(_motherboard.SelectedRom.ToString(), Color.Cyan, 24, 3);
+        DrawString(data.ToString().Trim(), Color.Cyan, 24, 3);
         
         _texture.SetData(_data);
 
