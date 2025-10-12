@@ -10,6 +10,8 @@ public class RamVisualiser
 {
     private const int SideSize = 256;
 
+    const int BytesPerRow = SideSize / 8;
+
     // ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
     private readonly GraphicsDeviceManager _graphicsDeviceManager;
 
@@ -32,22 +34,20 @@ public class RamVisualiser
 
         _ram = ram;
 
-        _data = new Color[SideSize * SideSize];
+        _data = new Color[SideSize * Constants.ScreenHeightPixels];
 
-        _visualisation = new Texture2D(_graphicsDeviceManager.GraphicsDevice, SideSize, SideSize);
+        _visualisation = new Texture2D(_graphicsDeviceManager.GraphicsDevice, SideSize, Constants.ScreenHeightPixels);
     }
 
     public Texture2D RenderRam()
     {
         Array.Fill(_data, Color.Black);
 
-        const int bytesPerRow = SideSize / 8;
-
         for (var y = 0; y < Constants.ScreenHeightPixels; y++)
         {
-            for (var x = 0; x < bytesPerRow; x++)
+            for (var x = 0; x < BytesPerRow; x++)
             {
-                var data = _ram[(ushort) (_offset + y * bytesPerRow + x)];
+                var data = _ram[(ushort) (_offset + y * BytesPerRow + x)];
 
                 for (var i = 0; i < 8; i++)
                 {
@@ -57,7 +57,21 @@ public class RamVisualiser
         }
 
         _visualisation.SetData(_data);
-
+        
         return _visualisation;
+    }
+
+    private void Scroll(int direction)
+    {
+        _offset += BytesPerRow;
+
+        if (_offset < 0)
+        {
+            // TODO
+        }
+        else if (_offset + Constants.ScreenHeightPixels * BytesPerRow > 0xFFFF)
+        {
+            _offset = 0;
+        }
     }
 }
