@@ -23,6 +23,8 @@ public class CountersVisualiser
     private int _lastRom;
 
     private readonly byte[] _previousMappings = new byte[4];
+    
+    public Motherboard Motherboard { get; set; }
 
     public CountersVisualiser(GraphicsDeviceManager graphicsDeviceManager, ContentManager contentManager, Motherboard motherboard)
     {

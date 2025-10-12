@@ -51,19 +51,19 @@ public class SpectrumAnalyser
 
     private readonly FrequencyRange[] _frequencyRanges =
     [
-        new FrequencyRange(30, 40),
-        new FrequencyRange(40, 60),       // Bass
-        new FrequencyRange(60, 80),
-        new FrequencyRange(80, 120),      // Lower midrange
-        new FrequencyRange(120, 160),
-        new FrequencyRange(160, 240),     // Midrange
-        new FrequencyRange(240, 320),
-        new FrequencyRange(320, 480),     // Upper midrange
-        new FrequencyRange(480, 640),
-        new FrequencyRange(640, 960),     // Presence
-        new FrequencyRange(960, 1280),
-        new FrequencyRange(1280, 1920),   // Brilliance
-        new FrequencyRange(1920, 2560)
+        new(30, 40),
+        new(40, 60),       // Bass
+        new(60, 80),
+        new(80, 120),      // Lower midrange
+        new(120, 160),
+        new(160, 240),     // Midrange
+        new(240, 320),
+        new(320, 480),     // Upper midrange
+        new(480, 640),
+        new(640, 960),     // Presence
+        new(960, 1280),
+        new(1280, 1920),   // Brilliance
+        new(1920, 2560)
     ];
 
     public Texture2D Spectrum => _spectrum;
