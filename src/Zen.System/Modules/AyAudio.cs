@@ -29,6 +29,8 @@ public class AyAudio : IDisposable
 
     private readonly Queue<(int Frame, Command Command, byte Value)>[] _commandQueues;
 
+    private readonly int _frameCycles;
+
     private Task? _audioThread;
 
     private byte _registerNumber;
@@ -42,8 +44,6 @@ public class AyAudio : IDisposable
     private float _amplitude;
 
     private ManualResetEvent? _workerResetEvent;
-
-    private int _frameCycles;
 
     public IZenAudioEngine AudioEngine
     {
