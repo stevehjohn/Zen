@@ -49,6 +49,8 @@ public class Host : Game
 
     private VideoRamVisualiser _videoRamVisualiser;
 
+    private IZenAudioEngine _audioEngine;
+
     public Host()
     {
         var width = Constants.ScreenWidthPixels * _scaleFactor;
@@ -103,11 +105,13 @@ public class Host : Game
             _motherboard = null;
         }
 
-        _motherboard = new Motherboard(model, AppSettings.Instance.AudioEngine switch
+        _audioEngine ??= AppSettings.Instance.AudioEngine switch
         {
             AudioEngine.Bass => new BassAudioEngine(),
             _ => new PortAudioEngine()
-        });
+        };
+
+        _motherboard = new Motherboard(model, _audioEngine);
 
         if (_videoRenderer != null)
         {
