@@ -32,9 +32,9 @@ public class RamVisualiser
 
         _ram = ram;
 
-        _data = new Color[SideSize * Constants.ScreenHeightPixels];
+        _data = new Color[Constants.RamVisualisationPanelWidth * Constants.ScreenHeightPixels];
 
-        _visualisation = new Texture2D(_graphicsDeviceManager.GraphicsDevice, SideSize, Constants.ScreenHeightPixels);
+        _visualisation = new Texture2D(_graphicsDeviceManager.GraphicsDevice, Constants.RamVisualisationPanelWidth, Constants.ScreenHeightPixels);
     }
 
     public Texture2D RenderRam()
@@ -58,18 +58,18 @@ public class RamVisualiser
         
         return _visualisation;
     }
-
-    private void Scroll(int direction)
-    {
-        _offset += BytesPerRow;
-
-        if (_offset < 0)
-        {
-            // TODO
-        }
-        else if (_offset + Constants.ScreenHeightPixels * BytesPerRow > 0xFFFF)
-        {
-            _offset = 0;
-        }
-    }
+    //
+    // private void Scroll(int direction)
+    // {
+    //     _offset += BytesPerRow;
+    //
+    //     if (_offset < 0)
+    //     {
+    //         // TODO
+    //     }
+    //     else if (_offset + Constants.ScreenHeightPixels * BytesPerRow > 0xFFFF)
+    //     {
+    //         _offset = 0;
+    //     }
+    // }
 }
