@@ -352,7 +352,6 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
         }
     }
 
-
     private void ConfigureSpecialPaging(int configurationId)
     {
         switch (configurationId)
