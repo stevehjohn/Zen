@@ -288,8 +288,6 @@ public class AyAudio : IDisposable
         _cancellationTokenSource.Cancel();
 
         _cancellationTokenSource.Dispose();
-
-        _engine.Dispose();
     }
 
     private void RunFrame()
