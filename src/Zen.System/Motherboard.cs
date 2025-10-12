@@ -280,16 +280,23 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
 
     private void PageCall(byte port, byte data)
     {
-        if (port == 0x1F && (data & 0x01) > 0)
+        if (_model is Model.SpectrumPlus2A or Model.SpectrumPlus3 && port == 0x1F && (data & 0x01) > 0)
         {
             ConfigureSpecialPaging((data & 0b0110) >> 1);
-        }
 
-        if (port == 0x7F)
+            var romNumber = (Last7FFD & 0b0001_0000) >> 4 | (Last1FFD & 0b0000_0100) >> 1;
+
+            _ram.LoadRom(LoadRom(romNumber));
+        }
+        else if (port == 0x7F)
         {
             _ram.SetBank(3, (byte) (data & 0b0000_0111));
 
             _ram.UseShadowScreenBank = (data & 0b0000_1000) > 0;
+            
+            var romNumber = (Last7FFD & 0b0001_0000) >> 4;
+
+            _ram.LoadRom(LoadRom(romNumber));
         }
 
         if (port == 0x7F)
@@ -301,10 +308,6 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
         {
             Last1FFD = data;
         }
-
-        var romNumber = (Last7FFD & 0b0001_0000) >> 4 | (Last1FFD & 0b0000_0100) >> 1;
-
-        _ram.LoadRom(LoadRom(romNumber));
     }
 
     private void ConfigureSpecialPaging(int configurationId)
