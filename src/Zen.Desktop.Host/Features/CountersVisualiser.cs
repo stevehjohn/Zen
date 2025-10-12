@@ -81,11 +81,7 @@ public class CountersVisualiser
 
             var mapping = _motherboard.Ram.GetBankMapping((byte) i);
 
-            var colour = mapping == _previousMappings[i]
-                ? Color.Cyan
-                : Color.Red;
-
-            DrawCharacter((char) (mapping + '0'), colour, 24 + i * 2, 3, mapping != _previousMappings[i]);
+            DrawCharacter((char) (mapping + '0'), Color.Cyan, 24 + i * 2, 3, mapping != _previousMappings[i]);
 
             _previousMappings[i] = mapping;
         }
