@@ -8,9 +8,7 @@ namespace Zen.Desktop.Host.Features;
 
 public class RamVisualiser
 {
-    private const int SideSize = 256;
-
-    const int BytesPerRow = SideSize / 8;
+    const int BytesPerRow = Constants.RamVisualisationPanelWidth / 8;
 
     // ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
     private readonly GraphicsDeviceManager _graphicsDeviceManager;
@@ -51,7 +49,7 @@ public class RamVisualiser
 
                 for (var i = 0; i < 8; i++)
                 {
-                    _data[y * SideSize + x * 8 + i] = (data & (1 << (7 - i))) > 0 ? Color.LightGray : Color.Black;
+                    _data[y * Constants.RamVisualisationPanelWidth + x * 8 + i] = (data & (1 << (7 - i))) > 0 ? Color.LightGray : Color.Black;
                 }
             }
         }

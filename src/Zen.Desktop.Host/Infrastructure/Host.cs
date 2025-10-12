@@ -78,7 +78,7 @@ public class Host : Game
 
         if (AppSettings.Instance.Visualisation == Visualisation.RamBank)
         {
-            width += Constants.RamBankVisualisationPanelWidth * _scaleFactor;
+            width += Constants.RamVisualisationPanelWidth * _scaleFactor;
         }
 
         if (AppSettings.Instance.ViewCounters)
@@ -570,7 +570,7 @@ public class Host : Game
 
         if (AppSettings.Instance.Visualisation == Visualisation.RamBank)
         {
-            width += Constants.RamBankVisualisationPanelWidth * _scaleFactor;
+            width += Constants.RamVisualisationPanelWidth * _scaleFactor;
         }
 
         if (AppSettings.Instance.ViewCounters)
@@ -723,8 +723,8 @@ public class Host : Game
         if (_ramVisualiser != null)
         {
             _spriteBatch.Draw(_ramVisualiser.RenderRam(),
-                new Rectangle(Constants.ScreenWidthPixels * _scaleFactor, 0, Constants.RamBankVisualisationPanelWidth * _scaleFactor, Constants.ScreenHeightPixels * _scaleFactor),
-                new Rectangle(0, 0, Constants.RamBankVisualisationPanelWidth, Constants.ScreenHeightPixels), Color.White);
+                new Rectangle(Constants.ScreenWidthPixels * _scaleFactor, 0, Constants.RamVisualisationPanelWidth * _scaleFactor, Constants.ScreenHeightPixels * _scaleFactor),
+                new Rectangle(0, 0, Constants.RamVisualisationPanelWidth, Constants.ScreenHeightPixels), Color.White);
         }
 
         if (_countersVisualiser != null)
