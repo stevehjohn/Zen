@@ -285,11 +285,22 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
             ConfigureSpecialPaging((data & 0b0110) >> 1);
         }
 
+        var screenBankSwitched = false;
+        
         if (port == 0x7F)
         {
             _ram.SetBank(3, (byte) (data & 0b0000_0111));
 
+            var usingShadowBank = _ram.UseShadowScreenBank;
+            
             _ram.UseShadowScreenBank = (data & 0b0000_1000) > 0;
+
+            screenBankSwitched = usingShadowBank != _ram.UseShadowScreenBank;
+
+            if (screenBankSwitched)
+            {
+                _videoModulator.ScreenBankSwitched();
+            }
         }
 
         if (port == 0x7F)

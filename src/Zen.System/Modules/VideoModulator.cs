@@ -126,7 +126,12 @@ public class VideoModulator
             Array.Copy(_screen, 0, _frame, 0, Constants.ScreenPixelCount);
         }
     }
-
+    
+    public void ScreenBankSwitched()
+    {
+        Array.Copy(_ram.WorkingScreenRam, 0, _vram, 0, 0x4000);
+    }
+    
     private ushort GetPixel(int pixel)
     {
         var y = pixel / Constants.PaperWidthPixels;
