@@ -47,12 +47,7 @@ public class AyAudio : IDisposable
 
     public IZenAudioEngine AudioEngine
     {
-        set
-        {
-            _engine.Dispose();
-            
-            _engine = value; 
-        }
+        set => _engine = value;
         get => _engine;
     }
 
