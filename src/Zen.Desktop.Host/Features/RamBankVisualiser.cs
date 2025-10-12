@@ -8,6 +8,8 @@ namespace Zen.Desktop.Host.Features;
 public class RamBankVisualiser
 {
     private const int SideSize = 128;
+
+    private const int Offset = 16;
     
     // ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
     private readonly GraphicsDeviceManager _graphicsDeviceManager;
@@ -55,7 +57,7 @@ public class RamBankVisualiser
 
                 for (var i = 0; i < 7; i++)
                 {
-                    _data[y * SideSize + x * 8 + i] = (data & 1 << i) > 0 ? Color.LightGray : Color.Black;
+                    _data[Offset + y * SideSize + x * 8 + i] = (data & 1 << i) > 0 ? Color.LightGray : Color.Black;
                 }
             }
         }

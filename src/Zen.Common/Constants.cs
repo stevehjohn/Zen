@@ -67,6 +67,9 @@ public static class Constants
     
     /* Video RAM Visualiser */
     public const int VideoRamVisualisationPanelWidth = ScreenWidthPixels;
+    
+    /* RAM Bank Visualiser */
+    public const int RamBankVisualisationPanelWidth = 160;
 
     public const int SlowScanFactor = 4;
 }

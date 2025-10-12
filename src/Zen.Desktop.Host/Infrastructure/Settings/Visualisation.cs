@@ -6,5 +6,6 @@ public enum Visualisation
     Waveforms,
     SpectrumAnalyser,
     VideoRam,
-    VideoBanks
+    VideoBanks,
+    RamBank
 }

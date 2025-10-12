@@ -49,6 +49,8 @@ public class Host : Game
 
     private VideoRamVisualiser _videoRamVisualiser;
 
+    private RamBankVisualiser _ramBankVisualiser;
+
     public Host()
     {
         var width = Constants.ScreenWidthPixels * _scaleFactor;
@@ -72,6 +74,11 @@ public class Host : Game
         if (AppSettings.Instance.Visualisation == Visualisation.VideoBanks)
         {
             width += Constants.VideoRamVisualisationPanelWidth * 2 * _scaleFactor;
+        }
+
+        if (AppSettings.Instance.Visualisation == Visualisation.RamBank)
+        {
+            width += Constants.RamBankVisualisationPanelWidth * _scaleFactor;
         }
 
         if (AppSettings.Instance.ViewCounters)
@@ -229,6 +236,11 @@ public class Host : Game
         if (AppSettings.Instance.Visualisation == Visualisation.VideoBanks)
         {
             _videoRamVisualiser = new VideoRamVisualiser(_graphicsDeviceManager, _motherboard.Ram, true, _videoRenderer);
+        }
+
+        if (AppSettings.Instance.Visualisation == Visualisation.RamBank)
+        {
+            _ramBankVisualiser = new RamBankVisualiser(_graphicsDeviceManager, _motherboard.Ram);
         }
     }
 
@@ -398,6 +410,7 @@ public class Host : Game
                 _waveVisualiser = null;
                 _videoRamVisualiser = null;
                 _spectrumAnalyser = null;
+                _ramBankVisualiser = null;
                 _motherboard.AyAudio.AySignalHook = null;
                 _motherboard.AyAudio.BeeperSignalHook = null;
 
@@ -412,6 +425,7 @@ public class Host : Game
                 _waveVisualiser = new WaveVisualiser(_graphicsDeviceManager);
                 _spectrumAnalyser = null;
                 _videoRamVisualiser = null;
+                _ramBankVisualiser = null;
                 _motherboard.AyAudio.AySignalHook = _waveVisualiser.ReceiveSignals;
                 _motherboard.AyAudio.BeeperSignalHook = _waveVisualiser.ReceiveSignal;
 
@@ -428,6 +442,7 @@ public class Host : Game
                 _motherboard.AyAudio.BeeperSignalHook = _spectrumAnalyser.ReceiveSignal;
                 _videoRamVisualiser = null;
                 _waveVisualiser = null;
+                _ramBankVisualiser = null;
 
                 ChangeScale(_scaleFactor);
 
@@ -440,6 +455,7 @@ public class Host : Game
                 _videoRamVisualiser = new VideoRamVisualiser(_graphicsDeviceManager, _motherboard.Ram, false, _videoRenderer);
                 _waveVisualiser = null;
                 _spectrumAnalyser = null;
+                _ramBankVisualiser = null;
                 _motherboard.AyAudio.AySignalHook = null;
                 _motherboard.AyAudio.BeeperSignalHook = null;
 
@@ -454,6 +470,22 @@ public class Host : Game
                 _videoRamVisualiser = new VideoRamVisualiser(_graphicsDeviceManager, _motherboard.Ram, true, _videoRenderer);
                 _waveVisualiser = null;
                 _spectrumAnalyser = null;
+                _ramBankVisualiser = null;
+                _motherboard.AyAudio.AySignalHook = null;
+                _motherboard.AyAudio.BeeperSignalHook = null;
+
+                ChangeScale(_scaleFactor);
+                
+                break;
+
+            case MenuResult.VisualisationRamBank:
+                AppSettings.Instance.Visualisation = Visualisation.RamBank;
+                AppSettings.Instance.Save();
+
+                _ramBankVisualiser = new RamBankVisualiser(_graphicsDeviceManager, _motherboard.Ram);
+                _waveVisualiser = null;
+                _spectrumAnalyser = null;
+                _videoRamVisualiser = null;
                 _motherboard.AyAudio.AySignalHook = null;
                 _motherboard.AyAudio.BeeperSignalHook = null;
 
@@ -529,6 +561,11 @@ public class Host : Game
         if (AppSettings.Instance.Visualisation == Visualisation.VideoBanks)
         {
             width += Constants.VideoRamVisualisationPanelWidth * 2 * _scaleFactor;
+        }
+
+        if (AppSettings.Instance.Visualisation == Visualisation.RamBank)
+        {
+            width += Constants.RamBankVisualisationPanelWidth * _scaleFactor;
         }
 
         if (AppSettings.Instance.ViewCounters)

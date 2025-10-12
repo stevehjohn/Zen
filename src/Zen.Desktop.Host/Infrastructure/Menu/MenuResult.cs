@@ -23,6 +23,7 @@ public enum MenuResult
     VisualisationSpectrumAnalyser,
     VisualisationVideoRam,
     VisualisationVideoBanks,
+    VisualisationRamBank,
     CountersOn,
     CountersOff,
     SpectrumColours,
