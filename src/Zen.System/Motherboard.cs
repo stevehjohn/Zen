@@ -134,6 +134,8 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
         _ayAudio = new AyAudio(model, engine);
 
         _ayAudio.Start();
+        
+        _worker?.Dispose();
 
         _worker = new(model, _interface, _videoModulator, _ayAudio)
         {
