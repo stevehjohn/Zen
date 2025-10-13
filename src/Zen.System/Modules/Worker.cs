@@ -143,10 +143,7 @@ public class Worker : IDisposable
     {
         while (! _cancellationToken.IsCancellationRequested)
         {
-            if (! Locked)
-            {
-                RunFrame();
-            }
+            RunFrame();
         }
     }
 
