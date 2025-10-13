@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Threading;
 using Constants = Zen.Common.Constants;
 
 namespace Zen.Desktop.Host.Features;
@@ -24,8 +25,6 @@ public class WaveVisualiser
 
     private int _beeperBufferPosition;
 
-    private bool _rendering;
-
     public Texture2D Waves => _waves;
 
     public WaveVisualiser(GraphicsDeviceManager graphicsDeviceManager)
@@ -48,11 +47,6 @@ public class WaveVisualiser
 
     public void ReceiveSignals(float[] signals)
     {
-        if (_rendering)
-        {
-            return;
-        }
-
         _buffers[0][_bufferPosition] = signals[0];
         _buffers[1][_bufferPosition] = signals[1];
         _buffers[2][_bufferPosition] = signals[2];
@@ -63,11 +57,17 @@ public class WaveVisualiser
         {
             _bufferPosition = 0;
 
-            if (! _rendering)
-            {
-                RenderWaves();
-            }
+            RenderWaves();
         }
+    }
+
+    public void Draw()
+    {
+        Monitor.Enter(_data);
+        
+        _waves.SetData(_data);
+        
+        Monitor.Exit(_data);
     }
 
     public void ReceiveSignal(float signal)
@@ -84,7 +84,7 @@ public class WaveVisualiser
 
     private void RenderWaves()
     {
-        _rendering = true;
+        Monitor.Enter(_data);
 
         Array.Fill(_data, Color.Black);
 
@@ -95,7 +95,7 @@ public class WaveVisualiser
 
         _waves.SetData(_data);
 
-        _rendering = false;
+        Monitor.Exit(_data);
     }
 
     private void RenderChannel(int channel)

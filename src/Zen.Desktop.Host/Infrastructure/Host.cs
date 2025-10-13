@@ -652,6 +652,8 @@ public class Host : Game
 
         if (_waveVisualiser != null)
         {
+            _waveVisualiser.Draw();
+            
             var waves = _waveVisualiser.Waves;
 
             if (waves != null)
