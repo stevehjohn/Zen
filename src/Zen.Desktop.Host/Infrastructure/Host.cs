@@ -134,7 +134,6 @@ public class Host : Game
         if (AppSettings.Instance.Speed == Speed.Locked50)
         {
             _motherboard.Worker.Locked = true;
-            _motherboard.AyAudio.Locked = true;
 
             IsFixedTimeStep = true;
 
@@ -318,7 +317,6 @@ public class Host : Game
                 _motherboard.Fast = false;
                 _motherboard.Slow = false;
                 _motherboard.Worker.Locked = false;
-                _motherboard.AyAudio.Locked = false;
 
                 IsFixedTimeStep = false;
 
@@ -328,7 +326,6 @@ public class Host : Game
                 _motherboard.Fast = false;
                 _motherboard.Slow = false;
                 _motherboard.Worker.Locked = true;
-                _motherboard.AyAudio.Locked = true;
 
                 IsFixedTimeStep = true;
 
@@ -340,7 +337,6 @@ public class Host : Game
                 _motherboard.Fast = false;
                 _motherboard.Slow = false;
                 _motherboard.Worker.Locked = true;
-                _motherboard.AyAudio.Locked = true;
 
                 IsFixedTimeStep = true;
 
@@ -353,7 +349,6 @@ public class Host : Game
                 _motherboard.Fast = true;
                 _motherboard.Slow = false;
                 _motherboard.Worker.Locked = false;
-                _motherboard.AyAudio.Locked = false;
 
                 IsFixedTimeStep = false;
 
@@ -363,7 +358,6 @@ public class Host : Game
                 _motherboard.Fast = false;
                 _motherboard.Slow = true;
                 _motherboard.Worker.Locked = false;
-                _motherboard.AyAudio.Locked = false;
 
                 IsFixedTimeStep = false;
 
