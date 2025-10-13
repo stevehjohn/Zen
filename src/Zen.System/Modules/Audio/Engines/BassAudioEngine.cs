@@ -60,11 +60,6 @@ public class BassAudioEngine : IZenAudioEngine
         ManagedBass.BASS_ChannelPlay(_channel, false);
     }
 
-    public void Reset()
-    {
-        Initialise();
-    }
-
     public void Dispose()
     {
         ManagedBass.BASS_Free();
