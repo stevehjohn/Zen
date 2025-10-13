@@ -2,6 +2,10 @@
 
 ToDos, aide memoires, etcetera.
 
+## TODO:
+
+- Don't render Spectrum Analyser / Waveform Visualiser in the audio thread.
+
 ## Useful Speccy References
 
 - https://clrhome.org/table/
