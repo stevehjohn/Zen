@@ -1,5 +1,6 @@
 using System;
 using System.Numerics;
+using System.Threading;
 using MathNet.Numerics.IntegralTransforms;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -40,8 +41,6 @@ public class SpectrumAnalyser
     private int _bufferPosition;
 
     private int _beeperBufferPosition;
-
-    private bool _rendering;
 
     private readonly Color[] _palette;
 
@@ -109,11 +108,6 @@ public class SpectrumAnalyser
 
     public void ReceiveSignals(float[] signals)
     {
-        if (_rendering)
-        {
-            return;
-        }
-
         _buffers[0][_bufferPosition] = new Complex(signals[0], 0);
         _buffers[1][_bufferPosition] = new Complex(signals[1], 0);
         _buffers[2][_bufferPosition] = new Complex(signals[2], 0);
@@ -124,10 +118,7 @@ public class SpectrumAnalyser
         {
             _bufferPosition = 0;
 
-            if (! _rendering)
-            {
-                RenderSpectrum();
-            }
+            RenderSpectrum();
         }
     }
 
@@ -143,20 +134,27 @@ public class SpectrumAnalyser
         }
     }
 
+    public void Draw()
+    {
+        Monitor.Enter(_data);
+        
+        _spectrum.SetData(_data);
+        
+        Monitor.Exit(_data);
+    }
+
     private void RenderSpectrum()
     {
-        _rendering = true;
-
+        Monitor.Enter(_data);
+        
         Array.Fill(_data, Color.Black);
 
         RenderSpectrumChannel(0);
         RenderSpectrumChannel(1);
         RenderSpectrumChannel(2);
         RenderSpectrumChannel(3);
-
-        _spectrum.SetData(_data);
-
-        _rendering = false;
+        
+        Monitor.Exit(_data);
     }
 
     private void RenderSpectrumChannel(int channel)

@@ -664,6 +664,8 @@ public class Host : Game
 
         if (_spectrumAnalyser != null)
         {
+            _spectrumAnalyser.Draw();
+            
             var spectrum = _spectrumAnalyser.Spectrum;
 
             if (spectrum != null)
