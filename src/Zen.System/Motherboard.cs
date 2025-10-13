@@ -213,11 +213,6 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
         _worker.Resume();
     }
 
-    public void Reset()
-    {
-        // TODO.
-    }
-
     public void StateLoaded()
     {
         _videoModulator.Border = _state.BorderColour;
