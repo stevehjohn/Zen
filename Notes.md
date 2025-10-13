@@ -4,8 +4,7 @@ ToDos, aide memoires, etcetera.
 
 ## TODO:
 
-- Don't render Spectrum Analyser / Waveform Visualiser in the audio thread.
-- Fix audio when running at 60FPS.
+Nada.
 
 ## Useful Speccy References
 
