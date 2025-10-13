@@ -325,7 +325,7 @@ public class Host : Game
             case MenuResult.SpeedLocked50:
                 _motherboard.Fast = false;
                 _motherboard.Slow = false;
-                _motherboard.Worker.Locked = true;
+                _motherboard.Worker.Locked = false;
 
                 IsFixedTimeStep = true;
 
@@ -336,7 +336,7 @@ public class Host : Game
             case MenuResult.SpeedLocked60:
                 _motherboard.Fast = false;
                 _motherboard.Slow = false;
-                _motherboard.Worker.Locked = true;
+                _motherboard.Worker.Locked = false;
 
                 IsFixedTimeStep = true;
 
