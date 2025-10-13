@@ -23,6 +23,8 @@ public class CountersVisualiser
     private int _lastRom;
 
     private readonly byte[] _previousMappings = new byte[4];
+
+    private char _lastUlaBank;
     
     public Motherboard Motherboard
     {
@@ -103,6 +105,12 @@ public class CountersVisualiser
 
         DrawString("ULA Bank", Color.Magenta, 13, 4);
         DrawString(":", Color.White, 22, 4);
+
+        var ulaBank = _motherboard.Ram.UseShadowScreenBank ? '7' : '5';
+        
+        DrawCharacter(ulaBank, Color.Cyan, 24, 4, ulaBank != _lastUlaBank);
+
+        _lastUlaBank = ulaBank;
 
         _texture.SetData(_data);
 
