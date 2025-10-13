@@ -185,11 +185,6 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
 
     public void WriteRam(ushort address, byte data)
     {
-        if (address >= 0x4000 && address < 0x5B00)
-        {
-            _worker.VRamUpdated(address, data);
-        }
-
         _ram[address] = data;
     }
 
