@@ -21,6 +21,8 @@ public class Worker : IDisposable
 
     private readonly AyAudio _ayAudio;
 
+    private readonly (int Address, byte Data)[] _vramChanges = new (int, byte)[2];
+
     private readonly ManualResetEvent _resetEvent = new(true);
 
     private readonly AutoResetEvent _scanResetEvent = new(true);
@@ -60,7 +62,10 @@ public class Worker : IDisposable
         _cancellationTokenSource = new CancellationTokenSource();
 
         _cancellationToken = _cancellationTokenSource.Token;
-        
+
+        _vramChanges[0].Address = -1;
+        _vramChanges[1].Address = -1;
+
         switch (model)
         {
             case Model.SpectrumPlus2A:
@@ -119,6 +124,19 @@ public class Worker : IDisposable
         _cancellationTokenSource.Dispose();
     }
 
+    public void VRamUpdated(int address, byte data)
+    {
+        var i = 1;
+
+        if (_vramChanges[1].Address != -1)
+        {
+            i = 0;
+        }
+
+        _vramChanges[i].Address = address;
+        _vramChanges[i].Data = data;
+    }
+
     private void TimerWorker()
     {
         while (! _cancellationToken.IsCancellationRequested)
@@ -149,6 +167,8 @@ public class Worker : IDisposable
                     {
                         _interface.Int = false;
                     }
+
+                    ClearFrameRamBuffer();
 
                     var cycles = OnTick(_frameCycles);
 
@@ -203,9 +223,20 @@ public class Worker : IDisposable
         }
     }
 
+    private void ClearFrameRamBuffer()
+    {
+        _vramChanges[0].Address = -1;
+        _vramChanges[1].Address = -1;
+    }
+
     private int ApplyFrameRamChanges(int mcycle, int frameCycles, byte[] opCycles)
     {
-        if (mcycle < 6 && opCycles[mcycle + 1] == 0 || mcycle < 5 && opCycles[mcycle + 2] == 0)
+        if (mcycle < 6 && opCycles[mcycle + 1] == 0 && _vramChanges[1].Address != -1)
+        {
+            return GetContention(frameCycles);
+        }
+
+        if (mcycle < 5 && opCycles[mcycle + 2] == 0 && _vramChanges[0].Address != -1)
         {
             return GetContention(frameCycles);
         }
