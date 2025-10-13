@@ -93,8 +93,6 @@ public class WaveVisualiser
             RenderChannel(i);
         }
 
-        _waves.SetData(_data);
-
         Monitor.Exit(_data);
     }
 
