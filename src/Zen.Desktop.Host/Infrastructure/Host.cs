@@ -549,8 +549,6 @@ public class Host : Game
     {
         _motherboard.Pause();
 
-        _motherboard.Reset();
-
         var adapter = new ZenFileAdapter(_motherboard);
 
         var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Zen Snapshots");
