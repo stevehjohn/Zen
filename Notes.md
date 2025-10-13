@@ -2,6 +2,10 @@
 
 ToDos, aide memoires, etcetera.
 
+## Miscallaneous
+
+Works best when monitor is on 50Hz mode.
+
 ## TODO:
 
 Nada.

@@ -14,6 +14,10 @@ This project aims to take the lessons learned from ZXE and build upon them.
 
 Any feedback appreciated, get me on <a href="https://x.com/SteveHuwJohn">Twitter / X</a>
 
+## Notes
+
+For really timing sensitive graphics, set your monitor to 50Hz mode.
+
 ## Pre-built Binaries
 
 Releases can be found <a href="https://github.com/stevehjohn/Zen/releases">here</a>.
