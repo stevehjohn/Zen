@@ -133,8 +133,6 @@ public class Host : Game
 
         if (AppSettings.Instance.Speed == Speed.Locked50)
         {
-            //_motherboard.Worker.Locked = true;
-
             IsFixedTimeStep = true;
 
             TargetElapsedTime = TimeSpan.FromMilliseconds(20);
@@ -261,11 +259,6 @@ public class Host : Game
 
     protected override void Update(GameTime gameTime)
     {
-        if (_motherboard.Worker.Locked)
-        {
-            _motherboard.Worker.RunFrame();
-        }
-
         if (Keyboard.GetState().IsKeyDown(Keys.Tab) && _menuSystem == null)
         {
             _motherboard.Pause();
