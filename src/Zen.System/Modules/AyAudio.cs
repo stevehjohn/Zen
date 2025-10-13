@@ -292,7 +292,12 @@ public class AyAudio : IDisposable
         {
             try
             {
-                _resetEvent.WaitOne();
+                var signalled = WaitHandle.WaitAny([_resetEvent, _cancellationToken.WaitHandle]);
+
+                if (signalled == 1)
+                {
+                    return;
+                }
                 
                 _resetEvent.Reset();
 
