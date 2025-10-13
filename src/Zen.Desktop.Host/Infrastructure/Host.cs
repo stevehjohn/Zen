@@ -133,7 +133,7 @@ public class Host : Game
 
         if (AppSettings.Instance.Speed == Speed.Locked50)
         {
-            _motherboard.Worker.Locked = true;
+            //_motherboard.Worker.Locked = true;
 
             IsFixedTimeStep = true;
 

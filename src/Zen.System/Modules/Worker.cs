@@ -208,7 +208,7 @@ public class Worker : IDisposable
                     }
                 }
 
-                if (! Fast && ! Locked)
+                if (! Fast)
                 {
                     _resetEvent.WaitOne();
                 }
