@@ -121,9 +121,9 @@ public class WaveVisualiser
 
             var offset = -(int) (dataPoint * height * (channel == 3 ? 1 : 4));
 
-            _data[axis + x + offset * width] = color;
+            //_data[axis + x + offset * width] = color;
 
-            if (x > 0 && offset != lastOffset)
+            //if (x > 0 && offset != lastOffset)
             {
                 var direction = offset > lastOffset ? 1 : -1;
 
@@ -133,7 +133,7 @@ public class WaveVisualiser
                 }
             }
 
-            lastOffset = offset;
+            //lastOffset = offset;
         }
     }
 }
