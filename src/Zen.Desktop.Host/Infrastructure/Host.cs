@@ -309,7 +309,6 @@ public class Host : Game
             case MenuResult.SpeedNormal:
                 _motherboard.Fast = false;
                 _motherboard.Slow = false;
-                _motherboard.Worker.Locked = false;
 
                 IsFixedTimeStep = false;
 
@@ -318,7 +317,6 @@ public class Host : Game
             case MenuResult.SpeedLocked50:
                 _motherboard.Fast = false;
                 _motherboard.Slow = false;
-                _motherboard.Worker.Locked = false;
 
                 IsFixedTimeStep = true;
 
@@ -329,7 +327,6 @@ public class Host : Game
             case MenuResult.SpeedLocked60:
                 _motherboard.Fast = false;
                 _motherboard.Slow = false;
-                _motherboard.Worker.Locked = false;
 
                 IsFixedTimeStep = true;
 
@@ -341,7 +338,6 @@ public class Host : Game
             case MenuResult.SpeedFast:
                 _motherboard.Fast = true;
                 _motherboard.Slow = false;
-                _motherboard.Worker.Locked = false;
 
                 IsFixedTimeStep = false;
 
@@ -350,7 +346,6 @@ public class Host : Game
             case MenuResult.SpeedSlow:
                 _motherboard.Fast = false;
                 _motherboard.Slow = true;
-                _motherboard.Worker.Locked = false;
 
                 IsFixedTimeStep = false;
 

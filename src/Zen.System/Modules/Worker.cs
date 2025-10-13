@@ -51,8 +51,6 @@ public class Worker : IDisposable
     
     public bool Slow { get; set; }
     
-    public bool Locked { get; set; }
-    
     public Worker(Model model, Interface @interface, VideoModulator videoModulator, AyAudio ayAudio)
     {
         _interface = @interface;
