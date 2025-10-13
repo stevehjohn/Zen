@@ -101,6 +101,8 @@ public class CountersVisualiser
             _previousMappings[i] = mapping;
         }
 
+        DrawString("ULA Bank", Color.Magenta, 13, 4);
+        DrawString(":", Color.White, 22, 4);
 
         _texture.SetData(_data);
 
