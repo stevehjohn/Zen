@@ -53,7 +53,7 @@ public class CountersVisualiser
         DrawString(Counters.Instance.GetCountPerSecond(Counter.RenderedFrames).ToString("N0"), Color.Cyan, 8, 0);
 
         DrawString("Z80Ops/s", Color.Magenta, 13, 0);
-        DrawString(":", Color.White, 21, 0);
+        DrawString(":", Color.White, 22, 0);
         DrawString(Counters.Instance.GetCountPerSecond(Counter.Instructions).ToString("N0"), Color.Cyan, 24, 0);
 
         DrawString("ZXFPS", Color.Magenta, 1, 1);
@@ -61,7 +61,7 @@ public class CountersVisualiser
         DrawString(Counters.Instance.GetCountPerSecond(Counter.SpectrumFrames).ToString("N0"), Color.Cyan, 8, 1);
 
         DrawString("AYFPS", Color.Magenta, 13, 1);
-        DrawString(":", Color.White, 21, 1);
+        DrawString(":", Color.White, 22, 1);
         DrawString(Counters.Instance.GetCountPerSecond(Counter.AyFrames).ToString("N0"), Color.Cyan, 24, 1);
 
         DrawString("IRQ/s", Color.Magenta, 1, 2);
@@ -69,7 +69,7 @@ public class CountersVisualiser
         DrawString(Counters.Instance.GetCountPerSecond(Counter.IRQs).ToString("N0"), Color.Cyan, 8, 2);
 
         DrawString("Hz", Color.Magenta, 13, 2);
-        DrawString(":", Color.White, 21, 2);
+        DrawString(":", Color.White, 22, 2);
         DrawString(Counters.Instance.GetCountPerSecond(Counter.Hertz).ToString("N0"), Color.Cyan, 24, 2);
 
         DrawString("ROM", Color.Magenta, 1, 3);
@@ -87,8 +87,8 @@ public class CountersVisualiser
 
         var data = new StringBuilder();
 
-        DrawString("Banks", Color.Magenta, 13, 3);
-        DrawString(":", Color.White, 21, 3);
+        DrawString("CPU Banks", Color.Magenta, 13, 3);
+        DrawString(":", Color.White, 22, 3);
 
         for (var i = 0; i < 4; i++)
         {
