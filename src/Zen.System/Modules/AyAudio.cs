@@ -79,12 +79,12 @@ public class AyAudio : IDisposable
         {
             case Model.SpectrumPlus2A:
             case Model.SpectrumPlus3:
-                _frameCycles = Common.Constants.FrameCycles;
+                _frameCycles = Common.Constants.FrameCyclesPlus;
 
                 break;
                 
             default:
-                _frameCycles = Common.Constants.FrameCyclesPlus;
+                _frameCycles = Common.Constants.FrameCycles;
                     
                 break;
         }
