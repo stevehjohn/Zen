@@ -124,6 +124,19 @@ public class Worker : IDisposable
         _cancellationTokenSource.Dispose();
     }
 
+    public void VRamUpdated(int address, byte data)
+    {
+        var i = 1;
+
+        if (_vramChanges[1].Address != -1)
+        {
+            i = 0;
+        }
+
+        _vramChanges[i].Address = address;
+        _vramChanges[i].Data = data;
+    }
+
     private void TimerWorker()
     {
         while (! _cancellationToken.IsCancellationRequested)
@@ -212,8 +225,8 @@ public class Worker : IDisposable
 
     private void ClearFrameRamBuffer()
     {
-        // _vramChanges[0].Address = -1;
-        // _vramChanges[1].Address = -1;
+        _vramChanges[0].Address = -1;
+        _vramChanges[1].Address = -1;
     }
 
     private int ApplyFrameRamChanges(int mcycle, int frameCycles, byte[] opCycles)
