@@ -204,10 +204,9 @@ public class Host : Game
 
         _videoRenderer = new VideoRenderer(_motherboard.VideoModulator.ScreenFrame, _graphicsDeviceManager)
         {
-            ScanComplete = ScanComplete
+            ScanComplete = ScanComplete,
+            Model = AppSettings.Instance.SystemModel
         };
-
-        _videoRenderer.Model = AppSettings.Instance.SystemModel;
 
         if (AppSettings.Instance.Visualisation == Visualisation.Waveforms)
         {
