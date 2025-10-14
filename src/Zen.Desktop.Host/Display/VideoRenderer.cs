@@ -9,7 +9,7 @@ namespace Zen.Desktop.Host.Display;
 
 public class VideoRenderer
 {
-    private const int FlashFrames = 20;
+    private const int FlashFrames = 16;
 
     private ushort[] _screenFrame;
 
