@@ -1,4 +1,5 @@
-﻿using Zen.System.Exceptions;
+﻿using System.ComponentModel;
+using Zen.System.Exceptions;
 using Zen.System.Infrastructure;
 using Zen.System.Interfaces;
 using Zen.System.Modules;
@@ -72,6 +73,8 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
     public State State => _state;
 
     public int FrameCycles => _worker.FrameCycles;
+
+    public double LastFrameMs => _worker.LastFrameMs;
 
     public VideoModulator VideoModulator => _videoModulator;
 
