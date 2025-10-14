@@ -97,8 +97,12 @@ public class CountersVisualiser
             DrawString(data.ToString().Trim(), Color.Cyan, 24, 3);
 
             var mapping = _motherboard.Ram.GetBankMapping((byte) i);
+            
+            var character = mapping == 8
+                ? '-'
+                : (char) (mapping + '0');
 
-            DrawCharacter((char) (mapping + '0'), Color.Cyan, 24 + i * 2, 3, mapping != _previousMappings[i]);
+            DrawCharacter(character, Color.Cyan, 24 + i * 2, 3, mapping != _previousMappings[i]);
 
             _previousMappings[i] = mapping;
         }
