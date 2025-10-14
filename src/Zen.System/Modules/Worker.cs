@@ -53,7 +53,9 @@ public class Worker : IDisposable
     public bool Fast { get; set; }
     
     public bool Slow { get; set; }
-    
+
+    public double LastFrameMs { get; private set; }
+
     public Worker(Model model, Interface @interface, VideoModulator videoModulator, AyAudio ayAudio)
     {
         _interface = @interface;
@@ -142,7 +144,7 @@ public class Worker : IDisposable
     {
         try
         {
-            var start = _stopwatch.ElapsedTicks;
+            var start = _stopwatch.Elapsed.TotalMilliseconds;
             
             if (! _paused)
             {
@@ -203,7 +205,7 @@ public class Worker : IDisposable
                     _resetEvent.WaitOne();
                 }
 
-                var frameTime = _stopwatch.ElapsedTicks - start;
+                LastFrameMs = _stopwatch.Elapsed.TotalMilliseconds - start;
 
                 Counters.Instance.IncrementCounter(Counter.SpectrumFrames);
             }
