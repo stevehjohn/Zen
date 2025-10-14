@@ -7,7 +7,7 @@ namespace Zen.System.Modules.Audio.Engines;
 
 public class PortAudioEngine : IZenAudioEngine
 {
-    private Bufdio.Engines.PortAudioEngine? _engine;
+    private Bufdio.Engines.PortAudioEngine _engine;
 
     public PortAudioEngine()
     {
