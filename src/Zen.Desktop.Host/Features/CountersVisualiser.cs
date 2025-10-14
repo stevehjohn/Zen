@@ -107,7 +107,9 @@ public class CountersVisualiser
             _previousMappings[i] = mapping;
         }
 
-        DrawString($"{_motherboard.LastFrameMs:N2}", Color.Cyan, 1, 4);
+        DrawString("ms/F", Color.Magenta, 1, 4);
+        DrawString(":", Color.White, 6, 4);
+        DrawString($"{_motherboard.LastFrameMs:N0}", Color.Cyan, 8, 4);
         
         DrawString("ULA Bank", Color.Magenta, 13, 4);
         DrawString(":", Color.White, 22, 4);
