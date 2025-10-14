@@ -10,6 +10,10 @@ Works best when monitor is on 50Hz mode.
 
 Nada.
 
+## Games
+
+- https://www.planetemu.net/machine/zx-spectrum
+
 ## Useful Speccy References
 
 - https://clrhome.org/table/
