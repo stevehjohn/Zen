@@ -27,7 +27,7 @@ public class Worker : IDisposable
     
     private bool _paused;
 
-    private Task _workerThread;
+    private Task? _workerThread;
 
     private int _scanStates;
 
