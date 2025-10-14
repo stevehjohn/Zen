@@ -43,8 +43,6 @@ public class Worker : IDisposable
     private readonly int _statesPerScreenLine;
 
     private readonly int _expectedFrameCycles;
-
-    private readonly Stopwatch _stopwatch = new();
     
     public int FrameCycles => _frameCycles;
     
@@ -53,8 +51,6 @@ public class Worker : IDisposable
     public bool Fast { get; set; }
     
     public bool Slow { get; set; }
-
-    public double LastFrameMs { get; private set; }
 
     public Worker(Model model, Interface @interface, VideoModulator videoModulator, AyAudio ayAudio)
     {
@@ -92,22 +88,16 @@ public class Worker : IDisposable
     public void Start()
     {
         _workerThread = Task.Run(TimerWorker, _cancellationToken);
-        
-        _stopwatch.Restart();
     }
 
     public void Pause()
     {
         _paused = true;
-        
-        _stopwatch.Stop();
     }
 
     public void Resume()
     {
         _paused = false;
-        
-        _stopwatch.Start();
     }
 
     public void ScanComplete()
@@ -144,8 +134,6 @@ public class Worker : IDisposable
     {
         try
         {
-            var start = _stopwatch.Elapsed.TotalMilliseconds;
-            
             if (! _paused)
             {
                 _frameCycles = 0;
@@ -204,8 +192,6 @@ public class Worker : IDisposable
                 {
                     _resetEvent.WaitOne();
                 }
-
-                LastFrameMs = _stopwatch.Elapsed.TotalMilliseconds - start;
 
                 Counters.Instance.IncrementCounter(Counter.SpectrumFrames);
             }

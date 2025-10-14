@@ -74,8 +74,6 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
 
     public int FrameCycles => _worker.FrameCycles;
 
-    public double LastFrameMs => _worker.LastFrameMs;
-
     public VideoModulator VideoModulator => _videoModulator;
 
     public AyAudio AyAudio => _ayAudio;
