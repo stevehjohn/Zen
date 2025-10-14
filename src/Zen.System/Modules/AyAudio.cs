@@ -33,7 +33,7 @@ public class AyAudio : IDisposable
 
     private readonly int _frameCycles;
 
-    private Task _audioThread;
+    private Task? _audioThread;
 
     private byte _registerNumber;
 
@@ -45,7 +45,7 @@ public class AyAudio : IDisposable
 
     private float _amplitude;
 
-    private ManualResetEvent _workerResetEvent;
+    private ManualResetEvent? _workerResetEvent;
 
     public IZenAudioEngine AudioEngine
     {
@@ -55,9 +55,9 @@ public class AyAudio : IDisposable
 
     public bool Silent { get; set; }
 
-    public Action<float[]> AySignalHook { get; set; }
+    public Action<float[]>? AySignalHook { get; set; }
 
-    public Action<float> BeeperSignalHook { get; set; }
+    public Action<float>? BeeperSignalHook { get; set; }
 
     public AyAudio(Model model, IZenAudioEngine engine)
     {
