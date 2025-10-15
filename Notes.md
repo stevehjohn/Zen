@@ -2,25 +2,19 @@
 
 ToDos, aide memoires, etcetera.
 
-<<<<<<< Updated upstream
-## Miscallaneous
-
-Works best when monitor is on 50Hz mode.
-
-## TODO:
-
-Nada.
-
-## Games
-
-- https://www.planetemu.net/machine/zx-spectrum
-=======
 ## Sanity
 
 - Audio is good on `manic-solver` branch.
 - Fewer bugs with system select etc... on master.
 - Need to diff them and figure the sweet spot.
->>>>>>> Stashed changes
+
+## Miscallaneous
+
+Works best when monitor is on 50Hz mode.
+
+## Games
+
+- https://www.planetemu.net/machine/zx-spectrum
 
 ## Useful Speccy References
 
