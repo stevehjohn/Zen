@@ -68,13 +68,9 @@ public class WaveVisualiser
 
     public void Draw()
     {
-        Monitor.Enter(_data);
-        
         RenderWaves();
         
         _waves.SetData(_data);
-        
-        Monitor.Exit(_data);
     }
 
     public void ReceiveSignal(float signal)
@@ -91,16 +87,12 @@ public class WaveVisualiser
 
     private void RenderWaves()
     {
-        Monitor.Enter(_data);
-
         Array.Fill(_data, Color.Black);
 
         for (var i = 0; i < 4; i++)
         { 
             RenderChannel(i);
         }
-
-        Monitor.Exit(_data);
     }
 
     private void RenderChannel(int channel)
