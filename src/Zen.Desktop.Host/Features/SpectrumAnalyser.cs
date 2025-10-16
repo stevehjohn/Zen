@@ -1,5 +1,6 @@
 using System;
 using System.Numerics;
+using System.Threading;
 using MathNet.Numerics.IntegralTransforms;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -116,6 +117,8 @@ public class SpectrumAnalyser
         if (_bufferPosition >= BufferSize)
         {
             _bufferPosition = 0;
+
+            RenderSpectrum();
         }
     }
 
@@ -133,19 +136,25 @@ public class SpectrumAnalyser
 
     public void Draw()
     {
-        RenderSpectrum();
-
+        Monitor.Enter(_data);
+        
         _spectrum.SetData(_data);
+        
+        Monitor.Exit(_data);
     }
 
     private void RenderSpectrum()
     {
+        Monitor.Enter(_data);
+        
         Array.Fill(_data, Color.Black);
 
         RenderSpectrumChannel(0);
         RenderSpectrumChannel(1);
         RenderSpectrumChannel(2);
         RenderSpectrumChannel(3);
+        
+        Monitor.Exit(_data);
     }
 
     private void RenderSpectrumChannel(int channel)
@@ -210,7 +219,7 @@ public class SpectrumAnalyser
                         
                         continue;
                     }
-                    
+
                     _data[_leftPadding + axis + i * (BarWidth + BarSpacing) + x + offset * Constants.SpectrumVisualisationPanelWidth] = _palette[-offset];
 
                     offset++;
