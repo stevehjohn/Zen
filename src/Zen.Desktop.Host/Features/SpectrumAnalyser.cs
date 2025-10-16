@@ -1,6 +1,5 @@
 using System;
 using System.Numerics;
-using System.Threading;
 using MathNet.Numerics.IntegralTransforms;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -212,7 +211,7 @@ public class SpectrumAnalyser
                         continue;
                     }
                     
-                    //_data[_leftPadding + axis + i * (BarWidth + BarSpacing) + x + offset * Constants.SpectrumVisualisationPanelWidth] = _palette[-offset];
+                    _data[_leftPadding + axis + i * (BarWidth + BarSpacing) + x + offset * Constants.SpectrumVisualisationPanelWidth] = _palette[-offset];
 
                     offset++;
                 }
