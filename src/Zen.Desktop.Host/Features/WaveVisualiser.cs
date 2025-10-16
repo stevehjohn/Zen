@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Threading;
 using Constants = Zen.Common.Constants;
 
 namespace Zen.Desktop.Host.Features;
