@@ -128,6 +128,8 @@ public class SpectrumAnalyser
 
         if (_beeperBufferPosition >= BufferSize)
         {
+            RenderSpectrum();
+
             _beeperBufferPosition = 0;
         }
     }
@@ -136,8 +138,6 @@ public class SpectrumAnalyser
     {
         Monitor.Enter(_data);
         
-        RenderSpectrum();
-
         _spectrum.SetData(_data);
         
         Monitor.Exit(_data);
