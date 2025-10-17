@@ -117,8 +117,6 @@ public class SpectrumAnalyser
         if (_bufferPosition >= BufferSize)
         {
             _bufferPosition = 0;
-
-            RenderSpectrum();
         }
     }
 
@@ -138,6 +136,8 @@ public class SpectrumAnalyser
     {
         Monitor.Enter(_data);
         
+        RenderSpectrum();
+
         _spectrum.SetData(_data);
         
         Monitor.Exit(_data);
