@@ -129,7 +129,7 @@ public class SpectrumAnalyser
 
         if (_beeperBufferPosition >= BufferSize)
         {
-            Task.Run(() => RenderSpectrum());
+            Task.Run(RenderSpectrum);
 
             _beeperBufferPosition = 0;
         }
