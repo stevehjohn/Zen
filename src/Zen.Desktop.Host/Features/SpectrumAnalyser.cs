@@ -1,6 +1,7 @@
 using System;
 using System.Numerics;
 using System.Threading;
+using System.Threading.Tasks;
 using MathNet.Numerics.IntegralTransforms;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -128,7 +129,7 @@ public class SpectrumAnalyser
 
         if (_beeperBufferPosition >= BufferSize)
         {
-            RenderSpectrum();
+            Task.Run(() => RenderSpectrum());
 
             _beeperBufferPosition = 0;
         }
