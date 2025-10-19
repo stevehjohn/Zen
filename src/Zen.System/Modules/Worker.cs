@@ -195,7 +195,7 @@ public class Worker : IDisposable
                 Counters.Instance.IncrementCounter(Counter.SpectrumFrames);
             }
 
-            _ayAudio.FrameReady(_resetEvent);
+            _ayAudio.FrameReady(_resetEvent, _frameCycles);
 
             _resetEvent.Reset();
         }

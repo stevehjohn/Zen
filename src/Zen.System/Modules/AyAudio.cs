@@ -31,8 +31,6 @@ public class AyAudio : IDisposable
 
     private readonly SemaphoreSlim _semaphore = new(1, 1);
 
-    private readonly int _frameCycles;
-
     private Task? _audioThread;
 
     private byte _registerNumber;
@@ -47,6 +45,8 @@ public class AyAudio : IDisposable
 
     private ManualResetEvent? _workerResetEvent;
 
+    private int _lastFrameCycles;
+    
     public IZenAudioEngine AudioEngine
     {
         set => _engine = value;
@@ -79,12 +79,12 @@ public class AyAudio : IDisposable
         {
             case Model.SpectrumPlus2A:
             case Model.SpectrumPlus3:
-                _frameCycles = Common.Constants.FrameCyclesPlus;
+                _lastFrameCycles = Common.Constants.FrameCyclesPlus;
 
                 break;
                 
             default:
-                _frameCycles = Common.Constants.FrameCycles;
+                _lastFrameCycles = Common.Constants.FrameCycles;
                     
                 break;
         }
@@ -95,10 +95,12 @@ public class AyAudio : IDisposable
         _audioThread = Task.Run(RunFrame, _cancellationToken);
     }
 
-    public void FrameReady(ManualResetEvent resetEvent)
+    public void FrameReady(ManualResetEvent resetEvent, int frameCycles)
     {
         _workerResetEvent = resetEvent;
 
+        _lastFrameCycles = frameCycles;
+        
         _resetEvent.Set();
     }
 
@@ -286,7 +288,7 @@ public class AyAudio : IDisposable
     {
         var signals = new float[3];
 
-        var bufferStep = (float) _frameCycles / (Constants.DefaultBufferSize - 1);
+        var bufferStep = (float) _lastFrameCycles / (Constants.DefaultBufferSize - 1);
 
         while (! _cancellationToken.IsCancellationRequested)
         {
