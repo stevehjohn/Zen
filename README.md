@@ -47,7 +47,7 @@ You may or may not need to do the second step. On my M1 MacBook, I didn't need t
 
 - `brew install freeimage`
 - `mkdir /usr/local/lib`
-- `sudo ln -s /opt/homebrew/Cellar/freeimage/3.18.0/lib/libfreeimage.dylib /usr/local/lib/libfreeimage`
+- `sudo ln -s /opt/homebrew/Cellar/freeimage/3.18.0/lib/libfreeimage.dylib/usr/local/lib/libfreeimage`
 
 ### Zen.Z80
 
