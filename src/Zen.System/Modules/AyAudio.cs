@@ -29,6 +29,8 @@ public class AyAudio : IDisposable
 
     private readonly Queue<(int Frame, Command Command, byte Value)>[] _commandQueues;
 
+    private readonly SemaphoreSlim _semaphore = new(1, 1);
+
     private Task? _audioThread;
 
     private byte _registerNumber;
@@ -104,11 +106,11 @@ public class AyAudio : IDisposable
 
     public void SelectRegister(int cycle, byte registerNumber)
     {
-        Monitor.Enter(_commandQueues);
+        _semaphore.Wait(_cancellationToken);
         
         _commandQueues[1 - _readQueue].Enqueue((cycle, Command.SelectRegister, registerNumber));
 
-        Monitor.Exit(_commandQueues);
+        _semaphore.Release();
     }
 
     public void SetRegister(int cycle, byte value)
@@ -133,11 +135,11 @@ public class AyAudio : IDisposable
                 break;
         }
 
-        Monitor.Enter(_commandQueues);
-        
+        _semaphore.Wait(_cancellationToken);
+
         _commandQueues[1 - _readQueue].Enqueue((cycle, Command.WriteRegister, value));
 
-        Monitor.Exit(_commandQueues);
+        _semaphore.Release();
     }
 
     public byte GetRegister()
@@ -147,11 +149,11 @@ public class AyAudio : IDisposable
     
     public void UlaAddressed(int cycle, byte value)
     {
-        Monitor.Enter(_commandQueues);
-        
+        _semaphore.Wait(_cancellationToken);
+
         _commandQueues[1 - _readQueue].Enqueue((cycle, Command.Beeper, value));
 
-        Monitor.Exit(_commandQueues);
+        _semaphore.Release();
     }
 
     private void SelectRegisterInternal(byte registerNumber)
@@ -292,10 +294,15 @@ public class AyAudio : IDisposable
         {
             try
             {
-                _resetEvent.WaitOne();
+                var signalled = WaitHandle.WaitAny([_resetEvent, _cancellationToken.WaitHandle]);
+
+                if (signalled == 1)
+                {
+                    return;
+                }
                 
                 _resetEvent.Reset();
-                
+
                 for (var i = 0; i < Constants.DefaultBufferSize; i++)
                 {
                     if (Silent)
@@ -356,13 +363,13 @@ public class AyAudio : IDisposable
                     _buffer[i] = signal;
                 }
 
-                Monitor.Enter(_commandQueues);
+                _semaphore.Wait(_cancellationToken);
 
                 _readQueue = 1 - _readQueue;
 
                 _commandQueues[1 - _readQueue].Clear();
 
-                Monitor.Exit(_commandQueues);
+                _semaphore.Release();
 
                 _engine.Send(_buffer);
 
