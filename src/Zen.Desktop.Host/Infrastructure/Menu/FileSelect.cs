@@ -13,11 +13,11 @@ namespace Zen.Desktop.Host.Infrastructure.Menu;
 
 public class FileSelect : CharacterOverlayBase
 {
-    private const int SelectDelayFramesFast = 5;
+    private readonly int _selectDelayFramesSlow;
 
-    private const int SelectDelayFramesSlow = 10;
+    private readonly int _selectDelayFramesVerySlow;
 
-    private const int SelectDelayFramesVerySlow = 24;
+    private readonly int _selectDelayFramesFast;
 
     private const int FileRows = 16;
 
@@ -43,6 +43,10 @@ public class FileSelect : CharacterOverlayBase
 
     private readonly Action<string> _menuDone;
 
+    private string _searchTerm = string.Empty;
+
+    private long _lastTicks;
+
     public FileSelect(Texture2D background, GraphicsDeviceManager graphicsDeviceManager, ContentManager contentManager, Action<string> menuDone)
         : base(background, graphicsDeviceManager, contentManager)
     {
@@ -62,6 +66,17 @@ public class FileSelect : CharacterOverlayBase
         Background.GetData(_backgroundData);
         
         Menu = new Texture2D(GraphicsDeviceManager.GraphicsDevice, Constants.ScreenWidthPixels, Constants.ScreenHeightPixels);
+        
+        _selectDelayFramesFast = AppSettings.Instance.Speed switch
+        {
+            Speed.Locked50 => 4,
+            Speed.Locked60 => 5,
+            _ => 10
+        };
+
+        _selectDelayFramesSlow = _selectDelayFramesFast * 2;
+
+        _selectDelayFramesVerySlow = _selectDelayFramesFast * 5;
     }
 
     public void Update()
@@ -98,6 +113,72 @@ public class FileSelect : CharacterOverlayBase
         }
     }
 
+    public void KeyTyped(char character)
+    {
+        var now = Stopwatch.GetTimestamp();
+
+        character = char.ToLowerInvariant(character);
+
+        if (_searchTerm.Length > 0 && character == _searchTerm[^1])
+        {
+            _searchTerm = character.ToString();
+        }
+
+        _searchTerm = (now - _lastTicks) * 1_000f / Stopwatch.Frequency < 300 
+            ? $"{_searchTerm}{character}" 
+            : character.ToString();
+
+        _lastTicks = now;
+
+        var matches = _files.Where(f => f.Display.StartsWith(_searchTerm, StringComparison.InvariantCultureIgnoreCase)).ToList();
+
+        if (matches.Count > 0)
+        {
+            var selectedName = _files[_top + _y];
+
+            var selectedIndex = matches.IndexOf(selectedName);
+
+            if (selectedIndex > -1)
+            {
+                selectedIndex++;
+
+                if (selectedIndex >= matches.Count)
+                {
+                    selectedIndex = 0;
+                }
+            }
+            else
+            {
+                selectedIndex = 0;
+            }
+
+            var target = matches[selectedIndex];
+
+            while (_files[_top + _y].Display != target.Display)
+            {
+                _y++;
+
+                if (_y >= FileRows)
+                {
+                    _y = FileRows - 1;
+                    
+                    _top++;
+                }
+
+                if (_y + _top >= _files.Count)
+                {
+                    _y = 0;
+
+                    _top = 0;
+                }
+            }
+        }
+        else
+        {
+            _searchTerm = string.Empty;
+        }
+    }
+
     private void CheckKeys()
     {
         if (_selectDelay != 0)
@@ -111,7 +192,7 @@ public class FileSelect : CharacterOverlayBase
 
         if (keys.IsKeyDown(Keys.Up))
         {
-            _selectDelay = SelectDelayFramesFast;
+            _selectDelay = _selectDelayFramesFast;
 
             _y--;
 
@@ -132,7 +213,7 @@ public class FileSelect : CharacterOverlayBase
 
         if (keys.IsKeyDown(Keys.Down))
         {
-            _selectDelay = SelectDelayFramesFast;
+            _selectDelay = _selectDelayFramesFast;
 
             if (_y + _top + 1 == _files.Count)
             {
@@ -162,13 +243,13 @@ public class FileSelect : CharacterOverlayBase
             {
                 _path = _files[_top + _y].FullPath;
 
-                _selectDelay = SelectDelayFramesSlow;
+                _selectDelay = _selectDelayFramesSlow;
 
                 _folderSelected = true;
             }
             else
             {
-                _selectDelay = SelectDelayFramesVerySlow;
+                _selectDelay = _selectDelayFramesVerySlow;
                 
                 AppSettings.Instance.LastZ80SnaPath = Path.GetDirectoryName(_files[_top + _y].FullPath);
 
@@ -180,7 +261,7 @@ public class FileSelect : CharacterOverlayBase
 
         if (keys.IsKeyDown(Keys.Escape))
         {
-            _selectDelay = SelectDelayFramesVerySlow;
+            _selectDelay = _selectDelayFramesVerySlow;
 
             _cancelled = true;
         }

@@ -43,7 +43,8 @@ public class AppSettings
             ScaleFactor = 2,
             Sound = true,
             SystemModel = Model.SpectrumPlus2,
-            ViewCounters = true
+            ViewCounters = true,
+            Visualisation = Visualisation.SpectrumAnalyser
         };
         
         try
@@ -61,7 +62,7 @@ public class AppSettings
         }
 
         settings.Speed = RuntimeInformation.IsOSPlatform(OSPlatform.Linux)
-            ? Speed.Locked
+            ? Speed.Locked50
             : Speed.Normal;
 
         return settings;

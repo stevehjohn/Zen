@@ -118,17 +118,21 @@ public class Host : Game
         _motherboard.Fast = AppSettings.Instance.Speed == Speed.Fast;
         _motherboard.Slow = AppSettings.Instance.Speed == Speed.Slow;
 
-        if (AppSettings.Instance.Speed == Speed.Locked)
+        if (AppSettings.Instance.Speed == Speed.Locked50)
         {
-            _motherboard.Worker.Locked = true;
-            _motherboard.AyAudio.Locked = true;
+            IsFixedTimeStep = true;
 
             TargetElapsedTime = TimeSpan.FromMilliseconds(20);
+        }
+        else
+        {
+            IsFixedTimeStep = false;
         }
 
         _imageName = $"Standard {model} ROM";
 
         AppSettings.Instance.SystemModel = model;
+        AppSettings.Instance.Save();
 
         if (_waveVisualiser != null)
         {
@@ -147,6 +151,11 @@ public class Host : Game
             _motherboard.AyAudio.AySignalHook = _spectrumAnalyser.ReceiveSignals;
 
             _motherboard.AyAudio.BeeperSignalHook = _spectrumAnalyser.ReceiveSignal;
+        }
+
+        if (_countersVisualiser != null)
+        {
+            _countersVisualiser.Motherboard = _motherboard;
         }
     }
 
@@ -168,6 +177,8 @@ public class Host : Game
     protected override void Initialize()
     {
         Window.Title = "Zen";
+
+        Window.TextInput += (_, arguements) => KeyTyped(arguements);
 
         base.Initialize();
     }
@@ -210,6 +221,20 @@ public class Host : Game
         {
             _videoRamVisualiser = new VideoRamVisualiser(_graphicsDeviceManager, _motherboard.Ram, true, _videoRenderer);
         }
+    }
+
+    protected override void Dispose(bool disposing)
+    {
+        base.Dispose(disposing);
+
+        _audioEngine?.Dispose();
+
+        _audioEngine = null;
+    }
+
+    private void KeyTyped(TextInputEventArgs arguments)
+    {
+        _menuSystem?.KeyPressed(arguments.Character);
     }
 
     private void ScanComplete()
