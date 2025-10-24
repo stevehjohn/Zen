@@ -96,7 +96,7 @@ public class Z80FileLoader : IFileLoader
         {
             _ram.SetBank(3, (byte) (data[35] & 0b0000_0111));
 
-            _ram.ScreenBank = (byte) ((data[35] & 0b0000_1000) > 0 ? 2 : 1);
+            _ram.UseShadowScreenBank = (data[35] & 0b0000_1000) > 0;
 
             var romNumber = (data[35] & 0b0001_0000) >> 4;
 
@@ -104,11 +104,12 @@ public class Z80FileLoader : IFileLoader
             {
                 Model.Spectrum128 => "ZX Spectrum 128",
                 Model.SpectrumPlus2 => "ZX Spectrum +2",
+                Model.SpectrumPlus2A => "ZX Spectrum +3",
                 Model.SpectrumPlus3 => "ZX Spectrum +3",
                 _ => throw new InvalidModelException()
             };
 
-            if (_model == Model.SpectrumPlus3 && romNumber == 1)
+            if (_model is Model.SpectrumPlus2A or Model.SpectrumPlus3 && romNumber == 1)
             {
                 romNumber = 3;
             }
