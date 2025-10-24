@@ -1,20 +1,24 @@
-﻿using Zen.Common;
+﻿using System;
+using Zen.Common;
+using Zen.System.Infrastructure;
 
 namespace Zen.System.Modules;
 
 public class VideoModulator
 {
-    private const int PaperRegionAdjusted = Constants.PaperRegionStart; // Dunno why, but - 40 fixes El Stompo.
+    private readonly int _screenStart;
 
-    private const int ScreenStart = PaperRegionAdjusted - Constants.StatesPerScreenLine * Constants.BorderPixels;
+    private readonly int _screenEnd;
 
-    private const int ScreenEnd = ScreenStart + Constants.StatesPerScreenLine * (Constants.ScreenHeightPixels + 1);
+    private readonly int _statesPerScreenLine;
 
     private const int StatesPerHBorder = Constants.BorderPixels / 2;
 
+    private readonly Ram _ram;
+
     private int _previousCycles;
 
-    private readonly Ram _ram;
+    private bool _renderedFrame;
 
     // .. S           F B     P P P I I I
     // .. 7 6 5 4 3 2 1 0 7 6 5 4 3 2 1 0
@@ -23,53 +27,61 @@ public class VideoModulator
 
     private readonly ushort[] _frame = new ushort[Constants.ScreenPixelCount];
 
-    private readonly byte[] _vram = new byte[Constants.RamBankSize];
-
     public ushort[] ScreenFrame => _frame;
 
     public byte Border { get; set; }
 
     public byte FloatingBusValue { get; private set; }
 
-    public VideoModulator(Ram ram)
+    public VideoModulator(Model model, Ram ram)
     {
         _ram = ram;
-    }
 
-    public void StartFrame()
-    {
-        Array.Copy(_ram.WorkingScreenRam, 0, _vram, 0, 0x4000);
-    }
+        switch (model)
+        {
+            case Model.SpectrumPlus2A:
+            case Model.SpectrumPlus3:
+                _screenStart = Constants.PaperRegionStartPlus - Constants.StatesPerScreenLinePlus * Constants.BorderPixels - Constants.StatesPerScreenLinePlus;
+                _screenEnd = _screenStart + Constants.StatesPerScreenLinePlus * (Constants.ScreenHeightPixels + 1);
+                _statesPerScreenLine = Constants.StatesPerScreenLinePlus;
 
-    public void ApplyRamChange(int address, byte data)
-    {
-        _vram[address & 0b0011_1111_1111_1111] = data;
+                break;
+
+            default:
+                _screenStart = Constants.PaperRegionStart - Constants.StatesPerScreenLine * Constants.BorderPixels;
+                _screenEnd = _screenStart + Constants.StatesPerScreenLine * (Constants.ScreenHeightPixels + 1);
+                _statesPerScreenLine = Constants.StatesPerScreenLine;
+
+                break;
+        }
     }
 
     public void CycleComplete(int cycles)
     {
-        if (cycles < ScreenStart || cycles > ScreenEnd)
+        if (cycles < _screenStart || cycles > _screenEnd)
         {
             FloatingBusValue = 0xFF;
 
-            _previousCycles = ScreenStart;
+            _previousCycles = _screenStart;
+
+            _renderedFrame = false;
 
             return;
         }
 
-        var start = _previousCycles - ScreenStart;
+        var start = _previousCycles - _screenStart;
 
         _previousCycles = cycles;
 
-        var end = cycles - ScreenStart;
+        var end = cycles - _screenStart;
 
         var y = 0;
 
         while (start < end)
         {
-            y = start / Constants.StatesPerScreenLine;
+            y = start / _statesPerScreenLine;
 
-            var xS = start % Constants.StatesPerScreenLine;
+            var xS = start % _statesPerScreenLine;
 
             start++;
 
@@ -99,12 +111,14 @@ public class VideoModulator
 
             _screen[pixel + 1] = GetPixel(ramPixel + 1);
 
-            FloatingBusValue = _ram[(ushort) (ramPixel + 1)];
+            FloatingBusValue = _ram.WorkingScreenRam[(ushort) (ramPixel + 1) & 0b0011_1111_1111_1111];
         }
 
-        if (y >= Constants.ScreenHeightPixels)
+        if (y >= Constants.ScreenHeightPixels && ! _renderedFrame)
         {
             Array.Copy(_screen, 0, _frame, 0, Constants.ScreenPixelCount);
+
+            _renderedFrame = true;
         }
     }
 
@@ -128,7 +142,7 @@ public class VideoModulator
 
         address |= xB;
 
-        var set = (_vram[address] & xO) > 0;
+        var set = (_ram.WorkingScreenRam[address] & xO) > 0;
 
         var colourAddress = 0x1800;
 
@@ -136,7 +150,7 @@ public class VideoModulator
 
         colourAddress += offset;
 
-        var attributes = _vram[colourAddress];
+        var attributes = _ram.WorkingScreenRam[colourAddress];
 
         var result = (ushort) (attributes & 0b0011_1111);
 
