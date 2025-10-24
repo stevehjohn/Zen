@@ -1,5 +1,4 @@
-﻿using System;
-using Zen.Common;
+﻿using Zen.Common;
 using Zen.System.Infrastructure;
 
 namespace Zen.System.Modules;
