@@ -41,6 +41,24 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
 
     private int _currentFrameCycle;
 
+    public int SelectedRom
+    {
+        get
+        {
+            if (_model is Model.SpectrumPlus2A or Model.SpectrumPlus3)
+            {
+                if ((Last1FFD & 0x01) != 0)
+                {
+                    return -1;
+                }
+
+                return ((Last7FFD >> 4) & 0x01) | ((Last1FFD >> 1) & 0x02);
+            }
+
+            return (Last7FFD >> 4) & 0x01;
+        }
+    }
+
     // ReSharper disable once InconsistentNaming
     public byte Last7FFD { get; set; }
 
@@ -55,7 +73,7 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
 
     public int FrameCycles => _worker.FrameCycles;
 
-    public VideoModulator VideoAdapter => _videoModulator;
+    public VideoModulator VideoModulator => _videoModulator;
 
     public AyAudio AyAudio => _ayAudio;
 
@@ -102,7 +120,7 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
 
         _core.AddHook(_ldBytesHook);
 
-        _ram = new() { ProtectRom = true };
+        _ram = new() { ProtectRom = model == Model.Spectrum48K };
 
         if (model == Model.Spectrum48K)
         {
