@@ -1,6 +1,6 @@
 rm *.Host.*.zip
 dotnet publish ./src/Zen.Desktop.Host/Zen.Desktop.Host.csproj -c Release -r osx-x64 /p:PublishReadyToRun=true /p:TieredCompilation=false --self-contained /p:PublishReadyToRunShowWarnings=true
-dotnet publish ./src/Zen.Desktop.Host/Zen.Desktop.Host.csproj -c Release -r osx-arm64 /p:PublishReadyToRun=true /p:TieredCompilation=false --self-contained /p:PublishReadyToRunShowWarnings=true
+dotnet publish ./src/Zen.Desktop.Host/Zen.Desktop.Host.csproj -c Release -r osx-arm64 /p:PublishReadyToRun=true /p:TieredCompilation=false /p:PublishReadyToRunShowWarnings=true
 dotnet publish ./src/Zen.Desktop.Host/Zen.Desktop.Host.csproj -c Release -r win-x64 /p:PublishReadyToRun=true /p:TieredCompilation=false --self-contained /p:PublishReadyToRunShowWarnings=true
 dotnet publish ./src/Zen.Desktop.Host/Zen.Desktop.Host.csproj -c Release -r linux-x64 /p:PublishReadyToRun=true /p:TieredCompilation=false --self-contained /p:PublishReadyToRunShowWarnings=true
 dotnet publish ./src/Zen.Desktop.Host/Zen.Desktop.Host.csproj -c Release -r linux-arm64 /p:PublishReadyToRun=true /p:TieredCompilation=false --self-contained /p:PublishReadyToRunShowWarnings=true
