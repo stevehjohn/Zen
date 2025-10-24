@@ -285,7 +285,7 @@ public class Host : Game
 
                 _motherboard.Start();
 
-                _videoRenderer.ScreenFrame = _motherboard.VideoAdapter.ScreenFrame;
+                _videoRenderer.ScreenFrame = _motherboard.VideoModulator.ScreenFrame;
 
                 return;
 
