@@ -32,6 +32,8 @@ For Windows, extract the files somewhere and run `Zen.Desktop.Host.exe`.
 
 I would highly recommend cloning the repo and building using dotnet CLI or Rider for macOS lately. Gatekeeper is turning into a proper nanny recently.
 
+Update: Due to Gatekeeper being a PITA, the arm64 pre-built version is no longer self contained. You'll need to download the dotnet 9 runtime.
+
 ## Solution Structure
 
 ### Zen.Desktop.Host
