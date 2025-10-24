@@ -272,40 +272,45 @@ public class Host : Game
             case MenuResult.SpeedNormal:
                 _motherboard.Fast = false;
                 _motherboard.Slow = false;
-                _motherboard.Worker.Locked = false;
-                _motherboard.AyAudio.Locked = false;
 
-                TargetElapsedTime = TimeSpan.FromTicks(166667L);
+                IsFixedTimeStep = false;
 
                 break;
 
-            case MenuResult.SpeedLocked:
+            case MenuResult.SpeedLocked50:
                 _motherboard.Fast = false;
                 _motherboard.Slow = false;
-                _motherboard.Worker.Locked = true;
-                _motherboard.AyAudio.Locked = true;
+
+                IsFixedTimeStep = true;
 
                 TargetElapsedTime = TimeSpan.FromMilliseconds(20);
+
+                break;
+
+            case MenuResult.SpeedLocked60:
+                _motherboard.Fast = false;
+                _motherboard.Slow = false;
+
+                IsFixedTimeStep = true;
+
+                TargetElapsedTime = TimeSpan.FromTicks(166667L);
+
 
                 break;
 
             case MenuResult.SpeedFast:
                 _motherboard.Fast = true;
                 _motherboard.Slow = false;
-                _motherboard.Worker.Locked = false;
-                _motherboard.AyAudio.Locked = false;
 
-                TargetElapsedTime = TimeSpan.FromTicks(166667L);
+                IsFixedTimeStep = false;
 
                 break;
 
             case MenuResult.SpeedSlow:
                 _motherboard.Fast = false;
                 _motherboard.Slow = true;
-                _motherboard.Worker.Locked = false;
-                _motherboard.AyAudio.Locked = false;
 
-                TargetElapsedTime = TimeSpan.FromTicks(166667L);
+                IsFixedTimeStep = false;
 
                 break;
 
@@ -326,6 +331,7 @@ public class Host : Game
 
             case MenuResult.SoundPortAudio:
                 _motherboard.Sound = true;
+                _motherboard.AudioEngine.Dispose();
                 _motherboard.AudioEngine = new PortAudioEngine();
                 AppSettings.Instance.AudioEngine = AudioEngine.PortAudio;
                 AppSettings.Instance.Sound = true;
@@ -335,6 +341,7 @@ public class Host : Game
 
             case MenuResult.SoundBass:
                 _motherboard.Sound = true;
+                _motherboard.AudioEngine.Dispose();
                 _motherboard.AudioEngine = new BassAudioEngine();
                 AppSettings.Instance.AudioEngine = AudioEngine.Bass;
                 AppSettings.Instance.Sound = true;
@@ -423,7 +430,7 @@ public class Host : Game
                 AppSettings.Instance.ViewCounters = true;
                 AppSettings.Instance.Save();
 
-                _countersVisualiser = new CountersVisualiser(_graphicsDeviceManager, Content);
+                _countersVisualiser = new CountersVisualiser(_graphicsDeviceManager, Content, _motherboard);
 
                 ChangeScale(_scaleFactor);
 
@@ -456,8 +463,6 @@ public class Host : Game
         {
             _motherboard.Sound = true;
         }
-
-        _motherboard.AudioEngine.Reset();
 
         _motherboard.Resume();
     }
