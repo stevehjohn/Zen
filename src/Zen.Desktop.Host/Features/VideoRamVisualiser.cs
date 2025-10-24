@@ -22,9 +22,9 @@ public class VideoRamVisualiser
     private readonly bool _banks;
 
     private readonly VideoRenderer _videoRenderer;
-    
+
     public bool BanksView => _banks;
-    
+
     public Ram Ram
     {
         set => _ram = value;
@@ -52,25 +52,25 @@ public class VideoRamVisualiser
         if (_banks)
         {
             RenderBank(0, _ram.GetBank(5));
-            
+
             RenderBank(1, _ram.GetBank(7));
         }
         else
         {
             RenderBank(0, _ram.WorkingScreenRam);
         }
-        
+
         _visualisation.SetData(_data);
 
         return _visualisation;
     }
 
-    private void RenderBank(int panel, byte[] bank)
+    private void RenderBank(int panel, Span<byte> bank)
     {
         var width = Constants.ScreenWidthPixels;
 
         var offset = 0;
-        
+
         if (_banks)
         {
             width *= 2;
@@ -99,10 +99,21 @@ public class VideoRamVisualiser
 
                 address |= xB;
 
-                if ((bank[(ushort) address] & xO) > 0)
-                {
-                    _data[(y + Constants.BorderPixels) * width + x + Constants.BorderPixels + offset] = Color.FromNonPremultiplied(192, 192, 192, 255);
-                }
+                var colourAddress = 0x1800 + xB + y / 8 * 32;
+
+                var attribute = bank[colourAddress];
+
+                var bright = (attribute & 0x40) > 0;
+
+                var ink = AppSettings.Instance.ColourScheme == ColourScheme.Spectrum
+                    ? GetColor((byte) (attribute & 0x07), bright)
+                    : GetC64Color((byte) (attribute & 0x07), bright);
+
+                var paper = AppSettings.Instance.ColourScheme == ColourScheme.Spectrum
+                    ? GetColor((byte) ((attribute >> 3) & 0x07), bright)
+                    : GetC64Color((byte) ((attribute >> 3) & 0x07), bright);
+
+                _data[(y + Constants.BorderPixels) * width + x + Constants.BorderPixels + offset] = (bank[(ushort) address] & xO) > 0 ? ink : paper;
             }
         }
 
@@ -115,5 +126,37 @@ public class VideoRamVisualiser
                 _data[(_videoRenderer.ScanY + 2) * width + x + offset] = Color.Black;
             }
         }
+    }
+
+    private static Color GetColor(byte index, bool bright)
+    {
+        var intensity = bright ? 0xFF : 0xD8;
+
+        return index switch
+        {
+            1 => Color.FromNonPremultiplied(0, 0, intensity, 255),
+            2 => Color.FromNonPremultiplied(intensity, 0, 0, 255),
+            3 => Color.FromNonPremultiplied(intensity, 0, intensity, 255),
+            4 => Color.FromNonPremultiplied(0, intensity, 0, 255),
+            5 => Color.FromNonPremultiplied(0, intensity, intensity, 255),
+            6 => Color.FromNonPremultiplied(intensity, intensity, 0, 255),
+            7 => Color.FromNonPremultiplied(intensity, intensity, intensity, 255),
+            _ => Color.FromNonPremultiplied(0, 0, 0, 255)
+        };
+    }
+
+    private static Color GetC64Color(byte index, bool bright)
+    {
+        return index switch
+        {
+            1 => Color.FromNonPremultiplied(0, bright ? 136 : 0, bright ? 255 : 170, 255),
+            2 => Color.FromNonPremultiplied(bright ? 255 : 136, bright ? 119 : 0, bright ? 119 : 0, 255),
+            3 => Color.FromNonPremultiplied(204, 68, 204, 255),
+            4 => Color.FromNonPremultiplied(bright ? 170 : 0, bright ? 255 : 204, bright ? 102 : 85, 255),
+            5 => Color.FromNonPremultiplied(bright ? 170 : 0, bright ? 255 : 139, bright ? 238 : 139, 255),
+            6 => Color.FromNonPremultiplied(bright ? 221 : 102, bright ? 136 : 68, bright ? 85 : 0, 255),
+            7 => Color.FromNonPremultiplied(bright ? 255 : 187, bright ? 255 : 187, bright ? 255 : 187, 255),
+            _ => Color.FromNonPremultiplied(0, 0, 0, 255)
+        };
     }
 }
