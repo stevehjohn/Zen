@@ -44,8 +44,6 @@ public class Worker : IDisposable
     
     public bool Slow { get; set; }
     
-    public bool Locked { get; set; }
-
     public Worker(Interface @interface, VideoModulator videoModulator, AyAudio ayAudio)
     {
         _interface = @interface;
@@ -103,10 +101,7 @@ public class Worker : IDisposable
     {
         while (! _cancellationToken.IsCancellationRequested)
         {
-            if (! Locked)
-            {
-                RunFrame();
-            }
+            RunFrame();
         }
     }
 
@@ -168,7 +163,7 @@ public class Worker : IDisposable
                     }
                 }
 
-                if (! Fast && ! Locked)
+                if (! Fast)
                 {
                     _resetEvent.WaitOne();
                 }
