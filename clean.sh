@@ -7,3 +7,11 @@ rm -rf src/Zen.Desktop.Host/bin
 rm -rf src/Zen.Utilities/bin
 rm -rf src/Zen.Z80.Test.JSMoo/bin
 rm -rf src/Zen.Z80.Tests.Fuse/bin
+rm -rf src/Zen.Common/obj
+rm -rf src/Zen.System/obj
+rm -rf src/Zen.Z80/obj
+rm -rf src/Zen.Z80.Tests/obj
+rm -rf src/Zen.Desktop.Host/obj
+rm -rf src/Zen.Utilities/obj
+rm -rf src/Zen.Z80.Test.JSMoo/obj
+rm -rf src/Zen.Z80.Tests.Fuse/obj
