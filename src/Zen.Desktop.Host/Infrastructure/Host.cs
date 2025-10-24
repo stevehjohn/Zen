@@ -11,8 +11,6 @@ using Zen.Desktop.Host.Exceptions;
 using Zen.Desktop.Host.Features;
 using Zen.Desktop.Host.Infrastructure.Menu;
 using Zen.Desktop.Host.Infrastructure.Settings;
-using Zen.Desktop.Host.ProcessorHooks;
-using Zen.Desktop.Host.ProcessorHooks.ManicMiner;
 using Zen.System;
 using Zen.System.FileHandling;
 using Zen.System.FileHandling.Interfaces;
@@ -138,8 +136,6 @@ public class Host : Game
 
             _motherboard.AyAudio.BeeperSignalHook = _waveVisualiser.ReceiveSignal;
         }
-        
-        _motherboard.AddProcessorHook(new WillyBot());
 
         if (_videoRamVisualiser != null)
         {
