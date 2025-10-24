@@ -37,6 +37,8 @@ public class Worker : IDisposable
     private int _frameCycles;
     
     public int FrameCycles => _frameCycles;
+    
+    public bool VRamUpdated { get; set; }
 
     public bool Fast { get; set; }
     
@@ -91,20 +93,10 @@ public class Worker : IDisposable
 
         _cancellationTokenSource.Cancel();
 
+        // ReSharper disable once MethodSupportsCancellation
+        _workerThread.Wait();
+
         _cancellationTokenSource.Dispose();
-    }
-
-    public void VRamUpdated(int address, byte data)
-    {
-        var i = 1;
-
-        if (_vramChanges[1].Address != -1)
-        {
-            i = 0;
-        }
-
-        _vramChanges[i].Address = address;
-        _vramChanges[i].Data = data;
     }
 
     private void TimerWorker()
@@ -126,8 +118,6 @@ public class Worker : IDisposable
             {
                 _frameCycles = 0;
 
-                _videoModulator.StartFrame();
-
                 while (_frameCycles < Constants.FrameCycles)
                 {
                     if (_frameCycles is >= Constants.InterruptStart and < Constants.InterruptEnd)
@@ -143,7 +133,7 @@ public class Worker : IDisposable
                         _interface.Int = false;
                     }
 
-                    ClearFrameRamBuffer();
+                    VRamUpdated = false;
 
                     var cycles = OnTick(_frameCycles);
 
@@ -198,25 +188,15 @@ public class Worker : IDisposable
         }
     }
 
-    private void ClearFrameRamBuffer()
-    {
-        _vramChanges[0].Address = -1;
-        _vramChanges[1].Address = -1;
-    }
-
     private int ApplyFrameRamChanges(int mcycle, int frameCycles, byte[] opCycles)
     {
-        if (mcycle < 6 && opCycles[mcycle + 1] == 0 && _vramChanges[1].Address != -1)
+        if (mcycle < 6 && opCycles[mcycle + 1] == 0 && VRamUpdated)
         {
-            _videoModulator.ApplyRamChange(_vramChanges[1].Address, _vramChanges[1].Data);
-
             return GetContention(frameCycles);
         }
 
-        if (mcycle < 5 && opCycles[mcycle + 2] == 0 && _vramChanges[0].Address != -1)
+        if (mcycle < 5 && opCycles[mcycle + 2] == 0 && VRamUpdated)
         {
-            _videoModulator.ApplyRamChange(_vramChanges[0].Address, _vramChanges[0].Data);
-
             return GetContention(frameCycles);
         }
 

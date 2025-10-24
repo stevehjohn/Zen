@@ -129,7 +129,7 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
 
         _ram.LoadRom(LoadRom(0));
 
-        _videoModulator = new VideoModulator(_ram);
+        _videoModulator = new VideoModulator(_model, _ram);
         
         _ayAudio = new AyAudio(engine);
 
@@ -185,7 +185,7 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
     {
         if (address >= 0x4000 && address < 0x5B00)
         {
-            _worker.VRamUpdated(address, data);
+            _worker.VRamUpdated = true;
         }
 
         _ram[address] = data;
@@ -256,7 +256,7 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
             _ayAudio.SetRegister(_currentFrameCycle, data);
         }
 
-        if (_pagingDisabled)
+        if (_pagingDisabled || _model == Model.Spectrum48K)
         {
             return;
         }
@@ -265,7 +265,7 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
         {
             var paging = (port & 0b1000_0000_0000_0010) == 0;
 
-            if (_model == Model.SpectrumPlus3)
+            if (_model is Model.SpectrumPlus2A or Model.SpectrumPlus3)
             {
                 paging &= (port & 0b0100_0000_0000_0000) > 0;
             }
@@ -280,7 +280,7 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
                 PageCall(0x7F, data);
             }
 
-            if (_model != Model.SpectrumPlus3)
+            if (_model is not (Model.SpectrumPlus2A or Model.SpectrumPlus3))
             {
                 return;
             }
@@ -298,31 +298,61 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
 
     private void PageCall(byte port, byte data)
     {
-        if (port == 0x1F && (data & 0x01) > 0)
+        switch (port)
         {
-            ConfigureSpecialPaging(data & 0b0110 >> 1);
+            case 0x7F:
+                Last7FFD = data;
+                break;
+
+            case 0x1F:
+                Last1FFD = data;
+                break;
         }
 
         if (port == 0x7F)
         {
-            _ram.SetBank(3, (byte) (data & 0b0000_0111));
+            _ram.SetBank(3, (byte) (Last7FFD & 0b0000_0111));
 
-            _ram.ScreenBank = (byte) ((data & 0b0000_1000) > 0 ? 2 : 1);
+            _ram.UseShadowScreenBank = (Last7FFD & 0b0000_1000) != 0;
+
+            if ((Last7FFD & 0b0010_0000) != 0)
+            {
+                _pagingDisabled = true;
+            }
         }
 
-        if (port == 0x7F)
+        switch (_model)
         {
-            Last7FFD = data;
+            case Model.Spectrum48K:
+                return;
+            
+            case Model.Spectrum128:
+            case Model.SpectrumPlus2:
+                _ram.LoadRom(LoadRom((Last7FFD >> 4) & 0x01));
+                
+                break;
+            
+            default:
+                var specialPaging = (Last1FFD & 0x01) != 0;
+
+                if (! specialPaging)
+                {
+                    _ram.SetBank(1, 5);
+                    _ram.SetBank(2, 2);
+                    
+                    var romNumber = ((Last7FFD >> 4) & 0x01) | ((Last1FFD >> 1) & 0x02);
+
+                    _ram.LoadRom(LoadRom(romNumber));
+                    
+                    return;
+                }
+
+                var map = (Last1FFD >> 1) & 0b11;
+
+                ConfigureSpecialPaging(map);
+
+                break;
         }
-
-        if (port == 0x1F)
-        {
-            Last1FFD = data;
-        }
-
-        var romNumber = (Last7FFD & 0b0001_0000) >> 4 | (Last1FFD & 0b0000_0100) >> 1;
-
-        _ram.LoadRom(LoadRom(romNumber));
     }
 
     private void ConfigureSpecialPaging(int configurationId)
@@ -370,6 +400,7 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
             Model.Spectrum48K => "ZX Spectrum 48K",
             Model.Spectrum128 => "ZX Spectrum 128",
             Model.SpectrumPlus2 => "ZX Spectrum +2",
+            Model.SpectrumPlus2A => "ZX Spectrum +3",
             Model.SpectrumPlus3 => "ZX Spectrum +3",
             _ => throw new InvalidModelException()
         };
