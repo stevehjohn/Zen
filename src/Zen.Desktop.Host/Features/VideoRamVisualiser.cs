@@ -90,7 +90,7 @@ public class VideoRamVisualiser
                 var xO = 1 << (7 - x % 8);
 
                 var address = 0;
-                
+
                 address |= (y & 0b0000_0111) << 8;
 
                 address |= (y & 0b1100_0000) << 5;
