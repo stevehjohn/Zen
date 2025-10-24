@@ -44,7 +44,7 @@ public class Host : Game
     private WaveVisualiser _waveVisualiser;
 
     private SpectrumAnalyser _spectrumAnalyser;
-    
+
     private CountersVisualiser _countersVisualiser;
 
     private VideoRamVisualiser _videoRamVisualiser;
@@ -68,7 +68,7 @@ public class Host : Game
         {
             width += Constants.VideoRamVisualisationPanelWidth * _scaleFactor;
         }
-        
+
         if (AppSettings.Instance.Visualisation == Visualisation.VideoBanks)
         {
             width += Constants.VideoRamVisualisationPanelWidth * 2 * _scaleFactor;
@@ -80,17 +80,17 @@ public class Host : Game
         }
 
         _graphicsDeviceManager = new GraphicsDeviceManager(this)
-                                 { 
-                                     PreferredBackBufferWidth = width,
-                                     PreferredBackBufferHeight = height
-                                 };
+        {
+            PreferredBackBufferWidth = width,
+            PreferredBackBufferHeight = height
+        };
 
         Content.RootDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "_Content");
 
         IsMouseVisible = false;
 
         SetMotherboard(AppSettings.Instance.SystemModel);
-        
+
         InactiveSleepTime = TimeSpan.FromMilliseconds(0);
     }
 
@@ -122,7 +122,7 @@ public class Host : Game
         {
             _motherboard.Worker.Locked = true;
             _motherboard.AyAudio.Locked = true;
-            
+
             TargetElapsedTime = TimeSpan.FromMilliseconds(20);
         }
 
@@ -284,7 +284,7 @@ public class Host : Game
                 _motherboard.Slow = false;
                 _motherboard.Worker.Locked = true;
                 _motherboard.AyAudio.Locked = true;
-                
+
                 TargetElapsedTime = TimeSpan.FromMilliseconds(20);
 
                 break;
@@ -298,7 +298,7 @@ public class Host : Game
                 TargetElapsedTime = TimeSpan.FromTicks(166667L);
 
                 break;
-            
+
             case MenuResult.SpeedSlow:
                 _motherboard.Fast = false;
                 _motherboard.Slow = true;
@@ -348,7 +348,7 @@ public class Host : Game
                 AppSettings.Instance.Save();
 
                 break;
-            
+
             case MenuResult.VisualisationOff:
                 AppSettings.Instance.Visualisation = Visualisation.Off;
                 AppSettings.Instance.Save();
@@ -438,17 +438,17 @@ public class Host : Game
                 ChangeScale(_scaleFactor);
 
                 break;
-            
+
             case MenuResult.SpectrumColours:
                 AppSettings.Instance.ColourScheme = ColourScheme.Spectrum;
                 AppSettings.Instance.Save();
-                
+
                 break;
-            
+
             case MenuResult.CommodoreColours:
                 AppSettings.Instance.ColourScheme = ColourScheme.Commodore;
                 AppSettings.Instance.Save();
-                
+
                 break;
         }
 
@@ -458,7 +458,7 @@ public class Host : Game
         }
 
         _motherboard.AudioEngine.Reset();
-        
+
         _motherboard.Resume();
     }
 
@@ -592,9 +592,9 @@ public class Host : Game
 
         _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp);
 
-        _spriteBatch.Draw(screen, 
-                          new Rectangle(0, 0, Constants.ScreenWidthPixels * _scaleFactor, Constants.ScreenHeightPixels * _scaleFactor), 
-                          new Rectangle(0, 0, Constants.ScreenWidthPixels, Constants.ScreenHeightPixels), Color.White);
+        _spriteBatch.Draw(screen,
+            new Rectangle(0, 0, Constants.ScreenWidthPixels * _scaleFactor, Constants.ScreenHeightPixels * _scaleFactor),
+            new Rectangle(0, 0, Constants.ScreenWidthPixels, Constants.ScreenHeightPixels), Color.White);
 
         if (_waveVisualiser != null)
         {
@@ -603,7 +603,7 @@ public class Host : Game
             if (waves != null)
             {
                 _spriteBatch.Draw(waves,
-                    new Rectangle(Constants.ScreenWidthPixels * _scaleFactor, 0, Constants.WaveVisualisationPanelWidth * _scaleFactor, Constants.ScreenHeightPixels * _scaleFactor), 
+                    new Rectangle(Constants.ScreenWidthPixels * _scaleFactor, 0, Constants.WaveVisualisationPanelWidth * _scaleFactor, Constants.ScreenHeightPixels * _scaleFactor),
                     new Rectangle(0, 0, Constants.WaveVisualisationPanelWidth, Constants.ScreenHeightPixels), Color.White);
             }
         }
@@ -615,7 +615,7 @@ public class Host : Game
             if (spectrum != null)
             {
                 _spriteBatch.Draw(spectrum,
-                    new Rectangle(Constants.ScreenWidthPixels * _scaleFactor, 0, Constants.SpectrumVisualisationPanelWidth * _scaleFactor, Constants.ScreenHeightPixels * _scaleFactor), 
+                    new Rectangle(Constants.ScreenWidthPixels * _scaleFactor, 0, Constants.SpectrumVisualisationPanelWidth * _scaleFactor, Constants.ScreenHeightPixels * _scaleFactor),
                     new Rectangle(0, 0, Constants.SpectrumVisualisationPanelWidth, Constants.ScreenHeightPixels), Color.White);
             }
         }
@@ -625,22 +625,22 @@ public class Host : Game
             if (_videoRamVisualiser.BanksView)
             {
                 _spriteBatch.Draw(_videoRamVisualiser.RenderRam(),
-                    new Rectangle(Constants.ScreenWidthPixels * _scaleFactor, 0, Constants.VideoRamVisualisationPanelWidth * 2 * _scaleFactor, Constants.ScreenHeightPixels * _scaleFactor), 
+                    new Rectangle(Constants.ScreenWidthPixels * _scaleFactor, 0, Constants.VideoRamVisualisationPanelWidth * 2 * _scaleFactor, Constants.ScreenHeightPixels * _scaleFactor),
                     new Rectangle(0, 0, Constants.VideoRamVisualisationPanelWidth * 2, Constants.ScreenHeightPixels), Color.White);
             }
             else
             {
                 _spriteBatch.Draw(_videoRamVisualiser.RenderRam(),
-                    new Rectangle(Constants.ScreenWidthPixels * _scaleFactor, 0, Constants.VideoRamVisualisationPanelWidth * _scaleFactor, Constants.ScreenHeightPixels * _scaleFactor), 
+                    new Rectangle(Constants.ScreenWidthPixels * _scaleFactor, 0, Constants.VideoRamVisualisationPanelWidth * _scaleFactor, Constants.ScreenHeightPixels * _scaleFactor),
                     new Rectangle(0, 0, Constants.VideoRamVisualisationPanelWidth, Constants.ScreenHeightPixels), Color.White);
             }
         }
 
         if (_countersVisualiser != null)
         {
-            _spriteBatch.Draw(_countersVisualiser.RenderPanel(), 
-                              new Rectangle(0, Constants.ScreenHeightPixels * _scaleFactor, Constants.ScreenWidthPixels * _scaleFactor, Constants.CountersPanelHeight * _scaleFactor), 
-                              new Rectangle(0, 0, Constants.ScreenWidthPixels, Constants.CountersPanelHeight), Color.White);
+            _spriteBatch.Draw(_countersVisualiser.RenderPanel(),
+                new Rectangle(0, Constants.ScreenHeightPixels * _scaleFactor, Constants.ScreenWidthPixels * _scaleFactor, Constants.CountersPanelHeight * _scaleFactor),
+                new Rectangle(0, 0, Constants.ScreenWidthPixels, Constants.CountersPanelHeight), Color.White);
         }
 
         _spriteBatch.End();
