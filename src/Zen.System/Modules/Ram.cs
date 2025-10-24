@@ -20,12 +20,13 @@ public class Ram
 
     public bool ProtectRom { get; init; }
 
-    public byte ScreenBank
+    public bool UseShadowScreenBank
     {
-        set => _screenBank = (byte) (value == 1 ? 5 : 7);
+        set => _screenBank = (byte) (value ? 7 : 5);
+        get => _screenBank == 7;
     }
 
-    public byte[] WorkingScreenRam => _banks[_screenBank];
+    public Span<byte> WorkingScreenRam => _banks[_screenBank];
 
     public byte[] Rom
     {
@@ -123,9 +124,12 @@ public class Ram
     {
         var random = new Random(Guid.NewGuid().GetHashCode());
 
-        for (var i = 0; i < Constants.ScreenRamSize; i++)
+        for (var b = 0; b < BankCount; b++)
         {
-            _banks[_screenBank][i] = (byte) random.Next(256);
+            for (ushort i = 0; i < Constants.RamBankSize; i++)
+            {
+                _banks[b][i] = (byte) random.Next(256);
+            }
         }
     }
 }
