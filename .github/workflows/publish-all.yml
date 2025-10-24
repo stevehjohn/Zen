@@ -21,8 +21,8 @@ jobs:
         dotnet-version: 9.0.x
     - name: Publish and Zip all.
       run: ./publish.sh
-    - name: Create macOS apps.
-      run: ./publish-app.sh
+#    - name: Create macOS apps.
+#      run: ./publish-app.sh
     - name: Release
       uses: softprops/action-gh-release@v1
       with:
