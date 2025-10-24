@@ -2,6 +2,20 @@
 
 ToDos, aide memoires, etcetera.
 
+## Sanity
+
+- Audio is good on `manic-solver` branch.
+- Fewer bugs with system select etc... on master.
+- Need to diff them and figure the sweet spot.
+
+## Miscallaneous
+
+Works best when monitor is on 50Hz mode.
+
+## Games
+
+- https://www.planetemu.net/machine/zx-spectrum
+
 ## Useful Speccy References
 
 - https://clrhome.org/table/

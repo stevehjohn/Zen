@@ -14,6 +14,10 @@ This project aims to take the lessons learned from ZXE and build upon them.
 
 Any feedback appreciated, get me on <a href="https://x.com/SteveHuwJohn">Twitter / X</a>
 
+## Notes
+
+For really timing sensitive graphics, set your monitor to 50Hz mode.
+
 ## Pre-built Binaries
 
 Releases can be found <a href="https://github.com/stevehjohn/Zen/releases">here</a>.
@@ -43,7 +47,7 @@ You may or may not need to do the second step. On my M1 MacBook, I didn't need t
 
 - `brew install freeimage`
 - `mkdir /usr/local/lib`
-- `sudo ln -s /opt/homebrew/Cellar/freeimage/3.18.0/lib/libfreeimage.dylib /usr/local/lib/libfreeimage`
+- `sudo ln -s /opt/homebrew/Cellar/freeimage/3.18.0/lib/libfreeimage.dylib/usr/local/lib/libfreeimage`
 
 ### Zen.Z80
 
