@@ -52,8 +52,6 @@ public class AyAudio : IDisposable
         }
         get => _engine;
     }
-
-    public bool Locked { get; set; }
     
     public bool Silent { get; set; }
 
@@ -80,13 +78,7 @@ public class AyAudio : IDisposable
 
     public void Start()
     {
-        _audioThread = Task.Run(() =>
-        {
-            if (! Locked)
-            {
-                RunFrame();
-            }
-        }, _cancellationToken);
+        _audioThread = Task.Run(RunFrame, _cancellationToken);
     }
 
     public void FrameReady(ManualResetEvent resetEvent)
