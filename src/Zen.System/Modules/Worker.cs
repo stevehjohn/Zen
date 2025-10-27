@@ -113,6 +113,8 @@ public class Worker : IDisposable
         {
             RunFrame();
         }
+        
+        Console.WriteLine("Exited");
     }
 
     public void RunFrame()
@@ -175,7 +177,7 @@ public class Worker : IDisposable
 
                 if (! Fast)
                 {
-                    _resetEvent.WaitOne();
+                    WaitHandle.WaitAny([_resetEvent, _cancellationToken.WaitHandle]);
                 }
 
                 Counters.Instance.IncrementCounter(Counter.SpectrumFrames);
