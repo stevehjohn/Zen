@@ -93,7 +93,8 @@ public class Worker : IDisposable
 
         try
         {
-            _workerThread.Wait(_cancellationToken);
+            // ReSharper disable once MethodSupportsCancellation
+            _workerThread.Wait();
         }
         catch (OperationCanceledException exception)
         {
@@ -114,7 +115,7 @@ public class Worker : IDisposable
             RunFrame();
         }
         
-        Console.WriteLine("Exited");
+        Console.WriteLine("Exited Worker");
     }
 
     public void RunFrame()
