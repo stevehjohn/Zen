@@ -262,6 +262,19 @@ public class AyAudio : IDisposable
 
         _cancellationTokenSource.Cancel();
 
+        try
+        {
+            _audioThread.Wait(_cancellationToken);
+        }
+        catch (OperationCanceledException)
+        {
+            //
+        }
+        catch (Exception exception)
+        {
+            Console.WriteLine(exception);
+        }
+
         _cancellationTokenSource.Dispose();
 
         _engine.Dispose();
