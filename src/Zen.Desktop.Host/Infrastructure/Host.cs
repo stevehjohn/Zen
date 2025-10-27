@@ -49,6 +49,8 @@ public class Host : Game
 
     private VideoRamVisualiser _videoRamVisualiser;
 
+    private IZenAudioEngine _audioEngine;
+
     public Host()
     {
         var width = Constants.ScreenWidthPixels * _scaleFactor;
@@ -181,8 +183,8 @@ public class Host : Game
     protected override void Initialize()
     {
         Window.Title = "Zen";
-
-        Window.TextInput += (_, arguements) => KeyTyped(arguements);
+        
+        Window.TextInput += (_, arguments) => KeyTyped(arguments);
 
         base.Initialize();
     }
@@ -231,9 +233,9 @@ public class Host : Game
     {
         base.Dispose(disposing);
 
-        // _audioEngine?.Dispose();
-        //
-        // _audioEngine = null;
+        _audioEngine?.Dispose();
+        
+        _audioEngine = null;
     }
 
     private void KeyTyped(TextInputEventArgs arguments)
