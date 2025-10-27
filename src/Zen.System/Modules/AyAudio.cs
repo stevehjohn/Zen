@@ -290,8 +290,13 @@ public class AyAudio : IDisposable
         {
             try
             {
-                _resetEvent.WaitOne();
-                
+                WaitHandle.WaitAny([_resetEvent, _cancellationToken.WaitHandle]);
+
+                if (_cancellationToken.IsCancellationRequested)
+                {
+                    break;
+                }
+
                 _resetEvent.Reset();
 
                 for (var i = 0; i < Constants.DefaultBufferSize; i++)
