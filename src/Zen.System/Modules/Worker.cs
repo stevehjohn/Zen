@@ -95,9 +95,9 @@ public class Worker : IDisposable
         {
             _workerThread.Wait(_cancellationToken);
         }
-        catch (OperationCanceledException)
+        catch (OperationCanceledException exception)
         {
-            //
+            Console.WriteLine(exception);
         }
         catch (Exception exception)
         {

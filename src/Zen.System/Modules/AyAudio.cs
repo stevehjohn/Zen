@@ -264,11 +264,11 @@ public class AyAudio : IDisposable
 
         try
         {
-            _audioThread.Wait(_cancellationToken);
+            _audioThread.Wait(TimeSpan.FromMilliseconds(200));
         }
-        catch (OperationCanceledException)
+        catch (OperationCanceledException exception)
         {
-            //
+            Console.WriteLine(exception);
         }
         catch (Exception exception)
         {
