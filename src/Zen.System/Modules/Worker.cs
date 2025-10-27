@@ -91,7 +91,18 @@ public class Worker : IDisposable
 
         _cancellationTokenSource.Cancel();
 
-        _workerThread.Wait(_cancellationToken);
+        try
+        {
+            _workerThread.Wait(_cancellationToken);
+        }
+        catch (OperationCanceledException)
+        {
+            //
+        }
+        catch (Exception exception)
+        {
+            Console.WriteLine(exception);
+        }
 
         _cancellationTokenSource.Dispose();
     }
