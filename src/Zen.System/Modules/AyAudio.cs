@@ -381,8 +381,6 @@ public class AyAudio : IDisposable
                 throw;
             }
         }
-        
-        Console.WriteLine("Exited AyAudio");
         // ReSharper disable once FunctionNeverReturns
     }
 }

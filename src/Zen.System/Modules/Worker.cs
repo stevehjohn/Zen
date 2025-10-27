@@ -114,8 +114,6 @@ public class Worker : IDisposable
         {
             RunFrame();
         }
-        
-        Console.WriteLine("Exited Worker");
     }
 
     public void RunFrame()
