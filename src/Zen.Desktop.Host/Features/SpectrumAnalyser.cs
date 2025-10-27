@@ -34,7 +34,7 @@ public class SpectrumAnalyser
     private readonly int[][] _peaks;
 
     private readonly long[][] _peakTimes;
-    
+
     private readonly Texture2D _spectrum;
 
     private int _bufferPosition;
@@ -52,17 +52,17 @@ public class SpectrumAnalyser
     private readonly FrequencyRange[] _frequencyRanges =
     [
         new(30, 40),
-        new(40, 60),       // Bass
+        new(40, 60), // Bass
         new(60, 80),
-        new(80, 120),      // Lower midrange
+        new(80, 120), // Lower midrange
         new(120, 160),
-        new(160, 240),     // Midrange
+        new(160, 240), // Midrange
         new(240, 320),
-        new(320, 480),     // Upper midrange
+        new(320, 480), // Upper midrange
         new(480, 640),
-        new(640, 960),     // Presence
+        new(640, 960), // Presence
         new(960, 1280),
-        new(1280, 1920),   // Brilliance
+        new(1280, 1920), // Brilliance
         new(1920, 2560)
     ];
 
@@ -71,7 +71,7 @@ public class SpectrumAnalyser
     public SpectrumAnalyser(GraphicsDeviceManager graphicsDeviceManager)
     {
         _graphicsDeviceManager = graphicsDeviceManager;
-        
+
         _data = new Color[Constants.WaveVisualisationPanelWidth * Constants.ScreenHeightPixels];
 
         _spectrum = new Texture2D(_graphicsDeviceManager.GraphicsDevice, Constants.WaveVisualisationPanelWidth, Constants.ScreenHeightPixels);
@@ -83,7 +83,7 @@ public class SpectrumAnalyser
         _peakTimes = new long[4][];
 
         _magnitudes = new float[BufferSize];
-            
+
         _groupedMagnitudes = new float[_frequencyRanges.Length];
 
         for (var i = 0; i < 4; i++)
@@ -94,7 +94,7 @@ public class SpectrumAnalyser
 
             _peakTimes[i] = new long[_frequencyRanges.Length];
         }
-    
+
         _palette = PaletteGenerator.GetPalette(46,
         [
             new Color(119, 35, 172),
@@ -103,7 +103,7 @@ public class SpectrumAnalyser
             new Color(254, 211, 56),
             new Color(254, 253, 0)
         ]);
-        
+
         _leftPadding = (Constants.SpectrumVisualisationPanelWidth - (BarWidth + BarSpacing) * _frequencyRanges.Length) / 2;
     }
 
@@ -154,7 +154,7 @@ public class SpectrumAnalyser
         RenderSpectrumChannel(2);
         RenderSpectrumChannel(3);
 
-        _spectrum.SetData(_data);
+        Infrastructure.Host.RenderQueue.Enqueue(() => _spectrum.SetData(_data));
 
         _rendering = false;
     }
@@ -162,7 +162,7 @@ public class SpectrumAnalyser
     private void RenderSpectrumChannel(int channel)
     {
         Fourier.Forward(_buffers[channel], FourierOptions.Matlab);
-        
+
         var height = Constants.ScreenHeightPixels / 4;
 
         var axis = height * Constants.SpectrumVisualisationPanelWidth * (channel + 1) - Constants.SpectrumVisualisationPanelWidth;
@@ -171,19 +171,19 @@ public class SpectrumAnalyser
         {
             _magnitudes[i] = (float) Math.Sqrt(_buffers[channel][i].Real * _buffers[channel][i].Real + _buffers[channel][i].Imaginary * _buffers[channel][i].Imaginary);
         }
-        
+
         for (var i = 0; i < _frequencyRanges.Length; i++)
         {
             var lowBin = (int) Math.Round(_frequencyRanges[i].Low * BufferSize / System.Modules.Audio.Constants.SampleRate);
             var highBin = (int) Math.Round(_frequencyRanges[i].High * BufferSize / System.Modules.Audio.Constants.SampleRate);
 
             float sum = 0;
-            
+
             for (var j = lowBin; j <= highBin; j++)
             {
                 sum += _magnitudes[j];
             }
-            
+
             _groupedMagnitudes[i] = sum / (highBin - lowBin + 1);
         }
 
@@ -192,7 +192,7 @@ public class SpectrumAnalyser
             var dataPoint = _groupedMagnitudes[i] / MagnitudeDivisor;
 
             var peak = (int) (dataPoint * height * (channel == 3 ? 1 : 4));
-            
+
             if (peak > _peaks[channel][i])
             {
                 _peaks[channel][i] = peak;
@@ -212,13 +212,13 @@ public class SpectrumAnalyser
                 _data[_leftPadding + axis + i * (BarWidth + BarSpacing) + x - _peaks[channel][i] * Constants.SpectrumVisualisationPanelWidth] = Color.FromNonPremultiplied(192, 192, 192, 255);
 
                 var offset = -(int) (dataPoint * height * (channel == 3 ? 1 : 4));
-                
+
                 while (offset <= 0)
                 {
                     if (Math.Abs(offset) % SegmentHeight == 4)
                     {
                         offset++;
-                        
+
                         continue;
                     }
 

@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
+using System.Collections.Concurrent;
 using System.IO;
 using System.Linq;
 using Zen.Common;
@@ -48,6 +49,8 @@ public class Host : Game
     private CountersVisualiser _countersVisualiser;
 
     private VideoRamVisualiser _videoRamVisualiser;
+
+    public static ConcurrentQueue<Action> RenderQueue = new();
 
     public Host()
     {
@@ -607,6 +610,14 @@ public class Host : Game
 
     protected override void Draw(GameTime gameTime)
     {
+        while (! RenderQueue.IsEmpty)
+        {
+            if (RenderQueue.TryDequeue(out var item))
+            {
+                item.Invoke();
+            }
+        }
+        
         GraphicsDevice.Clear(Color.Black);
 
         Texture2D screen;
