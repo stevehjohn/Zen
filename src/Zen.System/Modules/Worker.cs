@@ -116,7 +116,7 @@ public class Worker : IDisposable
         }
     }
 
-    public void RunFrame()
+    private void RunFrame()
     {
         try
         {

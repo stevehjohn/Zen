@@ -249,11 +249,6 @@ public class Host : Game
 
     protected override void Update(GameTime gameTime)
     {
-        if (AppSettings.Instance.Speed is Speed.Locked50 or Speed.Locked60)
-        {
-            _motherboard.Worker.RunFrame();
-        }
-
         if (Keyboard.GetState().IsKeyDown(Keys.Tab) && _menuSystem == null)
         {
             _motherboard.Pause();
