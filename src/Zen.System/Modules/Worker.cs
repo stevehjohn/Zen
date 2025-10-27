@@ -92,7 +92,7 @@ public class Worker : IDisposable
         _cancellationTokenSource.Cancel();
 
         // ReSharper disable once MethodSupportsCancellation
-        _workerThread.Wait();
+        _workerThread.Wait(_cancellationToken);
 
         _cancellationTokenSource.Dispose();
     }
