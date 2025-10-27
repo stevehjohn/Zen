@@ -100,9 +100,9 @@ public class WaveVisualiser
 
     private void RenderChannel(int channel)
     {
-        var width = Constants.WaveVisualisationPanelWidth;
+        const int width = Constants.WaveVisualisationPanelWidth;
 
-        var height = Constants.ScreenHeightPixels / 4;
+        const int height = Constants.ScreenHeightPixels / 4;
 
         var axis = channel == 3 ? height * width * channel + height * width / 2 : height * width * (channel + 1) - width;
 
