@@ -262,7 +262,7 @@ public class AyAudio : IDisposable
         try
         {
             // ReSharper disable once MethodSupportsCancellation
-            _audioThread.Wait(_cancellationToken);
+            _audioThread.Wait();
         }
         catch (OperationCanceledException exception)
         {
@@ -309,31 +309,34 @@ public class AyAudio : IDisposable
                     {
                         var currentFrame = (int) Math.Ceiling(i * bufferStep);
 
-                        while (_commandQueues[_readQueue].Count > 0 && _commandQueues[_readQueue].TryPeek(out var command))
+                        lock (_commandQueues)
                         {
-                            if (command.Frame > currentFrame)
+                            while (_commandQueues[_readQueue].Count > 0 && _commandQueues[_readQueue].TryPeek(out var command))
                             {
-                                break;
-                            }
-
-                            _commandQueues[_readQueue].TryDequeue(out command);
-
-                            switch (command.Command)
-                            {
-                                case Command.SelectRegister:
-                                    SelectRegisterInternal(command.Value);
-
+                                if (command.Frame > currentFrame)
+                                {
                                     break;
+                                }
 
-                                case Command.WriteRegister:
-                                    SetRegisterInternal(command.Value);
+                                _commandQueues[_readQueue].TryDequeue(out command);
 
-                                    break;
+                                switch (command.Command)
+                                {
+                                    case Command.SelectRegister:
+                                        SelectRegisterInternal(command.Value);
 
-                                case Command.Beeper:
-                                    _bitValue = (command.Value & 0b0001_0000) > 0 ? 1 : 0;
+                                        break;
 
-                                    break;
+                                    case Command.WriteRegister:
+                                        SetRegisterInternal(command.Value);
+
+                                        break;
+
+                                    case Command.Beeper:
+                                        _bitValue = (command.Value & 0b0001_0000) > 0 ? 1 : 0;
+
+                                        break;
+                                }
                             }
                         }
 
