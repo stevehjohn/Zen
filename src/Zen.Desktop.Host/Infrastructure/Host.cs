@@ -50,7 +50,7 @@ public class Host : Game
 
     private VideoRamVisualiser _videoRamVisualiser;
 
-    public static ConcurrentQueue<Action> RenderQueue = new();
+    public static readonly ConcurrentQueue<Action> RenderQueue = new();
 
     public Host()
     {
