@@ -19,13 +19,6 @@ public class PortAudioEngine : IZenAudioEngine
         _engine?.Send(data);
     }
 
-    public void Reset()
-    {
-        _engine?.Dispose();
-        
-        Initialise();
-    }
-
     public void Dispose()
     {
         _engine?.Dispose();
