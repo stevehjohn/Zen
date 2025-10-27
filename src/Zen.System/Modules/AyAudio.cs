@@ -262,7 +262,7 @@ public class AyAudio : IDisposable
         try
         {
             // ReSharper disable once MethodSupportsCancellation
-            _audioThread.Wait();
+            _audioThread.Wait(_cancellationToken);
         }
         catch (OperationCanceledException exception)
         {
