@@ -49,8 +49,6 @@ public class Host : Game
 
     private VideoRamVisualiser _videoRamVisualiser;
 
-    private IZenAudioEngine _audioEngine;
-
     public Host()
     {
         var width = Constants.ScreenWidthPixels * _scaleFactor;
@@ -232,10 +230,8 @@ public class Host : Game
     protected override void Dispose(bool disposing)
     {
         base.Dispose(disposing);
-
-        _audioEngine?.Dispose();
         
-        _audioEngine = null;
+        _motherboard.Dispose();
     }
 
     private void KeyTyped(TextInputEventArgs arguments)
