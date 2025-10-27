@@ -284,7 +284,7 @@ public class AyAudio : IDisposable
     {
         var signals = new float[3];
 
-        var bufferStep = (float) Common.Constants.FrameCycles / (Constants.DefaultBufferSize - 1);
+        const float bufferStep = (float) Common.Constants.FrameCycles / (Constants.DefaultBufferSize - 1);
 
         while (! _cancellationToken.IsCancellationRequested)
         {
