@@ -93,7 +93,7 @@ public class WaveVisualiser
             RenderChannel(i);
         }
 
-        Infrastructure.Host.RenderQueue.Enqueue(() => _waves.SetData(_data));
+        _waves.SetData(_data);
 
         _rendering = false;
     }

@@ -50,8 +50,6 @@ public class Host : Game
 
     private VideoRamVisualiser _videoRamVisualiser;
 
-    public static readonly ConcurrentQueue<Action> RenderQueue = new();
-
     public Host()
     {
         var width = Constants.ScreenWidthPixels * _scaleFactor;
@@ -605,14 +603,6 @@ public class Host : Game
 
     protected override void Draw(GameTime gameTime)
     {
-        while (! RenderQueue.IsEmpty)
-        {
-            if (RenderQueue.TryDequeue(out var item))
-            {
-                item.Invoke();
-            }
-        }
-        
         GraphicsDevice.Clear(Color.Black);
 
         Texture2D screen;

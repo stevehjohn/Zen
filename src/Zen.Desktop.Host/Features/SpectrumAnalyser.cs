@@ -154,7 +154,7 @@ public class SpectrumAnalyser
         RenderSpectrumChannel(2);
         RenderSpectrumChannel(3);
 
-        Infrastructure.Host.RenderQueue.Enqueue(() => _spectrum.SetData(_data));
+        _spectrum.SetData(_data);
 
         _rendering = false;
     }
