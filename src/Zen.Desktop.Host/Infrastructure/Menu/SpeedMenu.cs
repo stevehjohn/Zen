@@ -17,9 +17,10 @@ public class SpeedMenu : MenuBase
                         new(3, false, $"[3] {(AppSettings.Instance.Speed == Speed.Locked60 ? ">" : " ")} Locked 60Hz {(AppSettings.Instance.Speed == Speed.Locked60 ? "<" : " ")}", Color.Yellow, 1, 7, Keys.D3, Color.LightGreen),
                         new(4, false, $"[4] {(AppSettings.Instance.Speed == Speed.Normal ? ">" : " ")} Normal {(AppSettings.Instance.Speed == Speed.Normal ? "<" : " ")}", Color.Yellow, 1, 9, Keys.D4, Color.LightGreen),
                         new(5, false, $"[5] {(AppSettings.Instance.Speed == Speed.Fast ? ">" : " ")} As Fast As Possible {(AppSettings.Instance.Speed == Speed.Fast ? "<" : " ")}", Color.Yellow, 1, 11, Keys.D5, Color.LightGreen),
-                        new(96, true, "This setting is not saved", Color.Wheat, 0, 15, null),
-                        new(97, true, "Zen always starts", Color.Wheat, 0, 17, null),
-                        new(98, true, "at Locked 50Hz", Color.Wheat, 0, 18, null),
+                        new(96, true, "This setting is not saved", Color.Wheat, 0, 14, null),
+                        new(97, true, "Zen always starts", Color.Wheat, 0, 16, null),
+                        new(98, true, "at Normal", Color.Wheat, 0, 17, null),
+                        new(98, true, "(Locked 50Hz on Linux)", Color.Wheat, 0, 18, null),
                         new(99, true, "[ESC] Close Menu", Color.FromNonPremultiplied(255, 64, 64, 255), 0, 21, Keys.Escape, Color.LightGreen)
                     };
 
