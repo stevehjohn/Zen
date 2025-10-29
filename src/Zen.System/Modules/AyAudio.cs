@@ -42,6 +42,8 @@ public class AyAudio : IDisposable
 
     private ManualResetEvent? _workerResetEvent;
 
+    private readonly float[] _signals = new float[3];
+
     public IZenAudioEngine AudioEngine
     {
         set
@@ -280,8 +282,6 @@ public class AyAudio : IDisposable
 
     private void RunFrame()
     {
-        var signals = new float[3];
-
         const float bufferStep = (float) Common.Constants.FrameCycles / (Constants.DefaultBufferSize - 1);
 
         while (! _cancellationToken.IsCancellationRequested)
@@ -301,9 +301,9 @@ public class AyAudio : IDisposable
                 {
                     if (Silent)
                     {
-                        signals[0] = 0;
-                        signals[1] = 0;
-                        signals[2] = 0;
+                        _signals[0] = 0;
+                        _signals[1] = 0;
+                        _signals[2] = 0;
                     }
                     else
                     {
@@ -340,18 +340,18 @@ public class AyAudio : IDisposable
                             }
                         }
 
-                        _mixerDac.GetChannelSignals(signals, _toneA.GetNextSignal(), _toneB.GetNextSignal(), _toneC.GetNextSignal(), _noiseGenerator.GetNextSignal());
+                        _mixerDac.GetChannelSignals(_signals, _toneA.GetNextSignal(), _toneB.GetNextSignal(), _toneC.GetNextSignal(), _noiseGenerator.GetNextSignal());
                     }
 
-                    AySignalHook?.Invoke(signals);
+                    AySignalHook?.Invoke(_signals);
 
                     BeeperSignalHook?.Invoke(_amplitude);
 
-                    var signal = signals[0];
+                    var signal = _signals[0];
 
-                    signal += signals[1];
+                    signal += _signals[1];
 
-                    signal += signals[2];
+                    signal += _signals[2];
 
                     _amplitude += (_bitValue - _amplitude) / 11;
 
