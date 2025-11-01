@@ -72,9 +72,9 @@ public class SpectrumAnalyser
     {
         _graphicsDeviceManager = graphicsDeviceManager;
 
-        _data = new Color[Constants.WaveVisualisationPanelWidth * Constants.ScreenHeightPixels];
+        _data = new Color[Constants.SpectrumAnalyserVisualisationPanelWidth * Constants.ScreenHeightPixels];
 
-        _spectrum = new Texture2D(_graphicsDeviceManager.GraphicsDevice, Constants.WaveVisualisationPanelWidth, Constants.ScreenHeightPixels);
+        _spectrum = new Texture2D(_graphicsDeviceManager.GraphicsDevice, Constants.SpectrumAnalyserVisualisationPanelWidth, Constants.ScreenHeightPixels);
 
         _buffers = new Complex[4][];
 
@@ -104,7 +104,7 @@ public class SpectrumAnalyser
             new Color(254, 253, 0)
         ]);
 
-        _leftPadding = (Constants.SpectrumVisualisationPanelWidth - (BarWidth + BarSpacing) * _frequencyRanges.Length) / 2;
+        _leftPadding = (Constants.SpectrumAnalyserVisualisationPanelWidth - (BarWidth + BarSpacing) * _frequencyRanges.Length) / 2;
     }
 
     public void ReceiveSignals(float[] signals)
@@ -165,7 +165,7 @@ public class SpectrumAnalyser
 
         var height = Constants.ScreenHeightPixels / 4;
 
-        var axis = height * Constants.SpectrumVisualisationPanelWidth * (channel + 1) - Constants.SpectrumVisualisationPanelWidth;
+        var axis = height * Constants.SpectrumAnalyserVisualisationPanelWidth * (channel + 1) - Constants.SpectrumAnalyserVisualisationPanelWidth;
 
         for (var i = 0; i < _magnitudes.Length; i++)
         {
@@ -209,7 +209,7 @@ public class SpectrumAnalyser
 
             for (var x = 0; x < BarWidth; x++)
             {
-                _data[_leftPadding + axis + i * (BarWidth + BarSpacing) + x - _peaks[channel][i] * Constants.SpectrumVisualisationPanelWidth] = Color.FromNonPremultiplied(192, 192, 192, 255);
+                _data[_leftPadding + axis + i * (BarWidth + BarSpacing) + x - _peaks[channel][i] * Constants.SpectrumAnalyserVisualisationPanelWidth] = Color.FromNonPremultiplied(192, 192, 192, 255);
 
                 var offset = -(int) (dataPoint * height * (channel == 3 ? 1 : 4));
 
@@ -222,7 +222,7 @@ public class SpectrumAnalyser
                         continue;
                     }
 
-                    _data[_leftPadding + axis + i * (BarWidth + BarSpacing) + x + offset * Constants.SpectrumVisualisationPanelWidth] = _palette[-offset];
+                    _data[_leftPadding + axis + i * (BarWidth + BarSpacing) + x + offset * Constants.SpectrumAnalyserVisualisationPanelWidth] = _palette[-offset];
 
                     offset++;
                 }

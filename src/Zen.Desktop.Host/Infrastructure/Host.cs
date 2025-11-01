@@ -61,7 +61,7 @@ public class Host : Game
 
         if (AppSettings.Instance.Visualisation == Visualisation.SpectrumAnalyser)
         {
-            width += Constants.SpectrumVisualisationPanelWidth * _scaleFactor;
+            width += Constants.SpectrumAnalyserVisualisationPanelWidth * _scaleFactor;
         }
 
         if (AppSettings.Instance.Visualisation == Visualisation.VideoRam)
@@ -503,7 +503,7 @@ public class Host : Game
 
         if (AppSettings.Instance.Visualisation == Visualisation.SpectrumAnalyser)
         {
-            width += Constants.SpectrumVisualisationPanelWidth * _scaleFactor;
+            width += Constants.SpectrumAnalyserVisualisationPanelWidth * _scaleFactor;
         }
 
         if (AppSettings.Instance.Visualisation == Visualisation.VideoRam)
@@ -642,8 +642,8 @@ public class Host : Game
             if (spectrum != null)
             {
                 _spriteBatch.Draw(spectrum,
-                    new Rectangle(Constants.ScreenWidthPixels * _scaleFactor, 0, Constants.SpectrumVisualisationPanelWidth * _scaleFactor, Constants.ScreenHeightPixels * _scaleFactor),
-                    new Rectangle(0, 0, Constants.SpectrumVisualisationPanelWidth, Constants.ScreenHeightPixels), Color.White);
+                    new Rectangle(Constants.ScreenWidthPixels * _scaleFactor, 0, Constants.SpectrumAnalyserVisualisationPanelWidth * _scaleFactor, Constants.ScreenHeightPixels * _scaleFactor),
+                    new Rectangle(0, 0, Constants.SpectrumAnalyserVisualisationPanelWidth, Constants.ScreenHeightPixels), Color.White);
             }
         }
 
