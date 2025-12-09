@@ -23,6 +23,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\SupportedOpCodes.html = ..\SupportedOpCodes.html
 		Zen.Desktop.Host\Info.plist = Zen.Desktop.Host\Info.plist
 		..\Documentation\Instructions.json = ..\Documentation\Instructions.json
+		..\_config.yml = ..\_config.yml
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zen.System", "Zen.System\Zen.System.csproj", "{237C82AF-C844-4134-B945-C0851D1D4B06}"
