@@ -24,17 +24,17 @@ public class Kempston : IPeripheral
 
         foreach (var key in keys)
         {
-            if (key == Keys.O)
+            if (key == Keys.K)
             {
                 data |= 0b0000_0010;
             }
 
-            if (key == Keys.P)
+            if (key == Keys.L)
             {
                 data |= 0b0000_0001;
             }
 
-            if (key == Keys.Q)
+            if (key == Keys.Z)
             {
                 data |= 0b0000_1000;
             }
