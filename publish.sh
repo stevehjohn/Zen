@@ -13,7 +13,7 @@ zip -r Zen.Desktop.Host.macOS.Intel.zip *
 cd -
 mv ./src/Zen.Desktop.Host/bin/Release/net10.0/osx-x64/publish/Zen.Desktop.Host.macOS.Intel.zip .
 
-cd ./src/Zen.Desktop.Host/bin/Release/net1.0/osx-arm64/publish
+cd ./src/Zen.Desktop.Host/bin/Release/net10.0/osx-arm64/publish
 pwd
 chmod +xx Zen.Desktop.Host
 rm *.zip
