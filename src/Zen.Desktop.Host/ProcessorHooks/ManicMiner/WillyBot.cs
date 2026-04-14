@@ -13,6 +13,8 @@ public class WillyBot : IProcessorHook
     private readonly Queue<Move> _route = new();
 
     private Move _move;
+
+    private readonly Dictionary<int, HashSet<(int X, int Y)>> _deathsByLevel = new();
     
     public bool Activate(State state)
     {
@@ -36,6 +38,8 @@ public class WillyBot : IProcessorHook
             case 0x8D07:
             case 0x88FF:
                 // Dead
+
+                LearnFromDeath(@interface);
 
                 RestartLevel();
                 
@@ -121,7 +125,7 @@ public class WillyBot : IProcessorHook
                 
                 var grounded = @interface.ReadFromMemory(0x806B) == 0;
 
-                if (grounded)
+                if (grounded && _route.Count > 0)
                 {
                     _move = _route.Dequeue();
                 }
@@ -132,7 +136,7 @@ public class WillyBot : IProcessorHook
 
     private void StartLevel(Interface @interface)
     {
-        _routePlanner = new RoutePlanner(_level, @interface);
+        _routePlanner = new RoutePlanner(_level, @interface, GetDeathCells(_level));
         
         _routePlanner.Initialise();
         
@@ -142,7 +146,47 @@ public class WillyBot : IProcessorHook
     private void RestartLevel()
     {
         _route.Clear();
-        
-        _routePlanner.GetNextRoute().ForEach(m => _route.Enqueue(m));
+
+        var route = _routePlanner.GetNextRoute();
+
+        if (route == null)
+        {
+            return;
+        }
+
+        route.ForEach(m => _route.Enqueue(m));
+    }
+
+    private void LearnFromDeath(Interface @interface)
+    {
+        var cellPointer = @interface.ReadFromMemory(0x806C) + (@interface.ReadFromMemory(0x806D) << 8);
+
+        if (cellPointer < 0x5C00)
+        {
+            return;
+        }
+
+        var cellOffset = cellPointer - 0x5C00;
+
+        var x = cellOffset % 32;
+        var y = @interface.ReadFromMemory(0x8068) / 2 / 8;
+
+        if (!_deathsByLevel.TryGetValue(_level, out var cells))
+        {
+            cells = [];
+            _deathsByLevel[_level] = cells;
+        }
+
+        cells.Add((x, y));
+    }
+
+    private IEnumerable<(int X, int Y)> GetDeathCells(int level)
+    {
+        if (_deathsByLevel.TryGetValue(level, out var cells))
+        {
+            return cells;
+        }
+
+        return [];
     }
 }
