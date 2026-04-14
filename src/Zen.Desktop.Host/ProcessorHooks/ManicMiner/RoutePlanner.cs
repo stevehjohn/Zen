@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Zen.Z80.Processor;
 
@@ -268,7 +269,7 @@ public class RoutePlanner
 
         foreach (var deathCell in _deathCells)
         {
-            var distance = System.Math.Abs(deathCell.X - cell.Item1) + System.Math.Abs(deathCell.Y - cell.Item2);
+            var distance = Math.Abs(deathCell.X - cell.Item1) + Math.Abs(deathCell.Y - cell.Item2);
 
             if (distance <= 2)
             {
