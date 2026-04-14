@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Zen.Z80.Processor;
 
@@ -7,50 +8,93 @@ public class RoutePlanner
 {
     private readonly LevelData _levelData;
 
-    private readonly PriorityQueue<(int X, int Y, List<Move> Moves, HashSet<(int X, int Y)> Keys, HashSet<(int X, int Y)> Visited, int Steps), int> _queue = new();
-    
-    public RoutePlanner(int level, Interface @interface)
+    private readonly PriorityQueue<(int X, int Y, List<Move> Moves, int KeyMask, int Cost), int> _queue = new();
+
+    private readonly Dictionary<(int X, int Y), int> _keyBits = new();
+
+    private readonly Dictionary<(int X, int Y, int KeyMask), int> _bestCosts = new();
+
+    private readonly HashSet<(int X, int Y)> _deathCells;
+
+    private readonly int _allKeysMask;
+
+    public RoutePlanner(int level, Interface @interface, IEnumerable<(int X, int Y)> deathCells = null)
     {
         _levelData = new LevelData(level, @interface);
+        _deathCells = deathCells == null ? [] : [..deathCells];
+
+        for (var i = 0; i < _levelData.Keys.Count; i++)
+        {
+            _keyBits[_levelData.Keys[i]] = 1 << i;
+        }
+
+        _allKeysMask = (1 << _levelData.Keys.Count) - 1;
     }
 
     public void Initialise()
     {
-        _queue.Enqueue((_levelData.Start.X * 8, _levelData.Start.Y * 8, [], [], [], 0), 0);
+        var startX = _levelData.Start.X * 8;
+        var startY = _levelData.Start.Y * 8;
+
+        _queue.Enqueue((startX, startY, [], 0, 0), 0);
+        _bestCosts[(startX, startY, 0)] = 0;
     }
 
     public List<Move> GetNextRoute()
     {
         while (_queue.TryDequeue(out var node, out _))
         {
-            if (IsComplete(node))
+            var nodeState = (node.X, node.Y, node.KeyMask);
+
+            if (_bestCosts.TryGetValue(nodeState, out var bestCost) && node.Cost > bestCost)
+            {
+                continue;
+            }
+
+            var keyMask = AddKey(node.KeyMask, node.X, node.Y);
+
+            if (IsComplete(node.X, node.Y, keyMask))
             {
                 return node.Moves;
             }
 
-            var key = CheckKey(node.X, node.Y);
-
-            if (key.X != -1)
-            {
-                node.Keys.Add((key.X, key.Y));
-            }
-
             var moves = GetMoves(node.X, node.Y);
-            
+
             foreach (var move in moves)
             {
-                var visited = node.Visited.Contains((move.X, move.Y));
+                var penalty = GetDeathPenalty(move.X, move.Y);
+                var cost = node.Cost + 1 + penalty;
+                var nextState = (move.X, move.Y, keyMask);
 
-                if (visited)
+                if (_bestCosts.TryGetValue(nextState, out bestCost) && bestCost <= cost)
                 {
                     continue;
                 }
 
-                _queue.Enqueue((move.X, move.Y, [..node.Moves, move.Move], node.Keys, [..node.Visited, (move.X, move.Y)], node.Steps + 1), node.Steps + 1);
+                _bestCosts[nextState] = cost;
+
+                _queue.Enqueue((move.X, move.Y, [..node.Moves, move.Move], keyMask, cost), cost);
             }
         }
 
         return null;
+    }
+
+    private int AddKey(int keyMask, int x, int y)
+    {
+        var key = CheckKey(x, y);
+
+        if (key.X == -1)
+        {
+            return keyMask;
+        }
+
+        if (_keyBits.TryGetValue((key.X, key.Y), out var bit))
+        {
+            return keyMask | bit;
+        }
+
+        return keyMask;
     }
 
     private (int X, int Y) CheckKey(int x, int y)
@@ -59,49 +103,45 @@ public class RoutePlanner
 
         var cellY = y / 8;
 
-        if (_levelData.Keys.Contains((cellX, cellY)))
+        if (_keyBits.ContainsKey((cellX, cellY)))
         {
             return (cellX, cellY);
         }
 
-        if (_levelData.Keys.Contains((cellX, cellY + 1)))
+        if (_keyBits.ContainsKey((cellX, cellY + 1)))
         {
-            return (cellX, cellY);
+            return (cellX, cellY + 1);
         }
 
         if (x % 8 != 0)
         {
-            if (_levelData.Keys.Contains((cellX + 1, cellY)))
+            if (_keyBits.ContainsKey((cellX + 1, cellY)))
             {
                 return (cellX + 1, cellY);
             }
 
-            if (_levelData.Keys.Contains((cellX + 1, cellY + 1)))
+            if (_keyBits.ContainsKey((cellX + 1, cellY + 1)))
             {
-                return (cellX + 1, cellY);
+                return (cellX + 1, cellY + 1);
             }
         }
 
         return (-1, -1);
     }
 
-    private bool IsComplete((int X, int Y, List<Move> Moves, HashSet<(int X, int Y)> Keys, HashSet<(int X, int Y)> Visited, int Steps) node)
+    private bool IsComplete(int x, int y, int keyMask)
     {
-        if (node.Keys.Count < _levelData.Keys.Count)
+        if (keyMask != _allKeysMask)
         {
             return false;
         }
 
-        var x = node.X / 8;
+        var cellX = x / 8;
 
-        var y = node.Y / 8;
+        var cellY = y / 8;
 
-        if (x >= _levelData.End.X && x <= _levelData.End.X + 1 && y >= _levelData.End.Y && y <= _levelData.End.Y + 1)
-        {
-            return true;
-        }
-
-        return false;
+        return cellX >= _levelData.End.X && cellX <= _levelData.End.X + 1 &&
+               cellY >= _levelData.End.Y && cellY <= _levelData.End.Y + 1;
     }
 
     private List<(Move Move, int X, int Y)> GetMoves(int x, int y)
@@ -115,7 +155,7 @@ public class RoutePlanner
 
         if (TryWalk(x, y, 2))
         {
-            moves.Add((Move.Left, x + 2, y));
+            moves.Add((Move.Right, x + 2, y));
         }
 
         var jump = TryJump(x, y, -2);
@@ -129,7 +169,7 @@ public class RoutePlanner
 
         if (jump.Safe)
         {
-            moves.Add((Move.UpLeft, jump.X, jump.Y));
+            moves.Add((Move.UpRight, jump.X, jump.Y));
         }
 
         return moves;
@@ -138,7 +178,7 @@ public class RoutePlanner
     private bool TryWalk(int x, int y, int dX)
     {
         x += dX;
-        
+
         if (x < 8 || x > 238)
         {
             return false;
@@ -150,12 +190,12 @@ public class RoutePlanner
     private (bool Safe, int X, int Y) TryJump(int x, int y, int dX)
     {
         var velocities = new[] {-4, -4, -3, -3, -2, -2, -1, -1, 0, 0, 0, 1, 1, 2, 2, 3, 3, 4, 4};
-        
+
         for (var i = 0; i < velocities.Length; i++)
         {
             var velocity = velocities[i];
-            
-            if (! CheckSafe(x + dX, y + velocity))
+
+            if (!CheckSafe(x + dX, y + velocity))
             {
                 return (false, -1, -1);
             }
@@ -176,9 +216,9 @@ public class RoutePlanner
             }
         }
 
-        while (! CheckLanded(x, y))
+        while (!CheckLanded(x, y))
         {
-            if (! CheckSafe(x, y))
+            if (!CheckSafe(x, y))
             {
                 return (false, -1, -1);
             }
@@ -245,6 +285,38 @@ public class RoutePlanner
         }
 
         return true;
+    }
+
+    private int GetDeathPenalty(int x, int y)
+    {
+        if (_deathCells.Count == 0)
+        {
+            return 0;
+        }
+
+        var cell = (x / 8, y / 8);
+
+        if (_deathCells.Contains(cell))
+        {
+            return 10000;
+        }
+
+        foreach (var deathCell in _deathCells)
+        {
+            var distance = Math.Abs(deathCell.X - cell.Item1) + Math.Abs(deathCell.Y - cell.Item2);
+
+            if (distance <= 2)
+            {
+                return 1000;
+            }
+
+            if (distance <= 4)
+            {
+                return 250;
+            }
+        }
+
+        return 0;
     }
 
     private bool CheckOpen(int x, int y)
