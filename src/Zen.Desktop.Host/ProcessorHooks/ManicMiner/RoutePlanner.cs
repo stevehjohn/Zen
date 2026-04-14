@@ -9,9 +9,12 @@ public class RoutePlanner
 
     private readonly PriorityQueue<(int X, int Y, List<Move> Moves, HashSet<(int X, int Y)> Keys, HashSet<(int X, int Y)> Visited, int Steps), int> _queue = new();
     
-    public RoutePlanner(int level, Interface @interface)
+    private readonly HashSet<(int X, int Y)> _deathCells;
+
+    public RoutePlanner(int level, Interface @interface, IEnumerable<(int X, int Y)> deathCells = null)
     {
         _levelData = new LevelData(level, @interface);
+        _deathCells = deathCells == null ? [] : [..deathCells];
     }
 
     public void Initialise()
@@ -46,7 +49,9 @@ public class RoutePlanner
                     continue;
                 }
 
-                _queue.Enqueue((move.X, move.Y, [..node.Moves, move.Move], node.Keys, [..node.Visited, (move.X, move.Y)], node.Steps + 1), node.Steps + 1);
+                var penalty = GetDeathPenalty(move.X, move.Y);
+
+                _queue.Enqueue((move.X, move.Y, [..node.Moves, move.Move], [..node.Keys], [..node.Visited, (move.X, move.Y)], node.Steps + 1), node.Steps + 1 + penalty);
             }
         }
 
@@ -115,7 +120,7 @@ public class RoutePlanner
 
         if (TryWalk(x, y, 2))
         {
-            moves.Add((Move.Left, x + 2, y));
+            moves.Add((Move.Right, x + 2, y));
         }
 
         var jump = TryJump(x, y, -2);
@@ -129,7 +134,7 @@ public class RoutePlanner
 
         if (jump.Safe)
         {
-            moves.Add((Move.UpLeft, jump.X, jump.Y));
+            moves.Add((Move.UpRight, jump.X, jump.Y));
         }
 
         return moves;
@@ -245,6 +250,38 @@ public class RoutePlanner
         }
 
         return true;
+    }
+
+    private int GetDeathPenalty(int x, int y)
+    {
+        if (_deathCells.Count == 0)
+        {
+            return 0;
+        }
+
+        var cell = (x / 8, y / 8);
+
+        if (_deathCells.Contains(cell))
+        {
+            return 10000;
+        }
+
+        foreach (var deathCell in _deathCells)
+        {
+            var distance = System.Math.Abs(deathCell.X - cell.Item1) + System.Math.Abs(deathCell.Y - cell.Item2);
+
+            if (distance <= 2)
+            {
+                return 1000;
+            }
+
+            if (distance <= 4)
+            {
+                return 250;
+            }
+        }
+
+        return 0;
     }
 
     private bool CheckOpen(int x, int y)
