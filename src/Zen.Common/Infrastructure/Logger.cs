@@ -11,12 +11,11 @@ public static class Logger
     
     public static void LogException(string className, Exception exception)
     {
-        File.AppendAllLines(LogFile, new[]
-        {
+        File.AppendAllLines(LogFile, [
             "--------------------------------------------------------------------------------",
             $"Time: {DateTime.UtcNow:u}",
             $"Component: {className}",
             exception.ToString()
-        });
+        ]);
     }
 }

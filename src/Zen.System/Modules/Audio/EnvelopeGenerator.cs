@@ -121,15 +121,16 @@ public class EnvelopeGenerator
 
             case 10:
             case 14:
-                if (_gain < 0)
+                switch (_gain)
                 {
-                    _gain = 0;
-                    _direction = 1;
-                }
-                else if (_gain > MaxGain)
-                {
-                    _gain = MaxGain;
-                    _direction = -1;
+                    case < 0:
+                        _gain = 0;
+                        _direction = 1;
+                        break;
+                    case > MaxGain:
+                        _gain = MaxGain;
+                        _direction = -1;
+                        break;
                 }
 
                 break;

@@ -28,16 +28,10 @@ public class ScaleMenu : MenuBase
 
     public override (MenuResult Result, MenuBase NewMenu, object Arguments) ItemSelected(int id)
     {
-        switch (id)
+        return id switch
         {
-            case 1:
-            case 2:
-            case 3:
-            case 4:
-                return (MenuResult.ChangeScale, null, id);
-
-            default:
-                return (MenuResult.NewMenu, new MainMenu(), null);
-        }
+            1 or 2 or 3 or 4 => (MenuResult.ChangeScale, null, id),
+            _ => (MenuResult.NewMenu, new MainMenu(), null)
+        };
     }
 }

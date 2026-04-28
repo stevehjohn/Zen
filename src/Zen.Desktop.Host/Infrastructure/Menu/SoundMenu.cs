@@ -27,18 +27,11 @@ public class SoundMenu : MenuBase
 
     public override (MenuResult Result, MenuBase NewMenu, object Arguments) ItemSelected(int id)
     {
-        switch (id)
+        return id switch
         {
-            case 1:
-                return (MenuResult.SoundOff, null, null);
-
-            case 2:
-                return (MenuResult.SoundPortAudio, null, null);
-
-            case 3:
-                return (MenuResult.SoundBass, null, null);
-
-            default:
-                return (MenuResult.NewMenu, new MainMenu(), null);
-        }
+            1 => (MenuResult.SoundOff, null, null),
+            2 => (MenuResult.SoundPortAudio, null, null),
+            3 => (MenuResult.SoundBass, null, null),
+            _ => (MenuResult.NewMenu, new MainMenu(), null)
+        };
     }}

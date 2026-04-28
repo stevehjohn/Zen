@@ -22,15 +22,10 @@ public class CountersMenu : MenuBase
 
     public override (MenuResult Result, MenuBase NewMenu, object Arguments) ItemSelected(int id)
     {
-        switch (id)
+        return id switch
         {
-            case 1:
-                return (MenuResult.CountersOn, null, null);
-
-            case 2:
-                return (MenuResult.CountersOff, null, null);
-
-            default:
-                return (MenuResult.NewMenu, new MainMenu(), null);
-        }
+            1 => (MenuResult.CountersOn, null, null),
+            2 => (MenuResult.CountersOff, null, null),
+            _ => (MenuResult.NewMenu, new MainMenu(), null)
+        };
     }}

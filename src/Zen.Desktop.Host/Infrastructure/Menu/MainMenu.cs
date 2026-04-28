@@ -28,40 +28,19 @@ public class MainMenu : MenuBase
 
     public override (MenuResult Result, MenuBase NewMenu, object Arguments) ItemSelected(int id)
     {
-        switch (id)
+        return id switch
         {
-            case 1:
-                return (MenuResult.NewMenu, new SystemMenu(), null);
-
-            case 2:
-                return (MenuResult.LoadZ80Sna, null, null);
-
-            case 3:
-                return (MenuResult.NewMenu, new StateMenu(), null);
-
-            case 4:
-                return (MenuResult.NewMenu, new SpeedMenu(), null);
-
-            case 5:
-                return (MenuResult.NewMenu, new ScaleMenu(), null);
-            
-            case 6:
-                return (MenuResult.NewMenu, new SoundMenu(), null);
-
-            case 7:
-                return (MenuResult.NewMenu, new VisualisationMenu(), null);
-
-            case 8:
-                return (MenuResult.NewMenu, new CountersMenu(), null);
-
-            case 9:
-                return (MenuResult.NewMenu, new ColoursMenu(), null);
-            
-            case 99:
-                return (MenuResult.Exit, null, null);
-
-            default:
-                return (MenuResult.NoAction, null, null);
-        }
+            1 => (MenuResult.NewMenu, new SystemMenu(), null),
+            2 => (MenuResult.LoadZ80Sna, null, null),
+            3 => (MenuResult.NewMenu, new StateMenu(), null),
+            4 => (MenuResult.NewMenu, new SpeedMenu(), null),
+            5 => (MenuResult.NewMenu, new ScaleMenu(), null),
+            6 => (MenuResult.NewMenu, new SoundMenu(), null),
+            7 => (MenuResult.NewMenu, new VisualisationMenu(), null),
+            8 => (MenuResult.NewMenu, new CountersMenu(), null),
+            9 => (MenuResult.NewMenu, new ColoursMenu(), null),
+            99 => (MenuResult.Exit, null, null),
+            _ => (MenuResult.NoAction, null, null)
+        };
     }
 }

@@ -100,25 +100,12 @@ public class AyAudio : IDisposable
 
     public void SetRegister(int cycle, byte value)
     {
-        _registerValues[_registerNumber] = value;
-
-        switch (_registerNumber)
+        _registerValues[_registerNumber] = _registerNumber switch
         {
-            case 1:
-            case 3:
-            case 5:
-            case 13:
-                _registerValues[_registerNumber] = (byte) (value & 0x0F);
-
-                break;
-
-            case 8:
-            case 9:
-            case 10:
-                _registerValues[_registerNumber] = (byte) (value & 0x1F);
-
-                break;
-        }
+            1 or 3 or 5 or 13 => (byte) (value & 0x0F),
+            8 or 9 or 10 => (byte) (value & 0x1F),
+            _ => value
+        };
 
         lock (_commandQueues)
         {

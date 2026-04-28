@@ -25,24 +25,13 @@ public class VisualisationMenu : MenuBase
 
     public override (MenuResult Result, MenuBase NewMenu, object Arguments) ItemSelected(int id)
     {
-        switch (id)
+        return id switch
         {
-            case 1:
-                return (MenuResult.VisualisationOff, null, null);
-
-            case 2:
-                return (MenuResult.VisualisationWaveform, null, null);
-
-            case 3:
-                return (MenuResult.VisualisationSpectrumAnalyser, null, null);
-            
-            case 4:
-                return (MenuResult.VisualisationVideoRam, null, null);
-            
-            case 5:
-                return (MenuResult.VisualisationVideoBanks, null, null);
-
-            default:
-                return (MenuResult.NewMenu, new MainMenu(), null);
-        }
+            1 => (MenuResult.VisualisationOff, null, null),
+            2 => (MenuResult.VisualisationWaveform, null, null),
+            3 => (MenuResult.VisualisationSpectrumAnalyser, null, null),
+            4 => (MenuResult.VisualisationVideoRam, null, null),
+            5 => (MenuResult.VisualisationVideoBanks, null, null),
+            _ => (MenuResult.NewMenu, new MainMenu(), null)
+        };
     }}

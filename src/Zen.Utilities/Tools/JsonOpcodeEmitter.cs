@@ -13,7 +13,7 @@ public class JsonOpcodeEmitter
 {
     private readonly Instructions _instructions;
 
-    private readonly List<OpcodeMetadata> _opCodes = new();
+    private readonly List<OpcodeMetadata> _opCodes = [];
 
     private readonly string _initialisationCode;
 
@@ -275,20 +275,24 @@ public class JsonOpcodeEmitter
         {
             var character = _methodCode[index];
 
-            if (character == '{')
+            switch (character)
             {
-                if (braceCount == -1)
+                case '{':
                 {
-                    braceCount = 1;
+                    if (braceCount == -1)
+                    {
+                        braceCount = 1;
+                    }
+                    else
+                    {
+                        braceCount++;
+                    }
+
+                    break;
                 }
-                else
-                {
-                    braceCount++;
-                }
-            }
-            else if (character == '}')
-            {
-                braceCount--;
+                case '}':
+                    braceCount--;
+                    break;
             }
 
             code.Append(character);
@@ -305,7 +309,7 @@ public class JsonOpcodeEmitter
 
         if (cyclesIndex < 0)
         {
-            return Array.Empty<int>();
+            return [];
         }
 
         cyclesIndex = methodCode.IndexOf("(", cyclesIndex, StringComparison.InvariantCulture);
@@ -321,7 +325,7 @@ public class JsonOpcodeEmitter
 
     private static string[] GetAffectedFlags(string code)
     {
-        var lines = code.Split(new [] { "\r\n", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+        var lines = code.Split(["\r\n", "\r", "\n"], StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
 
         var flags = new List<string>();
 

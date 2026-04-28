@@ -77,7 +77,7 @@ public class CodeGenerator
 
     private static string GenerateMethodCall(Instruction instruction)
     {
-        var parts = instruction.Mnemonic.Split(new[] { ' ', ',', '+' }, StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
+        var parts = instruction.Mnemonic.Split([' ', ',', '+'], StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
 
         if (parts.Length == 1)
         {
@@ -190,34 +190,14 @@ public class CodeGenerator
         {
             // TODO: NOT
 
-            string flag;
-
-            switch (part)
+            string flag = part switch
             {
-                case "C":
-                case "NC":
-                    flag = "Carry";
-
-                    break;
-                case "S":
-                case "NS":
-                    flag = "Sign";
-
-                    break;
-                case "Z":
-                case "NZ":
-                    flag = "Zero";
-
-                    break;
-                case "PO":
-                case "PE":
-                    flag = "ParityOverflow";
-
-                    break;
-                default:
-                    // TODO: Proper exception?
-                    throw new Exception($"Unrecognised flag {part}.");
-            }
+                "C" or "NC" => "Carry",
+                "S" or "NS" => "Sign",
+                "Z" or "NZ" => "Zero",
+                "PO" or "PE" => "ParityOverflow",
+                _ => throw new Exception($"Unrecognised flag {part}.")
+            };
 
             return ("_F", $"Flag.{flag}", part[0] == 'N' || part == "PO");
         }

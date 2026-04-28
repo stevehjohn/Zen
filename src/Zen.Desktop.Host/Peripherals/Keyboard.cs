@@ -60,37 +60,17 @@ public class Keyboard : IPeripheral
     {
         var data = (byte) 0b1111_1111;
 
-        // Caps shift.
-        if (keys is Keys.LeftShift or Keys.RightShift)
+        data = keys switch
         {
-            data = (byte) (data & 0b1111_1110);
-        }
-
-        // Account for PC arrow keys (caps + 5, 6, 7 or 8 on the speccy).
-        if (keys is Keys.Up or Keys.Down or Keys.Left or Keys.Right or Keys.Back)
-        {
-            data = (byte) (data & 0b1111_1110);
-        }
-
-        if (keys == Keys.Z)
-        {
-            data = (byte) (data & 0b1111_1101);
-        }
-
-        if (keys == Keys.X)
-        {
-            data = (byte) (data & 0b1111_1011);
-        }
-
-        if (keys == Keys.C)
-        {
-            data = (byte) (data & 0b1111_0111);
-        }
-
-        if (keys == Keys.V)
-        {
-            data = (byte) (data & 0b1110_1111);
-        }
+            // Caps shift.
+            // Account for PC arrow keys (caps + 5, 6, 7 or 8 on the speccy).
+            Keys.LeftShift or Keys.RightShift or Keys.Up or Keys.Down or Keys.Left or Keys.Right or Keys.Back => (byte) (data & 0b1111_1110),
+            Keys.Z => (byte) (data & 0b1111_1101),
+            Keys.X => (byte) (data & 0b1111_1011),
+            Keys.C => (byte) (data & 0b1111_0111),
+            Keys.V => (byte) (data & 0b1110_1111),
+            _ => data
+        };
 
         return data;
     }
@@ -133,37 +113,17 @@ public class Keyboard : IPeripheral
     {
         var data = (byte) 0b1111_1111;
 
-        // Numeric 1 - 5.
-        if (keys == Keys.D1)
+        data = keys switch
         {
-            data = (byte) (data & 0b1111_1110);
-        }
-
-        if (keys == Keys.D2)
-        {
-            data = (byte) (data & 0b1111_1101);
-        }
-
-        if (keys == Keys.D3)
-        {
-            data = (byte) (data & 0b1111_1011);
-        }
-
-        if (keys == Keys.D4)
-        {
-            data = (byte) (data & 0b1111_0111);
-        }
-
-        if (keys == Keys.D5)
-        {
-            data = (byte) (data & 0b1110_1111);
-        }
-
-        // Windows left arrow.
-        if (keys == Keys.Left)
-        {
-            data = (byte) (data & 0b1110_1111);
-        }
+            // Numeric 1 - 5.
+            Keys.D1 => (byte) (data & 0b1111_1110),
+            Keys.D2 => (byte) (data & 0b1111_1101),
+            Keys.D3 => (byte) (data & 0b1111_1011),
+            Keys.D4 => (byte) (data & 0b1111_0111),
+            // Windows left arrow.
+            Keys.D5 or Keys.Left => (byte) (data & 0b1110_1111),
+            _ => data
+        };
 
         return data;
     }
@@ -172,55 +132,20 @@ public class Keyboard : IPeripheral
     {
         var data = (byte) 0b1111_1111;
 
-        // Numeric 0, 6 - 9.
-        if (keys == Keys.D0)
+        data = keys switch
         {
-            data = (byte) (data & 0b1111_1110);
-        }
-
-        // Windows backspace.
-        if (keys == Keys.Back)
-        {
-            data = (byte) (data & 0b1111_1110);
-        }
-
-        if (keys == Keys.D9)
-        {
-            data = (byte) (data & 0b1111_1101);
-        }
-
-        if (keys == Keys.D8)
-        {
-            data = (byte) (data & 0b1111_1011);
-        }
-
-        // Windows right arrow.
-        if (keys == Keys.Right)
-        {
-            data = (byte) (data & 0b1111_1011);
-        }
-
-        if (keys == Keys.D7)
-        {
-            data = (byte) (data & 0b1111_0111);
-        }
-
-        // Windows up arrow.
-        if (keys == Keys.Up)
-        {
-            data = (byte) (data & 0b1111_0111);
-        }
-
-        if (keys == Keys.D6)
-        {
-            data = (byte) (data & 0b1110_1111);
-        }
-
-        // Windows down arrow.
-        if (keys == Keys.Down)
-        {
-            data = (byte) (data & 0b1110_1111);
-        }
+            // Numeric 0, 6 - 9.
+            // Windows backspace.
+            Keys.D0 or Keys.Back => (byte) (data & 0b1111_1110),
+            Keys.D9 => (byte) (data & 0b1111_1101),
+            // Windows right arrow.
+            Keys.D8 or Keys.Right => (byte) (data & 0b1111_1011),
+            // Windows up arrow.
+            Keys.D7 or Keys.Up => (byte) (data & 0b1111_0111),
+            // Windows down arrow.
+            Keys.D6 or Keys.Down => (byte) (data & 0b1110_1111),
+            _ => data
+        };
 
         return data;
     }

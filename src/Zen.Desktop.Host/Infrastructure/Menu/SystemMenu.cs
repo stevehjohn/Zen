@@ -26,25 +26,14 @@ public class SystemMenu : MenuBase
 
     public override (MenuResult Result, MenuBase NewMenu, object Arguments) ItemSelected(int id)
     {
-        switch (id)
+        return id switch
         {
-            case 1:
-                return (MenuResult.Restart, null, Model.Spectrum48K);
-
-            case 2:
-                return (MenuResult.Restart, null, Model.Spectrum128);
-
-            case 3:
-                return (MenuResult.Restart, null, Model.SpectrumPlus2);
-
-            case 4:
-                return (MenuResult.Restart, null, Model.SpectrumPlus2A);
-
-            case 5:
-                return (MenuResult.Restart, null, Model.SpectrumPlus3);
-
-            default:
-                return (MenuResult.NewMenu, new MainMenu(), null);
-        }
+            1 => (MenuResult.Restart, null, Model.Spectrum48K),
+            2 => (MenuResult.Restart, null, Model.Spectrum128),
+            3 => (MenuResult.Restart, null, Model.SpectrumPlus2),
+            4 => (MenuResult.Restart, null, Model.SpectrumPlus2A),
+            5 => (MenuResult.Restart, null, Model.SpectrumPlus3),
+            _ => (MenuResult.NewMenu, new MainMenu(), null)
+        };
     }
 }

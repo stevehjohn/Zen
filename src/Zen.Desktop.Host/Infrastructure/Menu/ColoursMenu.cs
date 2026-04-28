@@ -22,16 +22,11 @@ public class ColoursMenu : MenuBase
 
     public override (MenuResult Result, MenuBase NewMenu, object Arguments) ItemSelected(int id)
     {
-        switch (id)
+        return id switch
         {
-            case 1:
-                return (MenuResult.SpectrumColours, null, null);
-
-            case 2:
-                return (MenuResult.CommodoreColours, null, null);
-
-            default:
-                return (MenuResult.NewMenu, new MainMenu(), null);
-        }
+            1 => (MenuResult.SpectrumColours, null, null),
+            2 => (MenuResult.CommodoreColours, null, null),
+            _ => (MenuResult.NewMenu, new MainMenu(), null)
+        };
     }
 }

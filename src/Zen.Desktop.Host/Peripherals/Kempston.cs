@@ -24,29 +24,23 @@ public class Kempston : IPeripheral
 
         foreach (var key in keys)
         {
-            if (key == Keys.K)
+            switch (key)
             {
-                data |= 0b0000_0010;
-            }
-
-            if (key == Keys.L)
-            {
-                data |= 0b0000_0001;
-            }
-
-            if (key == Keys.Z)
-            {
-                data |= 0b0000_1000;
-            }
-
-            if (key == Keys.A)
-            {
-                data |= 0b0000_0100;
-            }
-
-            if (key == Keys.M)
-            {
-                data |= 0b0001_0000;
+                case Keys.K:
+                    data |= 0b0000_0010;
+                    break;
+                case Keys.L:
+                    data |= 0b0000_0001;
+                    break;
+                case Keys.Z:
+                    data |= 0b0000_1000;
+                    break;
+                case Keys.A:
+                    data |= 0b0000_0100;
+                    break;
+                case Keys.M:
+                    data |= 0b0001_0000;
+                    break;
             }
         }
 

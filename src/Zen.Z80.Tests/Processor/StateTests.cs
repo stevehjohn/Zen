@@ -14,7 +14,7 @@ public class StateTests
     [Fact]
     public void LoadRegisterPair_writes_bytes_in_correct_order()
     {
-        _state.LoadRegisterPair(RegisterPair.BC, new byte[] { 0x34, 0x12 });
+        _state.LoadRegisterPair(RegisterPair.BC, [0x34, 0x12]);
 
         Assert.Equal(0x12, _state[Register.B]);
         Assert.Equal(0x34, _state[Register.C]);

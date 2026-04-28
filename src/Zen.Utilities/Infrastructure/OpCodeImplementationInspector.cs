@@ -81,20 +81,24 @@ public class OpCodeImplementationInspector
         {
             var character = _methodCode[index];
 
-            if (character == '{')
+            switch (character)
             {
-                if (braceCount == -1)
+                case '{':
                 {
-                    braceCount = 1;
+                    if (braceCount == -1)
+                    {
+                        braceCount = 1;
+                    }
+                    else
+                    {
+                        braceCount++;
+                    }
+
+                    break;
                 }
-                else
-                {
-                    braceCount++;
-                }
-            }
-            else if (character == '}')
-            {
-                braceCount--;
+                case '}':
+                    braceCount--;
+                    break;
             }
 
             code.Append(character);
@@ -104,7 +108,7 @@ public class OpCodeImplementationInspector
 
         code.Insert(0, "    public void ");
 
-        var lines = code.ToString().Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
+        var lines = code.ToString().Split(["\r\n", "\r", "\n"], StringSplitOptions.None);
 
         code.Clear();
 
