@@ -24,7 +24,7 @@ public class FileSelect : CharacterOverlayBase
 
     private string _path;
 
-    private readonly List<(string FullPath, string Display, bool IsDirectory)> _files = new();
+    private readonly List<(string FullPath, string Display, bool IsDirectory)> _files = [];
 
     private readonly Color[] _backgroundData = new Color[Constants.ScreenWidthPixels * Constants.ScreenHeightPixels];
 
@@ -296,14 +296,7 @@ public class FileSelect : CharacterOverlayBase
 
         var parent = Directory.GetParent(_path);
 
-        if (parent != null)
-        {
-            _files.Add((parent.FullName, "..", true));
-        }
-        else
-        {
-            _files.Add((string.Empty, "..", true));
-        }
+        _files.Add(parent != null ? (parent.FullName, "..", true) : (string.Empty, "..", true));
 
         var directories = Directory.EnumerateDirectories(_path).OrderBy(d => d).ToList();
 

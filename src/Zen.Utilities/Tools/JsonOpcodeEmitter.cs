@@ -119,14 +119,7 @@ public class JsonOpcodeEmitter
         {
             var part = parts[i].Replace(",", string.Empty);
 
-            if (part.StartsWith("0x"))
-            {
-                operands.Add(new OperandMetadata { Name = part, Type = OperandType.Integrated });
-
-                continue;
-            }
-
-            if (char.IsNumber(part[0]))
+            if (part.StartsWith("0x") || char.IsNumber(part[0]))
             {
                 operands.Add(new OperandMetadata { Name = part, Type = OperandType.Integrated });
 
@@ -338,7 +331,7 @@ public class JsonOpcodeEmitter
 
             var flag = line.Replace("_state[", string.Empty);
 
-            flag = flag.Substring(0, flag.IndexOf(']'));
+            flag = flag[..flag.IndexOf(']')];
 
             flag = flag.Replace("Flag.", string.Empty);
 

@@ -161,7 +161,7 @@ public class SpectrumAnalyser
     {
         Fourier.Forward(_buffers[channel], FourierOptions.Matlab);
 
-        var height = Constants.ScreenHeightPixels / 4;
+        const int height = Constants.ScreenHeightPixels / 4;
 
         var axis = height * Constants.SpectrumAnalyserVisualisationPanelWidth * (channel + 1) - Constants.SpectrumAnalyserVisualisationPanelWidth;
 

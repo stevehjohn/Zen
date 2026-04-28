@@ -17,7 +17,7 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
     // ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
     private readonly Interface _interface;
 
-    private readonly List<IPeripheral> _peripherals = new();
+    private readonly List<IPeripheral> _peripherals = [];
 
     private readonly Worker _worker;
 

@@ -153,17 +153,11 @@ public class Z80FileLoader : IFileLoader
 
                     continue;
                 }
-
-                decompressed.Add(data[i]);
-
-                i++;
             }
-            else
-            {
-                decompressed.Add(data[i]);
 
-                i++;
-            }
+            decompressed.Add(data[i]);
+            
+            i++;
         }
 
         return decompressed.ToArray();
