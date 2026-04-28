@@ -61,13 +61,13 @@ public class Keyboard : IPeripheral
         var data = (byte) 0b1111_1111;
 
         // Caps shift.
-        if (keys == Keys.LeftShift || keys == Keys.RightShift)
+        if (keys is Keys.LeftShift or Keys.RightShift)
         {
             data = (byte) (data & 0b1111_1110);
         }
 
         // Account for PC arrow keys (caps + 5, 6, 7 or 8 on the speccy).
-        if (keys == Keys.Up || keys == Keys.Down || keys == Keys.Left || keys == Keys.Right || keys == Keys.Back)
+        if (keys is Keys.Up or Keys.Down or Keys.Left or Keys.Right or Keys.Back)
         {
             data = (byte) (data & 0b1111_1110);
         }
@@ -99,30 +99,15 @@ public class Keyboard : IPeripheral
     {
         var data = (byte) 0b1111_1111;
 
-        if (keys == Keys.A)
+        data = keys switch
         {
-            data = (byte) (data & 0b1111_1110);
-        }
-
-        if (keys == Keys.S)
-        {
-            data = (byte) (data & 0b1111_1101);
-        }
-
-        if (keys == Keys.D)
-        {
-            data = (byte) (data & 0b1111_1011);
-        }
-
-        if (keys == Keys.F)
-        {
-            data = (byte) (data & 0b1111_0111);
-        }
-
-        if (keys == Keys.G)
-        {
-            data = (byte) (data & 0b1110_1111);
-        }
+            Keys.A => (byte) (data & 0b1111_1110),
+            Keys.S => (byte) (data & 0b1111_1101),
+            Keys.D => (byte) (data & 0b1111_1011),
+            Keys.F => (byte) (data & 0b1111_0111),
+            Keys.G => (byte) (data & 0b1110_1111),
+            _ => data
+        };
 
         return data;
     }
@@ -131,30 +116,15 @@ public class Keyboard : IPeripheral
     {
         var data = (byte) 0b1111_1111;
 
-        if (keys == Keys.Q)
+        data = keys switch
         {
-            data = (byte) (data & 0b1111_1110);
-        }
-
-        if (keys == Keys.W)
-        {
-            data = (byte) (data & 0b1111_1101);
-        }
-
-        if (keys == Keys.E)
-        {
-            data = (byte) (data & 0b1111_1011);
-        }
-
-        if (keys == Keys.R)
-        {
-            data = (byte) (data & 0b1111_0111);
-        }
-
-        if (keys == Keys.T)
-        {
-            data = (byte) (data & 0b1110_1111);
-        }
+            Keys.Q => (byte) (data & 0b1111_1110),
+            Keys.W => (byte) (data & 0b1111_1101),
+            Keys.E => (byte) (data & 0b1111_1011),
+            Keys.R => (byte) (data & 0b1111_0111),
+            Keys.T => (byte) (data & 0b1110_1111),
+            _ => data
+        };
 
         return data;
     }
@@ -259,30 +229,15 @@ public class Keyboard : IPeripheral
     {
         var data = (byte) 0b1111_1111;
 
-        if (keys == Keys.P)
+        data = keys switch
         {
-            data = (byte) (data & 0b1111_1110);
-        }
-
-        if (keys == Keys.O)
-        {
-            data = (byte) (data & 0b1111_1101);
-        }
-
-        if (keys == Keys.I)
-        {
-            data = (byte) (data & 0b1111_1011);
-        }
-
-        if (keys == Keys.U)
-        {
-            data = (byte) (data & 0b1111_0111);
-        }
-
-        if (keys == Keys.Y)
-        {
-            data = (byte) (data & 0b1110_1111);
-        }
+            Keys.P => (byte) (data & 0b1111_1110),
+            Keys.O => (byte) (data & 0b1111_1101),
+            Keys.I => (byte) (data & 0b1111_1011),
+            Keys.U => (byte) (data & 0b1111_0111),
+            Keys.Y => (byte) (data & 0b1110_1111),
+            _ => data
+        };
 
         return data;
     }
@@ -291,30 +246,15 @@ public class Keyboard : IPeripheral
     {
         var data = (byte) 0b1111_1111;
 
-        if (keys == Keys.Enter)
+        data = keys switch
         {
-            data = (byte) (data & 0b1111_1110);
-        }
-
-        if (keys == Keys.L)
-        {
-            data = (byte) (data & 0b1111_1101);
-        }
-
-        if (keys == Keys.K)
-        {
-            data = (byte) (data & 0b1111_1011);
-        }
-
-        if (keys == Keys.J)
-        {
-            data = (byte) (data & 0b1111_0111);
-        }
-
-        if (keys == Keys.H)
-        {
-            data = (byte) (data & 0b1110_1111);
-        }
+            Keys.Enter => (byte) (data & 0b1111_1110),
+            Keys.L => (byte) (data & 0b1111_1101),
+            Keys.K => (byte) (data & 0b1111_1011),
+            Keys.J => (byte) (data & 0b1111_0111),
+            Keys.H => (byte) (data & 0b1110_1111),
+            _ => data
+        };
 
         return data;
     }
@@ -323,31 +263,16 @@ public class Keyboard : IPeripheral
     {
         var data = (byte) 0b1111_1111;
 
-        if (keys == Keys.Space)
+        data = keys switch
         {
-            data = (byte) (data & 0b1111_1110);
-        }
-
-        // Symbol shift.
-        if (keys == Keys.LeftAlt)
-        {
-            data = (byte) (data & 0b1111_1101);
-        }
-
-        if (keys == Keys.M)
-        {
-            data = (byte) (data & 0b1111_1011);
-        }
-
-        if (keys == Keys.N)
-        {
-            data = (byte) (data & 0b1111_0111);
-        }
-
-        if (keys == Keys.B)
-        {
-            data = (byte) (data & 0b1110_1111);
-        }
+            Keys.Space => (byte) (data & 0b1111_1110),
+            // Symbol shift.
+            Keys.LeftAlt => (byte) (data & 0b1111_1101),
+            Keys.M => (byte) (data & 0b1111_1011),
+            Keys.N => (byte) (data & 0b1111_0111),
+            Keys.B => (byte) (data & 0b1110_1111),
+            _ => data
+        };
 
         return data;
     }

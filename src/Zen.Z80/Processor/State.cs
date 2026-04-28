@@ -11,8 +11,6 @@ public class State
 
     private readonly byte[] _registers = new byte[RegisterCount];
 
-    private readonly byte[] _lastMCycles = new byte[7];
-
     public ushort ProgramCounter
     {
         get => this[RegisterPair.PC];
@@ -48,7 +46,7 @@ public class State
     [JsonIgnore]
     public Instruction? LastInstruction { get; set; }
 
-    public byte[] LastMCycles => _lastMCycles;
+    public byte[] LastMCycles { get; } = new byte[7];
 
     public State()
     {
@@ -132,93 +130,93 @@ public class State
 
     public void ClearMCycles()
     {
-        _lastMCycles[0] = 0;
-        _lastMCycles[1] = 0;
-        _lastMCycles[2] = 0;
-        _lastMCycles[3] = 0;
-        _lastMCycles[4] = 0;
-        _lastMCycles[5] = 0;
-        _lastMCycles[6] = 0;
+        LastMCycles[0] = 0;
+        LastMCycles[1] = 0;
+        LastMCycles[2] = 0;
+        LastMCycles[3] = 0;
+        LastMCycles[4] = 0;
+        LastMCycles[5] = 0;
+        LastMCycles[6] = 0;
 
         ClockCycles = 0;
     }
 
     public void SetMCycles(byte m1)
     {
-        _lastMCycles[0] = LastInstruction?.ExtraCycles ?? 0;
-        _lastMCycles[1] = m1;
-        _lastMCycles[2] = 0;
-        _lastMCycles[3] = 0;
-        _lastMCycles[4] = 0;
-        _lastMCycles[5] = 0;
-        _lastMCycles[6] = 0;
+        LastMCycles[0] = LastInstruction?.ExtraCycles ?? 0;
+        LastMCycles[1] = m1;
+        LastMCycles[2] = 0;
+        LastMCycles[3] = 0;
+        LastMCycles[4] = 0;
+        LastMCycles[5] = 0;
+        LastMCycles[6] = 0;
 
-        ClockCycles = _lastMCycles[0] + m1;
+        ClockCycles = LastMCycles[0] + m1;
     }
 
     public void SetMCycles(byte m1, byte m2)
     {
-        _lastMCycles[0] = LastInstruction?.ExtraCycles ?? 0;
-        _lastMCycles[1] = m1;
-        _lastMCycles[2] = m2;
-        _lastMCycles[3] = 0;
-        _lastMCycles[4] = 0;
-        _lastMCycles[5] = 0;
-        _lastMCycles[6] = 0;
+        LastMCycles[0] = LastInstruction?.ExtraCycles ?? 0;
+        LastMCycles[1] = m1;
+        LastMCycles[2] = m2;
+        LastMCycles[3] = 0;
+        LastMCycles[4] = 0;
+        LastMCycles[5] = 0;
+        LastMCycles[6] = 0;
 
-        ClockCycles = _lastMCycles[0] +  m1 + m2;
+        ClockCycles = LastMCycles[0] +  m1 + m2;
     }
 
     public void SetMCycles(byte m1, byte m2, byte m3)
     {
-        _lastMCycles[0] = LastInstruction?.ExtraCycles ?? 0;
-        _lastMCycles[1] = m1;
-        _lastMCycles[2] = m2;
-        _lastMCycles[3] = m3;
-        _lastMCycles[4] = 0;
-        _lastMCycles[5] = 0;
-        _lastMCycles[6] = 0;
+        LastMCycles[0] = LastInstruction?.ExtraCycles ?? 0;
+        LastMCycles[1] = m1;
+        LastMCycles[2] = m2;
+        LastMCycles[3] = m3;
+        LastMCycles[4] = 0;
+        LastMCycles[5] = 0;
+        LastMCycles[6] = 0;
 
-        ClockCycles = _lastMCycles[0] +  m1 + m2 + m3;
+        ClockCycles = LastMCycles[0] +  m1 + m2 + m3;
     }
 
     public void SetMCycles(byte m1, byte m2, byte m3, byte m4)
     {
-        _lastMCycles[0] = LastInstruction?.ExtraCycles ?? 0;
-        _lastMCycles[1] = m1;
-        _lastMCycles[2] = m2;
-        _lastMCycles[3] = m3;
-        _lastMCycles[4] = m4;
-        _lastMCycles[5] = 0;
-        _lastMCycles[6] = 0;
+        LastMCycles[0] = LastInstruction?.ExtraCycles ?? 0;
+        LastMCycles[1] = m1;
+        LastMCycles[2] = m2;
+        LastMCycles[3] = m3;
+        LastMCycles[4] = m4;
+        LastMCycles[5] = 0;
+        LastMCycles[6] = 0;
 
-        ClockCycles = _lastMCycles[0] +  m1 + m2 + m3 + m4;
+        ClockCycles = LastMCycles[0] +  m1 + m2 + m3 + m4;
     }
 
     public void SetMCycles(byte m1, byte m2, byte m3, byte m4, byte m5)
     {
-        _lastMCycles[0] = LastInstruction?.ExtraCycles ?? 0;
-        _lastMCycles[1] = m1;
-        _lastMCycles[2] = m2;
-        _lastMCycles[3] = m3;
-        _lastMCycles[4] = m4;
-        _lastMCycles[5] = m5;
-        _lastMCycles[6] = 0;
+        LastMCycles[0] = LastInstruction?.ExtraCycles ?? 0;
+        LastMCycles[1] = m1;
+        LastMCycles[2] = m2;
+        LastMCycles[3] = m3;
+        LastMCycles[4] = m4;
+        LastMCycles[5] = m5;
+        LastMCycles[6] = 0;
 
-        ClockCycles = _lastMCycles[0] +  m1 + m2 + m3 + m4 + m5;
+        ClockCycles = LastMCycles[0] +  m1 + m2 + m3 + m4 + m5;
     }
 
     public void SetMCycles(byte m1, byte m2, byte m3, byte m4, byte m5, byte m6)
     {
-        _lastMCycles[0] = LastInstruction?.ExtraCycles ?? 0;
-        _lastMCycles[1] = m1;
-        _lastMCycles[2] = m2;
-        _lastMCycles[3] = m3;
-        _lastMCycles[4] = m4;
-        _lastMCycles[5] = m5;
-        _lastMCycles[6] = m6;
+        LastMCycles[0] = LastInstruction?.ExtraCycles ?? 0;
+        LastMCycles[1] = m1;
+        LastMCycles[2] = m2;
+        LastMCycles[3] = m3;
+        LastMCycles[4] = m4;
+        LastMCycles[5] = m5;
+        LastMCycles[6] = m6;
 
-        ClockCycles = _lastMCycles[0] +  m1 + m2 + m3 + m4 + m5 + m6;
+        ClockCycles = LastMCycles[0] +  m1 + m2 + m3 + m4 + m5 + m6;
     }
 
     public void Reset()

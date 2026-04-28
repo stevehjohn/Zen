@@ -35,8 +35,6 @@ public class SpectrumAnalyser
 
     private readonly long[][] _peakTimes;
 
-    private readonly Texture2D _spectrum;
-
     private int _bufferPosition;
 
     private int _beeperBufferPosition;
@@ -66,7 +64,7 @@ public class SpectrumAnalyser
         new(1920, 2560)
     ];
 
-    public Texture2D Spectrum => _spectrum;
+    public Texture2D Spectrum { get; }
 
     public SpectrumAnalyser(GraphicsDeviceManager graphicsDeviceManager)
     {
@@ -74,7 +72,7 @@ public class SpectrumAnalyser
 
         _data = new Color[Constants.SpectrumAnalyserVisualisationPanelWidth * Constants.ScreenHeightPixels];
 
-        _spectrum = new Texture2D(_graphicsDeviceManager.GraphicsDevice, Constants.SpectrumAnalyserVisualisationPanelWidth, Constants.ScreenHeightPixels);
+        Spectrum = new Texture2D(_graphicsDeviceManager.GraphicsDevice, Constants.SpectrumAnalyserVisualisationPanelWidth, Constants.ScreenHeightPixels);
 
         _buffers = new Complex[4][];
 
@@ -154,7 +152,7 @@ public class SpectrumAnalyser
         RenderSpectrumChannel(2);
         RenderSpectrumChannel(3);
 
-        _spectrum.SetData(_data);
+        Spectrum.SetData(_data);
 
         _rendering = false;
     }

@@ -13,8 +13,6 @@ public class VideoRenderer
 
     private ushort[] _screenFrame;
 
-    private readonly Texture2D _display;
-
     private ulong _frameCount;
 
     private bool _flash;
@@ -23,8 +21,8 @@ public class VideoRenderer
 
     private int _y;
     
-    public Texture2D Display => _display;
-    
+    public Texture2D Display { get; }
+
     public Action ScanComplete { get; set; }
     
     public int ScanY { get; private set; }
@@ -38,7 +36,7 @@ public class VideoRenderer
     {
         _screenFrame = screenFrame;
 
-        _display = new Texture2D(graphicsDeviceManager.GraphicsDevice, Constants.ScreenWidthPixels, Constants.ScreenHeightPixels);
+        Display = new Texture2D(graphicsDeviceManager.GraphicsDevice, Constants.ScreenWidthPixels, Constants.ScreenHeightPixels);
     }
 
     public void RenderDisplay(int frameCycles)
@@ -69,7 +67,7 @@ public class VideoRenderer
                             {
                                 var p = (_y + y) * Constants.ScreenWidthPixels + x;
 
-                                _data[p] = y == 0 || y == 2 ? Color.Black : Color.White;
+                                _data[p] = y is 0 or 2 ? Color.Black : Color.White;
                             }
                         }
                     }
@@ -105,7 +103,7 @@ public class VideoRenderer
             ScanComplete?.Invoke();
         }
 
-        _display.SetData(_data);
+        Display.SetData(_data);
 
         unchecked
         {

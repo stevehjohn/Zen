@@ -19,11 +19,9 @@ public class VideoRamVisualiser
 
     private Ram _ram;
 
-    private readonly bool _banks;
-
     private readonly VideoRenderer _videoRenderer;
 
-    public bool BanksView => _banks;
+    public bool BanksView { get; }
 
     public Ram Ram
     {
@@ -36,7 +34,7 @@ public class VideoRamVisualiser
 
         _ram = ram;
 
-        _banks = banks;
+        BanksView = banks;
 
         _videoRenderer = videoRenderer;
 
@@ -49,7 +47,7 @@ public class VideoRamVisualiser
     {
         Array.Fill(_data, Color.Black);
 
-        if (_banks)
+        if (BanksView)
         {
             RenderBank(0, _ram.GetBank(5));
 
@@ -71,7 +69,7 @@ public class VideoRamVisualiser
 
         var offset = 0;
 
-        if (_banks)
+        if (BanksView)
         {
             width *= 2;
 

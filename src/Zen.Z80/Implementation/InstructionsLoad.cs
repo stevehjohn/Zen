@@ -177,7 +177,7 @@ public partial class Instructions
 
             _state[target] = value;
 
-            if (target == Register.A && (source == Register.I || source == Register.R))
+            if (target == Register.A && source is Register.I or Register.R)
             {
                 // Flags
                 // Carry unaffected

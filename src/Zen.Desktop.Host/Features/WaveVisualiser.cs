@@ -17,8 +17,6 @@ public class WaveVisualiser
     private readonly float[][] _buffers;
 
     private readonly float[] _centreBuffer;
-    
-    private readonly Texture2D _waves;
 
     private int _bufferPosition;
 
@@ -26,7 +24,7 @@ public class WaveVisualiser
 
     private bool _rendering;
 
-    public Texture2D Waves => _waves;
+    public Texture2D Waves { get; }
 
     public WaveVisualiser(GraphicsDeviceManager graphicsDeviceManager)
     {
@@ -34,7 +32,7 @@ public class WaveVisualiser
 
         _data = new Color[Constants.WaveVisualisationPanelWidth * Constants.ScreenHeightPixels];
 
-        _waves = new Texture2D(_graphicsDeviceManager.GraphicsDevice, Constants.WaveVisualisationPanelWidth, Constants.ScreenHeightPixels);
+        Waves = new Texture2D(_graphicsDeviceManager.GraphicsDevice, Constants.WaveVisualisationPanelWidth, Constants.ScreenHeightPixels);
 
         _buffers = new float[4][];
 
@@ -93,7 +91,7 @@ public class WaveVisualiser
             RenderChannel(i);
         }
 
-        _waves.SetData(_data);
+        Waves.SetData(_data);
 
         _rendering = false;
     }

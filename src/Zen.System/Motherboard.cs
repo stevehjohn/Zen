@@ -12,28 +12,18 @@ namespace Zen.System;
 
 public class Motherboard : IPortConnector, IRamConnector, IDisposable
 {
-    private readonly Model _model;
-
     private readonly Core _core;
 
     // ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
     private readonly Interface _interface;
 
-    private readonly State _state;
-
-    private readonly Ram _ram;
-
     private readonly List<IPeripheral> _peripherals = new();
-
-    private readonly VideoModulator _videoModulator;
 
     private readonly Worker _worker;
 
     private readonly Dictionary<int, byte[]> _romCache = new();
 
     private readonly LdBytesHook _ldBytesHook;
-
-    private readonly AyAudio _ayAudio;
 
     private bool _pagingDisabled;
 
@@ -45,7 +35,7 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
     {
         get
         {
-            if (_model is Model.SpectrumPlus2A or Model.SpectrumPlus3)
+            if (Model is Model.SpectrumPlus2A or Model.SpectrumPlus3)
             {
                 if ((Last1FFD & 0x01) != 0)
                 {
@@ -65,17 +55,17 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
     // ReSharper disable once InconsistentNaming
     public byte Last1FFD { get; set; }
 
-    public Ram Ram => _ram;
+    public Ram Ram { get; }
 
-    public Model Model => _model;
+    public Model Model { get; }
 
-    public State State => _state;
+    public State State { get; }
 
     public int FrameCycles => _worker.FrameCycles;
 
-    public VideoModulator VideoModulator => _videoModulator;
+    public VideoModulator VideoModulator { get; }
 
-    public AyAudio AyAudio => _ayAudio;
+    public AyAudio AyAudio { get; }
 
     public bool Fast
     {
@@ -92,7 +82,7 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
         get => _sound;
         set
         {
-            _ayAudio.Silent = ! value;
+            AyAudio.Silent = ! value;
 
             _sound = value;
         }
@@ -100,40 +90,40 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
 
     public IZenAudioEngine AudioEngine
     {
-        set => _ayAudio.AudioEngine = value;
-        get => _ayAudio.AudioEngine;
+        set => AyAudio.AudioEngine = value;
+        get => AyAudio.AudioEngine;
     }
 
     public Motherboard(Model model, IZenAudioEngine engine)
     {
-        _model = model;
+        Model = model;
 
         _interface = new(this, this);
 
-        _state = new();
+        State = new();
 
-        _core = new Core(_interface, _state);
+        _core = new Core(_interface, State);
 
         _ldBytesHook = new LdBytesHook();
 
         _core.AddHook(_ldBytesHook);
 
-        _ram = new() { ProtectRom = model == Model.Spectrum48K };
+        Ram = new() { ProtectRom = model == Model.Spectrum48K };
 
         if (model == Model.Spectrum48K)
         {
             _pagingDisabled = true;
         }
 
-        _ram.LoadRom(LoadRom(0));
+        Ram.LoadRom(LoadRom(0));
 
-        _videoModulator = new VideoModulator(_model, _ram);
+        VideoModulator = new VideoModulator(Model, Ram);
         
-        _ayAudio = new AyAudio(engine);
+        AyAudio = new AyAudio(engine);
 
-        _ayAudio.Start();
+        AyAudio.Start();
 
-        _worker = new(_interface, _videoModulator, _ayAudio)
+        _worker = new(_interface, VideoModulator, AyAudio)
                   {
                       OnTick = OnTick
                   };
@@ -153,12 +143,12 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
     {
         if ((port & 0xC002) == 0xC000)
         {
-            return _ayAudio.GetRegister();
+            return AyAudio.GetRegister();
         }
 
         if ((port & 0x8002) == 0x8000)
         {
-            return _ayAudio.GetRegister();
+            return AyAudio.GetRegister();
         }
 
         foreach (var peripheral in _peripherals)
@@ -171,12 +161,12 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
             }
         }
 
-        return _videoModulator.FloatingBusValue;
+        return VideoModulator.FloatingBusValue;
     }
 
     public byte ReadRam(ushort address)
     {
-        return _ram[address];
+        return Ram[address];
     }
 
     public void WriteRam(ushort address, byte data)
@@ -186,7 +176,7 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
             _worker.VRamUpdated = true;
         }
 
-        _ram[address] = data;
+        Ram[address] = data;
     }
 
     public void CpuPortWrite(ushort port, byte data)
@@ -216,7 +206,7 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
 
     public void StateLoaded()
     {
-        _videoModulator.Border = _state.BorderColour;
+        VideoModulator.Border = State.BorderColour;
     }
 
     public void ScanComplete()
@@ -230,31 +220,31 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
 
         _core.ExecuteCycle();
 
-        return _state.LastMCycles;
+        return State.LastMCycles;
     }
 
     private void PortDataChanged(ushort port, byte data)
     {
         if ((port & 0x01) == 0)
         {
-            _videoModulator.Border = (byte) (data & 0b0000_0111);
+            VideoModulator.Border = (byte) (data & 0b0000_0111);
 
-            _state.BorderColour = _videoModulator.Border;
+            State.BorderColour = VideoModulator.Border;
 
-            _ayAudio.UlaAddressed(_currentFrameCycle, data);
+            AyAudio.UlaAddressed(_currentFrameCycle, data);
         }
 
         if ((port & 0xC002) == 0xC000)
         {
-            _ayAudio.SelectRegister(_currentFrameCycle, data);
+            AyAudio.SelectRegister(_currentFrameCycle, data);
         }
 
         if ((port & 0x8002) == 0x8000)
         {
-            _ayAudio.SetRegister(_currentFrameCycle, data);
+            AyAudio.SetRegister(_currentFrameCycle, data);
         }
 
-        if (_pagingDisabled || _model == Model.Spectrum48K)
+        if (_pagingDisabled || Model == Model.Spectrum48K)
         {
             return;
         }
@@ -263,7 +253,7 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
         {
             var paging = (port & 0b1000_0000_0000_0010) == 0;
 
-            if (_model is Model.SpectrumPlus2A or Model.SpectrumPlus3)
+            if (Model is Model.SpectrumPlus2A or Model.SpectrumPlus3)
             {
                 paging &= (port & 0b0100_0000_0000_0000) > 0;
             }
@@ -278,7 +268,7 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
                 PageCall(0x7F, data);
             }
 
-            if (_model is not (Model.SpectrumPlus2A or Model.SpectrumPlus3))
+            if (Model is not (Model.SpectrumPlus2A or Model.SpectrumPlus3))
             {
                 return;
             }
@@ -309,9 +299,9 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
 
         if (port == 0x7F)
         {
-            _ram.SetBank(3, (byte) (Last7FFD & 0b0000_0111));
+            Ram.SetBank(3, (byte) (Last7FFD & 0b0000_0111));
 
-            _ram.UseShadowScreenBank = (Last7FFD & 0b0000_1000) != 0;
+            Ram.UseShadowScreenBank = (Last7FFD & 0b0000_1000) != 0;
 
             if ((Last7FFD & 0b0010_0000) != 0)
             {
@@ -319,14 +309,14 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
             }
         }
 
-        switch (_model)
+        switch (Model)
         {
             case Model.Spectrum48K:
                 return;
             
             case Model.Spectrum128:
             case Model.SpectrumPlus2:
-                _ram.LoadRom(LoadRom((Last7FFD >> 4) & 0x01));
+                Ram.LoadRom(LoadRom((Last7FFD >> 4) & 0x01));
                 
                 break;
             
@@ -335,12 +325,12 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
 
                 if (! specialPaging)
                 {
-                    _ram.SetBank(1, 5);
-                    _ram.SetBank(2, 2);
+                    Ram.SetBank(1, 5);
+                    Ram.SetBank(2, 2);
                     
                     var romNumber = ((Last7FFD >> 4) & 0x01) | ((Last1FFD >> 1) & 0x02);
 
-                    _ram.LoadRom(LoadRom(romNumber));
+                    Ram.LoadRom(LoadRom(romNumber));
                     
                     return;
                 }
@@ -358,34 +348,34 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
         switch (configurationId)
         {
             case 0:
-                _ram.SetBank(3, 3);
-                _ram.SetBank(2, 2);
-                _ram.SetBank(1, 1);
-                _ram.SetBank(0, 0);
+                Ram.SetBank(3, 3);
+                Ram.SetBank(2, 2);
+                Ram.SetBank(1, 1);
+                Ram.SetBank(0, 0);
 
                 break;
 
             case 1:
-                _ram.SetBank(3, 7);
-                _ram.SetBank(2, 6);
-                _ram.SetBank(1, 5);
-                _ram.SetBank(0, 4);
+                Ram.SetBank(3, 7);
+                Ram.SetBank(2, 6);
+                Ram.SetBank(1, 5);
+                Ram.SetBank(0, 4);
 
                 break;
 
             case 2:
-                _ram.SetBank(3, 3);
-                _ram.SetBank(2, 6);
-                _ram.SetBank(1, 5);
-                _ram.SetBank(0, 4);
+                Ram.SetBank(3, 3);
+                Ram.SetBank(2, 6);
+                Ram.SetBank(1, 5);
+                Ram.SetBank(0, 4);
 
                 break;
 
             case 3:
-                _ram.SetBank(3, 3);
-                _ram.SetBank(2, 6);
-                _ram.SetBank(1, 7);
-                _ram.SetBank(0, 4);
+                Ram.SetBank(3, 3);
+                Ram.SetBank(2, 6);
+                Ram.SetBank(1, 7);
+                Ram.SetBank(0, 4);
 
                 break;
         }
@@ -415,6 +405,6 @@ public class Motherboard : IPortConnector, IRamConnector, IDisposable
     {
         _worker.Dispose();
 
-        _ayAudio.Dispose();
+        AyAudio.Dispose();
     }
 }

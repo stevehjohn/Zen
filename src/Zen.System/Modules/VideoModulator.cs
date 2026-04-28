@@ -24,9 +24,7 @@ public class VideoModulator
     // S == Whether pixel is set.
     private readonly ushort[] _screen = new ushort[Constants.ScreenPixelCount];
 
-    private readonly ushort[] _frame = new ushort[Constants.ScreenPixelCount];
-
-    public ushort[] ScreenFrame => _frame;
+    public ushort[] ScreenFrame { get; } = new ushort[Constants.ScreenPixelCount];
 
     public byte Border { get; set; }
 
@@ -115,7 +113,7 @@ public class VideoModulator
 
         if (y >= Constants.ScreenHeightPixels && ! _renderedFrame)
         {
-            Array.Copy(_screen, 0, _frame, 0, Constants.ScreenPixelCount);
+            Array.Copy(_screen, 0, ScreenFrame, 0, Constants.ScreenPixelCount);
 
             _renderedFrame = true;
         }

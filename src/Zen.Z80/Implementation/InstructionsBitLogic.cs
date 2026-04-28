@@ -138,21 +138,12 @@ public partial class Instructions
                 _state[Flag.Carry] = true;
             }
 
-            if (_state[Flag.AddSubtract] && ! _state[Flag.HalfCarry])
+            _state[Flag.HalfCarry] = _state[Flag.AddSubtract] switch
             {
-                _state[Flag.HalfCarry] = false;
-            }
-            else
-            {
-                if (_state[Flag.AddSubtract] && _state[Flag.HalfCarry])
-                {
-                    _state[Flag.HalfCarry] = (_state[Register.A] & 0x0F) < 0x06;
-                }
-                else
-                {
-                    _state[Flag.HalfCarry] = (_state[Register.A] & 0x0F) >= 0x0A;
-                }
-            }
+                true when ! _state[Flag.HalfCarry] => false,
+                true when _state[Flag.HalfCarry] => (_state[Register.A] & 0x0F) < 0x06,
+                _ => (_state[Register.A] & 0x0F) >= 0x0A
+            };
 
             switch (adjust)
             {

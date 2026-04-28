@@ -34,10 +34,8 @@ public class Worker : IDisposable
 
     private int _lastScanComplete;
 
-    private int _frameCycles;
-    
-    public int FrameCycles => _frameCycles;
-    
+    public int FrameCycles { get; private set; }
+
     public bool VRamUpdated { get; set; }
 
     public bool Fast { get; set; }
@@ -122,11 +120,11 @@ public class Worker : IDisposable
         {
             if (! _paused)
             {
-                _frameCycles = 0;
+                FrameCycles = 0;
 
-                while (_frameCycles < Constants.FrameCycles)
+                while (FrameCycles < Constants.FrameCycles)
                 {
-                    if (_frameCycles is >= Constants.InterruptStart and < Constants.InterruptEnd)
+                    if (FrameCycles is >= Constants.InterruptStart and < Constants.InterruptEnd)
                     {
                         _interface.Int = true;
 
@@ -141,7 +139,7 @@ public class Worker : IDisposable
 
                     VRamUpdated = false;
 
-                    var cycles = OnTick(_frameCycles);
+                    var cycles = OnTick(FrameCycles);
 
                     var instructionCycles = 0;
 
@@ -152,15 +150,15 @@ public class Worker : IDisposable
                             break;
                         }
 
-                        _frameCycles += cycles[i];
+                        FrameCycles += cycles[i];
 
                         instructionCycles += cycles[i];
 
-                        _frameCycles += ApplyFrameRamChanges(i, _frameCycles, cycles);
+                        FrameCycles += ApplyFrameRamChanges(i, FrameCycles, cycles);
 
                         if (cycles[i] > 0)
                         {
-                            _videoModulator.CycleComplete(_frameCycles);
+                            _videoModulator.CycleComplete(FrameCycles);
                         }
                     }
 
@@ -211,7 +209,7 @@ public class Worker : IDisposable
 
     private static int GetContention(int cycle)
     {
-        if (cycle < 14_335 || cycle > 57_343)
+        if (cycle is < 14_335 or > 57_343)
         {
             return 0;
         }

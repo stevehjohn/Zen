@@ -10,9 +10,7 @@ public class TestInput
 
     public ProcessorState ProcessorState { get; }
 
-    public static byte?[] Ram => _ram;
-
-    private static readonly byte?[] _ram = new byte?[0xFFFF];
+    public static byte?[] Ram { get; } = new byte?[0xFFFF];
 
     public TestInput(string[] testData)
     {
@@ -22,7 +20,7 @@ public class TestInput
 
         for (var i = 0; i < 0xFFFF; i++)
         {
-            _ram[i] = null;
+            Ram[i] = null;
         }
 
         var line = 3;

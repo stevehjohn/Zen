@@ -64,7 +64,7 @@ public class EnvelopeGenerator
 
             _position = 0;
 
-            if (_gain < 0 || _gain > MaxGain)
+            if (_gain is < 0 or > MaxGain)
             {
                 CycleComplete();
             }
