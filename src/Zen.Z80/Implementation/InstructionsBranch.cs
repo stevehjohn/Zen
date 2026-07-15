@@ -88,47 +88,38 @@ public partial class Instructions
 
     private void JP_nn(byte[] parameters)
     {
-        unchecked
-        {
-            _state.ProgramCounter = parameters.ReadLittleEndian();
+        _state.ProgramCounter = parameters.ReadLittleEndian();
 
-            _state.MemPtr = _state.ProgramCounter;
+        _state.MemPtr = _state.ProgramCounter;
 
-            _state.Q = 0;
-        }
+        _state.Q = 0;
 
         _state.SetMCycles(4, 3, 3);
     }
 
     private void JP_F_nn(Flag flag, byte[] parameters, bool not = false)
     {
-        unchecked
+        var condition = not ? ! _state[flag] : _state[flag];
+
+        if (condition)
         {
-            var condition = not ? ! _state[flag] : _state[flag];
+            _state.ProgramCounter = parameters.ReadLittleEndian();
 
-            if (condition)
-            {
-                _state.ProgramCounter = parameters.ReadLittleEndian();
-
-                _state.MemPtr = _state.ProgramCounter;
-            }
-
-            _state.Q = 0;
+            _state.MemPtr = _state.ProgramCounter;
         }
+
+        _state.Q = 0;
 
         _state.SetMCycles(4, 3, 3);
     }
 
     private void JP_aRR(RegisterPair registers)
     {
-        unchecked
-        {
-            _state.ProgramCounter = _state[registers];
+        _state.ProgramCounter = _state[registers];
 
-            _state.MemPtr = _state.ProgramCounter;
+        _state.MemPtr = _state.ProgramCounter;
 
-            _state.Q = 0;
-        }
+        _state.Q = 0;
 
         _state.SetMCycles(4);
     }
